@@ -35,7 +35,51 @@ namespace Pinhua2.Data
                 {
                     AutoCodeId = 100,
                     AutoCodeName = "订单号",
-                    DateType = AutoCodeDateType.yyMMdd.ToString(),
+                    DateType = AutoCodeDateType.yyMM.ToString(),
+                    SeedStart = 1,
+                    SeedLength = 4,
+                    RunBeforeSave = 1,
+                    CreateUser = 2,
+                    IsActive = 1
+                },
+                new sysAutoCode
+                {
+                    AutoCodeId = 101,
+                    AutoCodeName = "子单号",
+                    DateType = AutoCodeDateType.yy.ToString(),
+                    SeedStart = 1,
+                    SeedLength = 6,
+                    RunBeforeSave = 1,
+                    CreateUser = 2,
+                    IsActive = 1
+                },
+                new sysAutoCode
+                {
+                    AutoCodeId = 200,
+                    AutoCodeName = "商品号",
+                    Prefix = "10",
+                    SeedStart = 1,
+                    SeedLength = 8,
+                    RunBeforeSave = 1,
+                    CreateUser = 2,
+                    IsActive = 1
+                },
+                new sysAutoCode
+                {
+                    AutoCodeId = 300,
+                    AutoCodeName = "往来号",
+                    DateType = AutoCodeDateType.yy.ToString(),
+                    SeedStart = 1,
+                    SeedLength = 4,
+                    RunBeforeSave = 1,
+                    CreateUser = 2,
+                    IsActive = 1
+                },
+                new sysAutoCode
+                {
+                    AutoCodeId = 400,
+                    AutoCodeName = "档案号",
+                    DateType = AutoCodeDateType.yy.ToString(),
                     SeedStart = 1,
                     SeedLength = 4,
                     RunBeforeSave = 1,

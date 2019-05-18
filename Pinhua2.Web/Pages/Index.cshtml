@@ -3,12 +3,18 @@
 @using Pinhua2.Data.Models
 @{
     ViewData["Title"] = "Home page";
-    var x = (int)AutoCodeDateType.yyMMdd;
-    var y = Enum.ToObject(typeof(AutoCodeDateType), 8);
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-@x @y
+@pinhua2.funcAutoCode("订单号")
+<br />
+@pinhua2.funcAutoCode("子单号")
+<br />
+@pinhua2.funcAutoCode("商品号")
+<br />
+@pinhua2.funcAutoCode("往来号")
+<br />
+@pinhua2.funcAutoCode("档案号")

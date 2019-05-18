@@ -6,16 +6,27 @@ using System.Text;
 
 namespace Pinhua2.Data.Extensions
 {
-    public static class fAutoCodeExtension
+    public static class funcAutoCodeExtension
     {
-        public static string fAutoCode(this Pinhua2Context context, int codeId)
+        public static string funcAutoCode(this Pinhua2Context context, string codeName)
+        {
+            var autoCode = context.sysAutoCode.FirstOrDefault(p => p.AutoCodeName == codeName);
+            if (autoCode == null)
+                return string.Empty;
+            else
+                return funcAutoCode(context, autoCode.AutoCodeId);
+        }
+        public static string funcAutoCode(this Pinhua2Context context, int codeId)
         {
             var id = string.Empty;
             var autoCode = context.sysAutoCode.FirstOrDefault(p => p.AutoCodeId == codeId);
             if (autoCode == null)
                 return id;
             id += autoCode.Prefix;
-            id += DateTime.Now.ToString(autoCode.DateType.ToString());
+            if (!string.IsNullOrEmpty(autoCode.DateType))
+            {
+                id += DateTime.Now.ToString(autoCode.DateType);
+            }
             var autoCodeReg = context.sysAutoCodeRegister.FirstOrDefault(p => p.AutoCodeId == codeId && p.PrimaryPart == id);
             if (autoCodeReg != null)
             {

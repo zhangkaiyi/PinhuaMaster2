@@ -2,59 +2,64 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.Data;
 using Pinhua2.Data.Models;
+using Pinhua2.Web.Mapper;
 
 namespace Pinhua2.Web.Pages.主数据.客户
 {
     public class EditModel : PageModel
     {
-        private readonly Pinhua2.Data.Pinhua2Context _context;
+        private readonly Pinhua2Context _pinhua2;
+        private readonly IMapper _mapper;
 
-        public EditModel(Pinhua2.Data.Pinhua2Context context)
+        public EditModel(Pinhua2.Data.Pinhua2Context pinhua2, IMapper mapper)
         {
-            _context = context;
+            _pinhua2 = pinhua2;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public sys往来表 sys往来表 { get; set; }
+        public dto客户 客户 { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGet(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            sys往来表 = await _context.sys往来表.FirstOrDefaultAsync(m => m.RecordId == id);
+            客户 = _mapper.Map<dto客户>(_pinhua2.sys往来表.FirstOrDefault(m => m.RecordId == id));
 
-            if (sys往来表 == null)
+            if (客户 == null)
             {
                 return NotFound();
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(sys往来表).State = EntityState.Modified;
+            var 往来表 = _mapper.Map<sys往来表>(客户);
+            _pinhua2.Attach(往来表).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                _pinhua2.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!sys往来表Exists(sys往来表.RecordId))
+                if (!sys往来表Exists(客户.RecordId))
                 {
                     return NotFound();
                 }
@@ -69,7 +74,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
 
         private bool sys往来表Exists(int id)
         {
-            return _context.sys往来表.Any(e => e.RecordId == id);
+            return _pinhua2.sys往来表.Any(e => e.RecordId == id);
         }
     }
 }

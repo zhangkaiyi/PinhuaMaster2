@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 using Pinhua2.Data;
 
 namespace Pinhua2.Web
@@ -37,6 +38,8 @@ namespace Pinhua2.Web
                 options => options.UseSqlServer(Configuration.GetConnectionString("Pinhua2Connection"),
                 o => o.UseRowNumberForPaging())
                 );
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
