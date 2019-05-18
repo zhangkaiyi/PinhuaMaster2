@@ -1,0 +1,108 @@
+﻿@page
+@model Pinhua2.Web.Pages.主数据.字典.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].字典名)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].组)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].创建人)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].创建日)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].CreateUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].CreateOrg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].EditingUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].LastEditUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].LastEditTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].ReportStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].LockStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sys字典表[0].WorkflowStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.sys字典表) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.字典名)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.组)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.创建人)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.创建日)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateOrg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditingUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEditUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEditTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReportStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkflowStatus)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.RecordId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.RecordId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.RecordId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

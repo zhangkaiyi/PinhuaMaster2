@@ -1,0 +1,205 @@
+﻿@page
+@model Pinhua2.Web.Pages.主数据.客户.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>sys往来表</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.往来号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.往来号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.简称)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.简称)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.全称)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.全称)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.联系人)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.联系人)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.联系电话)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.联系电话)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.公司电话)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.公司电话)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.传真)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.传真)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.Qq)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.Qq)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.地址)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.地址)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.开户行)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.开户行)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.组织代码)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.组织代码)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.账号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.账号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.状态)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.状态)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.登记部门)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.登记部门)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.类型)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.类型)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.币种)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.币种)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.负责人)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.负责人)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.付款方式)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.付款方式)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.税收组)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.税收组)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.信用额)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.信用额)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.登记日期)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.登记日期)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.CreateUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.CreateUser)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.CreateOrg)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.CreateOrg)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.CreateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.CreateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.EditingUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.EditingUser)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.LastEditUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.LastEditUser)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.LastEditTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.LastEditTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.ReportStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.ReportStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.LockStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.LockStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys往来表.WorkflowStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys往来表.WorkflowStatus)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.sys往来表.RecordId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

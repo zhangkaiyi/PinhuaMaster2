@@ -1,0 +1,94 @@
+﻿@page
+@model Pinhua2.Web.Pages.主数据.字典.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>sys字典表</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="sys字典表.字典名" class="control-label"></label>
+                <input asp-for="sys字典表.字典名" class="form-control" />
+                <span asp-validation-for="sys字典表.字典名" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.组" class="control-label"></label>
+                <input asp-for="sys字典表.组" class="form-control" />
+                <span asp-validation-for="sys字典表.组" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.创建人" class="control-label"></label>
+                <input asp-for="sys字典表.创建人" class="form-control" />
+                <span asp-validation-for="sys字典表.创建人" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.创建日" class="control-label"></label>
+                <input asp-for="sys字典表.创建日" class="form-control" />
+                <span asp-validation-for="sys字典表.创建日" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.CreateUser" class="control-label"></label>
+                <input asp-for="sys字典表.CreateUser" class="form-control" />
+                <span asp-validation-for="sys字典表.CreateUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.CreateOrg" class="control-label"></label>
+                <input asp-for="sys字典表.CreateOrg" class="form-control" />
+                <span asp-validation-for="sys字典表.CreateOrg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.CreateTime" class="control-label"></label>
+                <input asp-for="sys字典表.CreateTime" class="form-control" />
+                <span asp-validation-for="sys字典表.CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.EditingUser" class="control-label"></label>
+                <input asp-for="sys字典表.EditingUser" class="form-control" />
+                <span asp-validation-for="sys字典表.EditingUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.LastEditUser" class="control-label"></label>
+                <input asp-for="sys字典表.LastEditUser" class="form-control" />
+                <span asp-validation-for="sys字典表.LastEditUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.LastEditTime" class="control-label"></label>
+                <input asp-for="sys字典表.LastEditTime" class="form-control" />
+                <span asp-validation-for="sys字典表.LastEditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.ReportStatus" class="control-label"></label>
+                <input asp-for="sys字典表.ReportStatus" class="form-control" />
+                <span asp-validation-for="sys字典表.ReportStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.LockStatus" class="control-label"></label>
+                <input asp-for="sys字典表.LockStatus" class="form-control" />
+                <span asp-validation-for="sys字典表.LockStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys字典表.WorkflowStatus" class="control-label"></label>
+                <input asp-for="sys字典表.WorkflowStatus" class="form-control" />
+                <span asp-validation-for="sys字典表.WorkflowStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

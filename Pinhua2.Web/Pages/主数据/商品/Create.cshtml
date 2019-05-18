@@ -1,0 +1,334 @@
+﻿@page
+@model Pinhua2.Web.Pages.主数据.商品.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>sys商品表</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="sys商品表.填报时间" class="control-label"></label>
+                <input asp-for="sys商品表.填报时间" class="form-control" />
+                <span asp-validation-for="sys商品表.填报时间" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.品号" class="control-label"></label>
+                <input asp-for="sys商品表.品号" class="form-control" />
+                <span asp-validation-for="sys商品表.品号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.品名" class="control-label"></label>
+                <input asp-for="sys商品表.品名" class="form-control" />
+                <span asp-validation-for="sys商品表.品名" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.拼音码" class="control-label"></label>
+                <input asp-for="sys商品表.拼音码" class="form-control" />
+                <span asp-validation-for="sys商品表.拼音码" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.规格" class="control-label"></label>
+                <input asp-for="sys商品表.规格" class="form-control" />
+                <span asp-validation-for="sys商品表.规格" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.库位" class="control-label"></label>
+                <input asp-for="sys商品表.库位" class="form-control" />
+                <span asp-validation-for="sys商品表.库位" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.单位" class="control-label"></label>
+                <input asp-for="sys商品表.单位" class="form-control" />
+                <span asp-validation-for="sys商品表.单位" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.分类1" class="control-label"></label>
+                <input asp-for="sys商品表.分类1" class="form-control" />
+                <span asp-validation-for="sys商品表.分类1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.分类2" class="control-label"></label>
+                <input asp-for="sys商品表.分类2" class="form-control" />
+                <span asp-validation-for="sys商品表.分类2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.安全库存" class="control-label"></label>
+                <input asp-for="sys商品表.安全库存" class="form-control" />
+                <span asp-validation-for="sys商品表.安全库存" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.状态" class="control-label"></label>
+                <input asp-for="sys商品表.状态" class="form-control" />
+                <span asp-validation-for="sys商品表.状态" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.复制" class="control-label"></label>
+                <input asp-for="sys商品表.复制" class="form-control" />
+                <span asp-validation-for="sys商品表.复制" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.大类" class="control-label"></label>
+                <input asp-for="sys商品表.大类" class="form-control" />
+                <span asp-validation-for="sys商品表.大类" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.别名" class="control-label"></label>
+                <input asp-for="sys商品表.别名" class="form-control" />
+                <span asp-validation-for="sys商品表.别名" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.材质" class="control-label"></label>
+                <input asp-for="sys商品表.材质" class="form-control" />
+                <span asp-validation-for="sys商品表.材质" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.表面处理" class="control-label"></label>
+                <input asp-for="sys商品表.表面处理" class="form-control" />
+                <span asp-validation-for="sys商品表.表面处理" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.换算单位" class="control-label"></label>
+                <input asp-for="sys商品表.换算单位" class="form-control" />
+                <span asp-validation-for="sys商品表.换算单位" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.换算系数" class="control-label"></label>
+                <input asp-for="sys商品表.换算系数" class="form-control" />
+                <span asp-validation-for="sys商品表.换算系数" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.单重" class="control-label"></label>
+                <input asp-for="sys商品表.单重" class="form-control" />
+                <span asp-validation-for="sys商品表.单重" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.色号" class="control-label"></label>
+                <input asp-for="sys商品表.色号" class="form-control" />
+                <span asp-validation-for="sys商品表.色号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.客户号" class="control-label"></label>
+                <input asp-for="sys商品表.客户号" class="form-control" />
+                <span asp-validation-for="sys商品表.客户号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.客户" class="control-label"></label>
+                <input asp-for="sys商品表.客户" class="form-control" />
+                <span asp-validation-for="sys商品表.客户" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.销售价" class="control-label"></label>
+                <input asp-for="sys商品表.销售价" class="form-control" />
+                <span asp-validation-for="sys商品表.销售价" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.指定销售价" class="control-label"></label>
+                <input asp-for="sys商品表.指定销售价" class="form-control" />
+                <span asp-validation-for="sys商品表.指定销售价" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.供应商号" class="control-label"></label>
+                <input asp-for="sys商品表.供应商号" class="form-control" />
+                <span asp-validation-for="sys商品表.供应商号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.供应商" class="control-label"></label>
+                <input asp-for="sys商品表.供应商" class="form-control" />
+                <span asp-validation-for="sys商品表.供应商" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.采购价" class="control-label"></label>
+                <input asp-for="sys商品表.采购价" class="form-control" />
+                <span asp-validation-for="sys商品表.采购价" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.最新采购价" class="control-label"></label>
+                <input asp-for="sys商品表.最新采购价" class="form-control" />
+                <span asp-validation-for="sys商品表.最新采购价" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.采购周期" class="control-label"></label>
+                <input asp-for="sys商品表.采购周期" class="form-control" />
+                <span asp-validation-for="sys商品表.采购周期" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.客户料号" class="control-label"></label>
+                <input asp-for="sys商品表.客户料号" class="form-control" />
+                <span asp-validation-for="sys商品表.客户料号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.计算公式" class="control-label"></label>
+                <input asp-for="sys商品表.计算公式" class="form-control" />
+                <span asp-validation-for="sys商品表.计算公式" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.档案号" class="control-label"></label>
+                <input asp-for="sys商品表.档案号" class="form-control" />
+                <span asp-validation-for="sys商品表.档案号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.是否共用" class="control-label"></label>
+                <input asp-for="sys商品表.是否共用" class="form-control" />
+                <span asp-validation-for="sys商品表.是否共用" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.上级品号" class="control-label"></label>
+                <input asp-for="sys商品表.上级品号" class="form-control" />
+                <span asp-validation-for="sys商品表.上级品号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.配比值" class="control-label"></label>
+                <input asp-for="sys商品表.配比值" class="form-control" />
+                <span asp-validation-for="sys商品表.配比值" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.版本号" class="control-label"></label>
+                <input asp-for="sys商品表.版本号" class="form-control" />
+                <span asp-validation-for="sys商品表.版本号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.条码" class="control-label"></label>
+                <input asp-for="sys商品表.条码" class="form-control" />
+                <span asp-validation-for="sys商品表.条码" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.备注" class="control-label"></label>
+                <input asp-for="sys商品表.备注" class="form-control" />
+                <span asp-validation-for="sys商品表.备注" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.图片" class="control-label"></label>
+                <input asp-for="sys商品表.图片" class="form-control" />
+                <span asp-validation-for="sys商品表.图片" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.图片I" class="control-label"></label>
+                <input asp-for="sys商品表.图片I" class="form-control" />
+                <span asp-validation-for="sys商品表.图片I" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.品牌" class="control-label"></label>
+                <input asp-for="sys商品表.品牌" class="form-control" />
+                <span asp-validation-for="sys商品表.品牌" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.正面颜色" class="control-label"></label>
+                <input asp-for="sys商品表.正面颜色" class="form-control" />
+                <span asp-validation-for="sys商品表.正面颜色" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.反面颜色" class="control-label"></label>
+                <input asp-for="sys商品表.反面颜色" class="form-control" />
+                <span asp-validation-for="sys商品表.反面颜色" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.商品信息" class="control-label"></label>
+                <input asp-for="sys商品表.商品信息" class="form-control" />
+                <span asp-validation-for="sys商品表.商品信息" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.是否新旧" class="control-label"></label>
+                <input asp-for="sys商品表.是否新旧" class="form-control" />
+                <span asp-validation-for="sys商品表.是否新旧" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.链接" class="control-label"></label>
+                <input asp-for="sys商品表.链接" class="form-control" />
+                <span asp-validation-for="sys商品表.链接" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.是否采购" class="control-label"></label>
+                <input asp-for="sys商品表.是否采购" class="form-control" />
+                <span asp-validation-for="sys商品表.是否采购" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.是否销售" class="control-label"></label>
+                <input asp-for="sys商品表.是否销售" class="form-control" />
+                <span asp-validation-for="sys商品表.是否销售" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.是否存储" class="control-label"></label>
+                <input asp-for="sys商品表.是否存储" class="form-control" />
+                <span asp-validation-for="sys商品表.是否存储" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.是否卷筒" class="control-label"></label>
+                <input asp-for="sys商品表.是否卷筒" class="form-control" />
+                <span asp-validation-for="sys商品表.是否卷筒" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.上级品名" class="control-label"></label>
+                <input asp-for="sys商品表.上级品名" class="form-control" />
+                <span asp-validation-for="sys商品表.上级品名" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.质保" class="control-label"></label>
+                <input asp-for="sys商品表.质保" class="form-control" />
+                <span asp-validation-for="sys商品表.质保" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.CreateUser" class="control-label"></label>
+                <input asp-for="sys商品表.CreateUser" class="form-control" />
+                <span asp-validation-for="sys商品表.CreateUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.CreateOrg" class="control-label"></label>
+                <input asp-for="sys商品表.CreateOrg" class="form-control" />
+                <span asp-validation-for="sys商品表.CreateOrg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.CreateTime" class="control-label"></label>
+                <input asp-for="sys商品表.CreateTime" class="form-control" />
+                <span asp-validation-for="sys商品表.CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.EditingUser" class="control-label"></label>
+                <input asp-for="sys商品表.EditingUser" class="form-control" />
+                <span asp-validation-for="sys商品表.EditingUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.LastEditUser" class="control-label"></label>
+                <input asp-for="sys商品表.LastEditUser" class="form-control" />
+                <span asp-validation-for="sys商品表.LastEditUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.LastEditTime" class="control-label"></label>
+                <input asp-for="sys商品表.LastEditTime" class="form-control" />
+                <span asp-validation-for="sys商品表.LastEditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.ReportStatus" class="control-label"></label>
+                <input asp-for="sys商品表.ReportStatus" class="form-control" />
+                <span asp-validation-for="sys商品表.ReportStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.LockStatus" class="control-label"></label>
+                <input asp-for="sys商品表.LockStatus" class="form-control" />
+                <span asp-validation-for="sys商品表.LockStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="sys商品表.WorkflowStatus" class="control-label"></label>
+                <input asp-for="sys商品表.WorkflowStatus" class="form-control" />
+                <span asp-validation-for="sys商品表.WorkflowStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

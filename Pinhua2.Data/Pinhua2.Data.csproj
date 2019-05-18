@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190518041542_newEnum2.cs" />
+    <Compile Remove="Migrations\20190518041542_newEnum2.Designer.cs" />
+    <Compile Remove="Migrations\20190518052506_myEnum.cs" />
+    <Compile Remove="Migrations\20190518052506_myEnum.Designer.cs" />
+    <Compile Remove="Migrations\20190518053607_Initial2.cs" />
+    <Compile Remove="Migrations\20190518053607_Initial2.Designer.cs" />
+    <Compile Remove="Migrations\20190518053947_Initial3.cs" />
+    <Compile Remove="Migrations\20190518053947_Initial3.Designer.cs" />
+    <Compile Remove="Migrations\20190518054112_Initial2.cs" />
+    <Compile Remove="Migrations\20190518054112_Initial2.Designer.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+</Project>

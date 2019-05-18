@@ -1,0 +1,385 @@
+﻿@page
+@model Pinhua2.Web.Pages.主数据.商品.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>sys商品表</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.填报时间)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.填报时间)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.品号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.品号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.品名)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.品名)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.拼音码)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.拼音码)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.规格)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.规格)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.库位)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.库位)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.单位)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.单位)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.分类1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.分类1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.分类2)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.分类2)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.安全库存)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.安全库存)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.状态)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.状态)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.复制)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.复制)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.大类)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.大类)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.别名)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.别名)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.材质)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.材质)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.表面处理)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.表面处理)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.换算单位)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.换算单位)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.换算系数)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.换算系数)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.单重)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.单重)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.色号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.色号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.客户号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.客户号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.客户)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.客户)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.销售价)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.销售价)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.指定销售价)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.指定销售价)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.供应商号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.供应商号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.供应商)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.供应商)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.采购价)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.采购价)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.最新采购价)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.最新采购价)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.采购周期)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.采购周期)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.客户料号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.客户料号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.计算公式)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.计算公式)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.档案号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.档案号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.是否共用)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.是否共用)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.上级品号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.上级品号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.配比值)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.配比值)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.版本号)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.版本号)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.条码)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.条码)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.备注)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.备注)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.图片)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.图片)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.图片I)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.图片I)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.品牌)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.品牌)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.正面颜色)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.正面颜色)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.反面颜色)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.反面颜色)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.商品信息)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.商品信息)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.是否新旧)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.是否新旧)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.链接)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.链接)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.是否采购)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.是否采购)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.是否销售)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.是否销售)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.是否存储)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.是否存储)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.是否卷筒)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.是否卷筒)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.上级品名)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.上级品名)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.质保)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.质保)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.CreateUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.CreateUser)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.CreateOrg)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.CreateOrg)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.CreateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.CreateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.EditingUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.EditingUser)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.LastEditUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.LastEditUser)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.LastEditTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.LastEditTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.ReportStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.ReportStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.LockStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.LockStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.sys商品表.WorkflowStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.sys商品表.WorkflowStatus)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.sys商品表.RecordId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
