@@ -10,35 +10,36 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.供应商列表[0].往来号)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.供应商列表[0].简称)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.供应商列表[0].全称)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.供应商列表[0].联系人)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.供应商列表[0].联系电话)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.供应商列表[0].地址)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.供应商列表[0].类型)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.供应商列表)
+<div class="table-responsive">
+    <table class="table text-nowrap">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.供应商列表[0].往来号)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.供应商列表[0].简称)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.供应商列表[0].全称)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.供应商列表[0].联系人)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.供应商列表[0].联系电话)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.供应商列表[0].地址)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.供应商列表[0].类型)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.供应商列表)
         {
             <tr>
                 <td>
@@ -70,5 +71,6 @@
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

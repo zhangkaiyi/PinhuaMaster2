@@ -50,8 +50,8 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return Page();
             }
 
-            var 往来表 = _mapper.Map<sys往来表>(客户);
-            _pinhua2.Attach(往来表).State = EntityState.Modified;
+            var 往来单位 = _mapper.Map<sys往来表>(客户);
+            _pinhua2.Attach(往来单位).State = EntityState.Modified;
 
             try
             {

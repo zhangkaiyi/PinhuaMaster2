@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.Data;
 using Pinhua2.Data.Models;
+using Pinhua2.Web.Mapper;
 
 namespace Pinhua2.Web.Pages.主数据.供应商
 {
     public class EditModel : PageModel
     {
-        private readonly Pinhua2.Data.Pinhua2Context _context;
+        private readonly Pinhua2Context _context;
+        private readonly IMapper _mapper;
 
-        public EditModel(Pinhua2.Data.Pinhua2Context context)
+        public EditModel(Pinhua2.Data.Pinhua2Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public sys往来表 sys往来表 { get; set; }
+        public dto供应商 供应商 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +34,15 @@ namespace Pinhua2.Web.Pages.主数据.供应商
                 return NotFound();
             }
 
-            sys往来表 = await _context.sys往来表.FirstOrDefaultAsync(m => m.RecordId == id);
+            var 往来单位 = await _context.sys往来表.FirstOrDefaultAsync(m => m.RecordId == id);
 
-            if (sys往来表 == null)
+            if (往来单位 == null)
             {
                 return NotFound();
             }
+
+            供应商 = _mapper.Map<dto供应商>(往来单位);
+
             return Page();
         }
 
@@ -46,7 +53,8 @@ namespace Pinhua2.Web.Pages.主数据.供应商
                 return Page();
             }
 
-            _context.Attach(sys往来表).State = EntityState.Modified;
+            var 往来单位 = _mapper.Map<sys往来表>(供应商);
+            _context.Attach(往来单位).State = EntityState.Modified;
 
             try
             {
@@ -54,7 +62,7 @@ namespace Pinhua2.Web.Pages.主数据.供应商
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!sys往来表Exists(sys往来表.RecordId))
+                if (!sys往来表Exists(供应商.RecordId))
                 {
                     return NotFound();
                 }

@@ -13,12 +13,14 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
+    <link href="~/css/docs.css" rel="stylesheet" asp-append-version="true">
     <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-    <header>
+    @*<header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">PinhuaMaster</a>
@@ -34,9 +36,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/销售/Index">销售</a>
                         </li>
-                        @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Index">售后</a>
-        </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/采购/Index">采购</a>
                         </li>
@@ -46,31 +45,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/仓库/Index">仓库</a>
                         </li>
-                        @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Index">技术</a>
-        </li>*@
-                        @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Index">品质</a>
-        </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/人事/Index">人事</a>
                         </li>
-                        @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Index">后勤</a>
-        </li>*@
-                        @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-        </li>*@
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
+    </header>*@
+    <partial name="__Header" />
     <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="row flex-xl-nowrap">
+            <partial name="__Body_Sidebar" />
+            <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content" role="main">
+                @RenderBody()
+            </main>
+            <partial name="__Body_Toc" />
+        </div>
+        @*<partial name="_CookieConsentPartial" />*@
     </div>
 
     <footer class="border-top footer text-muted">
