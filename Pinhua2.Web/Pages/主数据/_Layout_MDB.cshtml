@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "_Layout";
+}
+_Layout_MDB
+<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+    @RenderSection("Part1", required: false)
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @RenderSection("Part2", required: false)
+    </div>
+</div>
+
+@RenderBody()
+
+@RenderSection("Styles", required: false)
+@RenderSection("Scripts", required: false)

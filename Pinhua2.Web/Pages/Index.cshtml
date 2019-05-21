@@ -5,17 +5,25 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-@pinhua2.funcAutoCode("订单号")
-<br />
-@pinhua2.funcAutoCode("子单号")
-<br />
-@pinhua2.funcAutoCode("商品号")
-<br />
-@pinhua2.funcAutoCode("往来号")
-<br />
-@pinhua2.funcAutoCode("档案号")
-<br>
+    <form method="post">
+        <p>"Please fill below your travel info:"</p>
+        <div asp-validation-summary="All" class="alert-danger"></div>
+        <div class="form-group">
+            <label asp-for="MyTrip.Destination"></label>
+            <input asp-for="MyTrip.Destination" class="form-control" />
+            <span asp-validation-for="MyTrip.Destination" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="MyTrip.TravelDate"></label>
+            <input asp-for="MyTrip.TravelDate" class="form-control" />
+            <span asp-validation-for="MyTrip.TravelDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="MyTrip.TicketPrice"></label>
+            <input asp-for="MyTrip.TicketPrice" class="form-control" />
+            <span asp-validation-for="MyTrip.TicketPrice" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>

@@ -11,15 +11,15 @@ namespace Pinhua2.Web.Mapper
     public class dto客户
     {
         public int RecordId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [Display(Name = "客户编号")]
         public string 往来号 { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string 简称 { get; set; }
         public string 全称 { get; set; }
         [Required]
         public string 联系人 { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string 联系电话 { get; set; }
         public string 公司电话 { get; set; }
         public string 传真 { get; set; }

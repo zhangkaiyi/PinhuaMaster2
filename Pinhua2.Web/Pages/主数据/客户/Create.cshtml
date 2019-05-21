@@ -5,98 +5,121 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="d-flex justify-content-between align-items-center mt-3 mb-3 pb-3 border-bottom">
+    <h3>新增 - 客户</h3>
+</div>
 
-<h4>客户</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-12">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="客户.往来号" class="control-label"></label>
-                <input asp-for="客户.往来号" class="form-control" />
-                <span asp-validation-for="客户.往来号" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="客户.往来号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.往来号" class="form-control" placeholder="自动生成 ..." readonly />
+                    <span asp-validation-for="客户.往来号" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.简称" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.简称" class="form-control" />
+                    <span asp-validation-for="客户.简称" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.全称" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.全称" class="form-control" />
+                    <span asp-validation-for="客户.全称" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.联系人" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.联系人" class="form-control" />
+                    <span asp-validation-for="客户.联系人" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.联系电话" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.联系电话" class="form-control" />
+                    <span asp-validation-for="客户.联系电话" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.公司电话" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.公司电话" class="form-control" />
+                    <span asp-validation-for="客户.公司电话" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.传真" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.传真" class="form-control" />
+                    <span asp-validation-for="客户.传真" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.Qq" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.Qq" class="form-control" />
+                    <span asp-validation-for="客户.Qq" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.Email" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.Email" class="form-control" />
+                    <span asp-validation-for="客户.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.地址" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.地址" class="form-control" />
+                    <span asp-validation-for="客户.地址" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.开户行" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.开户行" class="form-control" />
+                    <span asp-validation-for="客户.开户行" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.组织代码" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.组织代码" class="form-control" />
+                    <span asp-validation-for="客户.组织代码" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.账号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.账号" class="form-control" />
+                    <span asp-validation-for="客户.账号" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="客户.状态" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="客户.状态" class="form-control" />
+                    <span asp-validation-for="客户.状态" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="客户.简称" class="control-label"></label>
-                <input asp-for="客户.简称" class="form-control" />
-                <span asp-validation-for="客户.简称" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.全称" class="control-label"></label>
-                <input asp-for="客户.全称" class="form-control" />
-                <span asp-validation-for="客户.全称" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.联系人" class="control-label"></label>
-                <input asp-for="客户.联系人" class="form-control" />
-                <span asp-validation-for="客户.联系人" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.联系电话" class="control-label"></label>
-                <input asp-for="客户.联系电话" class="form-control" />
-                <span asp-validation-for="客户.联系电话" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.公司电话" class="control-label"></label>
-                <input asp-for="客户.公司电话" class="form-control" />
-                <span asp-validation-for="客户.公司电话" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.传真" class="control-label"></label>
-                <input asp-for="客户.传真" class="form-control" />
-                <span asp-validation-for="客户.传真" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.Qq" class="control-label"></label>
-                <input asp-for="客户.Qq" class="form-control" />
-                <span asp-validation-for="客户.Qq" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.Email" class="control-label"></label>
-                <input asp-for="客户.Email" class="form-control" />
-                <span asp-validation-for="客户.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.地址" class="control-label"></label>
-                <input asp-for="客户.地址" class="form-control" />
-                <span asp-validation-for="客户.地址" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.开户行" class="control-label"></label>
-                <input asp-for="客户.开户行" class="form-control" />
-                <span asp-validation-for="客户.开户行" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.组织代码" class="control-label"></label>
-                <input asp-for="客户.组织代码" class="form-control" />
-                <span asp-validation-for="客户.组织代码" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.账号" class="control-label"></label>
-                <input asp-for="客户.账号" class="form-control" />
-                <span asp-validation-for="客户.账号" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.状态" class="control-label"></label>
-                <input asp-for="客户.状态" class="form-control" />
-                <span asp-validation-for="客户.状态" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="客户.类型" class="control-label"></label>
-                <input asp-for="客户.类型" class="form-control" />
-                <span asp-validation-for="客户.类型" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="提交" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">返回列表</a>
 </div>
 
 @section Scripts {

@@ -1,95 +1,208 @@
 ﻿@page
 @model Pinhua2.Web.Pages.主数据.字典.EditModel
-
+@using Newtonsoft.Json;
+@using Pinhua2.Web.Mapper;
 @{
     ViewData["Title"] = "Edit";
+    var emptyRecord = JsonConvert.SerializeObject(new dto字典Detail());
+    var emptyRecordList = JsonConvert.SerializeObject(Model?.字典D ?? new List<dto字典Detail>());
 }
 
-<h1>Edit</h1>
-
-<h4>sys字典表</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>修改 - 字典</h3>
+</div>
+<div class="row" id="vueScope">
+    <div class="col-12">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="sys字典表.字典名" class="control-label"></label>
-                <input asp-for="sys字典表.字典名" class="form-control" />
-                <span asp-validation-for="sys字典表.字典名" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="字典.字典名" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="字典.字典名" class="form-control" />
+                    <span asp-validation-for="字典.字典名" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.组" class="control-label"></label>
-                <input asp-for="sys字典表.组" class="form-control" />
-                <span asp-validation-for="sys字典表.组" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="字典.组" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="字典.组" class="form-control" />
+                    <span asp-validation-for="字典.组" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.创建人" class="control-label"></label>
-                <input asp-for="sys字典表.创建人" class="form-control" />
-                <span asp-validation-for="sys字典表.创建人" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="字典.创建人" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="字典.创建人" class="form-control" readonly />
+                    <span asp-validation-for="字典.创建人" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.创建日" class="control-label"></label>
-                <input asp-for="sys字典表.创建日" class="form-control" />
-                <span asp-validation-for="sys字典表.创建日" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="字典.创建日" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="字典.创建日" class="form-control" readonly />
+                    <span asp-validation-for="字典.创建日" class="text-danger"></span>
+                </div>
             </div>
-            <input type="hidden" asp-for="sys字典表.RecordId" />
-            <div class="form-group">
-                <label asp-for="sys字典表.CreateUser" class="control-label"></label>
-                <input asp-for="sys字典表.CreateUser" class="form-control" />
-                <span asp-validation-for="sys字典表.CreateUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.CreateOrg" class="control-label"></label>
-                <input asp-for="sys字典表.CreateOrg" class="form-control" />
-                <span asp-validation-for="sys字典表.CreateOrg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.CreateTime" class="control-label"></label>
-                <input asp-for="sys字典表.CreateTime" class="form-control" />
-                <span asp-validation-for="sys字典表.CreateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.EditingUser" class="control-label"></label>
-                <input asp-for="sys字典表.EditingUser" class="form-control" />
-                <span asp-validation-for="sys字典表.EditingUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.LastEditUser" class="control-label"></label>
-                <input asp-for="sys字典表.LastEditUser" class="form-control" />
-                <span asp-validation-for="sys字典表.LastEditUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.LastEditTime" class="control-label"></label>
-                <input asp-for="sys字典表.LastEditTime" class="form-control" />
-                <span asp-validation-for="sys字典表.LastEditTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.ReportStatus" class="control-label"></label>
-                <input asp-for="sys字典表.ReportStatus" class="form-control" />
-                <span asp-validation-for="sys字典表.ReportStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.LockStatus" class="control-label"></label>
-                <input asp-for="sys字典表.LockStatus" class="form-control" />
-                <span asp-validation-for="sys字典表.LockStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys字典表.WorkflowStatus" class="control-label"></label>
-                <input asp-for="sys字典表.WorkflowStatus" class="form-control" />
-                <span asp-validation-for="sys字典表.WorkflowStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <input asp-for="字典.RecordId" type="hidden" />
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                字典明细
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#newRecordModal" v-on:click="newRecord">
+                                    添加明细
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th style="max-width: 20px">#</th>
+                                            <th style="min-width: 80px;">名称</th>
+                                            <th style="min-width: 80px;">描述</th>
+                                            <th style="min-width: 80px;">代码</th>
+                                            <th style="min-width: 80px;">字典名</th>
+                                            <th style="min-width: 80px;">组</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-if="items.length == 0"><td colspan="20" class="text-center">空</td></tr>
+                                        <tr v-for="(todo,index) in items">
+                                            <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)" data-toggle="modal" data-target="#newRecordModal">修改</a></td>
+                                            <td>{{ index + 1 }}<input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" /></td>
+                                            <td>{{ todo.名称 }}<input :name="buildName(index,'名称')" type="hidden" v-model="todo.名称" /></td>
+                                            <td>{{ todo.描述 }}<input :name="buildName(index,'描述')" type="hidden" v-model="todo.描述" /></td>
+                                            <td>{{ todo.代码 }}<input :name="buildName(index,'代码')" type="hidden" v-bind:value="todo.代码" /></td>
+                                            <td>{{ todo.字典名 }}<input :name="buildName(index,'字典名')" type="hidden" v-bind:value="todo.字典名" /></td>
+                                            <td>{{ todo.组 }}<input :name="buildName(index,'组')" type="hidden" v-bind:value="todo.组" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.col -->
+                <div class="col-12">
+                    <div class="form-group">
+                        <input type="submit" value="确认修改" class="btn btn-primary" />
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="newRecordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">字典明细</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label class="col-4 col-sm-2 col-form-label">名称</label>
+                                    <div class="col-8 col-sm-10">
+                                        <input class="form-control" v-model="itemCurrent.名称" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-sm-2 col-form-label">描述</label>
+                                    <div class="col-8 col-sm-10">
+                                        <input class="form-control" v-model="itemCurrent.描述" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-sm-2 col-form-label">代码</label>
+                                    <div class="col-8 col-sm-10">
+                                        <input class="form-control" v-model="itemCurrent.代码" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-sm-2 col-form-label">字典名</label>
+                                    <div class="col-8 col-sm-10">
+                                        <input class="form-control" v-model="itemCurrent.字典名" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-sm-2 col-form-label">组</label>
+                                    <div class="col-8 col-sm-10">
+                                        <input class="form-control" v-model="itemCurrent.组" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="saveRecord">确认</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="Index">返回列表</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/vue/dist/vue.js"></script>
+    <script>
+        var emptyRecord = @Html.Raw(emptyRecord);
+        var emptyRecordList = @Html.Raw(emptyRecordList);
+    </script>
+    <script>
+        var vm = new Vue({
+            el: '#vueScope',
+            data: {
+                items: emptyRecordList,
+                itemCurrent: {},
+                itemIndex: {},
+                isNew: false,
+                trEdit: -1,
+            },
+            computed: {
+                visible: function () {
+                    return this.items.length > 0
+                },
+            },
+            methods: {
+                buildName: function (index, name) {
+                    return "字典D[" + index + "]." + name
+                },
+                newRecord: function () {
+                    this.isNew = true;
+                    this.itemCurrent = JSON.parse(JSON.stringify(emptyRecord))
+                    //this.items.push(this.itemCurrent);
+                    //layerItemDetail()
+                },
+                saveRecord: function () {
+                    if (this.isNew)
+                        this.items.push(this.itemCurrent);
+                    else
+                        this.$set(this.items, this.itemIndex, this.itemCurrent)
+                    //layer.closeAll('page')
+                },
+                editRecord: function (index) {
+                    this.isNew = false;
+                    this.itemIndex = index;
+                    this.itemCurrent = JSON.parse(JSON.stringify(this.items[index]))
+                    //layerItemDetail()
+                },
+
+                removeTodo: function (index) {
+                    this.items.splice(index, 1)
+                },
+            }
+        })
+    </script>
 }

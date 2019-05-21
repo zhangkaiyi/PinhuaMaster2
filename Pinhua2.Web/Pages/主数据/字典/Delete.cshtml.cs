@@ -49,7 +49,10 @@ namespace Pinhua2.Web.Pages.主数据.字典
 
             if (sys字典表 != null)
             {
-                _context.sys字典表.Remove(sys字典表);
+                var 字典列表 = _context.sys字典表.Where(p=>p.RecordId==sys字典表.RecordId);
+                var 字典明细列表 = _context.sys字典表_D.Where(p => p.RecordId == sys字典表.RecordId);
+                _context.sys字典表.RemoveRange(字典列表);
+                _context.sys字典表_D.RemoveRange(字典明细列表);
                 await _context.SaveChangesAsync();
             }
 

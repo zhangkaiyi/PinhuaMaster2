@@ -146,6 +146,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -195,6 +197,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int>("RecordId");
 
                     b.Property<int?>("Sequence");
+
+                    b.Property<Guid>("refGuid");
 
                     b.Property<string>("仓");
 
@@ -273,6 +277,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -301,6 +307,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int?>("CreateUser");
 
                     b.Property<int?>("EditingUser");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
@@ -387,6 +395,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int?>("CreateUser");
 
                     b.Property<int?>("EditingUser");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
@@ -527,6 +537,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("Sequence");
 
+                    b.Property<Guid>("refGuid");
+
                     b.Property<string>("地址");
 
                     b.Property<string>("往来号");
@@ -553,6 +565,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int?>("CreateUser");
 
                     b.Property<int?>("EditingUser");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
@@ -590,6 +604,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("Sequence");
 
+                    b.Property<Guid>("refGuid");
+
                     b.Property<string>("代码");
 
                     b.Property<string>("名称");
@@ -619,6 +635,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -643,6 +661,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int>("RecordId");
 
                     b.Property<int?>("Sequence");
+
+                    b.Property<Guid>("refGuid");
 
                     b.Property<string>("发票抬头");
 
@@ -672,6 +692,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int?>("EditingUser");
 
                     b.Property<string>("Email");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
@@ -745,6 +767,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -791,6 +815,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int>("RecordId");
 
                     b.Property<int?>("Sequence");
+
+                    b.Property<Guid>("refGuid");
 
                     b.Property<decimal?>("上次价")
                         .HasColumnType("decimal(18,6)");
@@ -849,6 +875,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -898,6 +926,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int>("RecordId");
 
                     b.Property<int?>("Sequence");
+
+                    b.Property<Guid>("refGuid");
 
                     b.Property<string>("单位");
 
@@ -962,6 +992,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -990,6 +1022,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int>("RecordId");
 
                     b.Property<int?>("Sequence");
+
+                    b.Property<Guid>("refGuid");
 
                     b.Property<string>("传真");
 
@@ -1025,6 +1059,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int?>("CreateUser");
 
                     b.Property<int?>("EditingUser");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
@@ -1078,6 +1114,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int>("RecordId");
 
                     b.Property<int?>("Sequence");
+
+                    b.Property<Guid>("refGuid");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
@@ -1137,6 +1175,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int?>("CreateUser");
 
                     b.Property<int?>("EditingUser");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
@@ -1202,6 +1242,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -1253,6 +1295,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("EditingUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<int?>("LastEditUser");
@@ -1297,6 +1341,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<int>("RecordId");
 
                     b.Property<int?>("Sequence");
+
+                    b.Property<Guid>("refGuid");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");

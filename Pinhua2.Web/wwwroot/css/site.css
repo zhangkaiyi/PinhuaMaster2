@@ -61,16 +61,29 @@ body {
 
 /* 自定义
 -------------------------------------------------- */
-@media (min-width: 768px) {
-    #accordion {
-        width: 200px;
-        height: 100%;
-        margin-top: 0px;
-        position: absolute;
-        z-index: 1;
+.bd-navbar {
+    background-color: #367fa9;
+}
+
+    .bd-navbar .navbar-nav .nav-link {
+        color: #b8c7ce;
     }
 
-    .page_admin {
-        margin-left: 225px;
-    }
+.bd-search .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.col-form-label {
+    text-align: right;
+}
+
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th {
+    border: 1px solid #dee2e6;
+
 }

@@ -5,105 +5,99 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>客户</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.往来号)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.往来号)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.简称)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.简称)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.全称)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.全称)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.联系人)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.联系人)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.联系电话)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.联系电话)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.公司电话)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.公司电话)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.传真)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.传真)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.Qq)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.Qq)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.地址)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.地址)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.开户行)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.开户行)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.组织代码)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.组织代码)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.账号)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.账号)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.状态)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.状态)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.客户.类型)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.客户.类型)
-        </dd>
-    </dl>
+
+<div class="d-flex justify-content-between align-items-center mt-3 mb-3 pb-3 border-bottom">
+    <h3>查看 - 客户</h3>
 </div>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.往来号)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.往来号)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.简称)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.简称)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.全称)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.全称)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.联系人)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.联系人)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.联系电话)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.联系电话)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.公司电话)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.公司电话)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.传真)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.传真)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.Qq)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.Qq)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.Email)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.Email)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.地址)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.地址)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.开户行)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.开户行)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.组织代码)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.组织代码)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.账号)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.账号)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.客户.状态)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.客户.状态)
+    </dd>
+</dl>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.客户.RecordId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.客户.RecordId">修改</a> |
+    <a asp-page="./Index">返回列表</a>
 </div>
