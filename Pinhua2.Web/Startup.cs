@@ -33,10 +33,34 @@ namespace Pinhua2.Web
             // Add DbContext
             services.AddDbContext<Pinhua2Context>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Pinhua2Connection"),
-                o => o.UseRowNumberForPaging())
+                o =>
+                {
+                    o.UseRowNumberForPaging();
+                    //o.MigrationsAssembly("Pinhua2.Web");
+                })
                 );
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            // Add AutoMapper，全局设置不映射空值
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.ForAllMaps((a, b) =>
+               {
+                   b.ForAllMembers(memberOptions => memberOptions.Condition((src, dest, sourceMember) =>
+                   {
+                       // 空值不映射
+                       if (sourceMember == null)
+                           return false;
+                       else
+                       {
+                           // Guid 为空（“00000000-0000-0000-0000-000000000000”）时，不映射
+                           if (sourceMember?.GetType() == typeof(Guid) && sourceMember.ToString() == Guid.Empty.ToString())
+                           {
+                               return false;
+                           }
+                           return true;
+                       }
+                   }));
+               });
+            }, AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddLocalization(options =>
             {
@@ -44,7 +68,8 @@ namespace Pinhua2.Web
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddDataAnnotationsLocalization(options => {
+                .AddDataAnnotationsLocalization(options =>
+                {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
                         factory.Create(typeof(SharedResource));
                 });

@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.Mapper
 {
-    public class dto供应商
+    public class vm_客户 : _BaseTableMain
     {
-        public int RecordId { get; set; }
-        //[Required]
-        [Display(Name = "供应商编号")]
+        [Required(ErrorMessage = "The {0} field is required.")]
+        [Display(Name = "客户编号")]
         public string 往来号 { get; set; }
         [Required(ErrorMessage = "The {0} field is required.")]
         public string 简称 { get; set; }
         public string 全称 { get; set; }
-        [Required(ErrorMessage = "The {0} field is required.")]
+        [Required]
         public string 联系人 { get; set; }
         [Required(ErrorMessage = "The {0} field is required.")]
         public string 联系电话 { get; set; }
@@ -33,14 +32,15 @@ namespace Pinhua2.Web.Mapper
         public string 类型 { get; set; }
     }
 
-    public class 供应商Profile : Profile
+    public class 客户Profile : Profile
     {
-        public 供应商Profile()
+        public 客户Profile()
         {
-            CreateMap<sys往来表, dto供应商>();
+            CreateMap<tb_往来表, vm_客户>();
             //.ForMember(dst => dst.ExcelServerRcid, map => map.MapFrom(src => src.ExcelServerRcid))
             //.ForMember(dst => dst.DeliveryDate, map => map.MapFrom(src => src.DeliveryDate.Value.ToString("yyyy-MM-dd")));
-            CreateMap<dto供应商, sys往来表>();
+            CreateMap<vm_客户, tb_往来表>()
+                .ForMember(dst => dst.类型, map => map.MapFrom(src => string.IsNullOrEmpty(src.类型) ? "客户" : src.类型));
             //.ForMember(dst => dst.ExcelServerRcid, map => map.MapFrom(src => src.ExcelServerRcid))
             //.ForMember(dst => dst.DeliveryDate, map => map.MapFrom(src => src.DeliveryDate));
         }

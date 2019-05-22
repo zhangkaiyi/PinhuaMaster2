@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys往来表: _BaseTableMain
+    [Table("tb_往来表")]
+    public partial class tb_往来表: _BaseTableMain
     {
         public string 往来号 { get; set; }
         public string 简称 { get; set; }

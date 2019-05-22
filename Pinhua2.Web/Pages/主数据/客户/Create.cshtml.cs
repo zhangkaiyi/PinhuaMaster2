@@ -30,7 +30,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
         }
 
         [BindProperty]
-        public dto客户 客户 { get; set; }
+        public vm_客户 客户 { get; set; }
 
         public IActionResult OnPost()
         {
@@ -42,7 +42,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
             客户.往来号 = _pinhua2.funcAutoCode("往来号");
             客户.类型 = "客户";
 
-            _pinhua2.sys往来表.Add(_mapper.Map<sys往来表>(客户));
+            _pinhua2.tb_往来表.Add(_mapper.Map<tb_往来表>(客户));
             _pinhua2.SaveChanges();
 
             return RedirectToPage("./Index");

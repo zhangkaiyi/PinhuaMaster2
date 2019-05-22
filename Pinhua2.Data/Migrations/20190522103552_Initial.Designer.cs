@@ -10,7 +10,7 @@ using Pinhua2.Data;
 namespace Pinhua2.Data.Migrations
 {
     [DbContext(typeof(Pinhua2Context))]
-    [Migration("20190518073043_Initial")]
+    [Migration("20190522103552_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace Pinhua2.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sysAutoCode", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.sys_AutoCode", b =>
                 {
                     b.Property<int>("AutoCodeId")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("AutoCodeId");
 
-                    b.ToTable("sysAutoCode");
+                    b.ToTable("sys_AutoCode");
 
                     b.HasData(
                         new
@@ -65,7 +65,51 @@ namespace Pinhua2.Data.Migrations
                             AutoCodeId = 100,
                             AutoCodeName = "订单号",
                             CreateUser = 2,
-                            DateType = "yyMMdd",
+                            DateType = "yyMM",
+                            IsActive = 1,
+                            RunBeforeSave = 1,
+                            SeedLength = 4,
+                            SeedStart = 1
+                        },
+                        new
+                        {
+                            AutoCodeId = 101,
+                            AutoCodeName = "子单号",
+                            CreateUser = 2,
+                            DateType = "yy",
+                            IsActive = 1,
+                            RunBeforeSave = 1,
+                            SeedLength = 6,
+                            SeedStart = 1
+                        },
+                        new
+                        {
+                            AutoCodeId = 200,
+                            AutoCodeName = "商品号",
+                            CreateUser = 2,
+                            IsActive = 1,
+                            Prefix = "10",
+                            RunBeforeSave = 1,
+                            SeedLength = 8,
+                            SeedStart = 1
+                        },
+                        new
+                        {
+                            AutoCodeId = 300,
+                            AutoCodeName = "往来号",
+                            CreateUser = 2,
+                            DateType = "yy",
+                            IsActive = 1,
+                            RunBeforeSave = 1,
+                            SeedLength = 4,
+                            SeedStart = 1
+                        },
+                        new
+                        {
+                            AutoCodeId = 400,
+                            AutoCodeName = "档案号",
+                            CreateUser = 2,
+                            DateType = "yy",
                             IsActive = 1,
                             RunBeforeSave = 1,
                             SeedLength = 4,
@@ -73,7 +117,7 @@ namespace Pinhua2.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sysAutoCodeRegister", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.sys_AutoCodeRegister", b =>
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
@@ -87,32 +131,28 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("Idx");
 
-                    b.ToTable("sysAutoCodeRegister");
+                    b.ToTable("sys_AutoCodeRegister");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sysIO", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_IO", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("仓");
 
@@ -141,16 +181,18 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sysIO");
+                    b.ToTable("tb_IO");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sysIO_D", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_IOD", b =>
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RecordId");
+                    b.Property<Guid>("Guid");
+
+                    b.Property<int?>("RecordId");
 
                     b.Property<int?>("Sequence");
 
@@ -214,61 +256,28 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("Idx");
 
-                    b.ToTable("sysIO_D");
+                    b.ToTable("tb_IOD");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys付款条件表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_员工表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
-
-                    b.HasKey("RecordId");
-
-                    b.ToTable("sys付款条件表");
-                });
-
-            modelBuilder.Entity("Pinhua2.Data.Models.sys员工表", b =>
-                {
-                    b.Property<int>("RecordId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CreateOrg");
-
-                    b.Property<DateTime?>("CreateTime");
-
-                    b.Property<int?>("CreateUser");
-
-                    b.Property<int?>("EditingUser");
-
-                    b.Property<DateTime?>("LastEditTime");
-
-                    b.Property<int?>("LastEditUser");
-
-                    b.Property<int?>("LockStatus");
-
-                    b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<DateTime?>("入职日期");
 
@@ -329,32 +338,28 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys员工表");
+                    b.ToTable("tb_员工表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys商品表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_商品表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("上级品号");
 
@@ -375,25 +380,17 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("单重")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("反面颜色");
-
                     b.Property<string>("品号");
 
                     b.Property<string>("品名");
 
                     b.Property<string>("品牌");
 
-                    b.Property<string>("商品信息");
-
                     b.Property<string>("图片");
 
                     b.Property<int?>("图片I");
 
-                    b.Property<DateTime?>("填报时间");
-
                     b.Property<string>("备注");
-
-                    b.Property<string>("复制");
 
                     b.Property<string>("大类");
 
@@ -405,6 +402,9 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("客户号");
 
                     b.Property<string>("客户料号");
+
+                    b.Property<decimal?>("宽度")
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<string>("库位");
 
@@ -420,11 +420,7 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("是否共用");
 
-                    b.Property<string>("是否卷筒");
-
                     b.Property<string>("是否存储");
-
-                    b.Property<string>("是否新旧");
 
                     b.Property<string>("是否采购");
 
@@ -438,8 +434,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("条码");
 
                     b.Property<string>("档案号");
-
-                    b.Property<string>("正面颜色");
 
                     b.Property<string>("版本号");
 
@@ -456,9 +450,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("质保")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<decimal?>("配比值")
-                        .HasColumnType("decimal(18,6)");
-
                     b.Property<decimal?>("采购价")
                         .HasColumnType("decimal(18,6)");
 
@@ -470,61 +461,39 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("销售价")
                         .HasColumnType("decimal(18,6)");
 
+                    b.Property<decimal?>("长度")
+                        .HasColumnType("decimal(18,6)");
+
+                    b.Property<decimal?>("面厚")
+                        .HasColumnType("decimal(18,6)");
+
+                    b.Property<decimal?>("高度")
+                        .HasColumnType("decimal(18,6)");
+
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys商品表");
+                    b.ToTable("tb_商品表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys地址表", b =>
-                {
-                    b.Property<int>("Idx")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("RecordId");
-
-                    b.Property<int?>("Sequence");
-
-                    b.Property<string>("地址");
-
-                    b.Property<string>("往来号");
-
-                    b.Property<string>("电话");
-
-                    b.Property<string>("联系人");
-
-                    b.HasKey("Idx");
-
-                    b.ToTable("sys往来表_地址");
-                });
-
-            modelBuilder.Entity("Pinhua2.Data.Models.sys字典表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_字典表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
-
-                    b.Property<string>("创建人");
-
-                    b.Property<DateTime?>("创建日");
 
                     b.Property<string>("字典名");
 
@@ -532,19 +501,18 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys字典表");
+                    b.ToTable("tb_字典表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys字典表_D", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_字典表D", b =>
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal?>("RN")
-                        .HasColumnType("decimal(18,6)");
+                    b.Property<Guid>("Guid");
 
-                    b.Property<int>("RecordId");
+                    b.Property<int?>("RecordId");
 
                     b.Property<int?>("Sequence");
 
@@ -554,94 +522,65 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("字典名");
 
+                    b.Property<int?>("序");
+
                     b.Property<string>("描述");
 
                     b.Property<string>("组");
 
                     b.HasKey("Idx");
 
-                    b.ToTable("sys字典表_D");
+                    b.ToTable("tb_字典表D");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys工序表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_工序表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
 
-                    b.Property<string>("WorkflowStatus");
-
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys工序表");
+                    b.ToTable("tb_工序表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys开票表", b =>
-                {
-                    b.Property<int>("Idx")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("RecordId");
-
-                    b.Property<int?>("Sequence");
-
-                    b.Property<string>("发票抬头");
-
-                    b.Property<string>("往来号");
-
-                    b.Property<string>("税号");
-
-                    b.Property<string>("账号");
-
-                    b.HasKey("Idx");
-
-                    b.ToTable("sys往来表_开票");
-                });
-
-            modelBuilder.Entity("Pinhua2.Data.Models.sys往来表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_往来表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
-
-                    b.Property<int?>("EditingUser");
+                    b.Property<string>("CreateUser");
 
                     b.Property<string>("Email");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<string>("Qq");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("付款方式");
 
@@ -686,32 +625,115 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys往来表");
+                    b.ToTable("tb_往来表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys报价表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_往来表_地址", b =>
+                {
+                    b.Property<int>("Idx")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
+
+                    b.Property<string>("地址");
+
+                    b.Property<string>("往来号");
+
+                    b.Property<string>("电话");
+
+                    b.Property<string>("联系人");
+
+                    b.HasKey("Idx");
+
+                    b.ToTable("tb_往来表_地址");
+                });
+
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_往来表_开票", b =>
+                {
+                    b.Property<int>("Idx")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
+
+                    b.Property<string>("发票抬头");
+
+                    b.Property<string>("往来号");
+
+                    b.Property<string>("税号");
+
+                    b.Property<string>("账号");
+
+                    b.HasKey("Idx");
+
+                    b.ToTable("tb_往来表_开票");
+                });
+
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_往来表_联系人", b =>
+                {
+                    b.Property<int>("Idx")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<string>("Qq");
+
+                    b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
+
+                    b.Property<string>("传真");
+
+                    b.Property<string>("备注");
+
+                    b.Property<string>("往来号");
+
+                    b.Property<string>("手机");
+
+                    b.Property<string>("电话");
+
+                    b.Property<string>("职位");
+
+                    b.Property<string>("联系人");
+
+                    b.Property<string>("部门");
+
+                    b.HasKey("Idx");
+
+                    b.ToTable("tb_往来表_联系人");
+                });
+
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_报价表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("业务类型");
 
@@ -737,16 +759,18 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys报价表");
+                    b.ToTable("tb_报价表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys报价表_D", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_报价表D", b =>
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RecordId");
+                    b.Property<Guid>("Guid");
+
+                    b.Property<int?>("RecordId");
 
                     b.Property<int?>("Sequence");
 
@@ -790,32 +814,28 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("Idx");
 
-                    b.ToTable("sys报价表_D");
+                    b.ToTable("tb_报价表D");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys收付表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_收付表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<decimal?>("付")
                         .HasColumnType("decimal(18,6)");
@@ -844,16 +864,18 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys收付表");
+                    b.ToTable("tb_收付表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys收付表_D", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_收付表D", b =>
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RecordId");
+                    b.Property<Guid>("Guid");
+
+                    b.Property<int?>("RecordId");
 
                     b.Property<int?>("Sequence");
 
@@ -903,96 +925,53 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("Idx");
 
-                    b.ToTable("sys收付表_D");
+                    b.ToTable("tb_收付表D");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys班组表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_班组表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys班组表");
+                    b.ToTable("tb_班组表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys联系人表", b =>
-                {
-                    b.Property<int>("Idx")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Qq");
-
-                    b.Property<int>("RecordId");
-
-                    b.Property<int?>("Sequence");
-
-                    b.Property<string>("传真");
-
-                    b.Property<string>("备注");
-
-                    b.Property<string>("往来号");
-
-                    b.Property<string>("手机");
-
-                    b.Property<string>("电话");
-
-                    b.Property<string>("职位");
-
-                    b.Property<string>("联系人");
-
-                    b.Property<string>("部门");
-
-                    b.HasKey("Idx");
-
-                    b.ToTable("sys往来表_联系人");
-                });
-
-            modelBuilder.Entity("Pinhua2.Data.Models.sys订单表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_订单表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("业务类型");
 
@@ -1024,16 +1003,18 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys订单表");
+                    b.ToTable("tb_订单表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys订单表_D", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_订单表D", b =>
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RecordId");
+                    b.Property<Guid>("Guid");
+
+                    b.Property<int?>("RecordId");
 
                     b.Property<int?>("Sequence");
 
@@ -1079,32 +1060,28 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("Idx");
 
-                    b.ToTable("sys订单表_D");
+                    b.ToTable("tb_订单表D");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys设备表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_设备表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("产能公式");
 
@@ -1143,32 +1120,28 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys设备表");
+                    b.ToTable("tb_设备表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys证照表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_证照表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("品号");
 
@@ -1194,32 +1167,28 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys证照表");
+                    b.ToTable("tb_证照表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys需求表", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_需求表", b =>
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreateOrg");
-
                     b.Property<DateTime?>("CreateTime");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<string>("CreateUser");
 
-                    b.Property<int?>("EditingUser");
+                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("LastEditTime");
 
-                    b.Property<int?>("LastEditUser");
+                    b.Property<string>("LastEditUser");
 
                     b.Property<int?>("LockStatus");
 
                     b.Property<int?>("ReportStatus");
-
-                    b.Property<string>("WorkflowStatus");
 
                     b.Property<string>("业务类型");
 
@@ -1243,16 +1212,18 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("sys需求表");
+                    b.ToTable("tb_需求表");
                 });
 
-            modelBuilder.Entity("Pinhua2.Data.Models.sys需求表_D", b =>
+            modelBuilder.Entity("Pinhua2.Data.Models.tb_需求表D", b =>
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RecordId");
+                    b.Property<Guid>("Guid");
+
+                    b.Property<int?>("RecordId");
 
                     b.Property<int?>("Sequence");
 
@@ -1291,7 +1262,7 @@ namespace Pinhua2.Data.Migrations
 
                     b.HasKey("Idx");
 
-                    b.ToTable("sys需求表_D");
+                    b.ToTable("tb_需求表D");
                 });
 #pragma warning restore 612, 618
         }

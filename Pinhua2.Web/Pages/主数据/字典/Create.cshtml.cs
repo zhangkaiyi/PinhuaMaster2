@@ -29,30 +29,37 @@ namespace Pinhua2.Web.Pages.主数据.字典
         }
 
         [BindProperty]
-        public dto字典 字典 { get; set; }
+        public vm_字典 vm_字典 { get; set; }
         [BindProperty]
-        public IList<dto字典Detail> 字典D { get; set; }
+        public IList<vm_字典D> vm_字典D列表 { get; set; }
 
-        public IActionResult OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            字典.创建日 = DateTime.Now;
-            字典.创建人 = "张凯译";
-
-            var toAdd = _mapper.Map<sys字典表>(字典);
-            _pinhua2.sys字典表.Add(toAdd);
-
+            // 补完字段
+            Common.ModelHelper.CompleteMainOnCreate(vm_字典);
+            // 映射为实体类型
+            var tb_字典 = _mapper.Map<tb_字典表>(vm_字典);
+            // 插入
+            _pinhua2.tb_字典表.Add(tb_字典);
+            // 保存
             if (_pinhua2.SaveChanges() > 0)
             {
-                foreach (var item in 字典D)
+                // 保存后获取自增主键RecordId
+                // 补完明细表，主表字段写入明细表
+                foreach (var item in vm_字典D列表)
                 {
-                    item.RecordId = toAdd.RecordId;
+                    Common.ModelHelper.CompleteDetailOnCreate(tb_字典, item);
+                    item.字典名 = vm_字典.字典名;
+                    item.组 = vm_字典.组;
                 }
-                _pinhua2.sys字典表_D.AddRange(_mapper.Map<IList<sys字典表_D>>(字典D));
+                // 插入明细表
+                _pinhua2.tb_字典表D.AddRange(_mapper.Map<IList<tb_字典表D>>(vm_字典D列表));
+                // 再次保存
                 _pinhua2.SaveChanges();
             }
 

@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys收付表_D:_BaseTableDetail
+    [Table("tb_收付表D")]
+    public partial class tb_收付表D:_BaseTableDetail
     {
         public string 子单号 { get; set; }
         public decimal? 数量 { get; set; }

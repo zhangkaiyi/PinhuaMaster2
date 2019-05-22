@@ -19,11 +19,11 @@ namespace Pinhua2.Web.Pages.主数据.商品
             _context = context;
         }
 
-        public IList<sys商品表> sys商品表 { get;set; }
+        public IList<tb_商品表> tb_商品表 { get;set; }
 
         public async Task OnGetAsync()
         {
-            sys商品表 = await _context.sys商品表.ToListAsync();
+            tb_商品表 = await _context.tb_商品表.ToListAsync();
         }
     }
 }

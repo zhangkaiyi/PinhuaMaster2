@@ -1,10 +1,12 @@
 ﻿using Pinhua2.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys证照表: _BaseTableMain
+    [Table("tb_证照表")]
+    public partial class tb_证照表: _BaseTableMain
     {
         public string 品号 { get; set; }
         public string 文件 { get; set; }

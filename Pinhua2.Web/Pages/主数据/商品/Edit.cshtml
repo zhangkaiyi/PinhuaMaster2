@@ -14,11 +14,6 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="sys商品表.填报时间" class="control-label"></label>
-                <input asp-for="sys商品表.填报时间" class="form-control" />
-                <span asp-validation-for="sys商品表.填报时间" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="sys商品表.品号" class="control-label"></label>
                 <input asp-for="sys商品表.品号" class="form-control" />
                 <span asp-validation-for="sys商品表.品号" class="text-danger"></span>
@@ -67,11 +62,6 @@
                 <label asp-for="sys商品表.状态" class="control-label"></label>
                 <input asp-for="sys商品表.状态" class="form-control" />
                 <span asp-validation-for="sys商品表.状态" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys商品表.复制" class="control-label"></label>
-                <input asp-for="sys商品表.复制" class="form-control" />
-                <span asp-validation-for="sys商品表.复制" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="sys商品表.大类" class="control-label"></label>
@@ -184,11 +174,6 @@
                 <span asp-validation-for="sys商品表.上级品号" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="sys商品表.配比值" class="control-label"></label>
-                <input asp-for="sys商品表.配比值" class="form-control" />
-                <span asp-validation-for="sys商品表.配比值" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="sys商品表.版本号" class="control-label"></label>
                 <input asp-for="sys商品表.版本号" class="form-control" />
                 <span asp-validation-for="sys商品表.版本号" class="text-danger"></span>
@@ -219,26 +204,6 @@
                 <span asp-validation-for="sys商品表.品牌" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="sys商品表.正面颜色" class="control-label"></label>
-                <input asp-for="sys商品表.正面颜色" class="form-control" />
-                <span asp-validation-for="sys商品表.正面颜色" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys商品表.反面颜色" class="control-label"></label>
-                <input asp-for="sys商品表.反面颜色" class="form-control" />
-                <span asp-validation-for="sys商品表.反面颜色" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys商品表.商品信息" class="control-label"></label>
-                <input asp-for="sys商品表.商品信息" class="form-control" />
-                <span asp-validation-for="sys商品表.商品信息" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys商品表.是否新旧" class="control-label"></label>
-                <input asp-for="sys商品表.是否新旧" class="form-control" />
-                <span asp-validation-for="sys商品表.是否新旧" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="sys商品表.链接" class="control-label"></label>
                 <input asp-for="sys商品表.链接" class="form-control" />
                 <span asp-validation-for="sys商品表.链接" class="text-danger"></span>
@@ -259,11 +224,6 @@
                 <span asp-validation-for="sys商品表.是否存储" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="sys商品表.是否卷筒" class="control-label"></label>
-                <input asp-for="sys商品表.是否卷筒" class="form-control" />
-                <span asp-validation-for="sys商品表.是否卷筒" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="sys商品表.上级品名" class="control-label"></label>
                 <input asp-for="sys商品表.上级品名" class="form-control" />
                 <span asp-validation-for="sys商品表.上级品名" class="text-danger"></span>
@@ -280,19 +240,9 @@
                 <span asp-validation-for="sys商品表.CreateUser" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="sys商品表.CreateOrg" class="control-label"></label>
-                <input asp-for="sys商品表.CreateOrg" class="form-control" />
-                <span asp-validation-for="sys商品表.CreateOrg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="sys商品表.CreateTime" class="control-label"></label>
                 <input asp-for="sys商品表.CreateTime" class="form-control" />
                 <span asp-validation-for="sys商品表.CreateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sys商品表.EditingUser" class="control-label"></label>
-                <input asp-for="sys商品表.EditingUser" class="form-control" />
-                <span asp-validation-for="sys商品表.EditingUser" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="sys商品表.LastEditUser" class="control-label"></label>
@@ -315,9 +265,9 @@
                 <span asp-validation-for="sys商品表.LockStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="sys商品表.WorkflowStatus" class="control-label"></label>
-                <input asp-for="sys商品表.WorkflowStatus" class="form-control" />
-                <span asp-validation-for="sys商品表.WorkflowStatus" class="text-danger"></span>
+                <label asp-for="sys商品表.Guid" class="control-label"></label>
+                <input asp-for="sys商品表.Guid" class="form-control" />
+                <span asp-validation-for="sys商品表.Guid" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

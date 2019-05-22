@@ -9,7 +9,7 @@ namespace Pinhua2.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "sysAutoCode",
+                name: "sys_AutoCode",
                 columns: table => new
                 {
                     AutoCodeId = table.Column<int>(nullable: false)
@@ -31,11 +31,11 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sysAutoCode", x => x.AutoCodeId);
+                    table.PrimaryKey("PK_sys_AutoCode", x => x.AutoCodeId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sysAutoCodeRegister",
+                name: "sys_AutoCodeRegister",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
@@ -46,24 +46,22 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sysAutoCodeRegister", x => x.Idx);
+                    table.PrimaryKey("PK_sys_AutoCodeRegister", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sysIO",
+                name: "tb_IO",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     单号 = table.Column<string>(nullable: true),
                     日期 = table.Column<DateTime>(nullable: true),
                     制单 = table.Column<string>(nullable: true),
@@ -79,17 +77,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sysIO", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_IO", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sysIO_D",
+                name: "tb_IOD",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     行号 = table.Column<string>(nullable: true),
                     子单号 = table.Column<string>(nullable: true),
                     订单号 = table.Column<string>(nullable: true),
@@ -118,45 +117,41 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sysIO_D", x => x.Idx);
+                    table.PrimaryKey("PK_tb_IOD", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys班组表",
+                name: "tb_班组表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true)
+                    Guid = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys班组表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_班组表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys报价表",
+                name: "tb_报价表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     单号 = table.Column<string>(nullable: true),
                     往来单号 = table.Column<string>(nullable: true),
                     业务类型 = table.Column<string>(nullable: true),
@@ -171,17 +166,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys报价表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_报价表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys报价表_D",
+                name: "tb_报价表D",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     行号 = table.Column<string>(nullable: true),
                     子单号 = table.Column<string>(nullable: true),
                     品号 = table.Column<string>(nullable: true),
@@ -201,24 +197,22 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys报价表_D", x => x.Idx);
+                    table.PrimaryKey("PK_tb_报价表D", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys订单表",
+                name: "tb_订单表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     单号 = table.Column<string>(nullable: true),
                     往来单号 = table.Column<string>(nullable: true),
                     业务类型 = table.Column<string>(nullable: true),
@@ -235,17 +229,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys订单表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_订单表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys订单表_D",
+                name: "tb_订单表D",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     行号 = table.Column<string>(nullable: true),
                     子单号 = table.Column<string>(nullable: true),
                     品号 = table.Column<string>(nullable: true),
@@ -266,78 +261,55 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys订单表_D", x => x.Idx);
+                    table.PrimaryKey("PK_tb_订单表D", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys付款条件表",
+                name: "tb_工序表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true)
+                    Guid = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys付款条件表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_工序表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys工序表",
+                name: "tb_商品表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_sys工序表", x => x.RecordId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "sys商品表",
-                columns: table => new
-                {
-                    RecordId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
-                    CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
-                    LastEditTime = table.Column<DateTime>(nullable: true),
-                    ReportStatus = table.Column<int>(nullable: true),
-                    LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
-                    填报时间 = table.Column<DateTime>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     品号 = table.Column<string>(nullable: true),
                     品名 = table.Column<string>(nullable: true),
                     拼音码 = table.Column<string>(nullable: true),
                     规格 = table.Column<string>(nullable: true),
+                    长度 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
+                    宽度 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
+                    高度 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
+                    面厚 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
                     库位 = table.Column<string>(nullable: true),
                     单位 = table.Column<string>(nullable: true),
                     分类1 = table.Column<string>(nullable: true),
                     分类2 = table.Column<string>(nullable: true),
                     安全库存 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
                     状态 = table.Column<string>(nullable: true),
-                    复制 = table.Column<string>(nullable: true),
                     大类 = table.Column<string>(nullable: true),
                     别名 = table.Column<string>(nullable: true),
                     材质 = table.Column<string>(nullable: true),
@@ -360,45 +332,37 @@ namespace Pinhua2.Data.Migrations
                     档案号 = table.Column<string>(nullable: true),
                     是否共用 = table.Column<string>(nullable: true),
                     上级品号 = table.Column<string>(nullable: true),
-                    配比值 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
                     版本号 = table.Column<string>(nullable: true),
                     条码 = table.Column<string>(nullable: true),
                     备注 = table.Column<string>(nullable: true),
                     图片 = table.Column<string>(nullable: true),
                     图片I = table.Column<int>(nullable: true),
                     品牌 = table.Column<string>(nullable: true),
-                    正面颜色 = table.Column<string>(nullable: true),
-                    反面颜色 = table.Column<string>(nullable: true),
-                    商品信息 = table.Column<string>(nullable: true),
-                    是否新旧 = table.Column<string>(nullable: true),
                     链接 = table.Column<string>(nullable: true),
                     是否采购 = table.Column<string>(nullable: true),
                     是否销售 = table.Column<string>(nullable: true),
                     是否存储 = table.Column<string>(nullable: true),
-                    是否卷筒 = table.Column<string>(nullable: true),
                     上级品名 = table.Column<string>(nullable: true),
                     质保 = table.Column<decimal>(type: "decimal(18,6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys商品表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_商品表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys设备表",
+                name: "tb_设备表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     编号 = table.Column<string>(nullable: true),
                     名称 = table.Column<string>(nullable: true),
                     规格型号 = table.Column<string>(nullable: true),
@@ -418,24 +382,22 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys设备表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_设备表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys收付表",
+                name: "tb_收付表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     类型 = table.Column<string>(nullable: true),
                     往来 = table.Column<string>(nullable: true),
                     往来号 = table.Column<string>(nullable: true),
@@ -450,17 +412,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys收付表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_收付表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys收付表_D",
+                name: "tb_收付表D",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     子单号 = table.Column<string>(nullable: true),
                     数量 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
                     金额 = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
@@ -480,24 +443,22 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys收付表_D", x => x.Idx);
+                    table.PrimaryKey("PK_tb_收付表D", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys往来表",
+                name: "tb_往来表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     往来号 = table.Column<string>(nullable: true),
                     简称 = table.Column<string>(nullable: true),
                     全称 = table.Column<string>(nullable: true),
@@ -523,17 +484,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys往来表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_往来表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys往来表_地址",
+                name: "tb_往来表_地址",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     往来号 = table.Column<string>(nullable: true),
                     地址 = table.Column<string>(nullable: true),
                     联系人 = table.Column<string>(nullable: true),
@@ -541,17 +503,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys往来表_地址", x => x.Idx);
+                    table.PrimaryKey("PK_tb_往来表_地址", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys往来表_开票",
+                name: "tb_往来表_开票",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     往来号 = table.Column<string>(nullable: true),
                     发票抬头 = table.Column<string>(nullable: true),
                     账号 = table.Column<string>(nullable: true),
@@ -559,17 +522,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys往来表_开票", x => x.Idx);
+                    table.PrimaryKey("PK_tb_往来表_开票", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys往来表_联系人",
+                name: "tb_往来表_联系人",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     往来号 = table.Column<string>(nullable: true),
                     联系人 = table.Column<string>(nullable: true),
                     部门 = table.Column<string>(nullable: true),
@@ -583,24 +547,22 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys往来表_联系人", x => x.Idx);
+                    table.PrimaryKey("PK_tb_往来表_联系人", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys需求表",
+                name: "tb_需求表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     单号 = table.Column<string>(nullable: true),
                     往来单号 = table.Column<string>(nullable: true),
                     业务类型 = table.Column<string>(nullable: true),
@@ -614,17 +576,18 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys需求表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_需求表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys需求表_D",
+                name: "tb_需求表D",
                 columns: table => new
                 {
                     Idx = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
+                    RecordId = table.Column<int>(nullable: true),
                     Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     行号 = table.Column<string>(nullable: true),
                     子单号 = table.Column<string>(nullable: true),
                     品号 = table.Column<string>(nullable: true),
@@ -642,24 +605,22 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys需求表_D", x => x.Idx);
+                    table.PrimaryKey("PK_tb_需求表D", x => x.Idx);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys员工表",
+                name: "tb_员工表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     工号 = table.Column<string>(nullable: true),
                     姓名 = table.Column<string>(nullable: true),
                     部门 = table.Column<string>(nullable: true),
@@ -691,24 +652,22 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys员工表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_员工表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys证照表",
+                name: "tb_证照表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     品号 = table.Column<string>(nullable: true),
                     文件 = table.Column<string>(nullable: true),
                     文件A = table.Column<int>(nullable: true),
@@ -723,136 +682,137 @@ namespace Pinhua2.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys证照表", x => x.RecordId);
+                    table.PrimaryKey("PK_tb_证照表", x => x.RecordId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sys字典表",
+                name: "tb_字典表",
                 columns: table => new
                 {
                     RecordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreateUser = table.Column<int>(nullable: true),
-                    CreateOrg = table.Column<int>(nullable: true),
+                    CreateUser = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: true),
-                    EditingUser = table.Column<int>(nullable: true),
-                    LastEditUser = table.Column<int>(nullable: true),
+                    LastEditUser = table.Column<string>(nullable: true),
                     LastEditTime = table.Column<DateTime>(nullable: true),
                     ReportStatus = table.Column<int>(nullable: true),
                     LockStatus = table.Column<int>(nullable: true),
-                    WorkflowStatus = table.Column<string>(nullable: true),
-                    字典名 = table.Column<string>(nullable: true),
-                    组 = table.Column<string>(nullable: true),
-                    创建人 = table.Column<string>(nullable: true),
-                    创建日 = table.Column<DateTime>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_sys字典表", x => x.RecordId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "sys字典表_D",
-                columns: table => new
-                {
-                    Idx = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RecordId = table.Column<int>(nullable: false),
-                    Sequence = table.Column<int>(nullable: true),
-                    RN = table.Column<decimal>(type: "decimal(18,6)", nullable: true),
-                    名称 = table.Column<string>(nullable: true),
-                    描述 = table.Column<string>(nullable: true),
-                    代码 = table.Column<string>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
                     字典名 = table.Column<string>(nullable: true),
                     组 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sys字典表_D", x => x.Idx);
+                    table.PrimaryKey("PK_tb_字典表", x => x.RecordId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_字典表D",
+                columns: table => new
+                {
+                    Idx = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RecordId = table.Column<int>(nullable: true),
+                    Sequence = table.Column<int>(nullable: true),
+                    Guid = table.Column<Guid>(nullable: false),
+                    字典名 = table.Column<string>(nullable: true),
+                    序 = table.Column<int>(nullable: true),
+                    代码 = table.Column<string>(nullable: true),
+                    名称 = table.Column<string>(nullable: true),
+                    描述 = table.Column<string>(nullable: true),
+                    组 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_字典表D", x => x.Idx);
                 });
 
             migrationBuilder.InsertData(
-                table: "sysAutoCode",
+                table: "sys_AutoCode",
                 columns: new[] { "AutoCodeId", "AllowBatch", "AllowMore", "AutoCodeName", "CreateTime", "CreateUser", "DateType", "IsActive", "Memo", "Prefix", "ReuseType", "RunBeforeSave", "SeedLength", "SeedStart", "SysVar" },
-                values: new object[] { 100, null, null, "订单号", null, 2, "yyMMdd", 1, null, null, null, 1, 4, 1, null });
+                values: new object[,]
+                {
+                    { 100, null, null, "订单号", null, 2, "yyMM", 1, null, null, null, 1, 4, 1, null },
+                    { 101, null, null, "子单号", null, 2, "yy", 1, null, null, null, 1, 6, 1, null },
+                    { 200, null, null, "商品号", null, 2, null, 1, null, "10", null, 1, 8, 1, null },
+                    { 300, null, null, "往来号", null, 2, "yy", 1, null, null, null, 1, 4, 1, null },
+                    { 400, null, null, "档案号", null, 2, "yy", 1, null, null, null, 1, 4, 1, null }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "sysAutoCode");
+                name: "sys_AutoCode");
 
             migrationBuilder.DropTable(
-                name: "sysAutoCodeRegister");
+                name: "sys_AutoCodeRegister");
 
             migrationBuilder.DropTable(
-                name: "sysIO");
+                name: "tb_IO");
 
             migrationBuilder.DropTable(
-                name: "sysIO_D");
+                name: "tb_IOD");
 
             migrationBuilder.DropTable(
-                name: "sys班组表");
+                name: "tb_班组表");
 
             migrationBuilder.DropTable(
-                name: "sys报价表");
+                name: "tb_报价表");
 
             migrationBuilder.DropTable(
-                name: "sys报价表_D");
+                name: "tb_报价表D");
 
             migrationBuilder.DropTable(
-                name: "sys订单表");
+                name: "tb_订单表");
 
             migrationBuilder.DropTable(
-                name: "sys订单表_D");
+                name: "tb_订单表D");
 
             migrationBuilder.DropTable(
-                name: "sys付款条件表");
+                name: "tb_工序表");
 
             migrationBuilder.DropTable(
-                name: "sys工序表");
+                name: "tb_商品表");
 
             migrationBuilder.DropTable(
-                name: "sys商品表");
+                name: "tb_设备表");
 
             migrationBuilder.DropTable(
-                name: "sys设备表");
+                name: "tb_收付表");
 
             migrationBuilder.DropTable(
-                name: "sys收付表");
+                name: "tb_收付表D");
 
             migrationBuilder.DropTable(
-                name: "sys收付表_D");
+                name: "tb_往来表");
 
             migrationBuilder.DropTable(
-                name: "sys往来表");
+                name: "tb_往来表_地址");
 
             migrationBuilder.DropTable(
-                name: "sys往来表_地址");
+                name: "tb_往来表_开票");
 
             migrationBuilder.DropTable(
-                name: "sys往来表_开票");
+                name: "tb_往来表_联系人");
 
             migrationBuilder.DropTable(
-                name: "sys往来表_联系人");
+                name: "tb_需求表");
 
             migrationBuilder.DropTable(
-                name: "sys需求表");
+                name: "tb_需求表D");
 
             migrationBuilder.DropTable(
-                name: "sys需求表_D");
+                name: "tb_员工表");
 
             migrationBuilder.DropTable(
-                name: "sys员工表");
+                name: "tb_证照表");
 
             migrationBuilder.DropTable(
-                name: "sys证照表");
+                name: "tb_字典表");
 
             migrationBuilder.DropTable(
-                name: "sys字典表");
-
-            migrationBuilder.DropTable(
-                name: "sys字典表_D");
+                name: "tb_字典表D");
         }
     }
 }

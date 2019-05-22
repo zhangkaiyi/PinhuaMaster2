@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys员工表: _BaseTableMain
+    [Table("tb_员工表")]
+    public partial class tb_员工表: _BaseTableMain
     {
         public string 工号 { get; set; }
         public string 姓名 { get; set; }

@@ -24,7 +24,7 @@ namespace Pinhua2.Web.Pages.主数据.供应商
         }
 
         [BindProperty]
-        public dto供应商 供应商 { get; set; }
+        public vm_供应商 供应商 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,7 +33,7 @@ namespace Pinhua2.Web.Pages.主数据.供应商
                 return NotFound();
             }
 
-            供应商 = _mapper.Map<dto供应商>(await _context.sys往来表.FirstOrDefaultAsync(m => m.RecordId == id));
+            供应商 = _mapper.Map<vm_供应商>(await _context.tb_往来表.FirstOrDefaultAsync(m => m.RecordId == id));
 
             if (供应商 == null)
             {
@@ -49,11 +49,11 @@ namespace Pinhua2.Web.Pages.主数据.供应商
                 return NotFound();
             }
 
-            var sys往来表 = await _context.sys往来表.FindAsync(id);
+            var sys往来表 = await _context.tb_往来表.FindAsync(id);
 
             if (sys往来表 != null)
             {
-                _context.sys往来表.Remove(sys往来表);
+                _context.tb_往来表.Remove(sys往来表);
                 await _context.SaveChangesAsync();
             }
 

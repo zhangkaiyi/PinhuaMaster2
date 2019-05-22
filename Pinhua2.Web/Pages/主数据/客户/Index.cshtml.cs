@@ -24,11 +24,11 @@ namespace Pinhua2.Web.Pages.主数据.客户
             _mapper = mapper;
         }
 
-        public IList<dto客户> 客户列表 { get; set; }
+        public IList<vm_客户> 客户列表 { get; set; }
 
         public void OnGet()
         {
-            客户列表 = _mapper.ProjectTo<dto客户>(_pinhua2.sys往来表.Where(p => p.类型 == "客户")).ToList();
+            客户列表 = _mapper.ProjectTo<vm_客户>(_pinhua2.tb_往来表.Where(p => p.类型 == "客户")).ToList();
         }
     }
 }

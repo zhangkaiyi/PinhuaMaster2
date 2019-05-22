@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys联系人表 : _BaseTableDetail
+    [Table("tb_往来表_联系人")]
+    public partial class tb_往来表_联系人 : _BaseTableDetail
     {
         public string 往来号 { get; set; }
         public string 联系人 { get; set; }

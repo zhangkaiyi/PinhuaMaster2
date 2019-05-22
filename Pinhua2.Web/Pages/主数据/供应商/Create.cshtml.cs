@@ -30,7 +30,7 @@ namespace Pinhua2.Web.Pages.主数据.供应商
         }
 
         [BindProperty]
-        public dto供应商 供应商 { get; set; }
+        public vm_供应商 供应商 { get; set; }
 
         public IActionResult OnPost()
         {
@@ -42,7 +42,7 @@ namespace Pinhua2.Web.Pages.主数据.供应商
             供应商.往来号 = _pinhua2.funcAutoCode("往来号");
             供应商.类型 = "供应商";
 
-            _pinhua2.sys往来表.Add(_mapper.Map<sys往来表>(供应商));
+            _pinhua2.tb_往来表.Add(_mapper.Map<tb_往来表>(供应商));
             _pinhua2.SaveChanges();
 
             return RedirectToPage("./Index");

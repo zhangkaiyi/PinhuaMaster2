@@ -5,7 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys设备表: _BaseTableMain
+    [Table("tb_设备表")]
+    public partial class tb_设备表: _BaseTableMain
     {
         public string 编号 { get; set; }
         public string 名称 { get; set; }

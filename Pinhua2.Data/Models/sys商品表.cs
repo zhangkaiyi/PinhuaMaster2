@@ -5,20 +5,23 @@ using System.Text;
 
 namespace Pinhua2.Data.Models
 {
-    public class sys商品表 : _BaseTableMain
+    [Table("tb_商品表")]
+    public class tb_商品表 : _BaseTableMain
     {
-        public DateTime? 填报时间 { get; set; }
         public string 品号 { get; set; }
         public string 品名 { get; set; }
         public string 拼音码 { get; set; }
         public string 规格 { get; set; }
+        public decimal? 长度 { get; set; }
+        public decimal? 宽度 { get; set; }
+        public decimal? 高度 { get; set; }
+        public decimal? 面厚 { get; set; }
         public string 库位 { get; set; }
         public string 单位 { get; set; }
         public string 分类1 { get; set; }
         public string 分类2 { get; set; }
         public decimal? 安全库存 { get; set; }
         public string 状态 { get; set; }
-        public string 复制 { get; set; }
         public string 大类 { get; set; }
         public string 别名 { get; set; }
         public string 材质 { get; set; }
@@ -41,22 +44,16 @@ namespace Pinhua2.Data.Models
         public string 档案号 { get; set; }
         public string 是否共用 { get; set; }
         public string 上级品号 { get; set; }
-        public decimal? 配比值 { get; set; }
         public string 版本号 { get; set; }
         public string 条码 { get; set; }
         public string 备注 { get; set; }
         public string 图片 { get; set; }
         public int? 图片I { get; set; }
         public string 品牌 { get; set; }
-        public string 正面颜色 { get; set; }
-        public string 反面颜色 { get; set; }
-        public string 商品信息 { get; set; }
-        public string 是否新旧 { get; set; }
         public string 链接 { get; set; }
         public string 是否采购 { get; set; }
         public string 是否销售 { get; set; }
         public string 是否存储 { get; set; }
-        public string 是否卷筒 { get; set; }
         public string 上级品名 { get; set; }
         public decimal? 质保 { get; set; }
     }

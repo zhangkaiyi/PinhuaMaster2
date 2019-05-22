@@ -19,7 +19,7 @@ namespace Pinhua2.Web.Pages.主数据.商品
             _context = context;
         }
 
-        public sys商品表 sys商品表 { get; set; }
+        public tb_商品表 sys商品表 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,7 +28,7 @@ namespace Pinhua2.Web.Pages.主数据.商品
                 return NotFound();
             }
 
-            sys商品表 = await _context.sys商品表.FirstOrDefaultAsync(m => m.RecordId == id);
+            sys商品表 = await _context.tb_商品表.FirstOrDefaultAsync(m => m.RecordId == id);
 
             if (sys商品表 == null)
             {

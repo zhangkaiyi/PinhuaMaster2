@@ -24,7 +24,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
         }
 
         [BindProperty]
-        public dto客户 客户 { get; set; }
+        public vm_客户 客户 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,7 +33,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return NotFound();
             }
 
-            客户 = _mapper.Map<dto客户>(await _pinhua2.sys往来表.FirstOrDefaultAsync(m => m.RecordId == id));
+            客户 = _mapper.Map<vm_客户>(await _pinhua2.tb_往来表.FirstOrDefaultAsync(m => m.RecordId == id));
 
             if (客户 == null)
             {
@@ -49,11 +49,11 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return NotFound();
             }
 
-            var sys往来表 = await _pinhua2.sys往来表.FindAsync(id);
+            var sys往来表 = await _pinhua2.tb_往来表.FindAsync(id);
 
             if (sys往来表 != null)
             {
-                _pinhua2.sys往来表.Remove(sys往来表);
+                _pinhua2.tb_往来表.Remove(sys往来表);
                 await _pinhua2.SaveChangesAsync();
             }
 

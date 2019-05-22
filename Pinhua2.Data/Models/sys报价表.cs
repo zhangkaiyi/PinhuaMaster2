@@ -1,10 +1,13 @@
 ﻿using Pinhua2.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys报价表: _BaseTableMain
+    [Table("tb_报价表")]
+
+    public partial class tb_报价表 : _BaseTableMain
     {
         public string 单号 { get; set; }
         public string 往来单号 { get; set; }

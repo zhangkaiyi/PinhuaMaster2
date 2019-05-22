@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sysAutoCodeRegister
+    [Table("sys_AutoCodeRegister")]
+    public partial class sys_AutoCodeRegister
     {
         [Key]
         public int Idx { get; set; }

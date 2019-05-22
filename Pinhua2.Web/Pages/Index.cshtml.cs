@@ -18,8 +18,8 @@ namespace Pinhua2.Web.Pages
     public class IndexModel : PageModel
     {
         private readonly Pinhua2Context _pinhua2Context;
-        private readonly IStringLocalizer<dto客户> _localizer;
-        public IndexModel(Pinhua2Context pinhua2Context, IStringLocalizer<dto客户> localizer, IStringLocalizerFactory factory)
+        private readonly IStringLocalizer<vm_客户> _localizer;
+        public IndexModel(Pinhua2Context pinhua2Context, IStringLocalizer<vm_客户> localizer, IStringLocalizerFactory factory)
         {
             _pinhua2Context = pinhua2Context;
             _localizer = localizer;

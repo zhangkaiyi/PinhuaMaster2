@@ -25,7 +25,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
         }
 
         [BindProperty]
-        public dto客户 客户 { get; set; }
+        public vm_客户 客户 { get; set; }
 
         public IActionResult OnGet(int? id)
         {
@@ -34,7 +34,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return NotFound();
             }
 
-            客户 = _mapper.Map<dto客户>(_pinhua2.sys往来表.FirstOrDefault(m => m.RecordId == id));
+            客户 = _mapper.Map<vm_客户>(_pinhua2.tb_往来表.FirstOrDefault(m => m.RecordId == id));
 
             if (客户 == null)
             {
@@ -50,7 +50,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return Page();
             }
 
-            var 往来单位 = _mapper.Map<sys往来表>(客户);
+            var 往来单位 = _mapper.Map<tb_往来表>(客户);
             _pinhua2.Attach(往来单位).State = EntityState.Modified;
 
             try
@@ -74,7 +74,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
 
         private bool sys往来表Exists(int id)
         {
-            return _pinhua2.sys往来表.Any(e => e.RecordId == id);
+            return _pinhua2.tb_往来表.Any(e => e.RecordId == id);
         }
     }
 }

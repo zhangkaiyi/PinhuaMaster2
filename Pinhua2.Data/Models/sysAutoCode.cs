@@ -14,7 +14,8 @@ namespace Pinhua2.Data.Models
         yyyyMM = 10,
         yyyyMMdd = 11
     }
-    public partial class sysAutoCode
+    [Table("sys_AutoCode")]
+    public partial class sys_AutoCode
     {
         [Key/*, DatabaseGenerated(DatabaseGeneratedOption.None)*/]
         public int AutoCodeId { get; set; }

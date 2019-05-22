@@ -8,33 +8,92 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
     <h3>查看 - 字典</h3>
 </div>
-<dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.sys字典表.字典名)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.sys字典表.字典名)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.sys字典表.组)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.sys字典表.组)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.sys字典表.创建人)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.sys字典表.创建人)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.sys字典表.创建日)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.sys字典表.创建日)
-    </dd>
-</dl>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.sys字典表.RecordId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+<div class="form-group row">
+    <label asp-for="字典.字典名" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.字典名" class="form-control" readonly />
+        <span asp-validation-for="字典.字典名" class="text-danger"></span>
+    </div>
 </div>
+<div class="form-group row">
+    <label asp-for="字典.组" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.组" class="form-control" readonly />
+        <span asp-validation-for="字典.组" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <label asp-for="字典.CreateUser" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.CreateUser" class="form-control" readonly />
+        <span asp-validation-for="字典.CreateUser" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <label asp-for="字典.CreateTime" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.CreateTime" class="form-control" type="text" value="@(Model.字典.CreateTime?.ToString("yyyy-MM-dd HH:mm:ss"))" readonly />
+        <span asp-validation-for="字典.CreateTime" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <label asp-for="字典.LastEditUser" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.LastEditUser" class="form-control" readonly />
+        <span asp-validation-for="字典.LastEditUser" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <label asp-for="字典.LastEditTime" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.LastEditTime" class="form-control" type="text" value="@(Model.字典.CreateTime?.ToString("yyyy-MM-dd HH:mm:ss"))" readonly />
+        <span asp-validation-for="字典.LastEditTime" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <label asp-for="字典.RecordId" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.RecordId" class="form-control" readonly />
+        <span asp-validation-for="字典.RecordId" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <label asp-for="字典.Guid" class="col-4 col-sm-2 col-form-label"></label>
+    <div class="col-8 col-sm-10">
+        <input asp-for="字典.Guid" class="form-control" readonly />
+        <span asp-validation-for="字典.Guid" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-page="./Edit" asp-route-id="@Model.字典.RecordId">修改</a> |
+    <a asp-page="./Index">返回列表</a>
+</div>
+
+<div class="row">
+    @foreach (var item in Model.字典D列表)
+    {
+        <div class="col-12 col-sm-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@item.序 - @item.名称</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <span>描述</span>
+                                <span>@(item.描述 ?? "无")</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <span>代码</span>
+                                <span>@(item.代码 ?? "无")</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

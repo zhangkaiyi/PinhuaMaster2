@@ -6,7 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public class sysIO : _BaseTableMain
+    [Table("tb_IO")]
+    public class tb_IO : _BaseTableMain
     {
         public string 单号 { get; set; }
         public DateTime? 日期 { get; set; }

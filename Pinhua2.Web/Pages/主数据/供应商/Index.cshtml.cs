@@ -23,11 +23,11 @@ namespace Pinhua2.Web.Pages.主数据.供应商
             _mapper = mapper;
         }
 
-        public IList<dto供应商> 供应商列表 { get; set; }
+        public IList<vm_供应商> 供应商列表 { get; set; }
 
         public void OnGet()
         {
-            供应商列表 = _mapper.ProjectTo<dto供应商>(_pinhua2.sys往来表.Where(p => p.类型 == "供应商")).ToList();
+            供应商列表 = _mapper.ProjectTo<vm_供应商>(_pinhua2.tb_往来表.Where(p => p.类型 == "供应商")).ToList();
         }
     }
 }

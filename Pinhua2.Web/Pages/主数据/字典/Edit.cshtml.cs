@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,51 +26,63 @@ namespace Pinhua2.Web.Pages.主数据.字典
         }
 
         [BindProperty]
-        public dto字典 字典 { get; set; }
+        public vm_字典 vm_字典 { get; set; }
         [BindProperty]
-        public IList<dto字典Detail> 字典D { get; set; }
+        public IList<vm_字典D> vm_字典D列表 { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGet(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            字典 = _mapper.Map<dto字典>(await _pinhua2.sys字典表.FirstOrDefaultAsync(m => m.RecordId == id));
+            vm_字典 = _mapper.Map<vm_字典>(_pinhua2.tb_字典表.FirstOrDefault(m => m.RecordId == id));
 
-            if (字典 == null)
+            if (vm_字典 == null)
             {
                 return NotFound();
             }
 
-            字典D = _mapper.ProjectTo<dto字典Detail>(_pinhua2.sys字典表_D.Where(m => m.RecordId == id)).ToList();
+            vm_字典D列表 = _mapper.ProjectTo<vm_字典D>(_pinhua2.tb_字典表D.Where(m => m.RecordId == id)).ToList();
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            var sys字典表 = _mapper.Map<sys字典表>(字典);
-            _pinhua2.Attach(sys字典表).State = EntityState.Modified;
-            var toRemove = _pinhua2.sys字典表_D.Where(p => p.RecordId == 字典.RecordId);
-            _pinhua2.sys字典表_D.RemoveRange(toRemove);
-            foreach (var item in 字典D)
+            var remote = _pinhua2.tb_字典表.FirstOrDefault(m => m.RecordId == vm_字典.RecordId);
+            if (remote == null)
+                return NotFound();
+
+            // 非空字段赋值给跟踪实体
+            _mapper.Map<vm_字典, tb_字典表>(vm_字典, remote);
+
+            // 删除旧明细
+            var tb_字典表D列表 = _pinhua2.tb_字典表D.Where(p => p.RecordId == vm_字典.RecordId);
+            _pinhua2.tb_字典表D.RemoveRange(tb_字典表D列表);
+
+            // 插入新明细
+            foreach (var item in vm_字典D列表)
             {
-                item.RecordId = 字典.RecordId;
+                Common.ModelHelper.CompleteDetailOnUpdate(remote, item);
+                item.字典名 = vm_字典.字典名;
+                item.组 = vm_字典.组;
             }
-            _pinhua2.sys字典表_D.AddRange(_mapper.Map<IList<sys字典表_D>>(字典D));
+            _pinhua2.tb_字典表D.AddRange(_mapper.Map<IList<tb_字典表D>>(vm_字典D列表));
+
+            // 保存改变
             try
             {
-                await _pinhua2.SaveChangesAsync();
+                _pinhua2.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!sys字典表Exists(sys字典表.RecordId))
+                if (!tb_字典表Exists(remote.RecordId))
                 {
                     return NotFound();
                 }
@@ -82,9 +95,9 @@ namespace Pinhua2.Web.Pages.主数据.字典
             return RedirectToPage("./Index");
         }
 
-        private bool sys字典表Exists(int id)
+        private bool tb_字典表Exists(int id)
         {
-            return _pinhua2.sys字典表.Any(e => e.RecordId == id);
+            return _pinhua2.tb_字典表.Any(e => e.RecordId == id);
         }
     }
 }

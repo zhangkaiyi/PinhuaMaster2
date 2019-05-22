@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pinhua2.Data.Models
 {
-    public partial class sys订单表_D : _BaseTableDetail
+    [Table("tb_订单表D")]
+    public partial class tb_订单表D : _BaseTableDetail
     {
         public string 行号 { get; set; }
         public string 子单号 { get; set; }

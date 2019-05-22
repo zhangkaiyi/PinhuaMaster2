@@ -10,7 +10,7 @@ namespace Pinhua2.Data.Extensions
     {
         public static string funcAutoCode(this Pinhua2Context context, string codeName)
         {
-            var autoCode = context.sysAutoCode.FirstOrDefault(p => p.AutoCodeName == codeName);
+            var autoCode = context.sys_AutoCode.FirstOrDefault(p => p.AutoCodeName == codeName);
             if (autoCode == null)
                 return string.Empty;
             else
@@ -19,7 +19,7 @@ namespace Pinhua2.Data.Extensions
         public static string funcAutoCode(this Pinhua2Context context, int codeId)
         {
             var id = string.Empty;
-            var autoCode = context.sysAutoCode.FirstOrDefault(p => p.AutoCodeId == codeId);
+            var autoCode = context.sys_AutoCode.FirstOrDefault(p => p.AutoCodeId == codeId);
             if (autoCode == null)
                 return id;
             id += autoCode.Prefix;
@@ -27,7 +27,7 @@ namespace Pinhua2.Data.Extensions
             {
                 id += DateTime.Now.ToString(autoCode.DateType);
             }
-            var autoCodeReg = context.sysAutoCodeRegister.FirstOrDefault(p => p.AutoCodeId == codeId && p.PrimaryPart == id);
+            var autoCodeReg = context.sys_AutoCodeRegister.FirstOrDefault(p => p.AutoCodeId == codeId && p.PrimaryPart == id);
             if (autoCodeReg != null)
             {
                 autoCodeReg.CurrentSeed += 1;
@@ -35,7 +35,7 @@ namespace Pinhua2.Data.Extensions
             }
             else
             {
-                context.sysAutoCodeRegister.Add(new Models.sysAutoCodeRegister
+                context.sys_AutoCodeRegister.Add(new Models.sys_AutoCodeRegister
                 {
                     AutoCodeId = codeId,
                     CurrentSeed = 1,
