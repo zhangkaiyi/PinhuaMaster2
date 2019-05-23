@@ -14,6 +14,11 @@ namespace Pinhua2.Web.Common
             dstMain.CreateUser = dstMain.CreateUser ?? "张凯译";
             dstMain.Guid = Guid.NewGuid();
         }
+        static public void CompleteMainOnEdit(_IBaseTableMain dstMain)
+        {
+            dstMain.LastEditTime = DateTime.Now;
+            dstMain.LastEditUser = dstMain.LastEditUser ?? "张凯译";
+        }
         static public void CompleteDetailOnCreate(_IBaseTableMain src, _IBaseTableDetail dst)
         {
             dst.RecordId = src.RecordId;

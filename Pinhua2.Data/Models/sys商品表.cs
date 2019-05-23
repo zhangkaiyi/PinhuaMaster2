@@ -10,6 +10,7 @@ namespace Pinhua2.Data.Models
     {
         public string 品号 { get; set; }
         public string 品名 { get; set; }
+        public string 型号 { get; set; }
         public string 拼音码 { get; set; }
         public string 规格 { get; set; }
         public decimal? 长度 { get; set; }

@@ -10,7 +10,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.主数据.商品
+namespace Pinhua2.Web.Pages.销售.销售报价
 {
     public class DeleteModel : PageModel
     {
@@ -23,8 +23,7 @@ namespace Pinhua2.Web.Pages.主数据.商品
             _mapper = mapper;
         }
 
-        [BindProperty]
-        public vm_商品_地板 vm_地板 { get; set; }
+        public vm_销售报价 vm_销售报价 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,9 +32,9 @@ namespace Pinhua2.Web.Pages.主数据.商品
                 return NotFound();
             }
 
-            vm_地板 = _mapper.Map<vm_商品_地板>(await _context.tb_商品表.FirstOrDefaultAsync(m => m.RecordId == id));
+            vm_销售报价 = _mapper.Map<vm_销售报价>( await _context.tb_报价表.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (vm_地板 == null)
+            if (vm_销售报价 == null)
             {
                 return NotFound();
             }
@@ -49,11 +48,11 @@ namespace Pinhua2.Web.Pages.主数据.商品
                 return NotFound();
             }
 
-            var tb_商品 = await _context.tb_商品表.FindAsync(id);
+            var tb_报价表 = await _context.tb_报价表.FindAsync(id);
 
-            if (tb_商品 != null)
+            if (tb_报价表 != null)
             {
-                _context.tb_商品表.Remove(tb_商品);
+                _context.tb_报价表.Remove(tb_报价表);
                 await _context.SaveChangesAsync();
             }
 

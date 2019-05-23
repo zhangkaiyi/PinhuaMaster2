@@ -1,0 +1,13 @@
+﻿@using Pinhua2.Web.Mapper
+@model object
+
+@foreach (var cdm in new Common.Attributes.CustomDisplayProvider(Model).OnDetailsList.OrderBy(p => p.Order))
+{
+    <div class="form-group row">
+        <label for="" class="col-4 col-sm-2 col-form-label">@cdm.Property.Name</label>
+        <div class="col-8 col-sm-10">
+            <input value="@cdm.Property.GetValue(Model)" class="form-control" readonly />
+        </div>
+    </div>
+}
+

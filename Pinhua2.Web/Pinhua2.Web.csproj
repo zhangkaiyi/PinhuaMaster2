@@ -30,6 +30,15 @@
     <Content Update="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="Pages\主数据\商品\_OnDetails.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Pages\销售\销售出库单\" />
+    <Folder Include="Pages\销售\销售订单\" />
   </ItemGroup>
 
 </Project>

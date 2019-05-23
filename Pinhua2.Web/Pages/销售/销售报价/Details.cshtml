@@ -1,0 +1,40 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.销售报价.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>查看 - 销售报价</h3>
+</div>
+<div class="row" id="vueScope">
+    <div class="col-12">
+        @foreach (var cdm in new Common.Attributes.CustomDisplayProvider(Model.vm_销售报价).OnDetailsList.OrderBy(p => p.Order))
+        {
+            var newName = string.Empty;
+            var attrs = cdm.Property.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
+            if (attrs.Length > 0)
+            {
+                newName = (attrs[0] as System.ComponentModel.DataAnnotations.DisplayAttribute).Name;
+            }
+            else
+            {
+                newName = cdm.Property.Name;
+            }
+
+
+            <div class="form-group row">
+                <label for="" class="col-4 col-sm-2 col-form-label">@newName</label>
+                <div class="col-8 col-sm-10">
+                    <input value="@cdm.Property.GetValue(Model.vm_销售报价)" class="form-control" readonly />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.vm_销售报价.RecordId">修改</a> |
+    <a asp-page="Index">返回列表</a>
+</div>
