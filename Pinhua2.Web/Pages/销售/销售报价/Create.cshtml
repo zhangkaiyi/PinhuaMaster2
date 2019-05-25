@@ -3,112 +3,161 @@
 
 @{
     ViewData["Title"] = "Create";
+    var emptyRecord = JsonConvert.SerializeObject(new vm_销售报价D());
+    var emptyRecordList = JsonConvert.SerializeObject(Model?.vm_销售报价D列表 ?? new List<vm_销售报价D>
+    ());
 }
 
-<h1>Create</h1>
-
-<h4>tb_报价表</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>新增 - 报价销售</h3>
+</div>
+<div class="row" id="vueScope">
+    <div class="col-12">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.单号" class="control-label"></label>
-                <input asp-for="tb_报价表.单号" class="form-control" />
-                <span asp-validation-for="tb_报价表.单号" class="text-danger"></span>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="vm_销售报价.单号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="vm_销售报价.单号" class="form-control" placeholder="自动生成 ..." readonly />
+                    <span asp-validation-for="vm_销售报价.单号" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.往来单号" class="control-label"></label>
-                <input asp-for="tb_报价表.往来单号" class="form-control" />
-                <span asp-validation-for="tb_报价表.往来单号" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="vm_销售报价.往来号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <select class="form-control" asp-for="vm_销售报价.往来号" asp-items="Model.CustomerSelectList"></select>
+                    <span asp-validation-for="vm_销售报价.往来号" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.业务类型" class="control-label"></label>
-                <input asp-for="tb_报价表.业务类型" class="form-control" />
-                <span asp-validation-for="tb_报价表.业务类型" class="text-danger"></span>
+            <div class="form-group row d-none">
+                <label asp-for="vm_销售报价.往来" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="vm_销售报价.往来" class="form-control" type="hidden" />
+                    <span asp-validation-for="vm_销售报价.往来" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.仓" class="control-label"></label>
-                <input asp-for="tb_报价表.仓" class="form-control" />
-                <span asp-validation-for="tb_报价表.仓" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="vm_销售报价.日期" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="vm_销售报价.日期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
+                    <span asp-validation-for="vm_销售报价.日期" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.日期" class="control-label"></label>
-                <input asp-for="tb_报价表.日期" class="form-control" />
-                <span asp-validation-for="tb_报价表.日期" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="vm_销售报价.交期" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="vm_销售报价.交期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
+                    <span asp-validation-for="vm_销售报价.交期" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.交期" class="control-label"></label>
-                <input asp-for="tb_报价表.交期" class="form-control" />
-                <span asp-validation-for="tb_报价表.交期" class="text-danger"></span>
+            <div class="form-group row">
+                <label asp-for="vm_销售报价.备注" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="vm_销售报价.备注" class="form-control" />
+                    <span asp-validation-for="vm_销售报价.备注" class="text-danger"></span>
+                </div>
             </div>
+
+            <!-- Details Table -->
+            <partial name="_detailsTable" />
+
             <div class="form-group">
-                <label asp-for="tb_报价表.备注" class="control-label"></label>
-                <input asp-for="tb_报价表.备注" class="form-control" />
-                <span asp-validation-for="tb_报价表.备注" class="text-danger"></span>
+                <input type="submit" value="提交" class="btn btn-primary" />
             </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.制单" class="control-label"></label>
-                <input asp-for="tb_报价表.制单" class="form-control" />
-                <span asp-validation-for="tb_报价表.制单" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.往来" class="control-label"></label>
-                <input asp-for="tb_报价表.往来" class="form-control" />
-                <span asp-validation-for="tb_报价表.往来" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.往来号" class="control-label"></label>
-                <input asp-for="tb_报价表.往来号" class="form-control" />
-                <span asp-validation-for="tb_报价表.往来号" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.需求单" class="control-label"></label>
-                <input asp-for="tb_报价表.需求单" class="form-control" />
-                <span asp-validation-for="tb_报价表.需求单" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.CreateUser" class="control-label"></label>
-                <input asp-for="tb_报价表.CreateUser" class="form-control" />
-                <span asp-validation-for="tb_报价表.CreateUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.CreateTime" class="control-label"></label>
-                <input asp-for="tb_报价表.CreateTime" class="form-control" />
-                <span asp-validation-for="tb_报价表.CreateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.LastEditUser" class="control-label"></label>
-                <input asp-for="tb_报价表.LastEditUser" class="form-control" />
-                <span asp-validation-for="tb_报价表.LastEditUser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.LastEditTime" class="control-label"></label>
-                <input asp-for="tb_报价表.LastEditTime" class="form-control" />
-                <span asp-validation-for="tb_报价表.LastEditTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.ReportStatus" class="control-label"></label>
-                <input asp-for="tb_报价表.ReportStatus" class="form-control" />
-                <span asp-validation-for="tb_报价表.ReportStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tb_报价表.LockStatus" class="control-label"></label>
-                <input asp-for="tb_报价表.LockStatus" class="form-control" />
-                <span asp-validation-for="tb_报价表.LockStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            <!-- Modal -->
+            <partial name="_selectModal" />
+            <partial name="_editModal" />
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">返回列表</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(function () {
+            $customerIdInput = $('select[name="vm_销售报价.往来号"]')
+            $customerNameInput = $('input[name="vm_销售报价.往来"]')
+
+        })
+    </script>
+    <script>
+        var emptyRecord = @Html.Raw(emptyRecord);
+        var emptyRecordList = @Html.Raw(emptyRecordList);
+    </script>
+    <script>
+        var vm = new Vue({
+            el: '#vueScope',
+            data: {
+                items: emptyRecordList,
+                itemCurrent: {},
+                itemIndex: 1,
+                isNew: false,
+                trEdit: -1,
+            },
+            computed: {
+                visible: function () {
+                    return this.items.length > 0
+                },
+                editModalRN: function () {
+                    if (this.isNew)
+                        return this.items.length + 1;
+                    else
+                        return this.itemIndex + 1
+                }
+            },
+            methods: {
+                buildName: function (index, name) {
+                    return "vm_销售报价D列表[" + index + "]." + name
+                },
+                newRecord: function () {
+                    this.isNew = true;
+                    //this.items.push(this.itemCurrent);
+                    //layerItemDetail()
+                },
+                selectItem: function () {
+                    this.itemCurrent = JSON.parse(JSON.stringify(emptyRecord))
+                    var itemList = $('#itemtable').bootstrapTable('getSelections')
+                    if (itemList.length > 0) {
+                        this.itemCurrent = itemList[0]
+                        $('#selectModal').modal('toggle')
+                        $('#editModal').modal('toggle')
+                    }
+                    else {
+                        alert('请选择一件报价商品')
+                    }
+                },
+                saveRecord: function () {
+                    if (this.isNew) {
+                        this.items.push(this.itemCurrent);
+                        $('#editModal').modal('toggle')
+                    }
+                    else {
+                        this.$set(this.items, this.itemIndex, this.itemCurrent)
+                        $('#editModal').modal('toggle')
+                    }
+                    //layer.closeAll('page')
+                    //var items = $('#itemtable').bootstrapTable('getSelections')
+                    //for (var i in items) {
+                    //    this.items.push(items[i])
+                    //}
+                },
+                editRecord: function (index) {
+                    this.isNew = false;
+                    this.itemIndex = index;
+                    this.itemCurrent = JSON.parse(JSON.stringify(this.items[index]))
+                    $('#editModal').modal('toggle')
+                },
+
+                removeTodo: function (index) {
+                    this.items.splice(index, 1)
+                },
+            }
+        })
+    </script>
 }

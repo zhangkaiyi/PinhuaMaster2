@@ -1,5 +1,6 @@
 ﻿@page
 @model Pinhua2.Web.Pages.销售.销售报价.DetailsModel
+@using Pinhua2.Common.Attributes
 
 @{
     ViewData["Title"] = "Details";
@@ -10,24 +11,12 @@
 </div>
 <div class="row" id="vueScope">
     <div class="col-12">
-        @foreach (var cdm in new Common.Attributes.CustomDisplayProvider(Model.vm_销售报价).OnDetailsList.OrderBy(p => p.Order))
+        @foreach (var cdm in new CustomDisplayProvider(Model.vm_销售报价).OnDetailsList.OrderBy(p => p.Order))
         {
-            var newName = string.Empty;
-            var attrs = cdm.Property.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
-            if (attrs.Length > 0)
-            {
-                newName = (attrs[0] as System.ComponentModel.DataAnnotations.DisplayAttribute).Name;
-            }
-            else
-            {
-                newName = cdm.Property.Name;
-            }
-
-
             <div class="form-group row">
-                <label for="" class="col-4 col-sm-2 col-form-label">@newName</label>
+                <label for="" class="col-4 col-sm-2 col-form-label">@cdm.Name</label>
                 <div class="col-8 col-sm-10">
-                    <input value="@cdm.Property.GetValue(Model.vm_销售报价)" class="form-control" readonly />
+                    <input value="@cdm.Value" class="form-control" readonly />
                 </div>
             </div>
         }

@@ -15,7 +15,7 @@ html {
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
@@ -74,6 +74,14 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
+.bd-toc-link {
+    font-size: 110%;
+}
+
+.bd-sidebar .nav > li > a {
+    font-size: 100%;
+}
+
 .col-form-label {
     text-align: right;
 }
@@ -85,5 +93,11 @@ body {
 .table-bordered > thead > tr > td,
 .table-bordered > thead > tr > th {
     border: 1px solid #dee2e6;
+}
 
+/* bootstrap-table
+-------------------------------------------------- */
+
+td.bs-checkbox label {
+    margin: 0;
 }

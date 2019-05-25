@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Pinhua2.Data.Models;
-using Pinhua2.Web.Common.Attributes;
+using Pinhua2.Common.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -38,6 +38,9 @@ namespace Pinhua2.Web.Mapper
 
         [CustomDisplay(OnIndex = false, OnCreate = true, OnDetails = false, OnEdit = true, OnDelete = false)]
         public decimal? 面厚 { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = true, OnDetails = true, OnEdit = true, OnDelete = true)]
+        public string 单位 { get; set; }
 
         [CustomDisplay(OnIndex = false, OnCreate = true, OnDetails = true, OnEdit = true, OnDelete = true)]
         public string 分类1 { get; set; }

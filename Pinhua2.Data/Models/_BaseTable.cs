@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pinhua2.Common.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,13 +21,28 @@ namespace Pinhua2.Data.Models
     public partial class _BaseTableMain : _IBaseTableMain
     {
         [Key]
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public int RecordId { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public string CreateUser { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public DateTime? CreateTime { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public string LastEditUser { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public DateTime? LastEditTime { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public int? ReportStatus { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public int? LockStatus { get; set; }
+
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public Guid Guid { get; set; }
     }
 
@@ -41,9 +57,13 @@ namespace Pinhua2.Data.Models
     public partial class _BaseTableDetail : _IBaseTableDetail
     {
         [Key]
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public int Idx { get; set; }
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public int? RecordId { get; set; }
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public int? Sequence { get; set; }
+        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
         public Guid Guid { get; set; }
 
     }

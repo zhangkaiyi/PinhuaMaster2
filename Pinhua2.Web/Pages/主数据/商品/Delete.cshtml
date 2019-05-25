@@ -1,5 +1,6 @@
 ﻿@page
 @model Pinhua2.Web.Pages.主数据.商品.DeleteModel
+@using Pinhua2.Common.Attributes
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,14 +12,14 @@
 
 <div class="row" id="vueScope">
     <div class="col-12">
-        @foreach (var cdm in new Common.Attributes.CustomDisplayProvider(Model.vm_地板).OnDeleteList.OrderBy(p => p.Order))
+        @foreach (var cdm in new CustomDisplayProvider(Model.vm_地板).OnDeleteList.OrderBy(p => p.Order))
         {
-            <div class="form-group row">
-                <label class="col-4 col-sm-2 col-form-label">@cdm.Property.Name</label>
-                <div class="col-8 col-sm-10">
-                    <input value="@cdm.Property.GetValue(Model.vm_地板)" class="form-control" readonly />
-                </div>
+        <div class="form-group row">
+            <label class="col-4 col-sm-2 col-form-label">@cdm.Name</label>
+            <div class="col-8 col-sm-10">
+                <input value="@cdm.Value" class="form-control" readonly />
             </div>
+        </div>
         }
     </div>
 </div>

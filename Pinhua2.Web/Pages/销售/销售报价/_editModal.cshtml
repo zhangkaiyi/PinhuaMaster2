@@ -1,0 +1,90 @@
+﻿<div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">商品信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">RN</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-bind:value="editModalRN" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">品号</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.品号" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">品名</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.品名" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">别名</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.别名" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">型号</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.型号" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">规格</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.规格" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">单位</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.单位" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">数量</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.数量" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">单价</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.单价" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">金额</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.金额" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">备注</label>
+                    <div class="col-8 col-sm-10">
+                        <input class="form-control" v-model="itemCurrent.备注" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="saveRecord">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Script(@<text>
+    <script>
+
+    </script>
+</text>)

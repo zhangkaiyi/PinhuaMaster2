@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinhua2.Web", "Pinhua2.Web\Pinhua2.Web.csproj", "{139185B4-36BC-4E76-9C92-AFD74B03E61A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7A320036-5012-45C9-B4F9-E5191CF8F01C} = {7A320036-5012-45C9-B4F9-E5191CF8F01C}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinhua2.Data", "Pinhua2.Data\Pinhua2.Data.csproj", "{CF18B6C5-5457-4758-86CF-4C3ACBE40F21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinhua2.Common", "Pinhua2.Common\Pinhua2.Common.csproj", "{7A320036-5012-45C9-B4F9-E5191CF8F01C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{CF18B6C5-5457-4758-86CF-4C3ACBE40F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF18B6C5-5457-4758-86CF-4C3ACBE40F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF18B6C5-5457-4758-86CF-4C3ACBE40F21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A320036-5012-45C9-B4F9-E5191CF8F01C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A320036-5012-45C9-B4F9-E5191CF8F01C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A320036-5012-45C9-B4F9-E5191CF8F01C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A320036-5012-45C9-B4F9-E5191CF8F01C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,6 +19,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\Pinhua2.Common\Pinhua2.Common.csproj" />
     <ProjectReference Include="..\Pinhua2.Data\Pinhua2.Data.csproj" />
   </ItemGroup>
 
@@ -28,9 +29,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="appsettings.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Pages\主数据\商品\_OnDetails.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>

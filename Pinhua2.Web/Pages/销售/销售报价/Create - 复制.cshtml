@@ -1,0 +1,169 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.销售报价.CreateModel2
+
+@{
+    ViewData["Title"] = "Create";
+    var emptyRecord = JsonConvert.SerializeObject(new vm_销售报价D());
+    var emptyRecordList = JsonConvert.SerializeObject(Model?.vm_销售报价D列表 ?? new List<vm_销售报价D>());
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>新增 - 报价销售</h3>
+</div>
+<div class="row" id="vueScope">
+    <div class="col-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @foreach (var cdm in new CustomDisplayProvider(Model.vm_销售报价 ?? new vm_销售报价()).OnCreateList.OrderBy(p => p.Order))
+            {
+                <div class="form-group row">
+                    <label for="@($"{nameof(Model.vm_销售报价)}.{cdm.RawName}")" class="col-4 col-sm-2 col-form-label">@cdm.Name</label>
+                    <div class="col-8 col-sm-10">
+                        <input type="text"
+                               name="@($"{nameof(Model.vm_销售报价)}.{cdm.RawName}")"
+                               class="form-control"
+                               @if (cdm.IsRequired) { <text> data-val="true" data-val-required="* 必填" </text> }
+                               @if (cdm.IsDatetime) { <text> data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly </text> } />
+                        @if (cdm.IsRequired)
+                        {
+                            <span data-valmsg-for="@($"{nameof(Model.vm_销售报价)}.{cdm.RawName}")" data-valmsg-replace="true" class="text-danger field-validation-valid"></span>
+                        }
+                    </div>
+                </div>
+            }
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+                <h4>明细</h4>
+                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#newRecordModal" v-on:click="newRecord">
+                    添加明细
+                </button>
+            </div>
+            <div class="table-responsive mb-3">
+                <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            @foreach (var d in new CustomDisplayProvider(new vm_销售报价D()).OnCreateList.OrderBy(d => d.Order))
+                            {
+                                <th>@($"{d.Name}")</th>
+                            }
+                            @*<th>子单号</th>
+                            <th>品号</th>
+                            <th>品名</th>
+                            <th>规格</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="items.length == 0"><td colspan="20" class="text-center">空</td></tr>
+                        <tr v-for="(todo,index) in items">
+                            <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)" data-toggle="modal" data-target="#newRecordModal">修改</a></td>
+                            @foreach (var d in new CustomDisplayProvider(new vm_销售报价D()).OnCreateList.OrderBy(d => d.Order))
+                            {
+                                <td>{{ @($"todo.{d.RawName}") }}<input :name="buildName(index,'@(d.RawName)')" type="hidden" v-model="@($"todo.{d.RawName}")" /></td>
+                            }
+                            @*<td>{{ todo.子单号 }}<input :name="buildName(index,'子单号')" type="hidden" v-model="todo.子单号" /></td>
+                            <td>{{ todo.品号 }}<input :name="buildName(index,'品号')" type="hidden" v-model="todo.品号" /></td>
+                            <td>{{ todo.品名 }}<input :name="buildName(index,'品名')" type="hidden" v-bind:value="todo.品名" /></td>
+                            <td>{{ todo.规格 }}<input :name="buildName(index,'规格')" type="hidden" v-bind:value="todo.规格" /></td>*@
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="newRecordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">销售报价表单</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @foreach (var d in new CustomDisplayProvider(new vm_销售报价D()).OnCreateList.OrderBy(d => d.Order))
+                            {
+                            <div class="form-group row">
+                                <label class="col-4 col-sm-2 col-form-label">@d.Name</label>
+                                <div class="col-8 col-sm-10">
+                                    <input class="form-control" v-model="@($"itemCurrent.{d.RawName}")" />
+                                </div>
+                            </div>
+                            }
+                            @*<div class="form-group row">
+                                <label class="col-4 col-sm-2 col-form-label">名称</label>
+                                <div class="col-8 col-sm-10">
+                                    <input class="form-control" v-model="itemCurrent.名称" />
+                                </div>
+                            </div>*@
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="saveRecord">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">返回列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var emptyRecord = @Html.Raw(emptyRecord);
+        var emptyRecordList = @Html.Raw(emptyRecordList);
+    </script>
+    <script>
+        var vm = new Vue({
+            el: '#vueScope',
+            data: {
+                items: emptyRecordList,
+                itemCurrent: {},
+                itemIndex: {},
+                isNew: false,
+                trEdit: -1,
+            },
+            computed: {
+                visible: function () {
+                    return this.items.length > 0
+                },
+            },
+            methods: {
+                buildName: function (index, name) {
+                    return "vm_vm_销售报价D列表[" + index + "]." + name
+                },
+                newRecord: function () {
+                    this.isNew = true;
+                    this.itemCurrent = JSON.parse(JSON.stringify(emptyRecord))
+                    //this.items.push(this.itemCurrent);
+                    //layerItemDetail()
+                },
+                saveRecord: function () {
+                    if(this.isNew)
+                        this.items.push(this.itemCurrent);
+                    else
+                        this.$set(this.items, this.itemIndex, this.itemCurrent)
+                    //layer.closeAll('page')
+                },
+                editRecord: function (index) {
+                    this.isNew = false;
+                    this.itemIndex = index;
+                    this.itemCurrent = JSON.parse(JSON.stringify(this.items[index]))
+                    //layerItemDetail()
+                },
+
+                removeTodo: function (index) {
+                    this.items.splice(index, 1)
+                },
+            }
+        })
+    </script>
+}

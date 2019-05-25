@@ -62,6 +62,8 @@ namespace Pinhua2.Web.Pages.主数据.字典
                 // 再次保存
                 _pinhua2.SaveChanges();
             }
+            else
+                return NotFound();
 
             return RedirectToPage("./Index");
         }

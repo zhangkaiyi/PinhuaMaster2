@@ -8,6 +8,8 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -15,6 +17,8 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+        <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
     </environment>
     <link href="~/css/docs.css" rel="stylesheet" asp-append-version="true">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -76,6 +80,11 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+        <script src="~/lib/bootstrap-table/dist/bootstrap-table.js"></script>
+        <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.js"></script>
+        <script src="~/lib/bootstrap-table/dist/themes/semantic/bootstrap-table-semantic.js"></script>
         <script src="~/lib/vue/dist/vue.js"></script>
     </environment>
     <environment exclude="Development">
@@ -92,8 +101,19 @@
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
         </script>
         <script src="~/lib/vue/dist/vue.min.js"></script>
+        <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+        <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+        <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.fn.datepicker.defaults.language = 'zh-CN';
+            $.fn.datepicker.defaults.todayHighlight = true;
+            $.fn.datepicker.defaults.autoclose = true;
+        })
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -10,7 +10,6 @@ namespace Pinhua2.Web.Mapper
 {
     public class vm_客户 : _BaseTableMain
     {
-        [Required(ErrorMessage = "The {0} field is required.")]
         [Display(Name = "客户编号")]
         public string 往来号 { get; set; }
         [Required(ErrorMessage = "The {0} field is required.")]

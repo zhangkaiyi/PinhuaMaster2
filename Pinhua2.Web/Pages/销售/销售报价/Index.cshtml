@@ -1,138 +1,67 @@
 ﻿@page
 @model Pinhua2.Web.Pages.销售.销售报价.IndexModel
+@using Pinhua2.Common.Attributes
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>销售报价</h3>
+    <div class="btn-group">
+        <a class="btn btn-outline-secondary" asp-page="Create">新增</a>
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table table-bordered text-nowrap">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].单号)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].往来单号)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].业务类型)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].仓)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].日期)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].交期)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].备注)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].制单)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].往来)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].往来号)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].需求单)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].CreateUser)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].CreateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].LastEditUser)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].LastEditTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].ReportStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].LockStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tb_报价表[0].Guid)
-                </th>
+                @{
+                    if (Model.vm_销售报价表.Count > 0)
+                    {
+                        foreach (var cmd in new CustomDisplayProvider(Model.vm_销售报价表[0]).OnIndexList.OrderBy(p => p.Order))
+                        {
+                            <th>
+                                @cmd.Name
+                            </th>
+                        }
+                    }
+                    else
+                    {
+                        foreach (var cmd in new CustomDisplayProvider(new vm_销售报价()).OnIndexList.OrderBy(p => p.Order))
+                        {
+                            <th>
+                                @cmd.Name
+                            </th>
+                        }
+                    }
+                }
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.tb_报价表)
+            @foreach (var item in Model.vm_销售报价表)
             {
                 <tr>
+                    @foreach (var cmd in new CustomDisplayProvider(item).OnIndexList.OrderBy(p => p.Order))
+                    {
+                        <td>
+                            @{
+                                if (cmd.IsDatetime)
+                                {
+                                    @(((DateTime?)cmd.Value)?.ToString("yyyy-MM-dd"))
+                                }
+                                else
+                                {
+                                    @cmd.Value
+                                }
+                            }
+                        </td>
+                    }
                     <td>
-                        @Html.DisplayFor(modelItem => item.单号)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.往来单号)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.业务类型)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.仓)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.日期)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.交期)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.备注)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.制单)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.往来)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.往来号)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.需求单)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreateUser)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreateTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastEditUser)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastEditTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReportStatus)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LockStatus)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Guid)
-                    </td>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.RecordId">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.RecordId">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.RecordId">Delete</a>
+                        <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
+                        <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
                     </td>
                 </tr>
             }

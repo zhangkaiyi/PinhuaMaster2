@@ -2,6 +2,7 @@
 @model Pinhua2.Web.Pages.主数据.商品.DetailsModel
 @using Newtonsoft.Json
 @using Pinhua2.Web.Mapper
+@using Pinhua2.Common.Attributes
 @{
     ViewData["Title"] = "Details";
 }
@@ -10,7 +11,15 @@
 </div>
 <div class="row" id="vueScope">
     <div class="col-12">
-        <partial name="_OnDetails" model="Model.vm_地板" />
+        @foreach (var cdm in new CustomDisplayProvider(Model.vm_地板).OnDetailsList.OrderBy(p => p.Order))
+        {
+        <div class="form-group row">
+            <label for="" class="col-4 col-sm-2 col-form-label">@cdm.Name</label>
+            <div class="col-8 col-sm-10">
+                <input value="@cdm.Value" class="form-control" readonly />
+            </div>
+        </div>
+        }
     </div>
 </div>
 

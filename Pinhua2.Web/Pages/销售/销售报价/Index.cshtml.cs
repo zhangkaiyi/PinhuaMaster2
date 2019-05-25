@@ -2,28 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.Data;
 using Pinhua2.Data.Models;
+using Pinhua2.Web.Mapper;
 
 namespace Pinhua2.Web.Pages.销售.销售报价
 {
     public class IndexModel : PageModel
     {
-        private readonly Pinhua2.Data.Pinhua2Context _context;
+        private readonly Pinhua2Context _context;
+        private readonly IMapper _mapper;
 
-        public IndexModel(Pinhua2.Data.Pinhua2Context context)
+        public IndexModel(Pinhua2.Data.Pinhua2Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public IList<tb_报价表> tb_报价表 { get;set; }
+        public IList<vm_销售报价> vm_销售报价表 { get; set; }
 
         public async Task OnGetAsync()
         {
-            tb_报价表 = await _context.tb_报价表.ToListAsync();
+            vm_销售报价表 = await _mapper.ProjectTo<vm_销售报价>(_context.tb_报价表).ToListAsync();
         }
     }
 }

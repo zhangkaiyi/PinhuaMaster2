@@ -1,4 +1,5 @@
-﻿using Pinhua2.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Pinhua2.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Pinhua2.Data.Extensions
     {
         public static string funcAutoCode(this Pinhua2Context context, string codeName)
         {
-            var autoCode = context.sys_AutoCode.FirstOrDefault(p => p.AutoCodeName == codeName);
+            var autoCode = context.sys_AutoCode.AsNoTracking().FirstOrDefault(p => p.AutoCodeName == codeName);
             if (autoCode == null)
                 return string.Empty;
             else
