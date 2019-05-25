@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pinhua2.Data;
 
 namespace Pinhua2.Data.Migrations
 {
     [DbContext(typeof(Pinhua2Context))]
-    partial class Pinhua2ContextModelSnapshot : ModelSnapshot
+    [Migration("20190525121215_RN")]
+    partial class RN
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -790,9 +792,6 @@ namespace Pinhua2.Data.Migrations
                         .HasColumnType("decimal(18,6)");
 
                     b.Property<DateTime?>("上次日期");
-
-                    b.Property<decimal?>("个数")
-                        .HasColumnType("decimal(18,6)");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");

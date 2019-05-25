@@ -21,28 +21,28 @@ namespace Pinhua2.Data.Models
     public partial class _BaseTableMain : _IBaseTableMain
     {
         [Key]
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public int RecordId { get; set; }
 
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public string CreateUser { get; set; }
 
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public DateTime? CreateTime { get; set; }
 
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public string LastEditUser { get; set; }
 
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public DateTime? LastEditTime { get; set; }
 
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public int? ReportStatus { get; set; }
 
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public int? LockStatus { get; set; }
 
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public Guid Guid { get; set; }
     }
 
@@ -50,6 +50,7 @@ namespace Pinhua2.Data.Models
     {
         int Idx { get; set; }
         int? RecordId { get; set; }
+        int? RN { get; set; }
         int? Sequence { get; set; }
         Guid Guid { get; set; }
     }
@@ -57,13 +58,16 @@ namespace Pinhua2.Data.Models
     public partial class _BaseTableDetail : _IBaseTableDetail
     {
         [Key]
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public int Idx { get; set; }
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+
+        [CustomDisplay(10)]
+        public int? RN { get; set; }
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public int? RecordId { get; set; }
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public int? Sequence { get; set; }
-        [CustomDisplay(OnIndex = false, OnCreate = false, OnEdit = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false, ForUpdate = false)]
         public Guid Guid { get; set; }
 
     }

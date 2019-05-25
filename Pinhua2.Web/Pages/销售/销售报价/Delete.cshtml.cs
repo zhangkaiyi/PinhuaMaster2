@@ -32,7 +32,7 @@ namespace Pinhua2.Web.Pages.销售.销售报价
                 return NotFound();
             }
 
-            vm_销售报价 = _mapper.Map<vm_销售报价>( await _context.tb_报价表.FirstOrDefaultAsync(m => m.RecordId == id));
+            vm_销售报价 = _mapper.Map<vm_销售报价>(await _context.tb_报价表.FirstOrDefaultAsync(m => m.RecordId == id));
 
             if (vm_销售报价 == null)
             {
@@ -49,10 +49,12 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             }
 
             var tb_报价表 = await _context.tb_报价表.FindAsync(id);
-
             if (tb_报价表 != null)
             {
+                var tb_报价表D = _context.tb_报价表D.Where(p => p.RecordId == tb_报价表.RecordId);
+
                 _context.tb_报价表.Remove(tb_报价表);
+                _context.tb_报价表D.RemoveRange(tb_报价表D);
                 await _context.SaveChangesAsync();
             }
 

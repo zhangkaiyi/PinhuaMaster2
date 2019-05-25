@@ -14,7 +14,7 @@ namespace Pinhua2.Web.Mapper
         [CustomDisplay(10)]
         public string 单号 { get; set; }
 
-        [CustomDisplay(20, OnIndex = false)]
+        [CustomDisplay(20, ForIndex = false)]
         public string 业务类型 { get; set; }
 
         [Required]
@@ -40,36 +40,34 @@ namespace Pinhua2.Web.Mapper
 
     public class vm_销售报价D : _BaseTableDetail
     {
-        [Display(Name = "RN")]
-        public string 行号 { get; set; }
-
-        [CustomDisplay(OnCreate = false)]
+        [CustomDisplay(ForCreate = false)]
         public string 子单号 { get; set; }
         public string 品号 { get; set; }
         public string 品名 { get; set; }
         public string 规格 { get; set; }
 
-        [CustomDisplay(OnCreate = false)]
+        [CustomDisplay(ForCreate = false)]
         public decimal? 库存 { get; set; }
         public string 单位 { get; set; }
+        public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
         public decimal? 单价 { get; set; }
         public decimal? 金额 { get; set; }
 
-        [CustomDisplay(OnCreate = false)]
+        [CustomDisplay(ForCreate = false)]
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
 
-        [CustomDisplay(OnCreate = false)]
+        [CustomDisplay(ForCreate = false)]
         public decimal? 上次价 { get; set; }
 
-        [CustomDisplay(OnCreate = false)]
+        [CustomDisplay(ForCreate = false)]
         public DateTime? 上次日期 { get; set; }
 
-        [CustomDisplay(OnCreate = false)]
+        [CustomDisplay(ForCreate = false)]
         public string 品牌 { get; set; }
 
-        [CustomDisplay(OnCreate = false)]
+        [CustomDisplay(ForCreate = false)]
         public string 状态 { get; set; }
     }
 

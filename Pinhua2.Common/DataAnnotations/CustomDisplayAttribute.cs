@@ -10,11 +10,11 @@ namespace Pinhua2.Common.Attributes
     public class CustomDisplayAttribute : Attribute
     {
         public int Order { get; } = 100;
-        public bool OnIndex { get; set; } = true;
-        public bool OnCreate { get; set; } = true;
-        public bool OnDetails { get; set; } = true;
-        public bool OnEdit { get; set; } = true;
-        public bool OnDelete { get; set; } = true;
+        public bool ForIndex { get; set; } = true;
+        public bool ForCreate { get; set; } = false;
+        public bool ForRead { get; set; } = true;
+        public bool ForUpdate { get; set; } = false;
+        public bool ForDelete { get; set; } = true;
         public CustomDisplayAttribute(int displayOrder = 100)
         {
             Order = displayOrder;
@@ -28,33 +28,32 @@ namespace Pinhua2.Common.Attributes
         public CustomDisplayModel(object obj)
         {
             _obj = obj;
+
         }
         public int Order { get; set; } = 100;
 
-        #region 注释掉的
-        //public bool OnIndex { get; set; } = true;
-        //public bool OnCreate { get; set; } = true;
-        //public bool OnDetails { get; set; } = true;
-        //public bool OnEdit { get; set; } = true;
-        //public bool OnDelete { get; set; } = true;
-        #endregion
+        public bool ForCreate { get; set; }
+        public bool ForRead { get; set; }
+        public bool ForUpdate { get; set; }
+        public bool ForDelete { get; set; }
+        public bool ForIndex { get; set; }
 
-        public PropertyInfo Property { get; set; }
+        public PropertyInfo PropertyInfo { get; set; }
         public string Name
         {
             get
             {
-                if (Property == null)
+                if (PropertyInfo == null)
                     return string.Empty;
 
-                var attrs = Property.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
+                var attrs = PropertyInfo.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), false);
                 if (attrs?.Length > 0)
                 {
                     return (attrs[0] as System.ComponentModel.DataAnnotations.DisplayAttribute).Name;
                 }
                 else
                 {
-                    return Property.Name;
+                    return PropertyInfo.Name;
                 }
             }
         }
@@ -62,7 +61,7 @@ namespace Pinhua2.Common.Attributes
         {
             get
             {
-                return Property?.Name ?? string.Empty;
+                return PropertyInfo?.Name ?? string.Empty;
             }
         }
 
@@ -70,9 +69,9 @@ namespace Pinhua2.Common.Attributes
         {
             get
             {
-                if (Property == null)
+                if (PropertyInfo == null)
                     return null;
-                return Property.GetValue(_obj);
+                return PropertyInfo.GetValue(_obj);
             }
         }
 
@@ -80,10 +79,10 @@ namespace Pinhua2.Common.Attributes
         {
             get
             {
-                if (Property == null)
+                if (PropertyInfo == null)
                     return false;
 
-                var attrs = Property.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.RequiredAttribute), false);
+                var attrs = PropertyInfo.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.RequiredAttribute), false);
                 if (attrs?.Length > 0)
                 {
                     return true;
@@ -98,11 +97,11 @@ namespace Pinhua2.Common.Attributes
         {
             get
             {
-                if (Property == null)
+                if (PropertyInfo == null)
                     return false;
                 else
                 {
-                    var propType = Property.PropertyType;
+                    var propType = PropertyInfo.PropertyType;
                     var dtType1 = typeof(DateTime);
                     var dtType2 = typeof(DateTime?);
                     return (propType == dtType1) || propType == dtType2;
@@ -124,47 +123,157 @@ namespace Pinhua2.Common.Attributes
                 var attrs = property.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
                 if (attrs.Length > 0)
                 {
-                    if ((attrs[0] as CustomDisplayAttribute).OnIndex)
+                    if ((attrs[0] as CustomDisplayAttribute).ForIndex)
                         OnIndexList.Add(new CustomDisplayModel(obj)
                         {
                             Order = (attrs[0] as CustomDisplayAttribute).Order,
-                            Property = property
+                            PropertyInfo = property
                         });
-                    if ((attrs[0] as CustomDisplayAttribute).OnCreate)
+                    if ((attrs[0] as CustomDisplayAttribute).ForCreate)
                         OnCreateList.Add(new CustomDisplayModel(obj)
                         {
                             Order = (attrs[0] as CustomDisplayAttribute).Order,
-                            Property = property
+                            PropertyInfo = property
                         });
-                    if ((attrs[0] as CustomDisplayAttribute).OnDetails)
+                    if ((attrs[0] as CustomDisplayAttribute).ForRead)
                         OnDetailsList.Add(new CustomDisplayModel(obj)
                         {
                             Order = (attrs[0] as CustomDisplayAttribute).Order,
-                            Property = property
+                            PropertyInfo = property
                         });
-                    if ((attrs[0] as CustomDisplayAttribute).OnEdit)
+                    if ((attrs[0] as CustomDisplayAttribute).ForUpdate)
                         OnEditList.Add(new CustomDisplayModel(obj)
                         {
                             Order = (attrs[0] as CustomDisplayAttribute).Order,
-                            Property = property
+                            PropertyInfo = property
                         });
-                    if ((attrs[0] as CustomDisplayAttribute).OnDelete)
+                    if ((attrs[0] as CustomDisplayAttribute).ForDelete)
                         OnDeleteList.Add(new CustomDisplayModel(obj)
                         {
                             Order = (attrs[0] as CustomDisplayAttribute).Order,
-                            Property = property
+                            PropertyInfo = property
                         });
 
                 }
                 else
                 {
-                    OnIndexList.Add(new CustomDisplayModel(obj) { Property = property });
-                    OnCreateList.Add(new CustomDisplayModel(obj) { Property = property });
-                    OnDetailsList.Add(new CustomDisplayModel(obj) { Property = property });
-                    OnEditList.Add(new CustomDisplayModel(obj) { Property = property });
+                    OnIndexList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
+                    OnCreateList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
+                    OnDetailsList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
+                    OnEditList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
                     //OnDeleteList.Add(new CustomDisplayModel { Property = property });
                 }
             }
+
+
+        }
+        public CustomDisplayProvider(Type type, object obj = null)
+        {
+            foreach (var property in type.GetProperties())
+            {
+                var attrs = property.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    if ((attrs[0] as CustomDisplayAttribute).ForIndex)
+                        OnIndexList.Add(new CustomDisplayModel(obj)
+                        {
+                            Order = (attrs[0] as CustomDisplayAttribute).Order,
+                            PropertyInfo = property
+                        });
+                    if ((attrs[0] as CustomDisplayAttribute).ForCreate)
+                        OnCreateList.Add(new CustomDisplayModel(obj)
+                        {
+                            Order = (attrs[0] as CustomDisplayAttribute).Order,
+                            PropertyInfo = property
+                        });
+                    if ((attrs[0] as CustomDisplayAttribute).ForRead)
+                        OnDetailsList.Add(new CustomDisplayModel(obj)
+                        {
+                            Order = (attrs[0] as CustomDisplayAttribute).Order,
+                            PropertyInfo = property
+                        });
+                    if ((attrs[0] as CustomDisplayAttribute).ForUpdate)
+                        OnEditList.Add(new CustomDisplayModel(obj)
+                        {
+                            Order = (attrs[0] as CustomDisplayAttribute).Order,
+                            PropertyInfo = property
+                        });
+                    if ((attrs[0] as CustomDisplayAttribute).ForDelete)
+                        OnDeleteList.Add(new CustomDisplayModel(obj)
+                        {
+                            Order = (attrs[0] as CustomDisplayAttribute).Order,
+                            PropertyInfo = property
+                        });
+
+                }
+                else
+                {
+                    OnIndexList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
+                    OnCreateList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
+                    OnDetailsList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
+                    OnEditList.Add(new CustomDisplayModel(obj) { PropertyInfo = property });
+                    //OnDeleteList.Add(new CustomDisplayModel { Property = property });
+                }
+            }
+
+
+        }
+
+    }
+
+    public class CustomDisplayFactory<T>
+    {
+        private CustomDisplayFactory() { }
+
+        private CustomDisplayFactory(T obj)
+        {
+            var list = new List<CustomDisplayModel>();
+            foreach (var p in typeof(T).GetProperties())
+            {
+                var attrs = p.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as CustomDisplayAttribute;
+                    var cdm = new CustomDisplayModel(obj)
+                    {
+                        ForIndex = cda.ForIndex,
+                        ForCreate = cda.ForCreate,
+                        ForRead = cda.ForDelete,
+                        ForUpdate = cda.ForUpdate,
+                        ForDelete = cda.ForDelete,
+                        Order = cda.Order,
+                        PropertyInfo = p
+                    };
+                    list.Add(cdm);
+                }
+                else
+                {
+                    var cdm = new CustomDisplayModel(obj)
+                    {
+                        ForIndex = true,
+                        ForCreate = true,
+                        ForRead = true,
+                        ForUpdate = true,
+                        ForDelete = true,
+                        PropertyInfo = p
+                    };
+                    list.Add(cdm);
+
+                }
+            }
+            Models = list.OrderBy(p => p.Order).ToList();
+        }
+
+        public IList<CustomDisplayModel> Models { get; set; }
+
+        static public CustomDisplayFactory<T> Create(T obj)
+        {
+            return new CustomDisplayFactory<T>(obj);
+        }
+
+        static public IList<CustomDisplayModel> CustomDisplayModels(T obj)
+        {
+            return new CustomDisplayFactory<T>(obj).Models;
         }
     }
 }
