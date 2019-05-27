@@ -9,7 +9,7 @@
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>修改 - 报价销售</h3>
+    <h3>修改 - 销售报价</h3>
 </div>
 <div class="row" id="vueScope">
     <div class="col-12">
@@ -124,7 +124,7 @@
                 },
                 selectItem: function () {
                     this.itemCurrent = JSON.parse(JSON.stringify(emptyRecord))
-                    var itemList = $('#itemtable').bootstrapTable('getSelections')
+                    var itemList = $('#selectTable').bootstrapTable('getSelections')
                     if (itemList.length > 0) {
                         this.itemCurrent = itemList[0]
                         $('#selectModal').modal('toggle')

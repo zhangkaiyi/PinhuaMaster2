@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190525120733_RN.cs" />
     <Compile Remove="Migrations\20190525120733_RN.Designer.cs" />
+    <Compile Remove="Migrations\20190525122254_Product2.cs" />
+    <Compile Remove="Migrations\20190525122254_Product2.Designer.cs" />
+    <Compile Remove="Migrations\20190526064306_Product3.cs" />
+    <Compile Remove="Migrations\20190526064306_Product3.Designer.cs" />
+    <Compile Remove="Migrations\20190526080219_Product4.cs" />
+    <Compile Remove="Migrations\20190526080219_Product4.Designer.cs" />
   </ItemGroup>
   
   <ItemGroup>

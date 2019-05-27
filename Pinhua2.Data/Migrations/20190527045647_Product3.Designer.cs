@@ -10,8 +10,8 @@ using Pinhua2.Data;
 namespace Pinhua2.Data.Migrations
 {
     [DbContext(typeof(Pinhua2Context))]
-    [Migration("20190525122254_Product2")]
-    partial class Product2
+    [Migration("20190527045647_Product3")]
+    partial class Product3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -796,6 +796,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
 
+                    b.Property<string>("别名");
+
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
 
@@ -806,6 +808,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("品名");
 
                     b.Property<string>("品牌");
+
+                    b.Property<string>("型号");
 
                     b.Property<string>("备注");
 
@@ -1037,6 +1041,8 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<int?>("Sequence");
 
+                    b.Property<string>("别名");
+
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
 
@@ -1047,6 +1053,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("品名");
 
                     b.Property<string>("品牌");
+
+                    b.Property<string>("型号");
 
                     b.Property<string>("备注");
 

@@ -39,6 +39,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return Page();
             }
 
+            Common.ModelHelper.CompleteMainOnCreate(客户);
             客户.往来号 = _pinhua2.funcAutoCode("往来号");
             客户.类型 = "客户";
 

@@ -1,5 +1,5 @@
 ﻿@page
-@model Pinhua2.Web.Pages.销售.销售报价.DetailsModel
+@model Pinhua2.Web.Pages.销售.销售订单.DetailsModel
 @using Pinhua2.Common.Attributes
 
 @{
@@ -7,11 +7,11 @@
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>查看 - 销售报价</h3>
+    <h3>查看 - 销售订单</h3>
 </div>
 <div class="row" id="vueScope">
     <div class="col-12">
-        @foreach (var cdm in CustomDisplayFactory<vm_销售报价>.CustomDisplayModels(Model.vm_销售报价))
+        @foreach (var cdm in CustomDisplayFactory<vm_销售订单>.CustomDisplayModels(Model.vm_销售订单))
         {
             if (cdm.ForRead)
             {
@@ -32,7 +32,7 @@
     <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
         <thead>
             <tr>
-                @foreach (var cdm in CustomDisplayFactory<vm_销售报价D>.CustomDisplayModels(Model.vm_销售报价D列表.FirstOrDefault()))
+                @foreach (var cdm in CustomDisplayFactory<vm_销售订单D>.CustomDisplayModels(Model.vm_销售订单D列表.FirstOrDefault()))
                 {
                     if (cdm.ForRead)
                     {
@@ -42,10 +42,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.vm_销售报价D列表)
+            @foreach (var item in Model.vm_销售订单D列表)
             {
                 <tr>
-                    @foreach (var cdm in CustomDisplayFactory<vm_销售报价D>.CustomDisplayModels(item))
+                    @foreach (var cdm in CustomDisplayFactory<vm_销售订单D>.CustomDisplayModels(item))
                     {
                         if (cdm.ForRead)
                         {
@@ -59,6 +59,6 @@
 </div>
 
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.vm_销售报价.RecordId">修改</a> |
+    <a asp-page="./Edit" asp-route-id="@Model.vm_销售订单.RecordId">修改</a> |
     <a asp-page="Index">返回列表</a>
 </div>

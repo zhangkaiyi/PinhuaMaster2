@@ -1,8 +1,13 @@
 ﻿<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
     <h4>明细</h4>
-    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecord">
-        添加明细
-    </button>
+    <div>
+        <button type="button" class="btn btn-outline-secondary" v-on:click="newRecord">
+            添加明细
+        </button>
+        @*<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecordByBaojiadan">
+            报价单
+        </button>*@
+    </div>
 </div>
 <div class="table-responsive mb-3">
     <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">

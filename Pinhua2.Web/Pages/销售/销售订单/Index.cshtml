@@ -1,13 +1,12 @@
 ﻿@page
-@model Pinhua2.Web.Pages.销售.销售报价.IndexModel
-@using Pinhua2.Common.Attributes
+@model Pinhua2.Web.Pages.销售.销售订单.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>销售报价</h3>
+    <h3>销售订单</h3>
     <div class="btn-group">
         <a class="btn btn-outline-secondary" asp-page="Create">新增</a>
     </div>
@@ -16,7 +15,7 @@
     <table class="table table-bordered text-nowrap">
         <thead>
             <tr>
-                @foreach (var cdm in CustomDisplayFactory<vm_销售报价>.CustomDisplayModels(Model.vm_销售报价表.FirstOrDefault()))
+                @foreach (var cdm in CustomDisplayFactory<vm_销售订单>.CustomDisplayModels(Model.vm_销售订单表.FirstOrDefault()))
                 {
                     if (cdm.ForIndex)
                     {
@@ -29,10 +28,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.vm_销售报价表)
+            @foreach (var item in Model.vm_销售订单表)
             {
                 <tr>
-                    @foreach (var cdm in CustomDisplayFactory<vm_销售报价>.CustomDisplayModels(item))
+                    @foreach (var cdm in CustomDisplayFactory<vm_销售订单>.CustomDisplayModels(item))
                     {
                         if (cdm.ForIndex)
                         {

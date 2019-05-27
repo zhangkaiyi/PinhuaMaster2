@@ -33,6 +33,16 @@ namespace Pinhua2.Web.Api
         {
             return "value";
         }
+        // GET api/<controller>/5
+        [HttpGet("baojiadan/{customerId}")]
+        public IEnumerable<tb_报价表D> BaoJiaDan(string customerId)
+        {
+            var set = from m in _pinhua2.tb_报价表.AsNoTracking()
+                      join d in _pinhua2.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
+                      where m.往来号 == customerId /*&& !(d.状态 ?? string.Empty).StartsWith("已")*/
+                      select d;
+            return set.ToArray();
+        }
 
         // POST api/<controller>
         [HttpPost]

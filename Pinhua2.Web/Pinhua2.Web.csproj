@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\销售\销售出库单\" />
-    <Folder Include="Pages\销售\销售订单\" />
   </ItemGroup>
 
 </Project>
