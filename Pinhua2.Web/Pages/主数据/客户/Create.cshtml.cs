@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Pinhua2.Data;
-using Pinhua2.Data.Extensions;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
@@ -39,11 +33,16 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return Page();
             }
 
-            Common.ModelHelper.CompleteMainOnCreate(客户);
-            客户.往来号 = _pinhua2.funcAutoCode("往来号");
-            客户.类型 = "客户";
+            //Common.ModelHelper.CompleteMainOnCreate(客户);
+            //客户.往来号 = _pinhua2.funcAutoCode("往来号");
+            //客户.类型 = "客户";
+            //_pinhua2.tb_往来表.Add(_mapper.Map<tb_往来表>(客户));
 
-            _pinhua2.tb_往来表.Add(_mapper.Map<tb_往来表>(客户));
+            _pinhua2.funcNewRecord<vm_客户, tb_往来表>(客户, creating => {
+                creating.往来号 = _pinhua2.funcAutoCode("往来号");
+                creating.类型 = "客户";
+            });
+
             _pinhua2.SaveChanges();
 
             return RedirectToPage("./Index");

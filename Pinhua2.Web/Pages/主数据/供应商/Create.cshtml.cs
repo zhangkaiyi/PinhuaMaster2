@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Pinhua2.Data;
-using Pinhua2.Data.Extensions;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
@@ -39,10 +33,11 @@ namespace Pinhua2.Web.Pages.主数据.供应商
                 return Page();
             }
 
-            供应商.往来号 = _pinhua2.funcAutoCode("往来号");
-            供应商.类型 = "供应商";
-
-            _pinhua2.tb_往来表.Add(_mapper.Map<tb_往来表>(供应商));
+            _pinhua2.funcNewRecord<vm_供应商, tb_往来表>(供应商, BeforeNew: local =>
+            {
+                local.往来号 = _pinhua2.funcAutoCode("往来号");
+                local.类型 = "供应商";
+            });
             _pinhua2.SaveChanges();
 
             return RedirectToPage("./Index");

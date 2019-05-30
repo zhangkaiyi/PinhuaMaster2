@@ -2,224 +2,138 @@
 @model Pinhua2.Web.Pages.销售.销售订单.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
-    var emptyRecord = JsonConvert.SerializeObject(new vm_销售订单D());
-    var emptyRecordList = JsonConvert.SerializeObject(Model?.vm_销售订单D列表 ?? new List<vm_销售订单D>
-    ());
+    ViewData["Title"] = "Create";    
 }
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>新增 - 销售订单</h3>
-</div>
-<div class="row" id="vueScope">
-    <div class="col-12">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group row">
-                <label asp-for="vm_销售订单.单号" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <div class="input-group">
-                        <input asp-for="vm_销售订单.单号" class="form-control" placeholder="自动生成 ..." readonly />
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <input type="checkbox" id="vm_销售订单_报价单" name="vm_销售订单.报价单" value="是" checked>
-                                <label class="form-check-label" for="vm_销售订单_报价单">
-                                    报价单
-                                </label>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+        <h3>新增 - 销售订单</h3>
+    </div>
+    <div class="row" id="vueScope">
+        <div class="col-12">
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group row">
+                    <label asp-for="Record.单号" class="col-4 col-sm-2 col-form-label"></label>
+                    <div class="col-8 col-sm-10">
+                        <div class="input-group">
+                            <input asp-for="Record.单号" class="form-control" placeholder="自动生成 ..." readonly />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是">
+                                    <label class="form-check-label" for="Record_报价单">
+                                        报价单
+                                    </label>
+                                </div>
                             </div>
                         </div>
+                        <span asp-validation-for="Record.单号" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="vm_销售订单.单号" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_销售订单.往来号" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <select class="form-control" asp-for="vm_销售订单.往来号" asp-items="Model.CustomerSelectList"></select>
-                    <span asp-validation-for="vm_销售订单.往来号" class="text-danger"></span>
+                <div class="form-group row">
+                    <label asp-for="Record.往来号" class="col-4 col-sm-2 col-form-label"></label>
+                    <div class="col-8 col-sm-10">
+                        <select class="form-control" asp-for="Record.往来号" asp-items="Model.CustomerSelectList"></select>
+                        <span asp-validation-for="Record.往来号" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row d-none">
-                <label asp-for="vm_销售订单.往来" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_销售订单.往来" class="form-control" type="hidden" />
-                    <span asp-validation-for="vm_销售订单.往来" class="text-danger"></span>
+                <div class="form-group row d-none">
+                    <label asp-for="Record.往来" class="col-4 col-sm-2 col-form-label"></label>
+                    <div class="col-8 col-sm-10">
+                        <input asp-for="Record.往来" class="form-control" type="hidden" />
+                        <span asp-validation-for="Record.往来" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_销售订单.日期" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_销售订单.日期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
-                    <span asp-validation-for="vm_销售订单.日期" class="text-danger"></span>
+                <div class="form-group row">
+                    <label asp-for="Record.应收" class="col-4 col-sm-2 col-form-label"></label>
+                    <div class="col-8 col-sm-10">
+                        <input asp-for="Record.应收" class="form-control" readonly type="text" v-bind:value="sumMoney" />
+                        <span asp-validation-for="Record.应收" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_销售订单.交期" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_销售订单.交期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
-                    <span asp-validation-for="vm_销售订单.交期" class="text-danger"></span>
+                <div class="form-group row">
+                    <label asp-for="Record.日期" class="col-4 col-sm-2 col-form-label"></label>
+                    <div class="col-8 col-sm-10">
+                        <input asp-for="Record.日期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="Record.日期" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_销售订单.备注" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_销售订单.备注" class="form-control" />
-                    <span asp-validation-for="vm_销售订单.备注" class="text-danger"></span>
+                <div class="form-group row">
+                    <label asp-for="Record.交期" class="col-4 col-sm-2 col-form-label"></label>
+                    <div class="col-8 col-sm-10">
+                        <input asp-for="Record.交期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
+                        <span asp-validation-for="Record.交期" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group row">
+                    <label asp-for="Record.备注" class="col-4 col-sm-2 col-form-label"></label>
+                    <div class="col-8 col-sm-10">
+                        <input asp-for="Record.备注" class="form-control" />
+                        <span asp-validation-for="Record.备注" class="text-danger"></span>
+                    </div>
+                </div>
 
-            <!-- Details Table -->
-            <partial name="_detailsTable" />
+                <!-- Details Table -->
+                <partial name="_detailsTable" />
 
-            <div class="form-group">
-                <input type="submit" value="提交" class="btn btn-primary" />
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="提交" class="btn btn-primary" />
+                </div>
 
-            <!-- Modal -->
-            <partial name="_selectModal" />
-            <partial name="_selectModal2" />
-            <partial name="_editModal" />
-        </form>
+                <!-- Modal -->
+                <partial name="_selectModal" />
+                <partial name="_selectModal2" />
+                <partial name="_editModal" model="Model" />
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-page="Index">返回列表</a>
-</div>
+    <div>
+        <a asp-page="Index">返回列表</a>
+    </div>
 
-@section Scripts {
+    @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
         refreshSelectModal2 = function (event) {
-            console.log('refreshSelectModal2')
-            var url = '/api/sd/baojiadan/' + ($('select[name="vm_销售订单.往来号"]').val() || '')
-            console.log(url)
+            var url = '/api/product/报价/' + ($customer.val() || '')
             $('#selectTable2').bootstrapTable('refresh', { url: url });
+            console.log(url)
         }
 
         $(function () {
-            refreshSelectModal2()
-            $('select[name="vm_销售订单.往来号"]').on('change', refreshSelectModal2)
-        })
-    </script>
-    <script>
-        var emptyRecord = @Html.Raw(emptyRecord);
-        var emptyRecordList = @Html.Raw(emptyRecordList);
-    </script>
-    <script>
-        var vm = new Vue({
-            el: '#vueScope',
-            data: {
-                items: emptyRecordList,
-                itemCurrent: {},
-                itemIndex: 1,
-                isNew: false,
-                trEdit: -1,
-            },
-            watch: {
-                items: function (val1, val2) {
-                    var $table = $('#selectTable2')
+            //refreshSelectModal2()
+            $customer = $('select[name="Record.往来号"]')
+            $customer.on('change', refreshSelectModal2)
+
+            $table2 = $('#selectTable2')
+            $table2.bootstrapTable({
+                url: '/api/product/报价/' + ($customer.val() || ''),
+                onLoadSuccess: function (data) {
+                    console.log(data)
                     // 恢复所有隐藏行
-                    $table.bootstrapTable('getHiddenRows', true)
-                    // 获取数据
-                    var data = $table.bootstrapTable('getData')
+                    $table2.bootstrapTable('getHiddenRows', true)
                     // 比对数据
-                    this.items.forEach(function (v) {
+                    vm.items.forEach(function (v) {
                         for (var i in data) {
                             // 已经添加的数据，从selectTable2中隐藏
                             if (v.子单号 == data[i].子单号) {
-                                $table.bootstrapTable('hideRow', { index: i })
+                                $table2.bootstrapTable('hideRow', { index: i })
                             }
                         }
                     })
                 },
-            },
-            computed: {
-                visible: function () {
-                    return this.items.length > 0
-                },
-                editModalRN: function () {
-                    if (this.isNew)
-                        return this.items.length + 1;
-                    else
-                        return this.itemIndex + 1
-                }
-            },
-            methods: {
-                buildName: function (index, name) {
-                    return "vm_销售订单D列表[" + index + "]." + name
-                },
-                newRecord: function () {
-                    console.log('newRecord')
-                    this.isNew = true;
 
-                    if (!$('#vm_销售订单_报价单').is(':checked')) {
-                        $('#selectModal').modal('show')
-                    }
-                    else {
-                        $('#selectModal2').modal('show')
-                    }
-                    //this.items.push(this.itemCurrent);
-                    //layerItemDetail()
-                },
-                selectItem: function () {
-                    this.itemCurrent = JSON.parse(JSON.stringify(emptyRecord))
-                    var itemList = $('#selectTable').bootstrapTable('getSelections')
-                    if (itemList.length > 0) {
-                        for (var i in itemList) {
-                            this.items.push(itemList[i])
-                        }
-                        //this.itemCurrent = itemList[0]
-                        $('#selectModal').modal('hide')
-                        //$('#editModal').modal('show')
-                    }
-                    else {
-                        alert('请选择至少一件报价商品！')
-                    }
-                },
-                selectItem2: function () {
-                    this.itemCurrent = JSON.parse(JSON.stringify(emptyRecord))
-                    var itemList = $('#selectTable2').bootstrapTable('getSelections')
-                    if (itemList.length > 0) {
-                        for (var i in itemList) {
-                            this.items.push(itemList[i])
-                        }
-                        //this.itemCurrent = itemList[0]
-                        //console.log(itemList.length)
-                        $('#selectModal2').modal('hide')
-                        //$('#editModal').modal('show')
-                    }
-                    else {
-                        alert('请选择至少一件报价商品！')
-                    }
-                },
-                saveRecord: function () {
-                    if (this.isNew) {
-                        this.items.push(this.itemCurrent);
-                        $('#editModal').modal('hide')
-                    }
-                    else {
-                        this.$set(this.items, this.itemIndex, this.itemCurrent)
-                        $('#editModal').modal('hide')
-                    }
-                    //layer.closeAll('page')
-                    //var items = $('#itemtable').bootstrapTable('getSelections')
-                    //for (var i in items) {
-                    //    this.items.push(items[i])
-                    //}
-                },
-                editRecord: function (index) {
-                    this.isNew = false;
-                    this.itemIndex = index;
-                    this.itemCurrent = JSON.parse(JSON.stringify(this.items[index]))
-                    $('#editModal').modal('toggle')
-                },
-
-                removeTodo: function (index) {
-                    this.items.splice(index, 1)
-                },
-            },
+            })
         })
     </script>
+@{ 
+    var emptyDetail = JsonConvert.SerializeObject(new vm_销售订单D());
+    var emptyDetailList = JsonConvert.SerializeObject(Model?.RecordDs ?? new List<vm_销售订单D>());
 }
+    <script>
+        var emptyDetail = @Html.Raw(emptyDetail);
+        var emptyDetailList = @Html.Raw(emptyDetailList);
+    </script>
+    <partial name="_vue" />
+    }

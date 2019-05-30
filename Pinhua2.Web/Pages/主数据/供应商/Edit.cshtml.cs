@@ -56,6 +56,10 @@ namespace Pinhua2.Web.Pages.主数据.供应商
             var 往来单位 = _mapper.Map<tb_往来表>(供应商);
             _context.Attach(往来单位).State = EntityState.Modified;
 
+            _context.funcEditRecord<vm_供应商, tb_往来表>(供应商, updating=> {
+                updating.类型 = "供应商";
+            });
+
             try
             {
                 await _context.SaveChangesAsync();

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Pinhua2.Data.Extensions
+namespace Pinhua2.Data
 {
     public static class funcAutoCodeExtension
     {

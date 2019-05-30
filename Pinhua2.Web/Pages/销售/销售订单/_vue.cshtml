@@ -1,0 +1,152 @@
+﻿<script>
+    var vm = new Vue({
+        el: '#vueScope',
+        data: {
+            items: emptyDetailList,
+            itemCurrent: {},
+            itemIndex: 1,
+            isNew: true,
+        },
+        watch: {
+            items: function (val1, val2) {
+                var $table = $('#selectTable2')
+                // 恢复所有隐藏行
+                $table.bootstrapTable('getHiddenRows', true)
+                // 获取数据
+                var data = $table.bootstrapTable('getData')
+                // 比对数据
+                this.items.forEach(function (v) {
+                    for (var i in data) {
+                        // 已经添加的数据，从selectTable2中隐藏
+                        if (v.子单号 == data[i].子单号) {
+                            $table.bootstrapTable('hideRow', { index: i })
+                        }
+                    }
+                })
+            },
+        },
+        mounted: function () {
+
+        },
+        computed: {
+            visible: function () {
+                return this.items.length > 0
+            },
+            editModalRN: function () {
+                if (this.isNew)
+                    return this.items.length + 1;
+                else
+                    return this.itemIndex + 1
+            },
+            sumAmount() {
+                return this.items.map(
+                    row => row.数量).reduce(
+                        (acc, cur) => (parseFloat(cur) + acc), 0)
+            },
+            sumMoney() {
+                return (this.items.map(
+                    row => ((row.数量 || 0) * (row.单价 || 0))).reduce(
+                        (acc, cur) => (parseFloat(cur) + acc), 0)).toFixed(2)
+            },
+        },
+        methods: {
+            buildName: function (index, name) {
+                return "RecordDs[" + index + "]." + name
+            },
+            newRecord: function () {
+                console.log('newRecord')
+                this.isNew = true;
+
+                if (!$('#Record_报价单').is(':checked')) {
+                    $('#selectModal').modal('show')
+                }
+                else {
+                    $('#selectModal2').modal('show')
+                }
+            },
+            selectItem: function () {
+                this.itemCurrent = JSON.parse(JSON.stringify(emptyDetail))
+                var itemList = $('#selectTable').bootstrapTable('getSelections')
+                if (itemList.length > 0) {
+                    //for (var i in itemList) {
+                    //    this.items.push(itemList[i])
+                    //}
+                    this.itemCurrent = itemList[0]
+                    $('#selectModal').modal('hide')
+                    $('#editModal').modal('show')
+                }
+                else {
+                    alert('请选择至少一件报价商品！')
+                }
+            },
+            selectItem2: function () {
+                this.itemCurrent = JSON.parse(JSON.stringify(emptyDetail))
+                var itemList = $('#selectTable2').bootstrapTable('getSelections')
+                if (itemList.length > 0) {
+                    //for (var i in itemList) {
+                    //    this.items.push(itemList[i])
+                    //}
+                    this.itemCurrent = itemList[0]
+                    $('#selectModal2').modal('hide')
+                    $('#editModal').modal('show')
+                }
+                else {
+                    alert('请选择至少一件报价商品！')
+                }
+            },
+            saveRecord: function () {
+                if (this.isNew) {
+                    this.items.push(this.itemCurrent);
+                    $('#editModal').modal('hide')
+                }
+                else {
+                    this.$set(this.items, this.itemIndex, this.itemCurrent)
+                    $('#editModal').modal('hide')
+                }
+            },
+            editRecord: function (index) {
+                this.isNew = false;
+                this.itemIndex = index;
+                this.itemCurrent = JSON.parse(JSON.stringify(this.items[index]))
+                $('#editModal').modal('show')
+            },
+
+            removeTodo: function (index) {
+                this.items.splice(index, 1)
+            },
+
+            computeMoney: function (item) {
+                if (!this.computeUnitQty(item) || !item.单价)
+                    return ""
+                return parseFloat(this.computeUnitQty(item) * item.单价).toFixed(2)
+            },
+
+            computeUnitQty: function (item) {
+                var p = item.个数
+                var u = item.单位
+                var l = item.长度
+                var w = item.宽度
+                var h = item.高度
+                if (!p || !u || !l || !w || !h)
+                    return ""
+                var result = 0
+                if (u == 'PCS' || u == '片' || u == '个')
+                    result = p
+                else if (u == '平方米')
+                    result = p * l * w / 1000 / 1000
+                else if (u == '立方米')
+                    result = p * l * w * h / 1000 / 1000 / 1000
+                else if (u == '延长米')
+                    result = p * l / 1000
+                result = result || ""
+                item.数量 = result
+                return new Number(result).toFixed(4)
+
+            },
+
+            putUnitOnClick: function (item) {
+                item.单位 = event.target.innerText
+            }
+        }
+    })
+</script>

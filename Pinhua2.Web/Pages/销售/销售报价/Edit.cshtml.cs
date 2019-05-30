@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.Data;
-using Pinhua2.Data.Extensions;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
@@ -54,6 +52,29 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             }
         }
 
+        public IList<SelectListItem> UnitSelectList
+        {
+            get
+            {
+                var dic = from p in _context.tb_字典表.AsNoTracking()
+                          join d in _context.tb_字典表D.AsNoTracking() on p.RecordId equals d.RecordId
+                          where p.字典名 == "地板计量单位"
+                          select d;
+
+                var unitSelectList = new List<SelectListItem>();
+
+                foreach (var item in dic)
+                {
+                    unitSelectList.Add(new SelectListItem
+                    {
+                        Text = item.名称,
+                        Value = item.名称
+                    });
+                }
+                return unitSelectList;
+            }
+        }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -69,6 +90,39 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             }
 
             vm_销售报价D列表 = await _mapper.ProjectTo<vm_销售报价D>(_context.tb_报价表D.Where(m => m.RecordId == id)).ToListAsync();
+            vm_销售报价D列表 = (from d in _context.tb_报价表D.AsNoTracking()
+                        join prod in _context.tb_商品表.AsNoTracking() on d.品号 equals prod.品号
+                        where d.RecordId == vm_销售报价.RecordId
+                        select new vm_销售报价D
+                        {
+                            Guid = d.Guid,
+                            RecordId = d.RecordId,
+                            品号 = d.品号,
+                            Idx = d.Idx,
+                            RN = d.RN,
+                            Sequence = d.Sequence,
+                            个数 = d.个数,
+                            别名 = d.别名,
+                            单价 = d.单价,
+                            单位 = d.单位,
+                            品名 = d.品名,
+                            品牌 = d.品牌,
+                            型号 = d.型号,
+                            备注 = d.备注,
+                            子单号 = d.子单号,
+                            库存 = d.库存,
+                            数量 = d.数量,
+                            状态 = d.状态,
+                            税率 = d.税率,
+                            规格 = d.规格,
+                            宽度 = prod.宽度,
+                            金额 = d.金额,
+                            长度 = prod.长度,
+                            面厚 = prod.面厚,
+                            高度 = prod.高度,
+                            上次价=d.上次价,
+                            上次日期=d.上次日期,                            
+                        }).ToList();
 
             return Page();
         }

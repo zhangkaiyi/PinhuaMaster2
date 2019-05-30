@@ -1,8 +1,27 @@
 ﻿@page
+@using Newtonsoft.Json.Linq
 @model Pinhua2.Web.Pages.采购.IndexModel
 @{
     ViewData["Title"] = "Index";
+
+    var set = from m in pinhua2.tb_订单表
+              join d in pinhua2.tb_订单表D on m.RecordId equals d.RecordId
+              join x in pinhua2.tb_商品表 on d.品号 equals x.品号
+
+              select new
+              {
+                  x,
+                  d
+              };
+    var l = new JArray();
+    foreach (var item in set)
+    {
+        var a = JObject.FromObject(item.d);
+        var b = JObject.FromObject(item.x);
+        a.Merge(b);
+        l.Add(a);
+    }
+
 }
 
-<h1>Index</h1>
-
+<pre>@{@l}</pre>

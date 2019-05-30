@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Pinhua2.Data;
-using Pinhua2.Data.Extensions;
-using Pinhua2.Web;
 using Pinhua2.Web.Mapper;
 
 namespace Pinhua2.Web.Pages

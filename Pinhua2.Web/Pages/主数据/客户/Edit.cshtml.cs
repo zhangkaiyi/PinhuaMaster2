@@ -50,9 +50,11 @@ namespace Pinhua2.Web.Pages.主数据.客户
                 return Page();
             }
 
-            var tb_客户 = _pinhua2.tb_往来表.FirstOrDefault(m => m.RecordId == 客户.RecordId);
-            _mapper.Map<vm_客户, tb_往来表>(客户, tb_客户);
-            Common.ModelHelper.CompleteMainOnEdit(tb_客户);
+            //var tb_客户 = _pinhua2.tb_往来表.FirstOrDefault(m => m.RecordId == 客户.RecordId);
+            //_mapper.Map<vm_客户, tb_往来表>(客户, tb_客户);
+            //Common.ModelHelper.CompleteMainOnEdit(tb_客户);
+
+            _pinhua2.funcEditRecord<vm_客户, tb_往来表>(客户);
 
             try
             {
@@ -60,7 +62,7 @@ namespace Pinhua2.Web.Pages.主数据.客户
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!sys往来表Exists(tb_客户.RecordId))
+                if (!sys往来表Exists(客户.RecordId))
                 {
                     return NotFound();
                 }

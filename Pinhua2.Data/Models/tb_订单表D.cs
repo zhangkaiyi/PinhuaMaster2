@@ -7,7 +7,6 @@ namespace Pinhua2.Data.Models
     [Table("tb_订单表D")]
     public partial class tb_订单表D : _BaseTableDetail
     {
-        public string 子单号 { get; set; }
         public string 品号 { get; set; }
         public string 品名 { get; set; }
         public string 别名 { get; set; }
@@ -15,6 +14,7 @@ namespace Pinhua2.Data.Models
         public string 规格 { get; set; }
         public decimal? 库存 { get; set; }
         public string 单位 { get; set; }
+        public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
         public decimal? 单价 { get; set; }
         public decimal? 金额 { get; set; }

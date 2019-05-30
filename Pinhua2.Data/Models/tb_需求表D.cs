@@ -7,7 +7,6 @@ namespace Pinhua2.Data.Models
     [Table("tb_需求表D")]
     public partial class tb_需求表D : _BaseTableDetail
     {
-        public string 子单号 { get; set; }
         public string 品号 { get; set; }
         public string 品名 { get; set; }
         public string 规格 { get; set; }

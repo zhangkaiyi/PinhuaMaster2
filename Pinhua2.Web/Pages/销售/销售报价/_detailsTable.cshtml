@@ -8,43 +8,45 @@
     <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
         <thead>
             <tr>
+                <th></th>
                 <th>RN</th>
                 <th>子单号</th>
                 <th>品号</th>
+                <th>型号</th>
                 <th>品名</th>
                 <th>别名</th>
-                <th>型号</th>
                 <th>规格</th>
+                <th>个数</th>
                 <th>数量</th>
                 <th>单位</th>
                 <th>单价</th>
                 <th>金额</th>
                 <th>备注</th>
-                <th>上次价</th>
-                <th>上次日期</th>
-                <th></th>
+                @*<th>上次价</th>
+        <th>上次日期</th>*@
             </tr>
         </thead>
         <tbody>
             <tr v-if="items.length == 0"><td colspan="20" class="text-center">空</td></tr>
             <tr v-for="(todo,index) in items">
+                <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)">修改</a></td>
                 <td>
                     {{ index+1 }}<input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
                 </td>
                 <td>{{ todo.子单号 }}<input :name="buildName(index,'子单号')" type="hidden" v-model="todo.子单号" /></td>
                 <td>{{ todo.品号 }}<input :name="buildName(index,'品号')" type="hidden" v-bind:value="todo.品号" /></td>
+                <td>{{ todo.型号 }}<input :name="buildName(index,'型号')" type="hidden" v-bind:value="todo.型号" /></td>
                 <td>{{ todo.品名 }}<input :name="buildName(index,'品名')" type="hidden" v-bind:value="todo.品名" /></td>
                 <td>{{ todo.别名 }}<input :name="buildName(index,'别名')" type="hidden" v-bind:value="todo.别名" /></td>
-                <td>{{ todo.型号 }}<input :name="buildName(index,'型号')" type="hidden" v-bind:value="todo.型号" /></td>
                 <td>{{ todo.规格 }}<input :name="buildName(index,'规格')" type="hidden" v-bind:value="todo.规格" /></td>
+                <td>{{ todo.个数 }}<input :name="buildName(index,'个数')" type="hidden" v-bind:value="todo.个数" /></td>
                 <td>{{ todo.数量 }}<input :name="buildName(index,'数量')" type="hidden" v-bind:value="todo.数量" /></td>
                 <td>{{ todo.单位 }}<input :name="buildName(index,'单位')" type="hidden" v-bind:value="todo.单位" /></td>
                 <td>{{ todo.单价 }}<input :name="buildName(index,'单价')" type="hidden" v-bind:value="todo.单价" /></td>
-                <td>{{ todo.金额 }}<input :name="buildName(index,'金额')" type="hidden" v-bind:value="todo.金额" /></td>
+                <td>{{ computeMoney(todo) }}<input :name="buildName(index,'金额')" type="hidden" v-bind:value="computeMoney(todo)" /></td>
                 <td>{{ todo.备注 }}<input :name="buildName(index,'备注')" type="hidden" v-bind:value="todo.备注" /></td>
-                <td>{{ todo.上次价 }}<input :name="buildName(index,'上次价')" type="hidden" v-bind:value="todo.上次价" /></td>
-                <td>{{ todo.上次日期 }}<input :name="buildName(index,'上次日期')" type="hidden" v-bind:value="todo.上次日期" /></td>
-                <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)">修改</a></td>
+                @*<td>{{ todo.上次价 }}<input :name="buildName(index,'上次价')" type="hidden" v-bind:value="todo.上次价" /></td>
+        <td>{{ todo.上次日期 }}<input :name="buildName(index,'上次日期')" type="hidden" v-bind:value="todo.上次日期" /></td>*@
             </tr>
         </tbody>
     </table>

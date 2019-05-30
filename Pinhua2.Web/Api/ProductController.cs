@@ -14,19 +14,24 @@ using Newtonsoft.Json.Linq;
 namespace Pinhua2.Web.Api
 {
     [Route("api/[controller]")]
-    public class SDController : Controller
+    public class ProductController : Controller
     {
         private readonly Pinhua2Context _pinhua2;
-        public SDController(Pinhua2Context pinhua2)
+        public ProductController(Pinhua2Context pinhua2)
         {
             _pinhua2 = pinhua2;
         }
         // GET: api/<controller>
-        [HttpGet("items")]
+        [HttpGet]
         public IEnumerable<tb_商品表> Get()
         {
-            var items = _pinhua2.tb_商品表.AsNoTracking().ToList();
-            return items;
+            return _pinhua2.tb_商品表.AsNoTracking().ToList();
+        }
+
+        [HttpGet("all")]
+        public IEnumerable<tb_商品表> All()
+        {
+            return _pinhua2.tb_商品表.AsNoTracking().ToList();
         }
 
         // GET api/<controller>/5
@@ -36,7 +41,31 @@ namespace Pinhua2.Web.Api
             return "value";
         }
 
-        [HttpGet("baojiadan/{customerId}")]
+        [HttpGet("报价")]
+        public JArray BaoJiaDan()
+        {
+            var set = from m in _pinhua2.tb_报价表.AsNoTracking()
+                      join d in _pinhua2.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
+                      join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+                      where !(d.状态 ?? string.Empty).StartsWith("已")
+                      select new
+                      {
+                          x,
+                          d
+                      };
+            JArray json = new JArray();
+            foreach (var item in set)
+            {
+                var jx = JObject.FromObject(item.x);
+                var jd = JObject.FromObject(item.d);
+                jx.Merge(jd);
+                json.Add(jx);
+            }
+
+            return json;
+        }
+
+        [HttpGet("报价/{customerId}")]
         public JArray BaoJiaDan(string customerId)
         {
             var set = from m in _pinhua2.tb_报价表.AsNoTracking()

@@ -7,9 +7,8 @@ namespace Pinhua2.Data.Models
     [Table("tb_IOD")]
     public partial class tb_IOD : _BaseTableDetail
     {
-        public string 行号 { get; set; }
-        public string 子单号 { get; set; }
         public string 订单号 { get; set; }
+        public string 行号 { get; set; }
         public string 品号 { get; set; }
         public string 品名 { get; set; }
         public string 品牌 { get; set; }

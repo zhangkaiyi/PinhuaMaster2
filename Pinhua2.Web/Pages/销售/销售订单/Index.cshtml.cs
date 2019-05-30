@@ -27,7 +27,7 @@ namespace Pinhua2.Web.Pages.销售.销售订单
 
         public async Task OnGetAsync()
         {
-            vm_销售订单表 = await _mapper.ProjectTo<vm_销售订单>(_context.tb_订单表).ToListAsync();
+            vm_销售订单表 = await _mapper.ProjectTo<vm_销售订单>(_context.tb_订单表).OrderByDescending(m => m.交期).ThenByDescending(m => m.单号).ToListAsync();
         }
     }
 }

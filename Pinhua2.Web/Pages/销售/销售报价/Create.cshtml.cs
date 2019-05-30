@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.Data;
-using Pinhua2.Data.Extensions;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
@@ -56,6 +54,29 @@ namespace Pinhua2.Web.Pages.销售.销售报价
                     });
                 }
                 return customerSelectList;
+            }
+        }
+
+        public IList<SelectListItem> UnitSelectList
+        {
+            get
+            {
+                var dic = from p in _context.tb_字典表.AsNoTracking()
+                          join d in _context.tb_字典表D.AsNoTracking() on p.RecordId equals d.RecordId
+                          where p.字典名 == "地板计量单位"
+                          select d;
+
+                var unitSelectList = new List<SelectListItem>();
+
+                foreach (var item in dic)
+                {
+                    unitSelectList.Add(new SelectListItem
+                    {
+                        Text = item.名称,
+                        Value = item.名称
+                    });
+                }
+                return unitSelectList;
             }
         }
 

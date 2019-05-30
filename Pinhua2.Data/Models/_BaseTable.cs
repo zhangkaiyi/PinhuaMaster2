@@ -50,6 +50,7 @@ namespace Pinhua2.Data.Models
     {
         int Idx { get; set; }
         int? RecordId { get; set; }
+        string 子单号 { get; set; }
         int? RN { get; set; }
         int? Sequence { get; set; }
         Guid Guid { get; set; }
@@ -66,6 +67,9 @@ namespace Pinhua2.Data.Models
 
         [CustomDisplay]
         public int? RecordId { get; set; }
+
+        [CustomDisplay]
+        public string 子单号 { get; set; }
 
         [CustomDisplay]
         public int? Sequence { get; set; }

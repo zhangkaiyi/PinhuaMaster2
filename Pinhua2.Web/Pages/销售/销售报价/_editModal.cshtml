@@ -1,4 +1,5 @@
-﻿<div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+﻿
+<div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -51,27 +52,45 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">单位</label>
+                    <label class="col-4 col-sm-2 col-form-label">个数</label>
                     <div class="col-8 col-sm-10">
-                        <input class="form-control" v-model="itemCurrent.单位" readonly />
+                        <input class="form-control" type="number" v-model="itemCurrent.个数" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-sm-2 col-form-label">数量</label>
                     <div class="col-8 col-sm-10">
-                        <input class="form-control" v-model="itemCurrent.数量" />
+                        <input class="form-control" v-model="computeUnitQty(itemCurrent)" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-2 col-form-label">单位</label>
+                    <div class="col-8 col-sm-10">
+                        <div class="input-group">
+                            <input class="form-control" v-bind:value="itemCurrent.单位" readonly />
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择</button>
+                                <div class="dropdown-menu">
+                                    @foreach (var item in Model.UnitSelectList)
+                                    {
+                                    <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">@item.Text</a>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-sm-2 col-form-label">单价</label>
                     <div class="col-8 col-sm-10">
-                        <input class="form-control" v-model="itemCurrent.单价" />
+                        <input class="form-control" type="number" v-model="itemCurrent.单价" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-sm-2 col-form-label">金额</label>
                     <div class="col-8 col-sm-10">
-                        <input class="form-control" v-model="itemCurrent.金额" readonly />
+                        <input class="form-control" readonly v-bind:value="computeMoney(itemCurrent)" />
                     </div>
                 </div>
                 <div class="form-group row">

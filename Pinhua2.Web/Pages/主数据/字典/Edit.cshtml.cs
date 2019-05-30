@@ -55,25 +55,33 @@ namespace Pinhua2.Web.Pages.主数据.字典
             {
                 return Page();
             }
-            var remote = _pinhua2.tb_字典表.FirstOrDefault(m => m.RecordId == vm_字典.RecordId);
-            if (remote == null)
-                return NotFound();
+            //var remote = _pinhua2.tb_字典表.FirstOrDefault(m => m.RecordId == vm_字典.RecordId);
+            //if (remote == null)
+            //    return NotFound();
 
             // 非空字段赋值给跟踪实体
-            _mapper.Map<vm_字典, tb_字典表>(vm_字典, remote);
+            //_mapper.Map<vm_字典, tb_字典表>(vm_字典, remote);
 
-            // 删除旧明细
-            var tb_字典表D列表 = _pinhua2.tb_字典表D.Where(p => p.RecordId == vm_字典.RecordId);
-            _pinhua2.tb_字典表D.RemoveRange(tb_字典表D列表);
+            if (_pinhua2.funcEditRecord<vm_字典, tb_字典表>(vm_字典) == null)
+                return NotFound();
 
-            // 插入新明细
-            foreach (var item in vm_字典D列表)
-            {
-                Common.ModelHelper.CompleteDetailOnUpdate(remote, item);
-                item.字典名 = vm_字典.字典名;
-                item.组 = vm_字典.组;
-            }
-            _pinhua2.tb_字典表D.AddRange(_mapper.Map<IList<tb_字典表D>>(vm_字典D列表));
+            //// 删除旧明细
+            //var tb_字典表D列表 = _pinhua2.tb_字典表D.Where(p => p.RecordId == vm_字典.RecordId);
+            //_pinhua2.tb_字典表D.RemoveRange(tb_字典表D列表);
+
+            //// 插入新明细
+            //foreach (var item in vm_字典D列表)
+            //{
+            //    Common.ModelHelper.CompleteDetailOnUpdate(remote, item);
+            //    item.字典名 = vm_字典.字典名;
+            //    item.组 = vm_字典.组;
+            //}
+            //_pinhua2.tb_字典表D.AddRange(_mapper.Map<IList<tb_字典表D>>(vm_字典D列表));
+
+            _pinhua2.funcEditDetails<vm_字典, vm_字典D, tb_字典表, tb_字典表D>(vm_字典, vm_字典D列表,creatingD=> {
+                creatingD.字典名 = vm_字典.字典名;
+                creatingD.组 = vm_字典.组;
+            });
 
             // 保存改变
             try
@@ -82,7 +90,7 @@ namespace Pinhua2.Web.Pages.主数据.字典
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!tb_字典表Exists(remote.RecordId))
+                if (!tb_字典表Exists(vm_字典.RecordId))
                 {
                     return NotFound();
                 }

@@ -108,6 +108,22 @@ namespace Pinhua2.Common.Attributes
                 }
             }
         }
+
+        public bool IsDecimal
+        {
+            get
+            {
+                if (PropertyInfo == null)
+                    return false;
+                else
+                {
+                    var propType = PropertyInfo.PropertyType;
+                    var dtType1 = typeof(decimal);
+                    var dtType2 = typeof(decimal?);
+                    return (propType == dtType1) || propType == dtType2;
+                }
+            }
+        }
     }
 
     public class CustomDisplayFactory<T>

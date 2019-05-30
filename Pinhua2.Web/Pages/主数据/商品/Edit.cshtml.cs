@@ -50,9 +50,11 @@ namespace Pinhua2.Web.Pages.主数据.商品
                 return Page();
             }
 
-            var tb_商品 = _context.tb_商品表.FirstOrDefault(m => m.RecordId == vm_地板.RecordId);
-            _mapper.Map<vm_商品_地板, tb_商品表>(vm_地板, tb_商品);
-            Common.ModelHelper.CompleteMainOnEdit(tb_商品);
+            //var tb_商品 = _context.tb_商品表.FirstOrDefault(m => m.RecordId == vm_地板.RecordId);
+            //_mapper.Map<vm_商品_地板, tb_商品表>(vm_地板, tb_商品);
+            //Common.ModelHelper.CompleteMainOnEdit(tb_商品);
+
+            _context.funcEditRecord<vm_商品_地板, tb_商品表>(vm_地板);
 
             try
             {
@@ -60,7 +62,7 @@ namespace Pinhua2.Web.Pages.主数据.商品
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!sys商品表Exists(tb_商品.RecordId))
+                if (!sys商品表Exists(vm_地板.RecordId))
                 {
                     return NotFound();
                 }
