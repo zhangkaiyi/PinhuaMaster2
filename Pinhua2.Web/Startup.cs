@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Pinhua2.Data;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Pinhua2.Web
 {
@@ -89,6 +90,9 @@ namespace Pinhua2.Web
             {
                 options.ResourcesPath = "Resources";
             });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddDataAnnotationsLocalization(options =>

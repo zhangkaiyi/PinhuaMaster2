@@ -33,9 +33,4 @@
     </Content>
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Pages\销售\销售出库单\" />
-  </ItemGroup>
-
 </Project>

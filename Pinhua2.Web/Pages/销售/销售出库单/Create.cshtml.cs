@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,7 +11,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.销售报价
+namespace Pinhua2.Web.Pages.销售.销售出库单
 {
     public class CreateModel : PageModel
     {
@@ -28,9 +29,9 @@ namespace Pinhua2.Web.Pages.销售.销售报价
         }
 
         [BindProperty]
-        public vm_销售报价 vm_销售报价 { get; set; }
+        public vm_销售出库 Record { get; set; }
         [BindProperty]
-        public IList<vm_销售报价D> vm_销售报价D列表 { get; set; }
+        public IList<vm_销售出库D> RecordDs { get; set; }
 
         public IList<SelectListItem> CustomerSelectList
         {
@@ -86,34 +87,27 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             {
                 return Page();
             }
-            //Common.ModelHelper.CompleteMainOnCreate(vm_销售报价);
-            //vm_销售报价.单号 = _context.funcAutoCode("订单号");
-            //vm_销售报价.业务类型 = "销售报价";
-            //vm_销售报价.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_销售报价.往来号)?.简称;
-            //var tb_报价 = _mapper.Map<tb_报价表>(vm_销售报价);
-            //_context.tb_报价表.Add(tb_报价);
 
-            var tb_报价 = _context.funcNewRecord<vm_销售报价, tb_报价表>(vm_销售报价, before =>
+            var remote = _context.funcNewRecord<vm_销售出库, tb_IO>(Record, creating =>
+                 {
+                     creating.类型 = "销售出库";
+                     creating.单号 = _context.funcAutoCode("订单号");
+                     creating.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == Record.往来号)?.简称;
+                 });
+            if (await _context.SaveChangesAsync() > 0)
             {
-                before.单号 = _context.funcAutoCode("订单号");
-                before.业务类型 = "销售报价";
-                before.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_销售报价.往来号)?.简称;
-            });
-            if (_context.SaveChanges() > 0)
-            {
-                foreach (var item in vm_销售报价D列表)
+                foreach (var localD in RecordDs)
                 {
-                    _context.funcNewDetails<vm_销售报价, vm_销售报价D, tb_报价表, tb_报价表D>(tb_报价, item, beforeNewD =>
-                    {
-                        beforeNewD.子单号 = _context.funcAutoCode("子单号");
+                    _context.funcNewDetails<vm_销售出库, vm_销售出库D, tb_IO, tb_IOD>(remote, localD, creatingD=> {
+                        creatingD.RecordId = remote.RecordId;
                     });
-                    Common.ModelHelper.CompleteDetailOnCreate(tb_报价, item);
                 }
-                //_context.tb_报价表D.AddRange(_mapper.Map<IList<tb_报价表D>>(vm_销售报价D列表));
                 await _context.SaveChangesAsync();
             }
             else
                 return NotFound();
+
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

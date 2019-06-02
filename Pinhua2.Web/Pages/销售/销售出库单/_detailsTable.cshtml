@@ -1,7 +1,7 @@
 ﻿<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
     <h4>明细</h4>
     <div>
-        <button type="button" class="btn btn-outline-secondary" v-on:click="newRecord">
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecord">
             添加明细
         </button>
         @*<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecordByBaojiadan">
@@ -46,7 +46,7 @@
                 <td>{{ todo.品名 }}<input :name="buildName(index,'品名')" type="hidden" v-bind:value="todo.品名" /></td>
                 <td>{{ todo.别名 }}<input :name="buildName(index,'别名')" type="hidden" v-bind:value="todo.别名" /></td>
                 <td>{{ todo.规格 }}<input :name="buildName(index,'规格')" type="hidden" v-bind:value="todo.规格" /></td>
-                <td>{{ todo.个数 }}<input :name="buildName(index,'个数')" type="hidden" v-bind:value="todo.个数" /></td>
+                <td>{{ fa(todo) }}<input :name="buildName(index,'发')" type="hidden" v-bind:value="fa(todo)" /></td>
                 <td>{{ computeUnitQty(todo) }}<input :name="buildName(index,'数量')" type="hidden" v-bind:value="computeUnitQty(todo)" /></td>
                 <td>{{ todo.单位 }}<input :name="buildName(index,'单位')" type="hidden" v-bind:value="todo.单位" /></td>
                 <td>{{ todo.单价 }}<input :name="buildName(index,'单价')" type="hidden" v-bind:value="todo.单价" /></td>

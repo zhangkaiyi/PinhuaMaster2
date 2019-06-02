@@ -41,93 +41,69 @@ namespace Pinhua2.Web.Api
             return "value";
         }
 
-        [HttpGet("报价")]
-        public JArray BaoJiaDan()
-        {
-            var set = from m in _pinhua2.tb_报价表.AsNoTracking()
-                      join d in _pinhua2.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
-                      join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
-                      where !(d.状态 ?? string.Empty).StartsWith("已")
-                      select new
-                      {
-                          x,
-                          d
-                      };
-            JArray json = new JArray();
-            foreach (var item in set)
-            {
-                var jx = JObject.FromObject(item.x);
-                var jd = JObject.FromObject(item.d);
-                jx.Merge(jd);
-                json.Add(jx);
-            }
+        //[HttpGet("报价")]
+        //public JArray 销售报价商品()
+        //{
+        //    var set = from m in _pinhua2.tb_报价表.AsNoTracking()
+        //              join d in _pinhua2.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
+        //              join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+        //              where !(d.状态 ?? string.Empty).StartsWith("已")
+        //              select new
+        //              {
+        //                  x,
+        //                  d
+        //              };
+        //    JArray json = new JArray();
+        //    foreach (var item in set)
+        //    {
+        //        var jx = JObject.FromObject(item.x);
+        //        var jd = JObject.FromObject(item.d);
+        //        jx.Merge(jd);
+        //        json.Add(jx);
+        //    }
 
-            return json;
-        }
+        //    return json;
+        //}
 
         [HttpGet("报价/{customerId}")]
-        public JArray BaoJiaDan(string customerId)
+        public JArray 销售报价商品(string customerId)
         {
-            var set = from m in _pinhua2.tb_报价表.AsNoTracking()
-                      join d in _pinhua2.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
-                      join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
-                      where m.往来号 == customerId && !(d.状态 ?? string.Empty).StartsWith("已")
-                      select new
-                      {
-                          x,
-                          d
-                      };
-            JArray json = new JArray();
-            foreach(var item in set)
-            {
-                var jx = JObject.FromObject(item.x);
-                var jd = JObject.FromObject(item.d);
-                jx.Merge(jd);
-                json.Add(jx);
-            }
-
-            return json;
+            return new JArray(_pinhua2.Get销售报价商品(customerId).Where(j => !(((string)j["状态"]) ?? string.Empty).StartsWith("已")));
         }
 
-        // GET api/<controller>/5
-        [HttpGet("baojiadan2/{customerId}")]
-        public IEnumerable<object> BaoJiaDan2(string customerId)
+        //[HttpGet("订单")]
+        //public JArray 销售订单商品()
+        //{
+        //    var set = from m in _pinhua2.tb_订单表.AsNoTracking()
+        //              join d in _pinhua2.tb_订单表D.AsNoTracking() on m.RecordId equals d.RecordId
+        //              join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+        //              select new
+        //              {
+        //                  订 = x,
+        //                  品 = d
+        //              };
+        //    JArray jsonArray = new JArray();
+        //    foreach (var item in set)
+        //    {
+        //        var jsonDetails = JObject.FromObject(item.订);
+        //        var jsonProducts = JObject.FromObject(item.品);
+        //        jsonDetails.Merge(jsonProducts);
+        //        jsonArray.Add(jsonDetails);
+        //    }
+
+        //    return jsonArray;
+        //}
+
+        [HttpGet("订单/{customerId}")]
+        public JArray 销售订单商品(string customerId)
         {
-            var set = from m in _pinhua2.tb_报价表.AsNoTracking()
-                      join d in _pinhua2.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
-                      join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
-                      where m.往来号 == customerId && !(d.状态 ?? string.Empty).StartsWith("已")
-                      select new
-                      {
-                          金额 = d.金额,
-                          Guid = d.Guid,
-                          Idx = d.Idx,
-                          RecordId = d.RecordId,
-                          RN = d.RN,
-                          Sequence = d.Sequence,
-                          上次价 = d.上次价,
-                          上次日期 = d.上次日期,
-                          个数 = d.个数,
-                          别名 = d.别名,
-                          单价 = d.单价,
-                          单位 = d.单位,
-                          品号 = d.品号,
-                          品名 = d.品名,
-                          品牌 = d.品牌,
-                          型号 = d.型号,
-                          备注 = d.备注,
-                          子单号 = d.子单号,
-                          库存 = d.库存,
-                          数量 = d.数量,
-                          状态 = d.状态,
-                          税率 = d.税率,
-                          规格 = d.规格,
-                          长度 = x.长度,
-                          宽度 = x.宽度,
-                          高度 = x.高度,
-                          面厚 = x.面厚,
-                      };
-            return set.ToArray();
+            return _pinhua2.Get销售订单商品(customerId);
+        }
+
+        [HttpGet("出库/{customerId}/{orderId}")]
+        public JArray 销售出库商品(string customerId, string orderId)
+        {
+            return _pinhua2.Get销售出库商品(customerId, orderId);
         }
 
         // POST api/<controller>

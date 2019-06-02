@@ -1,8 +1,8 @@
 ﻿
-@{    
-    var record = JsonConvert.SerializeObject(Model?.Record ?? new vm_销售订单());
-    var recordD = JsonConvert.SerializeObject(new vm_销售订单D());
-    var recordDs = pinhua2.Get销售订单商品((string)Model?.Record?.往来号)?.ToString();
+@{
+    var record = JsonConvert.SerializeObject(Model?.Record ?? new vm_销售出库());
+    var recordD = JsonConvert.SerializeObject(new vm_销售出库D());
+    var recordDs = pinhua2.Get销售出库商品((string)Model?.Record?.往来号, (string)Model?.Record?.单号)?.ToString();
 }
 
 <script>
@@ -24,13 +24,14 @@
         watch: {
             items: function (val1, val2) {
                 console.log('watch')
-                var $table = $('#selectTable2')
+                var $table = $('#selectTable')
                 // 恢复所有隐藏行
                 $table.bootstrapTable('getHiddenRows', true)
                 // 获取数据
                 var data = $table.bootstrapTable('getData')
                 // 比对数据
                 this.items.forEach(function (v) {
+
                     for (var i in data) {
                         // 已经添加的数据，从selectTable2中隐藏
                         if (v.子单号 == data[i].子单号) {
@@ -41,12 +42,30 @@
             },
         },
         mounted: function () {
+            this.init()
             this.record.往来号 = this.record.往来号 || ""
+            this.$nextTick(function () {
+                $selectTable1 = $('#selectTable')
+                $selectTable1.bootstrapTable({
+                    url: ['/api/product/订单/', this.record.往来号].join(""),
+                    onLoadSuccess: function (data) {
+                        console.log(data)
+                        // 恢复所有隐藏行
+                        $selectTable1.bootstrapTable('getHiddenRows', true)
+                        // 比对数据
+                        vm.items.forEach(function (v) {
+                            for (var i in data) {
+                                // 已经添加的数据，从selectTable2中隐藏
+                                if (v.子单号 == data[i].子单号) {
+                                    $selectTable1.bootstrapTable('hideRow', { index: i })
+                                }
+                            }
+                        })
+                    },
+                })
+            })
         },
         computed: {
-            url() {
-                return ["/api/product/报价/", this.record.往来号].join("")
-            },
             visible: function () {
                 return this.items.length > 0
             },
@@ -68,18 +87,26 @@
             },
         },
         methods: {
+            init() {
+                this.items.forEach(function (v) {
+                    v.个数 = v.个数 || v.发
+                })
+            },
+            fa(item) {
+                return item.个数 || item.发
+            },
             buildName: function (index, name) {
                 return "RecordDs[" + index + "]." + name
             },
             newRecord: function () {
                 console.log('newRecord')
                 this.isNew = true;
-
-                if (!$('#Record_报价单').is(':checked')) {
-                    $('#selectModal').modal('show')
+                console.log($('#Record_退单').is(':checked'))
+                if (!$('#Record_退单').is(':checked')) {
+                    $('#selectModal2').modal('show')
                 }
                 else {
-                    $('#selectModal2').modal('show')
+                    $('#selectModal').modal('show')
                 }
             },
             selectItem: function () {
@@ -140,7 +167,8 @@
             },
 
             computeUnitQty: function (item) {
-                var p = item.个数
+                //var p = item.个数
+                var p = this.fa(item)
                 var u = item.单位
                 var l = item.长度
                 var w = item.宽度
@@ -166,8 +194,9 @@
                 item.单位 = event.target.innerText
             },
             customerIdOnChange: function (e) {
-                console.log("vue: ", "customerIdOnChange, url: ", this.url)
-                $('#selectTable2').bootstrapTable('refresh', { url: this.url });
+                var url = ["/api/product/订单/", this.record.往来号].join("")
+                console.log("vue:", "customerIdOnChange, url:", url)
+                $('#selectTable').bootstrapTable('refresh', { url: url });
             }
         }
     })

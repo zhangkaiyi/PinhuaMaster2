@@ -1,0 +1,56 @@
+﻿@page
+@model Pinhua2.Web.Pages.查询.最新单价Model
+@{
+    ViewData["Title"] = "最新单价";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>最新单价</h3>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered text-nowrap">
+        <thead>
+            <tr>
+                @foreach (var cdm in CustomDisplayFactory<view_LastPrice>.CustomDisplayModels(pinhua2.view_最新单价().FirstOrDefault()))
+                {
+                    if (cdm.ForIndex)
+                    {
+                        <th>
+                            @cdm.Name
+                        </th>
+                    }
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in pinhua2.view_最新单价())
+            {
+                <tr>
+                    @foreach (var cdm in CustomDisplayFactory<view_LastPrice>.CustomDisplayModels(item))
+                    {
+                        if (cdm.ForIndex)
+                        {
+                            <td>
+                                @{
+                                    if (cdm.IsDatetime)
+                                    {
+                                        @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
+                                    }
+                                    else if (cdm.IsDecimal)
+                                    {
+                                        @(((decimal?)cdm.Value)?.ToString("0.00"))
+                                    }
+                                    else
+                                    {
+                                        @cdm.Value
+                                    }
+                                }
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

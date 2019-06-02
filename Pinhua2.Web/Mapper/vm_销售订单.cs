@@ -14,7 +14,7 @@ namespace Pinhua2.Web.Mapper
         [CustomDisplay(10)]
         public string 单号 { get; set; }
 
-        [CustomDisplay(20, ForIndex = false)]
+        [CustomDisplay(20)]
         public string 业务类型 { get; set; }
 
         [CustomDisplay(ForIndex = false)]

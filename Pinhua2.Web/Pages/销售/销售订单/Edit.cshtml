@@ -19,7 +19,7 @@
                         <input asp-for="Record.单号" class="form-control" placeholder="自动生成 ..." readonly />
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是" @if (Model.Record.报价单=="是" ) { <text> checked</text>}>
+                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是" @if (Model.Record.报价单 == "是") { <text> checked</text>}>
                                 <label class="form-check-label" for="Record_报价单">
                                     报价单
                                 </label>
@@ -31,14 +31,15 @@
             <div class="form-group row">
                 <label asp-for="Record.往来号" class="col-4 col-sm-2 col-form-label"></label>
                 <div class="col-8 col-sm-10">
-                    <select class="form-control" asp-for="Record.往来号" asp-items="Model.CustomerSelectList"></select>
+                    @*<select class="form-control" asp-for="Record.往来号" asp-items="Model.CustomerSelectList"></select>*@
+                    <input class="form-control" asp-for="Record.往来号" type="text"  v-model="record.往来号" v-on:change="customerIdOnChange" />
                     <span asp-validation-for="Record.往来号" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group row d-none">
+            <div class="form-group row">
                 <label asp-for="Record.往来" class="col-4 col-sm-2 col-form-label"></label>
                 <div class="col-8 col-sm-10">
-                    <input asp-for="Record.往来" class="form-control" type="hidden" />
+                    <input asp-for="Record.往来" class="form-control" type="text" readonly />
                     <span asp-validation-for="Record.往来" class="text-danger"></span>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                 <label asp-for="Record.日期" class="col-4 col-sm-2 col-form-label"></label>
                 <div class="col-8 col-sm-10">
                     <input asp-for="Record.日期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd"
-                           value="@Model.Record.日期?.ToString(" yyyy-MM-dd")" readonly type="text" />
+                           value="@Model.Record.日期?.ToString("yyyy-MM-dd")" readonly type="text" />
                     <span asp-validation-for="Record.日期" class="text-danger"></span>
                 </div>
             </div>
@@ -61,7 +62,7 @@
                 <label asp-for="Record.交期" class="col-4 col-sm-2 col-form-label"></label>
                 <div class="col-8 col-sm-10">
                     <input asp-for="Record.交期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd"
-                           value="@Model.Record.交期?.ToString(" yyyy-MM-dd")" readonly type="text" />
+                           value="@Model.Record.交期?.ToString("yyyy-MM-dd")" readonly type="text" />
                     <span asp-validation-for="Record.交期" class="text-danger"></span>
                 </div>
             </div>
@@ -95,21 +96,16 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    @{
+        var customerId = Model.Record.往来号;
+    }
     <script>
-        refreshSelectModal2 = function (event) {
-            var url = '/api/product/报价/' + ($customer.val() || '')
-            $('#selectTable2').bootstrapTable('refresh', { url: url });
-        }
-
         $(function () {
-            //refreshSelectModal2()
-            $customer = $('select[name="Record.往来号"]')
-            $customer.on('change', refreshSelectModal2)
-
             $table2 = $('#selectTable2')
             $table2.bootstrapTable({
-                url: '/api/product/报价/' + ($customer.val() || ''),
+                url: '/api/product/报价/@(customerId)',
                 onLoadSuccess: function (data) {
+                    console.log(data)
                     // 恢复所有隐藏行
                     $table2.bootstrapTable('getHiddenRows', true)
                     // 比对数据
@@ -122,18 +118,19 @@
                         }
                     })
                 },
-
             })
         })
     </script>
-
-    @{
-        var emptyDetail = JsonConvert.SerializeObject(new vm_销售订单D());
-        var emptyDetailList = JsonConvert.SerializeObject(Model?.RecordDs ?? new List<vm_销售订单D>());
-    }
-    <script>
-        var emptyDetail = @Html.Raw(emptyDetail);
-        var emptyDetailList = @Html.Raw(emptyDetailList);
-    </script>
+    @*<script>
+        var customerId = @Html.Raw(customerId);
+        var url订单D = '/api/product/订单/@(customerId)'
+        var url订单D_data = []
+        fetch(url订单D)
+            .then(response => response.json())
+            .then(data => {
+                url订单D_data = data
+                vm.items = data
+        })
+    </script>*@
     <partial name="_vue" />
 }

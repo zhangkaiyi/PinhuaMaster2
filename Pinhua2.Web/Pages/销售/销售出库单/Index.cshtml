@@ -1,0 +1,65 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.销售出库单.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>销售出库单</h3>
+    <div class="btn-group">
+        <a class="btn btn-outline-secondary" asp-page="Create">新增</a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered text-nowrap">
+        <thead>
+            <tr>
+                @foreach (var cdm in CustomDisplayFactory<vm_销售出库>.CustomDisplayModels(Model.Records.FirstOrDefault()))
+                {
+                    if (cdm.ForIndex)
+                    {
+                        <th>
+                            @cdm.Name
+                        </th>
+                    }
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Records)
+            {
+                <tr>
+                    @foreach (var cdm in CustomDisplayFactory<vm_销售出库>.CustomDisplayModels(item))
+                    {
+                        if (cdm.ForIndex)
+                        {
+                            <td>
+                                @{
+                                    if (cdm.IsDatetime)
+                                    {
+                                        @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
+                                    }
+                                    else if (cdm.IsDecimal)
+                                    {
+                                        @(((decimal?)cdm.Value)?.ToString("0.00"))
+                                    }
+                                    else
+                                    {
+                                        @cdm.Value
+                                    }
+                                }
+                            </td>
+                        }
+                    }
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
+                        <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

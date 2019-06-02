@@ -1,4 +1,5 @@
-﻿using Pinhua2.Data.Models;
+﻿using Newtonsoft.Json.Linq;
+using Pinhua2.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,25 @@ namespace Pinhua2.Data.Helper
         {
             dst.RecordId = src.RecordId;
             dst.Guid = src.Guid;
+        }
+        static public JObject JObjectFromMerge(params object[] objects)
+        {
+            var jObject = new JObject();
+            foreach(var obj in objects)
+            {
+                var json = JObject.FromObject(obj);
+                jObject.Merge(json);
+            }
+            return jObject;
+        }
+        static public JArray JsonMergeArray(IList<object[]> objects)
+        {
+            var jArray = new JArray();
+            foreach (var objs in objects)
+            {
+                jArray.Add(JObjectFromMerge(objs));
+            }
+            return jArray;
         }
     }
 }

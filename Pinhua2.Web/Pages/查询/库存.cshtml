@@ -1,0 +1,56 @@
+﻿@page
+@model Pinhua2.Web.Pages.查询.库存Model
+@{
+    ViewData["Title"] = "库存";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>库存</h3>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered text-nowrap">
+        <thead>
+            <tr>
+                @foreach (var cdm in CustomDisplayFactory<view_Lq>.CustomDisplayModels(pinhua2.view_库存().FirstOrDefault()))
+                {
+                    if (cdm.ForIndex)
+                    {
+                        <th>
+                            @cdm.Name
+                        </th>
+                    }
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in pinhua2.view_库存())
+            {
+                <tr>
+                    @foreach (var cdm in CustomDisplayFactory<view_Lq>.CustomDisplayModels(item))
+                    {
+                        if (cdm.ForIndex)
+                        {
+                            <td>
+                                @{
+                                    if (cdm.IsDatetime)
+                                    {
+                                        @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
+                                    }
+                                    else if (cdm.IsDecimal)
+                                    {
+                                        @(((decimal?)cdm.Value)?.ToString("0.00"))
+                                    }
+                                    else
+                                    {
+                                        @cdm.Value
+                                    }
+                                }
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

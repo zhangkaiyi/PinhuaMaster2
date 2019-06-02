@@ -31,7 +31,9 @@
             <tr v-for="(todo,index) in items">
                 <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)">修改</a></td>
                 <td>
-                    {{ index+1 }}<input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
+                    {{ index+1 }}
+                    <input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" />
+                    <input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
                 </td>
                 <td>{{ todo.子单号 }}<input :name="buildName(index,'子单号')" type="hidden" v-model="todo.子单号" /></td>
                 <td>{{ todo.品号 }}<input :name="buildName(index,'品号')" type="hidden" v-bind:value="todo.品号" /></td>

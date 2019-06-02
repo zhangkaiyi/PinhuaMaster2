@@ -7,21 +7,46 @@
     var set = from m in pinhua2.tb_订单表
               join d in pinhua2.tb_订单表D on m.RecordId equals d.RecordId
               join x in pinhua2.tb_商品表 on d.品号 equals x.品号
-
+              where m.往来号 == "190001"
               select new
               {
-                  x,
-                  d
+                  订 = d,
+                  品 = x
               };
-    var l = new JArray();
-    foreach (var item in set)
-    {
-        var a = JObject.FromObject(item.d);
-        var b = JObject.FromObject(item.x);
-        a.Merge(b);
-        l.Add(a);
-    }
-
 }
+<pre>@JsonConvert.SerializeObject(pinhua2.view_全部订单收付(),Formatting.Indented)</pre>
 
-<pre>@{@l}</pre>
+
+@functions{
+    public IList<view_LastPrice> xxx()
+    {
+        var o = from m in pinhua2.tb_订单表.AsNoTracking()
+                join d in pinhua2.tb_订单表D.AsNoTracking() on m.RecordId equals d.RecordId
+                select new
+                {
+                    m.RecordId,
+                    m.业务类型,
+                    m.往来号,
+                    d.品号,
+                    d.单价,
+                    m.日期
+                };
+        var l = from p in o
+                where !o.Any(x => x.RecordId > p.RecordId && x.业务类型 == p.业务类型 && x.往来号 == p.往来号 && x.品号 == p.品号) // 不存在更新的RecordId
+                group p by new { p.RecordId, p.业务类型, p.日期, p.往来号, p.品号 } into g
+                select new view_LastPrice
+                {
+                    RecordId = g.Key.RecordId,
+                    业务类型 = g.Key.业务类型,
+                    往来号 = g.Key.往来号,
+                    品号 = g.Key.品号,
+                    日期 = g.Key.日期,
+                    最低价 = g.Min(x => x.单价),
+                    最高价 = g.Max(x => x.单价)
+                };
+
+
+        return l.ToList();
+
+    }
+}

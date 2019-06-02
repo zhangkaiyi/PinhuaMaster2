@@ -5,19 +5,5 @@
 }
 
 <pre>
-    @(Get<tb_报价表, tb_报价表D>())
+    @Html.Action("all","product","api",new { id=1})
 </pre>
-
-@functions{
-    public string Get<TMain, TDetail>
-    () where TMain : _BaseTableMain where TDetail : _BaseTableDetail
-    {
-        return JsonConvert.SerializeObject(new
-        {
-            A = pinhua2.Set<TMain>
-            ().ToList(),
-            B = pinhua2.Set<TDetail>
-                ().ToList()
-        }, Formatting.Indented);
-    }
-}
