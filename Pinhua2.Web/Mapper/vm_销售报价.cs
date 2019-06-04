@@ -46,30 +46,34 @@ namespace Pinhua2.Web.Mapper
         public string 别名 { get; set; }
         public string 型号 { get; set; }
         public string 规格 { get; set; }
+        [CustomDisplay(ForIndex = false)]
         public decimal? 长度 { get; set; }
+        [CustomDisplay(ForIndex = false)]
         public decimal? 宽度 { get; set; }
+        [CustomDisplay(ForIndex = false)]
         public decimal? 高度 { get; set; }
+        [CustomDisplay(ForIndex = false)]
         public decimal? 面厚 { get; set; }
 
-        [CustomDisplay(ForCreate = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false)]
         public decimal? 库存 { get; set; }
-        public string 单位 { get; set; }
         public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
+        public string 单位 { get; set; }
         public decimal? 单价 { get; set; }
         public decimal? 金额 { get; set; }
 
-        [CustomDisplay(ForCreate = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false)]
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
 
-        [CustomDisplay(ForCreate = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false)]
         public decimal? 上次价 { get; set; }
 
-        [CustomDisplay(ForCreate = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false)]
         public DateTime? 上次日期 { get; set; }
 
-        [CustomDisplay(ForCreate = false)]
+        [CustomDisplay(ForIndex = false, ForCreate = false)]
         public string 品牌 { get; set; }
 
         [CustomDisplay(ForCreate = false)]

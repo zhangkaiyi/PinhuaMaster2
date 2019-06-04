@@ -1,0 +1,110 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.收款单.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Record</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Record.类型" class="control-label"></label>
+                <input asp-for="Record.类型" class="form-control" />
+                <span asp-validation-for="Record.类型" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.往来" class="control-label"></label>
+                <input asp-for="Record.往来" class="form-control" />
+                <span asp-validation-for="Record.往来" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.往来号" class="control-label"></label>
+                <input asp-for="Record.往来号" class="form-control" />
+                <span asp-validation-for="Record.往来号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.收" class="control-label"></label>
+                <input asp-for="Record.收" class="form-control" />
+                <span asp-validation-for="Record.收" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.单号" class="control-label"></label>
+                <input asp-for="Record.单号" class="form-control" />
+                <span asp-validation-for="Record.单号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.日期" class="control-label"></label>
+                <input asp-for="Record.日期" class="form-control" />
+                <span asp-validation-for="Record.日期" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.备注" class="control-label"></label>
+                <input asp-for="Record.备注" class="form-control" />
+                <span asp-validation-for="Record.备注" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.分配" class="control-label"></label>
+                <input asp-for="Record.分配" class="form-control" />
+                <span asp-validation-for="Record.分配" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.发票号" class="control-label"></label>
+                <input asp-for="Record.发票号" class="form-control" />
+                <span asp-validation-for="Record.发票号" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Record.RecordId" />
+            <div class="form-group">
+                <label asp-for="Record.CreateUser" class="control-label"></label>
+                <input asp-for="Record.CreateUser" class="form-control" />
+                <span asp-validation-for="Record.CreateUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.CreateTime" class="control-label"></label>
+                <input asp-for="Record.CreateTime" class="form-control" />
+                <span asp-validation-for="Record.CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.LastEditUser" class="control-label"></label>
+                <input asp-for="Record.LastEditUser" class="form-control" />
+                <span asp-validation-for="Record.LastEditUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.LastEditTime" class="control-label"></label>
+                <input asp-for="Record.LastEditTime" class="form-control" />
+                <span asp-validation-for="Record.LastEditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.ReportStatus" class="control-label"></label>
+                <input asp-for="Record.ReportStatus" class="form-control" />
+                <span asp-validation-for="Record.ReportStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.LockStatus" class="control-label"></label>
+                <input asp-for="Record.LockStatus" class="form-control" />
+                <span asp-validation-for="Record.LockStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.Guid" class="control-label"></label>
+                <input asp-for="Record.Guid" class="form-control" />
+                <span asp-validation-for="Record.Guid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

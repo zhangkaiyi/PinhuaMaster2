@@ -59,22 +59,22 @@ namespace Pinhua2.Data.Models
     public partial class _BaseTableDetail : _IBaseTableDetail
     {
         [Key]
-        [CustomDisplay]
+        [CustomDisplay(ForIndex = false)]
         public int Idx { get; set; }
 
-        [CustomDisplay(10)]
+        [CustomDisplay(10, ForIndex = false)]
         public int? RN { get; set; }
 
-        [CustomDisplay]
+        [CustomDisplay(ForIndex = false)]
         public int? RecordId { get; set; }
 
-        [CustomDisplay]
+        [CustomDisplay(10)]
         public string 子单号 { get; set; }
 
-        [CustomDisplay]
+        [CustomDisplay(ForIndex = false)]
         public int? Sequence { get; set; }
 
-        [CustomDisplay]
+        [CustomDisplay(ForIndex = false)]
         public Guid Guid { get; set; }
 
     }

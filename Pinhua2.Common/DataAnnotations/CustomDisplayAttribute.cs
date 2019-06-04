@@ -9,13 +9,13 @@ namespace Pinhua2.Common.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class CustomDisplayAttribute : Attribute
     {
-        public int Order { get; } = 100;
+        public double Order { get; } = 100;
         public bool ForIndex { get; set; } = true;
         public bool ForCreate { get; set; } = false;
         public bool ForRead { get; set; } = true;
         public bool ForUpdate { get; set; } = false;
         public bool ForDelete { get; set; } = true;
-        public CustomDisplayAttribute(int displayOrder = 100)
+        public CustomDisplayAttribute(double displayOrder = 100)
         {
             Order = displayOrder;
         }
@@ -30,7 +30,7 @@ namespace Pinhua2.Common.Attributes
             _obj = obj;
 
         }
-        public int Order { get; set; } = 100;
+        public double Order { get; set; } = 100;
 
         public bool ForCreate { get; set; }
         public bool ForRead { get; set; }

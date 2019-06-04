@@ -12,7 +12,8 @@
     </div>
 </div>
 <div class="table-responsive">
-    <table class="table table-bordered text-nowrap">
+    <table id="indexMain" class="table table-bordered text-nowrap"
+           data-toggle="table" >
         <thead>
             <tr>
                 @foreach (var cdm in CustomDisplayFactory<vm_销售订单>.CustomDisplayModels(Model.vm_销售订单表.FirstOrDefault()))
@@ -63,3 +64,40 @@
         </tbody>
     </table>
 </div>
+
+<div id="detailsGroup">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+        <h3>明细</h3>
+    </div>
+    <div class="table-responsive">
+        <table id="indexDetails" class="table table-bordered text-nowrap"
+               data-toggle="table">
+            <thead>
+                <tr>
+                    @foreach (var cdm in CustomDisplayFactory<vm_销售订单D>.CustomDisplayModels(default(vm_销售订单D)))
+                    {
+                        if (cdm.ForIndex)
+                        {
+                            <th data-field="@(cdm.RawName)">@(cdm.Name)</th>
+                        }
+                    }
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#indexDetails').on('load-success.bs.table', function (e, data) {
+                //$('#detailsGroup').css('display', 'block')
+            })
+            $('#indexMain').on('click-row.bs.table', function (e, row, $element, field) {
+                var url = ["/api/sd/订单/", row[1]].join("")
+                console.log("url:", url)
+                $('#indexDetails').bootstrapTable('refresh', { url: url, silent: true });
+            })
+        })
+    </script>
+}

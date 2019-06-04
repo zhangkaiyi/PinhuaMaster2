@@ -1,12 +1,12 @@
 ﻿@page
-@model Pinhua2.Web.Pages.销售.销售出库单.IndexModel
+@model Pinhua2.Web.Pages.销售.收款单.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>销售出库单</h3>
+    <h3>收款单</h3>
     <div class="btn-group">
         <a class="btn btn-outline-secondary" asp-page="Create">新增</a>
     </div>
@@ -16,7 +16,7 @@
            data-toggle="table">
         <thead>
             <tr>
-                @foreach (var cdm in CustomDisplayFactory<vm_销售出库>.CustomDisplayModels(Model.Records.FirstOrDefault()))
+                @foreach (var cdm in CustomDisplayFactory<vm_收款单>.CustomDisplayModels(Model.Record.FirstOrDefault()))
                 {
                     if (cdm.ForIndex)
                     {
@@ -29,10 +29,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Records)
+            @foreach (var item in Model.Record)
             {
                 <tr>
-                    @foreach (var cdm in CustomDisplayFactory<vm_销售出库>.CustomDisplayModels(item))
+                    @foreach (var cdm in CustomDisplayFactory<vm_收款单>.CustomDisplayModels(item))
                     {
                         if (cdm.ForIndex)
                         {
@@ -41,10 +41,6 @@
                                     if (cdm.IsDatetime)
                                     {
                                         @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
-                                    }
-                                    else if (cdm.IsDecimal)
-                                    {
-                                        @(((decimal?)cdm.Value)?.ToString("0.00"))
                                     }
                                     else
                                     {
@@ -74,7 +70,7 @@
                data-toggle="table">
             <thead>
                 <tr>
-                    @foreach (var cdm in CustomDisplayFactory<vm_销售出库D>.CustomDisplayModels(default(vm_销售出库D)))
+                    @foreach (var cdm in CustomDisplayFactory<vm_收款单D>.CustomDisplayModels(default(vm_收款单D)))
                     {
                         if (cdm.ForIndex)
                         {
@@ -94,7 +90,7 @@
                 //$('#detailsGroup').css('display', 'block')
             })
             $('#indexMain').on('click-row.bs.table', function (e, row, $element, field) {
-                var url = ["/api/sd/出库/", row[1]].join("")
+                var url = ["/api/sd/收款/", row[4]].join("")
                 console.log("url:", url)
                 $('#indexDetails').bootstrapTable('refresh', { url: url, silent: true });
             })

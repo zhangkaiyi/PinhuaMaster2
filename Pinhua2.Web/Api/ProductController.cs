@@ -65,34 +65,24 @@ namespace Pinhua2.Web.Api
         //    return json;
         //}
 
+        [HttpGet("报价/all")]
+        public JArray 销售报价商品()
+        {
+            return new JArray(_pinhua2.Get销售报价商品());
+        }
+
         [HttpGet("报价/{customerId}")]
         public JArray 销售报价商品(string customerId)
         {
             return new JArray(_pinhua2.Get销售报价商品(customerId).Where(j => !(((string)j["状态"]) ?? string.Empty).StartsWith("已")));
         }
 
-        //[HttpGet("订单")]
-        //public JArray 销售订单商品()
-        //{
-        //    var set = from m in _pinhua2.tb_订单表.AsNoTracking()
-        //              join d in _pinhua2.tb_订单表D.AsNoTracking() on m.RecordId equals d.RecordId
-        //              join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
-        //              select new
-        //              {
-        //                  订 = x,
-        //                  品 = d
-        //              };
-        //    JArray jsonArray = new JArray();
-        //    foreach (var item in set)
-        //    {
-        //        var jsonDetails = JObject.FromObject(item.订);
-        //        var jsonProducts = JObject.FromObject(item.品);
-        //        jsonDetails.Merge(jsonProducts);
-        //        jsonArray.Add(jsonDetails);
-        //    }
+        [HttpGet("报价/{customerId}/{orderId}")]
+        public JArray 销售报价商品(string customerId, string orderId)
+        {
+            return new JArray(_pinhua2.Get销售报价商品(customerId, orderId).Where(j => !(((string)j["状态"]) ?? string.Empty).StartsWith("已")));
+        }
 
-        //    return jsonArray;
-        //}
 
         [HttpGet("订单/{customerId}")]
         public JArray 销售订单商品(string customerId)
