@@ -48,7 +48,7 @@ namespace Pinhua2.Web.Pages.主数据.字典
                 // 补完明细表，主表字段写入明细表
                 foreach (var localD in vm_字典D列表)
                 {
-                    _pinhua2.funcNewDetails<vm_字典, vm_字典D, tb_字典表, tb_字典表D>(remote, localD, BeforeNewD: beforeD =>
+                    _pinhua2.funcNewDetail<vm_字典, vm_字典D, tb_字典表, tb_字典表D>(remote, localD, BeforeNewD: beforeD =>
                     {
                         beforeD.字典名 = remote.字典名;
                         beforeD.组 = remote.组;

@@ -10,82 +10,100 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">RN</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">RN</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" v-bind:value="editModalRN" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">子单号</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">子单号</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" v-model="itemCurrent.子单号" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">品号</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">品号</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" v-model="itemCurrent.品号" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">品名</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">品名</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" v-model="itemCurrent.品名" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">别名</label>
-                    <div class="col-8 col-sm-10">
-                        <input class="form-control" v-model="itemCurrent.别名" readonly />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">型号</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">型号</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" v-model="itemCurrent.型号" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">规格</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">规格</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" v-model="itemCurrent.规格" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">个数</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">个数</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" type="number" v-model="itemCurrent.个数" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">数量</label>
-                    <div class="col-8 col-sm-10">
-                        <input class="form-control" v-model="computeUnitQty(itemCurrent)" />
+                    <label class="col-4 col-sm-3 col-form-label">数量</label>
+                    <div class="col-8 col-sm-9">
+                        <input class="form-control" v-model="itemCurrent.数量" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">单位</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">单位</label>
+                    <div class="col-8 col-sm-9">
                         <div class="input-group">
                             <input class="form-control" v-bind:value="itemCurrent.单位" readonly />
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">单价</label>
-                    <div class="col-8 col-sm-10">
-                        <input class="form-control" type="number" v-model="itemCurrent.单价" />
+                    <label class="col-4 col-sm-3 col-form-label">单价</label>
+                    <div class="col-8 col-sm-9">
+                        <input class="form-control" type="number" v-model="itemCurrent.单价" readonly />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">金额</label>
-                    <div class="col-8 col-sm-10">
-                        <input class="form-control" readonly v-bind:value="computeMoney(itemCurrent)" />
+                    <label class="col-4 col-sm-3 col-form-label">金额</label>
+                    <div class="col-8 col-sm-9">
+                        <input class="form-control" readonly v-model="itemCurrent.金额" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-sm-2 col-form-label">备注</label>
-                    <div class="col-8 col-sm-10">
+                    <label class="col-4 col-sm-3 col-form-label">已收款额</label>
+                    <div class="col-8 col-sm-9">
+                        <input class="form-control" type="number" v-model="itemCurrent.已收款额" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-3 col-form-label">待收款额</label>
+                    <div class="col-8 col-sm-9">
+                        <input class="form-control" type="number" v-model="itemCurrent.待收款额" readonly />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-3 col-form-label">可分配</label>
+                    <div class="col-8 col-sm-9">
+                        <input class="form-control" type="number" v-model="itemCurrent.可分配" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-3 col-form-label">分配金额</label>
+                    <div class="col-8 col-sm-9">
+                        <input class="form-control" type="number" v-model="itemCurrent.分配金额" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-sm-3 col-form-label">备注</label>
+                    <div class="col-8 col-sm-9">
                         <input class="form-control" v-model="itemCurrent.备注" />
                     </div>
                 </div>

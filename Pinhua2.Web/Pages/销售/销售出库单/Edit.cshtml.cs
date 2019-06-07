@@ -118,26 +118,26 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
                 {
                     if (string.IsNullOrEmpty(creatingD.子单号)) // 子单号为空的，表示新插入
                     {
-                        // creatingD.子单号 = _context.funcAutoCode("子单号");
+                        creatingD.子单号 = _context.funcAutoCode("子单号");
                     }
                     else if (!string.IsNullOrEmpty(creatingD.子单号)) // 子单号不为空，表示从报价单引入，插入
                     {
-                        //var baojiaD = _context.Set<tb_报价表D>().FirstOrDefault(d => d.子单号 == creatingD.子单号);
-                        //if (baojiaD != null)
-                        //    baojiaD.状态 = "已下单";
+                        var baojiaD = _context.Set<tb_订单表D>().FirstOrDefault(d => d.子单号 == creatingD.子单号);
+                        if (baojiaD != null)
+                            baojiaD.状态 = "已出库";
                     }
                 },
                 updatingD =>
                 {
-                    //var baojiaD = _context.Set<tb_报价表D>().FirstOrDefault(d => d.子单号 == updatingD.子单号);
-                    //if (baojiaD != null)
-                    //    baojiaD.状态 = "已下单";
+                    var baojiaD = _context.Set<tb_订单表D>().FirstOrDefault(d => d.子单号 == updatingD.子单号);
+                    if (baojiaD != null)
+                        baojiaD.状态 = "已出库";
                 },
                deletingD =>
                {
-                   //var tb_报价D = _context.Set<tb_报价表D>().FirstOrDefault(d => d.子单号 == deletingD.子单号);
-                   //if (tb_报价D != null)
-                   //    tb_报价D.状态 = "";
+                   var tb_报价D = _context.Set<tb_订单表D>().FirstOrDefault(d => d.子单号 == deletingD.子单号);
+                   if (tb_报价D != null)
+                       tb_报价D.状态 = "";
                });
 
             await _context.SaveChangesAsync();

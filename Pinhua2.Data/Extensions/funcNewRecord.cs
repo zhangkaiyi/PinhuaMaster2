@@ -27,7 +27,7 @@ namespace Pinhua2.Data
             return remote;
         }
 
-        public static TRemoteD funcNewDetails<TLocal, TLocalD, TRemote, TRemoteD>(this Pinhua2Context context, TRemote remote, TLocalD localD,
+        public static TRemoteD funcNewDetail<TLocal, TLocalD, TRemote, TRemoteD>(this Pinhua2Context context, TRemote remote, TLocalD localD,
             Action<TLocalD> BeforeNewD = null/*, Action<TRemoteD> AfterNew = null*/)
             where TLocal : _BaseTableMain
             where TLocalD : _BaseTableDetail
@@ -36,32 +36,15 @@ namespace Pinhua2.Data
         {
             BeforeNewD?.Invoke(localD);
 
-            Pinhua2Helper.CompleteDetailOnCreate(remote, localD);
+            //Pinhua2Helper.CompleteDetailOnCreate(remote, localD);
+            localD.RecordId = remote.RecordId;
+
             var remoteD = Mapper.Map<TLocalD, TRemoteD>(localD);
             context.Entry<TRemoteD>(remoteD).State = EntityState.Added;
 
             //AfterNew?.Invoke(remoteD);
             //context.SaveChanges();
             return remoteD;
-        }
-
-        public static void funcNewRecordWithDetails<TLocal, TLocalD, TRemote, TRemoteD>(this Pinhua2Context context, TLocal local, IList<TLocalD> localDs,
-            Action<TLocal> BeforeNew = null,
-            Action<TLocalD> BeforeNewDetail = null,
-            Action<TRemote> AfterNew = null,
-            Action<TRemoteD> AfterNewDetail = null)
-            where TLocal : _BaseTableMain
-            where TLocalD : _BaseTableDetail
-            where TRemote : _BaseTableMain
-            where TRemoteD : _BaseTableDetail
-        {
-            var remote = funcNewRecord<TLocal, TRemote>(context, local, BeforeNew/*, AfterNew*/);
-
-            foreach (var localD in localDs)
-            {
-                var remoteD = context.funcNewDetails<TLocal, TLocalD, TRemote, TRemoteD>(remote, localD, BeforeNewDetail/*, AfterNewDetail*/);
-            }
-            //context.SaveChanges();
         }
     }
 }

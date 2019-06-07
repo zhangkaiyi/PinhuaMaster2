@@ -16,11 +16,12 @@
             <tr>
                 <th></th>
                 <th>RN</th>
+                <th>子单号</th>
                 @foreach (var cdm in CustomDisplayFactory<vm_收款单D>.CustomDisplayModels(new vm_收款单D()))
                 {
                     if (cdm.ForCreate)
                     {
-                        <th>@cdm.Name</th>
+                        <th>@cdm.RawName</th>
                     }
                 }
             </tr>
@@ -34,11 +35,19 @@
                     <input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" v-if="todo.Idx>0" />
                     <input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
                 </td>
+                <td>{{ todo.子单号 }}<input :name="buildName(index,'子单号')" type="hidden" v-bind:value="todo.子单号" /></td>
                 @foreach (var cdm in CustomDisplayFactory<vm_收款单D>.CustomDisplayModels(new vm_收款单D()))
                 {
                     if (cdm.ForCreate)
                     {
-                        <td>{{ todo.@cdm.RawName }}<input :name="buildName(index,'@cdm.RawName')" type="hidden" v-bind:value="todo.@cdm.RawName" /></td>
+                        if (cdm.RawName == "可分配")
+                        {
+                            <td>{{ 可分配(index) }}<input :name="buildName(index,'@cdm.RawName')" type="hidden" v-bind:value="可分配(index)" /></td>
+                        }
+                        else
+                        {
+                            <td>{{ todo.@cdm.RawName }}<input :name="buildName(index,'@cdm.RawName')" type="hidden" v-bind:value="todo.@cdm.RawName" /></td>
+                        }
                     }
                 }
             </tr>

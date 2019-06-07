@@ -2,6 +2,8 @@
 @{
     var record = JsonConvert.SerializeObject(Model?.Record ?? new vm_收款单());
     var recordD = JsonConvert.SerializeObject(new vm_收款单D());
+    var customerId = (string)Model?.Record?.往来号;
+    var orderId = (string)Model?.Record?.单号;
     var recordDs = JsonConvert.SerializeObject(Model?.RecordDs ?? new List<vm_收款单D>());
 }
 
@@ -22,6 +24,23 @@
             isNew: true,
         },
         watch: {
+            aaa: function (val1, val2) {
+                for (var i in this.items) {
+                    var 待分配 = this.items[i].待收款额
+                    console.log("待分配",待分配)
+                    //console.log(left)
+                    var 已分 = (this.items.slice(0, i).map(
+                        row => (row.可分配 || 0)).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0))
+                    console.log("已分",已分)
+                    var 收 = this.aaa
+                    console.log('收',收)
+                    var 可分 = 收 - 已分
+
+                    var 最终分配 = 待分配 < 可分 ? 待分配 : 可分
+                    this.items[i].可分配 = 最终分配
+                }
+            },
             items: function (val1, val2) {
                 console.log('watch')
                 var $table = $('#selectTable')
@@ -30,15 +49,15 @@
                 // 获取数据
                 var data = $table.bootstrapTable('getData')
                 // 比对数据
-                this.items.forEach(function (v) {
+                //this.items.forEach(function (v) {
 
-                    for (var i in data) {
-                        // 已经添加的数据，从selectTable2中隐藏
-                        if (v.子单号 == data[i].子单号) {
-                            $table.bootstrapTable('hideRow', { index: i })
-                        }
-                    }
-                })
+                //    for (var i in data) {
+                //        // 已经添加的数据，从selectTable2中隐藏
+                //        if (v.子单号 == data[i].子单号) {
+                //            $table.bootstrapTable('hideRow', { index: i })
+                //        }
+                //    }
+                //})
             },
         },
         mounted: function () {
@@ -47,20 +66,20 @@
             this.$nextTick(function () {
                 $selectTable1 = $('#selectTable')
                 $selectTable1.bootstrapTable({
-                    url: ['/api/product/订单/', this.record.往来号].join(""),
+                    url: ['/api/sd/收付待收/', this.record.往来号].join(""),
                     onLoadSuccess: function (data) {
                         console.log(data)
                         // 恢复所有隐藏行
                         $selectTable1.bootstrapTable('getHiddenRows', true)
                         // 比对数据
-                        vm.items.forEach(function (v) {
-                            for (var i in data) {
-                                // 已经添加的数据，从selectTable2中隐藏
-                                if (v.子单号 == data[i].子单号) {
-                                    $selectTable1.bootstrapTable('hideRow', { index: i })
-                                }
-                            }
-                        })
+                        //vm.items.forEach(function (v) {
+                        //    for (var i in data) {
+                        //        // 已经添加的数据，从selectTable2中隐藏
+                        //        if (v.子单号 == data[i].子单号) {
+                        //            $selectTable1.bootstrapTable('hideRow', { index: i })
+                        //        }
+                        //    }
+                        //})
                     },
                 })
             })
@@ -85,8 +104,38 @@
                     row => ((row.数量 || 0) * (row.单价 || 0))).reduce(
                         (acc, cur) => (parseFloat(cur) + acc), 0)).toFixed(2)
             },
+            sumDistribution() {
+                return (this.items.map(
+                    row => (row.分配金额 || 0)).reduce(
+                        (acc, cur) => (parseFloat(cur) + acc), 0)).toFixed(2)
+            },
+            allowedDistribution() {
+                return function (index) {
+                    var left = (this.items[index] || {}).待收款额
+                    //console.log(left)
+                    var x = (this.items.slice(0, index + 1).map(
+                        row => (row.可分配 || 0)).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0))
+                    this.items[index].可分配 = 1000 * (index + 1)
+
+                    return 0
+                }
+            }
         },
         methods: {
+            可分配(index) {
+                var 待分配 = (this.items[index] || {}).待收款额
+                    //console.log(left)
+                var 已分 = (this.items.slice(0, index).map(
+                        row => (row.可分配 || 0)).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0))
+                var 收 = this.record.收
+                var 可分 = 收 - 已分
+                
+                var 最终分配 = 待分配 < 可分 ? 待分配 : 可分
+                this.items[index].可分配 = 最终分配
+                return 最终分配
+            },
             init() {
                 this.items.forEach(function (v) {
                     v.个数 = v.个数 || v.发
@@ -117,22 +166,9 @@
                     //    this.items.push(itemList[i])
                     //}
                     this.itemCurrent = itemList[0]
+                    this.itemCurrent.已收款额 = this.itemCurrent.已收
+                    this.itemCurrent.待收款额 = this.itemCurrent.待收
                     $('#selectModal').modal('hide')
-                    $('#editModal').modal('show')
-                }
-                else {
-                    alert('请选择至少一件报价商品！')
-                }
-            },
-            selectItem2: function () {
-                this.itemCurrent = JSON.parse(JSON.stringify(recordD))
-                var itemList = $('#selectTable2').bootstrapTable('getSelections')
-                if (itemList.length > 0) {
-                    //for (var i in itemList) {
-                    //    this.items.push(itemList[i])
-                    //}
-                    this.itemCurrent = itemList[0]
-                    $('#selectModal2').modal('hide')
                     $('#editModal').modal('show')
                 }
                 else {
@@ -141,11 +177,11 @@
             },
             saveRecord: function () {
                 if (this.isNew) {
-                    this.items.push(this.itemCurrent);
+                    this.items.push(JSON.parse(JSON.stringify(this.itemCurrent)));
                     $('#editModal').modal('hide')
                 }
                 else {
-                    this.$set(this.items, this.itemIndex, this.itemCurrent)
+                    this.$set(this.items, this.itemIndex, JSON.parse(JSON.stringify(this.itemCurrent)))
                     $('#editModal').modal('hide')
                 }
             },
@@ -160,43 +196,18 @@
                 this.items.splice(index, 1)
             },
 
-            computeMoney: function (item) {
-                if (!this.computeUnitQty(item) || !item.单价)
-                    return ""
-                return parseFloat(this.computeUnitQty(item) * item.单价).toFixed(2)
-            },
-
-            computeUnitQty: function (item) {
-                //var p = item.个数
-                var p = this.fa(item)
-                var u = item.单位
-                var l = item.长度
-                var w = item.宽度
-                var h = item.高度
-                if (!p || !u || !l || !w || !h)
-                    return ""
-                var result = 0
-                if (u == 'PCS' || u == '片' || u == '个')
-                    result = p
-                else if (u == '平方米')
-                    result = p * l * w / 1000 / 1000
-                else if (u == '立方米')
-                    result = p * l * w * h / 1000 / 1000 / 1000
-                else if (u == '延长米')
-                    result = p * l / 1000
-                result = result || ""
-                item.数量 = result
-                return new Number(result).toFixed(4)
-
-            },
-
             putUnitOnClick: function (item) {
                 item.单位 = event.target.innerText
             },
             customerIdOnChange: function (e) {
-                var url = ["/api/product/订单/", this.record.往来号].join("")
-                console.log("vue:", "customerIdOnChange, url:", url)
-                $('#selectTable').bootstrapTable('refresh', { url: url });
+                var url = ['/api/sd/收付待收/', (this.record.往来号 || '无')].join("")
+                fetch(url).then(res => res.json()).then(data => {
+                    data.forEach(v => {
+                        v.已收款额 = v.已收
+                        v.待收款额 = v.待收
+                    })
+                    this.items = data
+                })
             }
         }
     })

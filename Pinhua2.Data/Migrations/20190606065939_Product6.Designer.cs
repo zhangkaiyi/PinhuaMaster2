@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pinhua2.Data;
 
 namespace Pinhua2.Data.Migrations
 {
     [DbContext(typeof(Pinhua2Context))]
-    partial class Pinhua2ContextModelSnapshot : ModelSnapshot
+    [Migration("20190606065939_Product6")]
+    partial class Product6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,9 +144,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("仓");
 
@@ -182,9 +190,13 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<string>("仓");
 
@@ -259,9 +271,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<DateTime?>("入职日期");
 
@@ -335,9 +353,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("上级品号");
 
@@ -465,9 +489,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("字典名");
 
@@ -484,9 +514,13 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<string>("代码");
 
@@ -517,9 +551,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.HasKey("RecordId");
 
@@ -538,11 +578,17 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
 
+                    b.Property<int?>("LockStatus");
+
                     b.Property<string>("Qq");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("付款方式");
 
@@ -596,9 +642,13 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<string>("地址");
 
@@ -621,9 +671,13 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<string>("发票抬头");
 
@@ -648,11 +702,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<string>("Qq");
 
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<string>("传真");
 
@@ -687,9 +745,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("业务类型");
 
@@ -724,9 +788,13 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<decimal?>("上次价")
                         .HasColumnType("decimal(18,6)");
@@ -786,9 +854,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<decimal?>("付")
                         .HasColumnType("decimal(18,6)");
@@ -826,12 +900,18 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
 
+                    b.Property<int?>("Sequence");
+
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
+
+                    b.Property<string>("别名");
 
                     b.Property<string>("单位");
 
@@ -839,6 +919,10 @@ namespace Pinhua2.Data.Migrations
                         .HasColumnType("decimal(18,6)");
 
                     b.Property<string>("品号");
+
+                    b.Property<string>("品名");
+
+                    b.Property<string>("型号");
 
                     b.Property<string>("备注");
 
@@ -892,9 +976,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.HasKey("RecordId");
 
@@ -911,9 +1001,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("业务类型");
 
@@ -954,9 +1050,13 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
@@ -1018,9 +1118,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("产能公式");
 
@@ -1072,9 +1178,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("品号");
 
@@ -1113,9 +1225,15 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("CreateUser");
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<DateTime?>("LastEditTime");
 
                     b.Property<string>("LastEditUser");
+
+                    b.Property<int?>("LockStatus");
+
+                    b.Property<int?>("ReportStatus");
 
                     b.Property<string>("业务类型");
 
@@ -1148,9 +1266,13 @@ namespace Pinhua2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("Guid");
+
                     b.Property<int?>("RN");
 
                     b.Property<int?>("RecordId");
+
+                    b.Property<int?>("Sequence");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");

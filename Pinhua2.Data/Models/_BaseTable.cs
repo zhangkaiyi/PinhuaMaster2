@@ -14,14 +14,11 @@ namespace Pinhua2.Data.Models
         DateTime? CreateTime { get; set; }
         string LastEditUser { get; set; }
         DateTime? LastEditTime { get; set; }
-        int? ReportStatus { get; set; }
-        int? LockStatus { get; set; }
-        Guid Guid { get; set; }
     }
     public partial class _BaseTableMain : _IBaseTableMain
     {
         [Key]
-        [CustomDisplay(ForIndex = false)]
+        [CustomDisplay(IsRendered = false, ForIndex = false)]
         public int RecordId { get; set; }
 
         [CustomDisplay(ForIndex = false)]
@@ -35,15 +32,6 @@ namespace Pinhua2.Data.Models
 
         [CustomDisplay(ForIndex = false)]
         public DateTime? LastEditTime { get; set; }
-
-        [CustomDisplay(ForIndex = false)]
-        public int? ReportStatus { get; set; }
-
-        [CustomDisplay(ForIndex = false)]
-        public int? LockStatus { get; set; }
-
-        [CustomDisplay(ForIndex = false)]
-        public Guid Guid { get; set; }
     }
 
     public interface _IBaseTableDetail
@@ -52,8 +40,6 @@ namespace Pinhua2.Data.Models
         int? RecordId { get; set; }
         string 子单号 { get; set; }
         int? RN { get; set; }
-        int? Sequence { get; set; }
-        Guid Guid { get; set; }
     }
 
     public partial class _BaseTableDetail : _IBaseTableDetail
@@ -70,12 +56,5 @@ namespace Pinhua2.Data.Models
 
         [CustomDisplay(10)]
         public string 子单号 { get; set; }
-
-        [CustomDisplay(ForIndex = false)]
-        public int? Sequence { get; set; }
-
-        [CustomDisplay(ForIndex = false)]
-        public Guid Guid { get; set; }
-
     }
 }

@@ -98,8 +98,10 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
             {
                 foreach (var localD in RecordDs)
                 {
-                    _context.funcNewDetails<vm_销售出库, vm_销售出库D, tb_IO, tb_IOD>(remote, localD, creatingD=> {
-                        creatingD.RecordId = remote.RecordId;
+                    _context.funcNewDetail<vm_销售出库, vm_销售出库D, tb_IO, tb_IOD>(remote, localD, creatingD=> {
+                        var 报价D = _context.tb_订单表D.FirstOrDefault(d => d.子单号 == creatingD.子单号);
+                        if (报价D != null)
+                            报价D.状态 = "已出库";
                     });
                 }
                 await _context.SaveChangesAsync();

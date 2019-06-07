@@ -103,7 +103,7 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             {
                 foreach (var item in vm_销售报价D列表)
                 {
-                    _context.funcNewDetails<vm_销售报价, vm_销售报价D, tb_报价表, tb_报价表D>(tb_报价, item, beforeNewD =>
+                    _context.funcNewDetail<vm_销售报价, vm_销售报价D, tb_报价表, tb_报价表D>(tb_报价, item, beforeNewD =>
                     {
                         beforeNewD.子单号 = _context.funcAutoCode("子单号");
                     });

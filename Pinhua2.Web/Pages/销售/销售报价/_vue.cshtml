@@ -42,18 +42,13 @@
             },
             saveRecord: function () {
                 if (this.isNew) {
-                    this.items.push(this.itemCurrent);
-                    $('#editModal').modal('toggle')
+                    this.items.push(JSON.parse(JSON.stringify(this.itemCurrent)));
+                    $('#editModal').modal('hide')
                 }
                 else {
-                    this.$set(this.items, this.itemIndex, this.itemCurrent)
-                    $('#editModal').modal('toggle')
+                    this.$set(this.items, this.itemIndex, JSON.parse(JSON.stringify(this.itemCurrent)))
+                    $('#editModal').modal('hide')
                 }
-                //layer.closeAll('page')
-                //var items = $('#itemtable').bootstrapTable('getSelections')
-                //for (var i in items) {
-                //    this.items.push(items[i])
-                //}
             },
             editRecord: function (index) {
                 this.isNew = false;

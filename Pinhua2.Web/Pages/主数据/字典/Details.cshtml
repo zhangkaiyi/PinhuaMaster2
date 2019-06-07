@@ -46,7 +46,7 @@
 <div class="form-group row">
     <label asp-for="字典.LastEditTime" class="col-4 col-sm-2 col-form-label"></label>
     <div class="col-8 col-sm-10">
-        <input asp-for="字典.LastEditTime" class="form-control" type="text" value="@(Model.字典.CreateTime?.ToString("yyyy-MM-dd HH:mm:ss"))" readonly />
+        <input asp-for="字典.LastEditTime" class="form-control" type="text" value="@(Model.字典.LastEditTime?.ToString("yyyy-MM-dd HH:mm:ss"))" readonly />
         <span asp-validation-for="字典.LastEditTime" class="text-danger"></span>
     </div>
 </div>
@@ -55,13 +55,6 @@
     <div class="col-8 col-sm-10">
         <input asp-for="字典.RecordId" class="form-control" readonly />
         <span asp-validation-for="字典.RecordId" class="text-danger"></span>
-    </div>
-</div>
-<div class="form-group row">
-    <label asp-for="字典.Guid" class="col-4 col-sm-2 col-form-label"></label>
-    <div class="col-8 col-sm-10">
-        <input asp-for="字典.Guid" class="form-control" readonly />
-        <span asp-validation-for="字典.Guid" class="text-danger"></span>
     </div>
 </div>
 

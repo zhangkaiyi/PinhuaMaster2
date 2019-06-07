@@ -66,8 +66,31 @@ namespace Pinhua2.Web.Pages.销售.收款单
                 return Page();
             }
 
-            _context.tb_收付表.Add(_mapper.Map<tb_收付表>(Record));
-            await _context.SaveChangesAsync();
+            var remote = _context.funcNewRecord<vm_收款单, tb_收付表>(Record, creating =>
+            {
+                creating.单号 = _context.funcAutoCode("订单号");
+                creating.类型 = "收款";
+                creating.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == Record.往来号)?.简称;
+            });
+
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                foreach (var localD in RecordDs)
+                {
+                    _context.funcNewDetail<vm_收款单, vm_收款单D, tb_收付表, tb_收付表D>(remote, localD, BeforeNewD: beforeD =>
+                    {
+                        if (string.IsNullOrEmpty(beforeD.子单号))
+                            beforeD.子单号 = _context.funcAutoCode("子单号");
+                        else
+                        {
+                            //var 报价D = _context.tb_报价表D.FirstOrDefault(d => d.子单号 == beforeD.子单号);
+                            //if (报价D != null)
+                            //    报价D.状态 = "已下单";
+                        }
+                    });
+                }
+                await _context.SaveChangesAsync();
+            }
 
             return RedirectToPage("./Index");
         }

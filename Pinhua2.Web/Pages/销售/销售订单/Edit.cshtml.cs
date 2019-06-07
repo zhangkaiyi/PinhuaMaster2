@@ -102,12 +102,10 @@ namespace Pinhua2.Web.Pages.销售.销售订单
                         where d.RecordId == Record.RecordId
                         select new vm_销售订单D
                         {
-                            Guid = d.Guid,
                             RecordId = d.RecordId,
                             品号 = d.品号,
                             Idx = d.Idx,
                             RN = d.RN,
-                            Sequence = d.Sequence,
                             个数 = d.个数,
                             别名 = d.别名,
                             单价 = d.单价,

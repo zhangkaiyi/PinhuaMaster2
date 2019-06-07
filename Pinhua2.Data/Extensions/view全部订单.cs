@@ -17,6 +17,8 @@ namespace Pinhua2.Data
             var l = from r in context.tb_订单表.AsNoTracking()
                     join rd in context.tb_订单表D.AsNoTracking() on r.RecordId equals rd.RecordId into rdTemp
                     from rd in rdTemp.DefaultIfEmpty()
+                    join p in context.tb_商品表.AsNoTracking() on rd.品号 equals p.品号 into pTemp
+                    from p in pTemp.DefaultIfEmpty()
                     select new view_AllOrders
                     {
                         RecordId = rd.RecordId,
@@ -27,11 +29,11 @@ namespace Pinhua2.Data
                         单价 = rd.单价,
                         单号 = r.单号,
                         品号 = rd.品号,
-                        品名 = rd.品名,
-                        品牌 = rd.品牌,
+                        品名 = p.品名,
+                        品牌 = p.品牌,
                         备注 = r.备注,
                         子单号 = rd.子单号,
-                        型号 = rd.型号,
+                        型号 = p.型号,
                         往来 = r.往来,
                         往来号 = r.往来号,
                         个数 = rd.个数,
@@ -41,8 +43,45 @@ namespace Pinhua2.Data
                         状态 = rd.状态,
                         税率 = rd.税率,
                         规格 = rd.规格,
+                        长度=p.长度,
+                        宽度=p.宽度,
+                        高度=p.高度,
+                        面厚=p.面厚,
                         质保 = rd.质保,
                         金额 = rd.金额
+                    };
+
+            return l.ToList();
+        }
+
+        public static IList<view_AllOrders2> view_全部订单2(this Pinhua2Context context)
+        {
+            var l = from r in context.tb_订单表.AsNoTracking()
+                    join rd in context.tb_订单表D.AsNoTracking() on r.RecordId equals rd.RecordId into rdTemp
+                    from rd in rdTemp.DefaultIfEmpty()
+                    join p in context.tb_商品表.AsNoTracking() on rd.品号 equals p.品号 into pTemp
+                    from p in pTemp.DefaultIfEmpty()
+                    select new view_AllOrders2
+                    {
+                        Product = p,
+                        Order = new view_AllOrders2_order
+                        {
+                            RecordId = rd.RecordId,
+                            业务类型 = r.业务类型,
+                            交期 = r.交期,
+                            制单 = r.CreateUser,
+                            单价 = rd.单价,
+                            单号 = r.单号,
+                            品号 = rd.品号,
+                            备注 = r.备注,
+                            子单号 = rd.子单号,
+                            往来 = r.往来,
+                            往来号 = r.往来号,
+                            个数 = rd.个数,
+                            日期 = r.日期,
+                            状态 = rd.状态,
+                            金额 = rd.金额,
+                        }
                     };
 
             return l.ToList();
@@ -77,6 +116,7 @@ namespace Pinhua2.Data
                         单价 = m.单价,
                         单位 = m.单位,
                         单号 = m.单号,
+                        型号 = m.型号,
                         品号 = m.品号,
                         品名 = m.品名,
                         品牌 = m.品牌,
@@ -85,16 +125,43 @@ namespace Pinhua2.Data
                         往来 = m.往来,
                         往来号 = m.往来号,
                         个数 = m.个数,
+                        数量 = m.数量,
                         日期 = m.日期,
                         状态 = m.状态,
                         税率 = m.税率,
                         规格 = m.规格,
+                        长度 = m.长度,
+                        宽度 = m.宽度,
+                        高度 = m.高度,
+                        面厚 = m.面厚,
                         质保 = m.质保,
                         金额 = m.金额,
                         已收 = v?.收 ?? 0,
-                        待收 = m.个数 ?? 0 - v?.收 ?? 0,
+                        待收 = (m.个数 ?? 0) - (v?.收 ?? 0),
                         已发 = v?.发 ?? 0,
-                        待发 = m.个数 ?? 0 - v?.发 ?? 0,
+                        待发 = (m.个数 ?? 0) - (v?.发 ?? 0),
+                    };
+
+            return l.ToList();
+        }
+
+        public static IList<view_AllOrders2IO> view_全部订单收发2(this Pinhua2Context context)
+        {
+            var l = from m in view_全部订单2(context)
+                    join x in view_订单收发(context) on m.Order.子单号 equals x.子单号 into vTemp
+                    from v in vTemp.DefaultIfEmpty()
+                    select new view_AllOrders2IO
+                    {
+                        Order = m.Order,
+                        Product = m.Product,
+                        IO = new view_AllOrders2IO_io
+                        {
+
+                            已收 = v?.收 ?? 0,
+                            待收 = (m?.Order?.个数 ?? 0) - (v?.收 ?? 0),
+                            已发 = v?.发 ?? 0,
+                            待发 = (m?.Order?.个数 ?? 0) - (v?.发 ?? 0),
+                        }
                     };
 
             return l.ToList();
@@ -229,6 +296,7 @@ namespace Pinhua2.Data
                         单位 = m.单位,
                         单号 = m.单号,
                         品号 = m.品号,
+                        数量 = m.数量,
                         品名 = m.品名,
                         品牌 = m.品牌,
                         备注 = m.备注,
@@ -236,16 +304,42 @@ namespace Pinhua2.Data
                         往来 = m.往来,
                         往来号 = m.往来号,
                         个数 = m.个数,
+                        型号 = m.型号,
                         日期 = m.日期,
                         状态 = m.状态,
                         税率 = m.税率,
                         规格 = m.规格,
+                        长度 = m.长度,
+                        宽度 = m.宽度,
+                        高度 = m.高度,
+                        面厚 = m.面厚,
                         质保 = m.质保,
                         金额 = m.金额,
                         已收 = v?.收 ?? 0,
-                        待收 = m.金额 ?? 0 - v?.收 ?? 0,
+                        待收 = (m.金额 ?? 0) - (v?.收 ?? 0),
                         已付 = v?.付 ?? 0,
-                        待付 = m.金额 ?? 0 - v?.付 ?? 0,
+                        待付 = (m.金额 ?? 0) - (v?.付 ?? 0),
+                    };
+
+            return l.ToList();
+        }
+
+        public static IList<view_AllOrders2Pay> view_全部订单收付2(this Pinhua2Context context)
+        {
+            var l = from m in view_全部订单2(context)
+                    join x in view_订单收付(context) on m.Order.子单号 equals x.子单号 into vTemp
+                    from v in vTemp.DefaultIfEmpty()
+                    select new view_AllOrders2Pay
+                    {
+                        Order=m.Order,
+                        Product=m.Product,
+                        Pay = new view_AllOrders2Pay_pay
+                        {
+                            已收 = v?.收 ?? 0,
+                            待收 = (m?.Order?.金额 ?? 0) - (v?.收 ?? 0),
+                            已付 = v?.付 ?? 0,
+                            待付 = (m?.Order?.金额 ?? 0) - (v?.付 ?? 0),
+                        }
                     };
 
             return l.ToList();

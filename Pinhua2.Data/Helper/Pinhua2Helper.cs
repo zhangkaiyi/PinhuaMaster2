@@ -13,7 +13,6 @@ namespace Pinhua2.Data.Helper
         {
             dstMain.CreateTime = DateTime.Now;
             dstMain.CreateUser = dstMain.CreateUser ?? "张凯译";
-            dstMain.Guid = Guid.NewGuid();
         }
         static public void CompleteMainOnEdit(_IBaseTableMain dstMain)
         {
@@ -23,12 +22,10 @@ namespace Pinhua2.Data.Helper
         static public void CompleteDetailOnCreate(_IBaseTableMain src, _IBaseTableDetail dst)
         {
             dst.RecordId = src.RecordId;
-            dst.Guid = src.Guid;
         }
         static public void CompleteDetailOnUpdate(_IBaseTableMain src, _IBaseTableDetail dst)
         {
             dst.RecordId = src.RecordId;
-            dst.Guid = src.Guid;
         }
         static public JObject JObjectFromMerge(params object[] objects)
         {

@@ -41,49 +41,50 @@ namespace Pinhua2.Web
                 })
                 );
             // Add AutoMapper，全局设置不映射空值
-            services.AddAutoMapper(cfg =>
-            {
-                cfg.ForAllMaps((a, b) =>
-               {
-                   b.ForAllMembers(memberOptions => memberOptions.Condition((src, dest, sourceMember) =>
-                   {
-                       // 空值不映射
-                       if (sourceMember == null)
-                           return false;
-                       else
-                       {
-                           // Guid 为空（“00000000-0000-0000-0000-000000000000”）时，不映射
-                           if (sourceMember?.GetType() == typeof(Guid) && sourceMember.ToString() == Guid.Empty.ToString())
-                           {
-                               return false;
-                           }
-                           return true;
-                       }
-                   }));
-               });
-            }, AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(cfg =>
+            //{
+            //    cfg.ForAllMaps((a, b) =>
+            //   {
+            //       b.ForAllMembers(memberOptions => memberOptions.Condition((src, dest, sourceMember) =>
+            //       {
+            //           // 空值不映射
+            //           if (sourceMember == null)
+            //               return false;
+            //           else
+            //           {
+            //               // Guid 为空（“00000000-0000-0000-0000-000000000000”）时，不映射
+            //               if (sourceMember?.GetType() == typeof(Guid) && sourceMember.ToString() == Guid.Empty.ToString())
+            //               {
+            //                   return false;
+            //               }
+            //               return true;
+            //           }
+            //       }));
+            //   });
+            //}, AppDomain.CurrentDomain.GetAssemblies());
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
-                cfg.ForAllMaps((a, b) =>
-                {
-                    b.ForAllMembers(memberOptions => memberOptions.Condition((src, dest, sourceMember) =>
-                    {
-                        // 空值不映射
-                        if (sourceMember == null)
-                            return false;
-                        else
-                        {
-                            // Guid 为空（“00000000-0000-0000-0000-000000000000”）时，不映射
-                            if (sourceMember?.GetType() == typeof(Guid) && sourceMember.ToString() == Guid.Empty.ToString())
-                            {
-                                return false;
-                            }
-                            return true;
-                        }
-                    }));
-                });
+                //cfg.ForAllMaps((a, b) =>
+                //{
+                //    b.ForAllMembers(memberOptions => memberOptions.Condition((src, dest, sourceMember) =>
+                //    {
+                //        // 空值不映射
+                //        if (sourceMember == null)
+                //            return false;
+                //        else
+                //        {
+                //            // Guid 为空（“00000000-0000-0000-0000-000000000000”）时，不映射
+                //            if (sourceMember?.GetType() == typeof(Guid) && sourceMember.ToString() == Guid.Empty.ToString())
+                //            {
+                //                return false;
+                //            }
+                //            return true;
+                //        }
+                //    }));
+                //});
             });
 
             services.AddLocalization(options =>

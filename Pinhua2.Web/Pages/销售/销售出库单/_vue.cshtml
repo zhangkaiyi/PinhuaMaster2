@@ -2,7 +2,9 @@
 @{
     var record = JsonConvert.SerializeObject(Model?.Record ?? new vm_销售出库());
     var recordD = JsonConvert.SerializeObject(new vm_销售出库D());
-    var recordDs = pinhua2.Get销售出库商品((string)Model?.Record?.往来号, (string)Model?.Record?.单号)?.ToString();
+    var customerId = (string)Model?.Record?.往来号;
+    var orderId = (string)Model?.Record?.单号;
+    var recordDs = pinhua2.Get销售出库商品(customerId, orderId)?.ToString();
 }
 
 <script>
@@ -30,15 +32,15 @@
                 // 获取数据
                 var data = $table.bootstrapTable('getData')
                 // 比对数据
-                this.items.forEach(function (v) {
+                //this.items.forEach(function (v) {
 
-                    for (var i in data) {
-                        // 已经添加的数据，从selectTable2中隐藏
-                        if (v.子单号 == data[i].子单号) {
-                            $table.bootstrapTable('hideRow', { index: i })
-                        }
-                    }
-                })
+                //    for (var i in data) {
+                //        // 已经添加的数据，从selectTable2中隐藏
+                //        if (v.子单号 == data[i].子单号) {
+                //            $table.bootstrapTable('hideRow', { index: i })
+                //        }
+                //    }
+                //})
             },
         },
         mounted: function () {
@@ -47,20 +49,20 @@
             this.$nextTick(function () {
                 $selectTable1 = $('#selectTable')
                 $selectTable1.bootstrapTable({
-                    url: ['/api/product/订单/', this.record.往来号].join(""),
+                    url: ["/api/sd/订单待发/", this.record.往来号].join(""),
                     onLoadSuccess: function (data) {
                         console.log(data)
                         // 恢复所有隐藏行
                         $selectTable1.bootstrapTable('getHiddenRows', true)
                         // 比对数据
-                        vm.items.forEach(function (v) {
-                            for (var i in data) {
-                                // 已经添加的数据，从selectTable2中隐藏
-                                if (v.子单号 == data[i].子单号) {
-                                    $selectTable1.bootstrapTable('hideRow', { index: i })
-                                }
-                            }
-                        })
+                        //vm.items.forEach(function (v) {
+                        //    for (var i in data) {
+                        //        // 已经添加的数据，从selectTable2中隐藏
+                        //        if (v.子单号 == data[i].子单号) {
+                        //            $selectTable1.bootstrapTable('hideRow', { index: i })
+                        //        }
+                        //    }
+                        //})
                     },
                 })
             })
@@ -141,11 +143,11 @@
             },
             saveRecord: function () {
                 if (this.isNew) {
-                    this.items.push(this.itemCurrent);
+                    this.items.push(JSON.parse(JSON.stringify(this.itemCurrent)));
                     $('#editModal').modal('hide')
                 }
                 else {
-                    this.$set(this.items, this.itemIndex, this.itemCurrent)
+                    this.$set(this.items, this.itemIndex, JSON.parse(JSON.stringify(this.itemCurrent)))
                     $('#editModal').modal('hide')
                 }
             },
@@ -194,7 +196,7 @@
                 item.单位 = event.target.innerText
             },
             customerIdOnChange: function (e) {
-                var url = ["/api/product/订单/", this.record.往来号].join("")
+                var url = ["/api/sd/订单待发/", this.record.往来号].join("")
                 console.log("vue:", "customerIdOnChange, url:", url)
                 $('#selectTable').bootstrapTable('refresh', { url: url });
             }

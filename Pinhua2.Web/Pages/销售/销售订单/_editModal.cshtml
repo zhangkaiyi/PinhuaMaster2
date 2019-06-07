@@ -68,16 +68,6 @@
                     <div class="col-8 col-sm-10">
                         <div class="input-group">
                             <input class="form-control" v-bind:value="itemCurrent.单位" readonly />
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择</button>
-                                <div class="dropdown-menu">
-                                    @foreach (var item in Model.UnitSelectList)
-                                    {
-                                        <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">@item.Text</a>
-
-                                    }
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

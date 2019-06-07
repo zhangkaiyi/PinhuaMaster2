@@ -52,9 +52,11 @@ namespace Pinhua2.Web.Pages.销售.收款单
             }
             var tb_收付 = await _context.tb_收付表.FindAsync(id);
 
-            if (Record != null)
+            if (tb_收付 != null)
             {
+                var tb_收付D = _context.tb_收付表D.Where(p => p.RecordId == tb_收付.RecordId);
                 _context.tb_收付表.Remove(tb_收付);
+                _context.tb_收付表D.RemoveRange(tb_收付D);
                 await _context.SaveChangesAsync();
             }
 

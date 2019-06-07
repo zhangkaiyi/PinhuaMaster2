@@ -45,5 +45,41 @@ namespace Pinhua2.Web.Api
         {
             return _pinhua2.Get销售收款商品("", orderId);
         }
+
+        [HttpGet("订单待发")]
+        public IEnumerable<object> 订单待发()
+        {
+            return _pinhua2.list_订单待发();
+        }
+
+        [HttpGet("订单待发/{customerId}")]
+        public IEnumerable<object> 订单待发(string customerId)
+        {
+            return _pinhua2.list_订单待发(customerId);
+        }
+
+        [HttpGet("订单待收")]
+        public IEnumerable<object> 订单待收()
+        {
+            return _pinhua2.list_订单待收();
+        }
+
+        [HttpGet("订单待收/{customerId}")]
+        public IEnumerable<object> 订单待收(string customerId)
+        {
+            return _pinhua2.list_订单待收(customerId);
+        }
+
+        [HttpGet("收付待收/{customerId}")]
+        public IEnumerable<object> 收付待收(string customerId)
+        {
+            return _pinhua2.list_收付待收(customerId);
+        }
+
+        [HttpGet("收付待付/{customerId}")]
+        public IEnumerable<object> 收付待付(string customerId)
+        {
+            return _pinhua2.list_收付待付(customerId);
+        }
     }
 }

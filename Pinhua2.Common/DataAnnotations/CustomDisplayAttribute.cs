@@ -10,6 +10,7 @@ namespace Pinhua2.Common.Attributes
     public class CustomDisplayAttribute : Attribute
     {
         public double Order { get; } = 100;
+        public bool IsRendered { get; set; } = true;
         public bool ForIndex { get; set; } = true;
         public bool ForCreate { get; set; } = false;
         public bool ForRead { get; set; } = true;
@@ -19,6 +20,16 @@ namespace Pinhua2.Common.Attributes
         {
             Order = displayOrder;
         }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ReadonlyAttribute : Attribute
+    {
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class NotRenderedAttribute : Attribute
+    {
     }
 
     public class CustomDisplayModel
@@ -93,6 +104,26 @@ namespace Pinhua2.Common.Attributes
                 }
             }
         }
+
+        public bool IsReadonly
+        {
+            get
+            {
+                if (PropertyInfo == null)
+                    return false;
+
+                var attrs = PropertyInfo.GetCustomAttributes(typeof(ReadonlyAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public bool IsDatetime
         {
             get

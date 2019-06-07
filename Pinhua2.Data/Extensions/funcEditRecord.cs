@@ -22,7 +22,12 @@ namespace Pinhua2.Data
 
             BeforeNew?.Invoke(local);
 
-            Pinhua2Helper.CompleteMainOnEdit(local);
+            //Pinhua2Helper.CompleteMainOnEdit(local);
+            local.CreateTime = remote.CreateTime;
+            local.CreateUser = remote.CreateUser;
+            local.LastEditTime = DateTime.Now;
+            local.LastEditUser = local.LastEditUser ?? "张凯译";
+
             Mapper.Map<TLocal, TRemote>(local, remote);
             context.Entry<TRemote>(remote).State = EntityState.Modified;
 
@@ -46,6 +51,7 @@ namespace Pinhua2.Data
             foreach (var remoteD in remoteDs)
             {
                 if (!_localDs.Any(p => p.Idx == remoteD.Idx)) // 新列表没有数据库中的Idx，则删除
+                //if (!_localDs.Any(p => p.子单号  == remoteD.子单号)) // 新列表没有数据库中的Idx，则删除
                 {
                     #region 应该在外部执行
                     //var tb_报价D = context.Set<tb_报价表D>().FirstOrDefault(d => d.Idx == remoteD.Idx);
@@ -60,9 +66,11 @@ namespace Pinhua2.Data
 
             foreach (var localD in _localDs)
             {
-                Pinhua2Helper.CompleteDetailOnUpdate(remote, localD);
+                //Pinhua2Helper.CompleteDetailOnUpdate(remote, localD);
+                localD.RecordId = remote.RecordId;
 
                 if (remoteDs.Any(d => d.Idx == localD.Idx)) // Idx有相同的，则修改
+                //if (remoteDs.Any(d => d.子单号 == localD.子单号)) // Idx有相同的，则修改
                 {
                     UpdatingD?.Invoke(localD);
 
@@ -72,6 +80,7 @@ namespace Pinhua2.Data
                     Mapper.Map<TLocalD, TRemoteD>(localD, remoteD);
                 }
                 else if (!remoteDs.Any(d => d.Idx == localD.Idx)) // Idx没有相同的，则添加
+                //else if (!remoteDs.Any(d => d.子单号 == localD.子单号)) // Idx没有相同的，则添加
                 {
                     CreatingD?.Invoke(localD);
                     #region 应该在外部执行

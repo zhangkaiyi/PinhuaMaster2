@@ -96,7 +96,7 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             {
                 foreach (var localD in RecordDs)
                 {
-                    _context.funcNewDetails<vm_销售订单, vm_销售订单D, tb_订单表, tb_订单表D>(remote, localD, BeforeNewD: beforeD =>
+                    _context.funcNewDetail<vm_销售订单, vm_销售订单D, tb_订单表, tb_订单表D>(remote, localD, BeforeNewD: beforeD =>
                     {
                         if (string.IsNullOrEmpty(beforeD.子单号))
                             beforeD.子单号 = _context.funcAutoCode("子单号");

@@ -114,11 +114,11 @@
             },
             saveRecord: function () {
                 if (this.isNew) {
-                    this.items.push(this.itemCurrent);
+                    this.items.push(JSON.parse(JSON.stringify(this.itemCurrent)));
                     $('#editModal').modal('hide')
                 }
                 else {
-                    this.$set(this.items, this.itemIndex, this.itemCurrent)
+                    this.$set(this.items, this.itemIndex, JSON.parse(JSON.stringify(this.itemCurrent)))
                     $('#editModal').modal('hide')
                 }
             },

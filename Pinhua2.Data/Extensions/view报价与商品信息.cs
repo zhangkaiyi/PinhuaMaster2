@@ -165,8 +165,8 @@ namespace Pinhua2.Data
         {
             var set = from m in context.tb_收付表.AsNoTracking()
                       join d in context.tb_收付表D.AsNoTracking() on m.RecordId equals d.RecordId
-                      join s in context.tb_IOD.AsNoTracking() on d.子单号 equals s.子单号
-                      join x in context.tb_商品表.AsNoTracking() on s.品号 equals x.品号
+                      //join s in context.tb_IOD.AsNoTracking() on d.子单号 equals s.子单号
+                      join x in context.tb_商品表.AsNoTracking() on d.品号 equals x.品号
                       where /*m.往来号 == customerId &&*/ m.单号 == orderId && m.类型 == "收款"
                       select new
                       {
