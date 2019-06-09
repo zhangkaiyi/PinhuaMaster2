@@ -44,6 +44,7 @@ namespace Pinhua2.Web.Mapper
         public decimal? 已收款额 { get; set; }
         public decimal? 待收款额 { get; set; }
         public decimal? 可分配 { get; set; }
+        [Required]
         public decimal? 分配金额 { get; set; }
         public string 备注 { get; set; }
     }

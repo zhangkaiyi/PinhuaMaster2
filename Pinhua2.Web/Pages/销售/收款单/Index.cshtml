@@ -42,6 +42,10 @@
                                     {
                                         @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
                                     }
+                                    else if (cdm.IsDecimal)
+                                    {
+                                        @(((decimal?)cdm.Value)?.ToString("0.00"))
+                                    }
                                     else
                                     {
                                         @cdm.Value
