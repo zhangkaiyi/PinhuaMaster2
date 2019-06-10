@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/lib/layui/css/layui.css">
+
+    <link rel="stylesheet" href="~/css/my-main-header.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/my-main-sidebar.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/my-main-content.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/skin-blue.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body class="skin-blue">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a class="logo" href="/">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>PHM</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Pinhua</b>Master</span>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <div class="layui-side-scroll">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="/images/single-256.jpg" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p>116307766@qq.com</p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                        </div>
+                    </div>
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu tree" data-widget="tree" data-animation-speed="300">
+                        <li class="header">快捷功能</li>
+                        <li><a href="/Dashboard"><i class="fa fa-circle-o"></i> <span>Dashboard</span></a></li>
+                        <li><a href="/BasicInformation/ModelNumber"><i class="fa fa-circle-o"></i> <span>型号登记</span></a></li>
+                        <li><a href="/BasicInformation/ProductRegistration"><i class="fa fa-circle-o"></i> <span>产品登记</span></a></li>
+                        <li class="header">菜单导航</li>
+                        <!-- Optionally, you can add icons to the links -->
+
+
+                        <li class="active"><a href="/"><i class="fa fa-home"></i> <span>主页</span></a></li>
+                        <li class="treeview ">
+                            <a href="#">
+                                <i class="fa fa-table"></i> <span>销售管理</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+
+
+                                <li class=""><a href="/OrderManagement/EasyDelivery"><i class="fa fa-sticky-note-o"></i> <span>简易销售（无库存）</span></a></li>
+                                <li class=""><a href="/StockManagement/StockOut"><i class="fa fa-circle-o"></i> <span>销售出库单</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview ">
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i> <span>采购管理</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+
+
+                                <li class=""><a href="/OrderManagement/EasyPurchasing"><i class="fa fa-circle-o"></i> <span>简易采购（无库存）</span></a></li>
+                                <li class=""><a href="/StockManagement/StockIn"><i class="fa fa-circle-o"></i> <span>采购入库单</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview ">
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i> <span>仓库管理</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+
+
+                                <li class=""><a href="/StockManagement/Warehouse"><i class="fa fa-circle-o"></i> <span>仓库登记</span></a></li>
+                                <li class=""><a href="/StockManagement/Inventory"><i class="fa fa-circle-o"></i> <span>库存清单</span></a></li>
+                                <li class=""><a href="/StockManagement/StockTransfer"><i class="fa fa-circle-o"></i> <span>库存转移</span></a></li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </div>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <div class="content-wrapper"><div class="content">@RenderBody()</div></div>
+        <footer class="main-footer">
+            <!-- Default to the left -->
+            <strong>Copyright © 2018 <a href="#">PinhuaMaster</a>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/layui/layui.all.js"></script>
+    <script src="~/js/pull-menu.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
