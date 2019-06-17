@@ -1,0 +1,85 @@
+﻿@page
+@model Pinhua2.Web.Pages.采购.采购订单.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>新增 - 采购订单</h2>
+<hr />
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label asp-for="Record.单号" class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <input asp-for="Record.单号" readonly placeholder="自动生成 ..." autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label asp-for="Record.往来号" class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <select class="form-control" asp-for="Record.往来号" asp-items="Model.SupplierSelectList" required lay-verify="required" v-model="record.往来号"></select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label asp-for="Record.应付" class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <input asp-for="Record.应付" readonly autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label asp-for="Record.业务类型" class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <input asp-for="Record.业务类型" value="采购订单" readonly required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label asp-for="Record.交期" class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <input asp-for="Record.交期" id="test1" type="text" placeholder="yyyy-MM-dd" readonly required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label asp-for="Record.日期" class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <input asp-for="Record.日期" id="test2" type="text" value="@(DateTime.Now.ToString("yyyy-MM-dd"))" placeholder="yyyy-MM-dd" readonly required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+        });
+        laydate.render({
+            elem: '#test2'
+        });
+    })
+</script>
+}

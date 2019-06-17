@@ -8,7 +8,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
     <h3>收款单</h3>
     <div class="btn-group">
-        <a class="btn btn-outline-secondary" asp-page="Create">新增</a>
+        <partial name="Buttons/CreateButton" />
     </div>
 </div>
 <div class="table-responsive">
@@ -16,6 +16,7 @@
            data-toggle="table">
         <thead>
             <tr>
+                <th style="width:1%;" data-width="1%"></th>
                 @foreach (var cdm in CustomDisplayFactory<vm_收款单>.CustomDisplayModels(Model.Record.FirstOrDefault()))
                 {
                     if (cdm.ForIndex)
@@ -25,41 +26,40 @@
                         </th>
                     }
                 }
-                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Record)
             {
-                <tr>
-                    @foreach (var cdm in CustomDisplayFactory<vm_收款单>.CustomDisplayModels(item))
+            <tr>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
+                    <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
+                </td>
+                @foreach (var cdm in CustomDisplayFactory<vm_收款单>.CustomDisplayModels(item))
+                {
+                    if (cdm.ForIndex)
                     {
-                        if (cdm.ForIndex)
-                        {
-                            <td>
-                                @{
-                                    if (cdm.IsDatetime)
-                                    {
-                                        @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
-                                    }
-                                    else if (cdm.IsDecimal)
-                                    {
-                                        @(((decimal?)cdm.Value)?.ToString("0.00"))
-                                    }
-                                    else
-                                    {
-                                        @cdm.Value
-                                    }
+                        <td>
+                            @{
+                                if (cdm.IsDatetime)
+                                {
+                                    @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
                                 }
-                            </td>
-                        }
+                                else if (cdm.IsDecimal)
+                                {
+                                    @(((decimal?)cdm.Value)?.ToString("0.00"))
+                                }
+                                else
+                                {
+                                    @cdm.Value
+                                }
+                            }
+                        </td>
                     }
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
-                        <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
-                    </td>
-                </tr>
+                }
+            </tr>
             }
         </tbody>
     </table>

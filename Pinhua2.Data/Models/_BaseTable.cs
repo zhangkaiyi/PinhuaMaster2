@@ -18,7 +18,7 @@ namespace Pinhua2.Data.Models
     public partial class _BaseTableMain : _IBaseTableMain
     {
         [Key]
-        [CustomDisplay(IsRendered = false, ForIndex = false)]
+        [CustomDisplay(IsRendered = false, ForIndex = true)]
         public int RecordId { get; set; }
 
         [CustomDisplay(ForIndex = false)]

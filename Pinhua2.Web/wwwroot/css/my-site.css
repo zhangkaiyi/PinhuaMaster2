@@ -1,0 +1,24 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+/* 自定义
+-------------------------------------------------- */
+.col-form-label {
+    text-align: right;
+}
+
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th {
+    border: 1px solid #dee2e6;
+}
+
+/* bootstrap-table
+-------------------------------------------------- */
+
+td.bs-checkbox label {
+    margin: 0;
+}

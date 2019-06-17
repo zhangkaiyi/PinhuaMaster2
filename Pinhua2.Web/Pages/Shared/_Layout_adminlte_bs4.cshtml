@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>PinhuaMaster2</title>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/my-adminlte.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/skin-blue.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="~/css/my-site.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body class="skin-blue">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a class="logo" href="/">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>PHM</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Pinhua</b>Master</span>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu tree" data-widget="tree" data-animation-speed="0">
+                    <li class="header">菜单导航</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="treeview ">
+                        <a href="#">
+                            <i class="fa fa-fw fa-table"></i> <span>基础数据</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-fw fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class=""><a asp-page="/主数据/字典/Index"><span>字典</span></a></li>
+                            <li class=""><a asp-page="/主数据/商品/Index"><span>商品</span></a></li>
+                            <li class=""><a asp-page="/主数据/客户/Index"><span>客户</span></a></li>
+                            <li class=""><a asp-page="/主数据/供应商/Index"><span>供应商</span></a></li>
+
+                        </ul>
+                    </li>
+                    <li class="treeview ">
+                        <a href="#">
+                            <i class="fa fa-fw fa-circle-o"></i> <span>销售</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-fw fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class=""><a asp-page="/销售/销售报价/Index"><span>销售报价</span></a></li>
+                            <li class=""><a asp-page="/销售/销售订单/Index"><span>销售订单</span></a></li>
+                            <li class=""><a asp-page="/销售/销售出库单/Index"><span>销售出库</span></a></li>
+                            <li class=""><a asp-page="/销售/收款单/Index"><span>收款单</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview ">
+                        <a href="#">
+                            <i class="fa fa-fw fa-circle-o"></i> <span>采购</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-fw fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a asp-page="/采购/采购申请/Index">采购申请</a></li>
+                            <li><a asp-page="/采购/采购询价/Index">采购询价</a></li>
+                            <li><a asp-page="/采购/采购订单/Index">采购订单</a></li>
+                            <li><a asp-page="/采购/采购入库/Index">采购入库</a></li>
+                            <li><a asp-page="/采购/付款单/Index">付款单</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview ">
+                        <a href="#">
+                            <i class="fa fa-fw fa-circle-o"></i> <span>仓库</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-fw fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a asp-page="/仓库/其他出库/Index">其他出库</a></li>
+                            <li><a asp-page="/仓库/其他入库/Index">其他入库</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview ">
+                        <a href="#">
+                            <i class="fa fa-fw fa-circle-o"></i> <span>生产</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-fw fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a asp-page="/生产/生产订单/Index">生产订单</a></li>
+                            <li><a asp-page="/生产/生产入库/Index">生产入库</a></li>
+                        </ul>
+                    </li>
+                    <li class="header">快捷功能</li>
+                    <li><a asp-page="/查询/全部订单收发"><i class="fa fa-fw fa-circle-o"></i> 全部订单收发</a></li>
+                    <li><a asp-page="/查询/全部订单收付"><i class="fa fa-fw fa-circle-o"></i> 全部订单收付</a></li>
+                    <li><a asp-page="/查询/库存"><i class="fa fa-fw fa-circle-o"></i> 库存</a></li>
+                    <li><a asp-page="/查询/库批存"><i class="fa fa-fw fa-circle-o"></i> 库批存</a></li>
+                    <li><a asp-page="/查询/最新报价"><i class="fa fa-fw fa-circle-o"></i> 最新报价</a></li>
+                    <li><a asp-page="/查询/最新单价"><i class="fa fa-fw fa-circle-o"></i> 最新单价</a></li>
+                </ul>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <div class="content-wrapper"><div class="content">@RenderBody()</div></div>
+        <footer class="main-footer">
+            <!-- Default to the left -->
+            <strong>Copyright © @(DateTime.Now.Year) <a href="#">PinhuaMaster</a>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.js"></script>
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.js"></script>
+    <script src="~/lib/vue/dist/vue.js"></script>
+    <script src="~/js/my-adminlte.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.fn.datepicker.defaults.language = 'zh-CN';
+            $.fn.datepicker.defaults.todayHighlight = true;
+            $.fn.datepicker.defaults.autoclose = true;
+        })
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

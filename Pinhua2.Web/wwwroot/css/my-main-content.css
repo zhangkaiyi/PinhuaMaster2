@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
  * Content Wrapper - contains the main content
  */
 .content-wrapper,
@@ -42,7 +43,8 @@
 
 .content-wrapper {
     min-height: 100%;
-    background-color: #ecf0f5;
+    /*background-color: #ecf0f5;*/
+    background-color: #fff;
     z-index: 800;
 }
 

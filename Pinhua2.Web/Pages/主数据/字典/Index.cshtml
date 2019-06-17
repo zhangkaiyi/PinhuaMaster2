@@ -8,20 +8,20 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
     <h3>字典</h3>
     <div class="btn-group">
-        <a class="btn btn-outline-secondary" asp-page="Create">新增</a>
+        <partial name="Buttons/CreateButton" />
     </div>
 </div>
 <div class="table-responsive">
     <table class="table table-bordered text-nowrap">
         <thead>
             <tr>
+                <th style="width:1%;" data-width="1%"></th>
                 <th>
                     @Html.DisplayNameFor(model => model.字典列表[0].字典名)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.字典列表[0].组)
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,15 +29,15 @@
         {
             <tr>
                 <td>
+                    <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
+                    <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.字典名)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.组)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
-                    <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
                 </td>
             </tr>
         }

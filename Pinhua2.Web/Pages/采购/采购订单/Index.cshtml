@@ -1,0 +1,59 @@
+﻿@page
+@model Pinhua2.Web.Pages.采购.采购订单.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <partial name="Buttons/CreateButton" />
+</p>
+
+<div class="table-responsive">
+    <table class="table text-nowrap bg-white" data-toggle="table">
+        <thead>
+            <tr>
+                <th>操作</th>
+                @foreach (var cdm in CustomDisplayFactory<vm_采购订单>.CustomDisplayModels(Model.Records.FirstOrDefault()))
+                {
+                    if (cdm.ForIndex)
+                    {
+                        <th>@cdm.RawName</th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Records)
+            {
+                <tr>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.RecordId">修改</a> |
+                        <a asp-page="Details" asp-route-id="@item.RecordId">查看</a> |
+                        <a asp-page="Delete" asp-route-id="@item.RecordId">删除</a>
+                    </td>
+                    @foreach (var cdm in CustomDisplayFactory<vm_采购订单>.CustomDisplayModels(item))
+                    {
+                        if (cdm.ForIndex)
+                        {
+                            if (cdm.IsDatetime)
+                            {
+                                <td>@(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))</td>
+                            }
+                            else
+                            {
+                                <td>@cdm.Value</td>
+                            }
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+    </script>
+}

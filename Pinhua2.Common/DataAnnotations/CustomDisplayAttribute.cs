@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 namespace Pinhua2.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
+    public class MyMinWidthAttribute : Attribute
+    {
+        public double MinWidth { get; }
+        public MyMinWidthAttribute(double minWidth)
+        {
+            MinWidth = minWidth;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
     public class CustomDisplayAttribute : Attribute
     {
         public double Order { get; } = 100;
@@ -29,6 +39,11 @@ namespace Pinhua2.Common.Attributes
 
     [AttributeUsage(AttributeTargets.Property)]
     public class NotRenderedAttribute : Attribute
+    {
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class MyEditableAttribute : Attribute
     {
     }
 
@@ -140,6 +155,9 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
+        public double? MinWidth { get; set; }
+        public bool Editable { get; set; }
+
         public bool IsDecimal
         {
             get
@@ -167,35 +185,45 @@ namespace Pinhua2.Common.Attributes
             foreach (var p in typeof(T).GetProperties())
             {
                 var attrs = p.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
+                var cdm = new CustomDisplayModel(obj);
                 if (attrs.Length > 0)
                 {
                     var cda = attrs[0] as CustomDisplayAttribute;
-                    var cdm = new CustomDisplayModel(obj)
-                    {
-                        ForIndex = cda.ForIndex,
-                        ForCreate = cda.ForCreate,
-                        ForRead = cda.ForDelete,
-                        ForUpdate = cda.ForUpdate,
-                        ForDelete = cda.ForDelete,
-                        Order = cda.Order,
-                        PropertyInfo = p
-                    };
-                    list.Add(cdm);
+
+                    cdm.ForIndex = cda.ForIndex;
+                    cdm.ForCreate = cda.ForCreate;
+                    cdm.ForRead = cda.ForDelete;
+                    cdm.ForUpdate = cda.ForUpdate;
+                    cdm.ForDelete = cda.ForDelete;
+                    cdm.Order = cda.Order;
+                    cdm.PropertyInfo = p;
                 }
                 else
                 {
-                    var cdm = new CustomDisplayModel(obj)
-                    {
-                        ForIndex = true,
-                        ForCreate = true,
-                        ForRead = true,
-                        ForUpdate = true,
-                        ForDelete = true,
-                        PropertyInfo = p
-                    };
-                    list.Add(cdm);
-
+                    cdm.ForIndex = true;
+                    cdm.ForCreate = true;
+                    cdm.ForRead = true;
+                    cdm.ForUpdate = true;
+                    cdm.ForDelete = true;
+                    cdm.PropertyInfo = p;
                 }
+                attrs = p.GetCustomAttributes(typeof(MyMinWidthAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as MyMinWidthAttribute;
+                    cdm.MinWidth = cda.MinWidth;
+                }
+                attrs = p.GetCustomAttributes(typeof(MyEditableAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as MyEditableAttribute;
+                    cdm.Editable = true;
+                }
+                else
+                {
+                    cdm.Editable = false;
+                }
+                list.Add(cdm);
             }
             Models = list.OrderBy(p => p.Order).ToList();
         }
