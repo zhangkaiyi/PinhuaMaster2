@@ -12,37 +12,45 @@ namespace Pinhua2.Web.Mapper
     public class vm_销售出库 : _BaseTableMain
     {
         [CustomDisplay(10)]
+        [MyPrimary]
         public string 单号 { get; set; }
 
         [CustomDisplay(20)]
+        [MyPrimary]
         public string 类型 { get; set; }
 
         [Required]
         [CustomDisplay(30)]
+        [MyPrimary]
         public DateTime? 日期 { get; set; }
 
         [CustomDisplay(50)]
+        [MyPrimary]
         public string 备注 { get; set; }
 
         [CustomDisplay(21)]
         [Display(Name = "客户名")]
+        [MyPrimary]
         public string 往来 { get; set; }
 
         [Required]
         [CustomDisplay(20)]
         [Display(Name = "客户号")]
+        [MyPrimary]
         public string 往来号 { get; set; }
 
         [CustomDisplay(9)]
+        [MyPrimary]
         public string 退单 { get; set; }
 
         //[CustomDisplay(44)]
         //public string 订单号 { get; set; }
 
         [CustomDisplay(45)]
+        [MyPrimary]
         public string 物流单号 { get; set; }
 
-        [CustomDisplay(ForIndex = false)]
+        [CustomDisplay(ForIndex = false, ForRead = false)]
         public string 仓 { get; set; }
     }
 

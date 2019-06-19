@@ -5,26 +5,19 @@
 @using Pinhua2.Common.Attributes
 @{
     ViewData["Title"] = "Details";
-}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>查看 - 商品</h3>
-</div>
-<div class="row" id="vueScope">
-    <div class="col-12">
-        @foreach (var cdm in CustomDisplayFactory<vm_商品_地板>.CustomDisplayModels(Model.vm_地板))
+
+    var templateModel = new _CRUD_Template_Model
+    {
+        RecordMain = new _CRUD_Template_Model_Main
         {
-            if (cdm.ForRead)
-            {
-                <div class="form-group row">
-                    <label for="" class="col-4 col-sm-2 col-form-label">@cdm.Name</label>
-                    <div class="col-8 col-sm-10">
-                        <input value="@cdm.Value" class="form-control" readonly />
-                    </div>
-                </div>
-            }
-        }
-    </div>
-</div>
+            Title = "商品",
+            Data = Model.vm_地板,
+        },
+        
+    };
+}
+
+<partial name="_CRUD_Template/_Details" model="templateModel" />
 
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.vm_地板.RecordId">修改</a> |

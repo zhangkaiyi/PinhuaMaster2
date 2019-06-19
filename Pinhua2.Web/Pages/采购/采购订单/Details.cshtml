@@ -3,119 +3,28 @@
 
 @{
     ViewData["Title"] = "Details";
+
+    var templateModel = new _CRUD_Template_Model
+    {
+        RecordMain = new _CRUD_Template_Model_Main
+        {
+            Title = "采购订单",
+            Data = Model.Record,
+        },
+        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
+{
+            new _CRUD_Template_Model_Details
+            {
+                Title="明细",
+                Data = Model.RecordDs.Cast<object>(),
+            },
+        }
+    };
 }
 
-<h1>Details</h1>
+<partial name="_CRUD_Template/_Details" model="templateModel" />
 
 <div>
-    <h4>tb_订单表</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.单号)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.单号)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.往来单号)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.往来单号)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.业务类型)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.业务类型)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.仓)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.仓)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.日期)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.日期)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.交期)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.交期)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.备注)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.备注)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.制单)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.制单)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.往来)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.往来)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.往来号)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.往来号)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.报价单)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.报价单)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.应收)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.应收)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.应付)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.应付)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.CreateUser)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.CreateUser)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.CreateTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.CreateTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.LastEditUser)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.LastEditUser)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.tb_订单表.LastEditTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.tb_订单表.LastEditTime)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.tb_订单表.RecordId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.Record.RecordId">修改</a> |
+    <a asp-page="Index">返回列表</a>
 </div>

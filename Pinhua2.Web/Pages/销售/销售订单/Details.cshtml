@@ -4,59 +4,26 @@
 
 @{
     ViewData["Title"] = "Details";
+
+    var templateModel = new _CRUD_Template_Model
+    {
+        RecordMain = new _CRUD_Template_Model_Main
+        {
+            Title = "销售订单",
+            Data = Model.vm_销售订单,
+        },
+        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
+{
+            new _CRUD_Template_Model_Details
+            {
+                Title="明细",
+                Data = Model.vm_销售订单D列表.Cast<object>(),
+            },
+        }
+    };
 }
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>查看 - 销售订单</h3>
-</div>
-<div class="row" id="vueScope">
-    <div class="col-12">
-        @foreach (var cdm in CustomDisplayFactory<vm_销售订单>.CustomDisplayModels(Model.vm_销售订单))
-        {
-            if (cdm.ForRead)
-            {
-                <div class="form-group row">
-                    <label for="" class="col-4 col-sm-2 col-form-label">@cdm.Name</label>
-                    <div class="col-8 col-sm-10">
-                        <input value="@cdm.Value" class="form-control" readonly />
-                    </div>
-                </div>
-            }
-        }
-    </div>
-</div>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h4>明细</h4>
-</div>
-<div class="table-responsive mb-3">
-    <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
-        <thead>
-            <tr>
-                @foreach (var cdm in CustomDisplayFactory<vm_销售订单D>.CustomDisplayModels(Model.vm_销售订单D列表.FirstOrDefault()))
-                {
-                    if (cdm.ForRead)
-                    {
-                        <th>@cdm.Name</th>
-                    }
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.vm_销售订单D列表)
-            {
-                <tr>
-                    @foreach (var cdm in CustomDisplayFactory<vm_销售订单D>.CustomDisplayModels(item))
-                    {
-                        if (cdm.ForRead)
-                        {
-                            <td>@cdm.Value</td>
-                        }
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<partial name="_CRUD_Template/_Details" model="templateModel" />
 
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.vm_销售订单.RecordId">修改</a> |

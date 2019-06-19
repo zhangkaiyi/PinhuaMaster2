@@ -13,30 +13,36 @@ namespace Pinhua2.Web.Mapper
     {
         [CustomDisplay(10)]
         [MyMinWidth(100)]
+        [MyPrimary]
         public string 单号 { get; set; }
 
         [CustomDisplay(20)]
         [MyMinWidth(100)]
+        [MyPrimary]
         public string 业务类型 { get; set; }
 
-        [CustomDisplay(ForIndex = false)]
+        [CustomDisplay(ForIndex = false, ForRead = false)]
         public string 仓 { get; set; }
 
         [Required]
         [CustomDisplay(30)]
         [MyMinWidth(120)]
+        [MyPrimary]
         public DateTime? 日期 { get; set; }
 
         [Required]
         [CustomDisplay(40)]
         [MyMinWidth(120)]
+        [MyPrimary]
         public DateTime? 交期 { get; set; }
 
         [CustomDisplay(50)]
         [MyMinWidth(120)]
+        [MyPrimary]
         public string 备注 { get; set; }
 
         [CustomDisplay(21)]
+        [MyPrimary]
         [Display(Name = "客户名")]
         [MyMinWidth(100)]
         [MyEditable]
@@ -46,14 +52,18 @@ namespace Pinhua2.Web.Mapper
         [CustomDisplay(20)]
         [Display(Name = "客户号")]
         [MyMinWidth(100)]
+        [MyPrimary]
         public string 往来号 { get; set; }
 
         [CustomDisplay(9)]
+        [Display(Name = "询价单")]
         [MyMinWidth(100)]
+        [MyPrimary]
         public string 报价单 { get; set; }
 
         [CustomDisplay(25)]
         [MyMinWidth(100)]
+        [MyPrimary]
         public decimal? 应付 { get; set; }
     }
 
@@ -76,11 +86,8 @@ namespace Pinhua2.Web.Mapper
         public decimal? 金额 { get; set; }
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
-        public decimal? 最新价 { get; set; }
-        public DateTime? 新价日期 { get; set; }
         public string 品牌 { get; set; }
         public string 状态 { get; set; }
-        public string 质保 { get; set; }
     }
 
     public class 采购订单Profile : Profile

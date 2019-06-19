@@ -91,13 +91,35 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
-        public object Value
+        public object RawValue
         {
             get
             {
                 if (PropertyInfo == null)
                     return null;
                 return PropertyInfo.GetValue(_obj);
+            }
+        }
+        public object Value
+        {
+            get
+            {
+                if (PropertyInfo == null)
+                    return null;
+
+                var tmpValue = PropertyInfo.GetValue(_obj);
+                if (IsDatetime)
+                {
+                    return ((DateTime?)tmpValue)?.ToString("yyyy-MM-dd");
+                }
+                else if (IsDecimal)
+                {
+                    return ((decimal?)tmpValue)?.ToString("0.00");
+                }
+                else
+                {
+                    return tmpValue;
+                }
             }
         }
 
@@ -139,6 +161,10 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
+        public bool IsPrimary { get; set; }
+
+        public bool IsSecondary { get; set; }
+
         public bool IsDatetime
         {
             get
@@ -174,6 +200,98 @@ namespace Pinhua2.Common.Attributes
             }
         }
     }
+
+    public class CustomDisplayFactory
+    {
+        private CustomDisplayFactory() { }
+
+        private CustomDisplayFactory(Type type, object obj)
+        {
+            var list = new List<CustomDisplayModel>();
+            foreach (var p in type.GetProperties())
+            {
+                var attrs = p.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
+                var cdm = new CustomDisplayModel(obj);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as CustomDisplayAttribute;
+
+                    cdm.ForIndex = cda.ForIndex;
+                    cdm.ForCreate = cda.ForCreate;
+                    cdm.ForRead = cda.ForRead;
+                    cdm.ForUpdate = cda.ForUpdate;
+                    cdm.ForDelete = cda.ForDelete;
+                    cdm.Order = cda.Order;
+                    cdm.PropertyInfo = p;
+                }
+                else
+                {
+                    cdm.ForIndex = true;
+                    cdm.ForCreate = true;
+                    cdm.ForRead = true;
+                    cdm.ForUpdate = true;
+                    cdm.ForDelete = true;
+                    cdm.PropertyInfo = p;
+                }
+                attrs = p.GetCustomAttributes(typeof(MyMinWidthAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as MyMinWidthAttribute;
+                    cdm.MinWidth = cda.MinWidth;
+                }
+                attrs = p.GetCustomAttributes(typeof(MyEditableAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as MyEditableAttribute;
+                    cdm.Editable = true;
+                }
+                else
+                {
+                    cdm.Editable = false;
+                }
+                attrs = p.GetCustomAttributes(typeof(MyPrimaryAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as MyPrimaryAttribute;
+                    cdm.IsPrimary = true;
+                }
+                else
+                {
+                    cdm.IsPrimary = false;
+                }
+                attrs = p.GetCustomAttributes(typeof(MySecondaryAttribute), false);
+                if (attrs.Length > 0)
+                {
+                    var cda = attrs[0] as MySecondaryAttribute;
+                    cdm.IsSecondary = true;
+                }
+                else
+                {
+                    cdm.IsSecondary = false;
+                }
+                list.Add(cdm);
+            }
+            Models = list.OrderBy(p => p.Order).ToList();
+        }
+
+        public IList<CustomDisplayModel> Models { get; set; }
+
+        static public CustomDisplayFactory Create(Type type, object obj)
+        {
+            return new CustomDisplayFactory(type, obj);
+        }
+
+        static public IList<CustomDisplayModel> CustomDisplayModels(object obj)
+        {
+            return new CustomDisplayFactory(obj.GetType(), obj).Models;
+        }
+
+        static public IList<CustomDisplayModel> CustomDisplayModels(Type type)
+        {
+            return new CustomDisplayFactory(type, null).Models;
+        }
+    }
+
 
     public class CustomDisplayFactory<T>
     {

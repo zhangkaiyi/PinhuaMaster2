@@ -21,7 +21,7 @@
                 {
                     if (cdm.ForIndex)
                     {
-                        <th>
+                        <th data-field="@(cdm.RawName)">
                             @cdm.Name
                         </th>
                     }
@@ -45,15 +45,15 @@
                             @{
                                 if (cdm.IsDatetime)
                                 {
-                                    @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
+                                    @(((DateTime?)cdm.RawValue)?.ToString("yyyy-MM-dd"))
                                 }
                                 else if (cdm.IsDecimal)
                                 {
-                                    @(((decimal?)cdm.Value)?.ToString("0.00"))
+                                    @(((decimal?)cdm.RawValue)?.ToString("0.00"))
                                 }
                                 else
                                 {
-                                    @cdm.Value
+                                    @cdm.RawValue
                                 }
                             }
                         </td>
@@ -94,7 +94,7 @@
                 //$('#detailsGroup').css('display', 'block')
             })
             $('#indexMain').on('click-row.bs.table', function (e, row, $element, field) {
-                var url = ["/api/sd/收款/", row[4]].join("")
+                var url = ["/api/sd/收款/", row.单号].join("")
                 console.log("url:", url)
                 $('#indexDetails').bootstrapTable('refresh', { url: url, silent: true });
             })

@@ -30,9 +30,10 @@ namespace Pinhua2.Web.Pages
         [BindProperty]
         public Trip MyTrip { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
             _pinhua2Context.Database.Migrate();
+            return RedirectToPage("/销售/销售出库单/Index");
         }
 
         public void OnPost()

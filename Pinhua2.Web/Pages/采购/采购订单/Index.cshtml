@@ -5,15 +5,17 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <partial name="Buttons/CreateButton" />
-</p>
-
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>采购订单</h3>
+    <div class="btn-group">
+        <partial name="Buttons/CreateButton" />
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table text-nowrap bg-white" data-toggle="table">
         <thead>
             <tr>
-                <th>操作</th>
+                <th style="width:1%;" data-width="1%"></th>
                 @foreach (var cdm in CustomDisplayFactory<vm_采购订单>.CustomDisplayModels(Model.Records.FirstOrDefault()))
                 {
                     if (cdm.ForIndex)
@@ -36,14 +38,7 @@
                     {
                         if (cdm.ForIndex)
                         {
-                            if (cdm.IsDatetime)
-                            {
-                                <td>@(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))</td>
-                            }
-                            else
-                            {
-                                <td>@cdm.Value</td>
-                            }
+                            <td>@cdm.Value</td>
                         }
                     }
                 </tr>

@@ -32,7 +32,7 @@
                 <label asp-for="Record.往来号" class="col-4 col-sm-2 col-form-label"></label>
                 <div class="col-8 col-sm-10">
                     @*<select class="form-control" asp-for="Record.往来号" asp-items="Model.CustomerSelectList"></select>*@
-                    <input class="form-control" asp-for="Record.往来号" type="text"  v-model="record.往来号" v-on:change="customerIdOnChange" />
+                    <input class="form-control" asp-for="Record.往来号" type="text"  v-model="record.往来号" v-on:change="customerIdOnChange" readonly />
                     <span asp-validation-for="Record.往来号" class="text-danger"></span>
                 </div>
             </div>

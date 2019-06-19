@@ -24,7 +24,7 @@ namespace Pinhua2.Web.Pages.采购.采购订单
 
         public async Task OnGetAsync()
         {
-            Records = await _mapper.ProjectTo<vm_采购订单>(_pinhua2.tb_订单表).ToListAsync();
+            Records = await _mapper.ProjectTo<vm_采购订单>(_pinhua2.tb_订单表).Where(m => m.业务类型 == "采购订单").OrderByDescending(m => m.交期).ThenByDescending(m => m.单号).ToListAsync();
         }
     }
 }

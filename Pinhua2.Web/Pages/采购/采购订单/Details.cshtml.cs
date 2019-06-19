@@ -1,25 +1,23 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Pinhua2.Data.Models;
+using Pinhua2.Web.Common;
+using Pinhua2.Web.Mapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Pinhua2.Data;
-using Pinhua2.Data.Models;
 
 namespace Pinhua2.Web.Pages.采购.采购订单
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : MyPageModel
     {
-        private readonly Pinhua2.Data.Pinhua2Context _context;
-
-        public DetailsModel(Pinhua2.Data.Pinhua2Context context)
+        public DetailsModel(Pinhua2.Data.Pinhua2Context context, IMapper mapper):base(context, mapper)
         {
-            _context = context;
         }
 
-        public tb_订单表 tb_订单表 { get; set; }
+        public vm_采购订单 Record { get; set; }
+        public IList<vm_采购订单D> RecordDs { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,12 +26,15 @@ namespace Pinhua2.Web.Pages.采购.采购订单
                 return NotFound();
             }
 
-            tb_订单表 = await _context.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id);
+            Record = _mapper.Map<vm_采购订单>(await _pinhua2.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (tb_订单表 == null)
+            if (Record == null)
             {
                 return NotFound();
             }
+
+            RecordDs = await _mapper.ProjectTo<vm_采购订单D>(_pinhua2.tb_订单表D.Where(m => m.RecordId == id)).ToListAsync();
+
             return Page();
         }
     }
