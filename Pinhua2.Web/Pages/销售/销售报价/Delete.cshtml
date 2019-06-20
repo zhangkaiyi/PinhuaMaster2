@@ -4,28 +4,26 @@
 
 @{
     ViewData["Title"] = "Delete";
+
+    var templateModel = new _CRUD_Template_Model
+    {
+        RecordMain = new _CRUD_Template_Model_Main
+        {
+            Title = "销售报价",
+            Data = Model.vm_销售报价,
+        },
+        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
+{
+            new _CRUD_Template_Model_Details
+            {
+                Title="明细",
+                Data = Model.vm_销售报价D列表.Cast<object>(),
+            },
+        }
+    };
 }
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>删除 - 销售报价</h3>
-</div>
-
-<div class="row" id="vueScope">
-    <div class="col-12">
-        @foreach (var cdm in CustomDisplayFactory<vm_销售报价>.CustomDisplayModels(Model.vm_销售报价))
-        {
-            if (cdm.ForDelete)
-            {
-                <div class="form-group row">
-                    <label for="" class="col-4 col-sm-2 col-form-label">@cdm.Name</label>
-                    <div class="col-8 col-sm-10">
-                        <input value="@cdm.Value" class="form-control" readonly />
-                    </div>
-                </div>
-            }
-        }
-    </div>
-</div>
+<partial name="_CRUD_Template/_Delete" model="templateModel" />
 
 <form method="post">
     <input type="hidden" asp-for="vm_销售报价.RecordId" />

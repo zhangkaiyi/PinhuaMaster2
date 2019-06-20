@@ -23,7 +23,11 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
             _mapper = mapper;
         }
 
+        [BindProperty]
         public vm_销售出库 Record { get; set; }
+
+        [BindProperty]
+        public IList<vm_销售出库D> RecordDs { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -38,6 +42,9 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
             {
                 return NotFound();
             }
+
+            RecordDs = await _mapper.ProjectTo<vm_销售出库D>(_context.tb_IOD.Where(m => m.RecordId == id)).ToListAsync();
+
             return Page();
         }
 

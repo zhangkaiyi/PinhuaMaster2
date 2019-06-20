@@ -25,6 +25,8 @@ namespace Pinhua2.Web.Pages.销售.销售报价
 
         public vm_销售报价 vm_销售报价 { get; set; }
 
+        public IList<vm_销售报价D> vm_销售报价D列表 { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -38,6 +40,9 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             {
                 return NotFound();
             }
+
+            vm_销售报价D列表 = await _mapper.ProjectTo<vm_销售报价D>(_context.tb_报价表D.Where(m => m.RecordId == id)).ToListAsync();
+
             return Page();
         }
 

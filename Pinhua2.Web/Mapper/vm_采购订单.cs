@@ -11,59 +11,61 @@ namespace Pinhua2.Web.Mapper
 {
     public class vm_采购订单 : _BaseTableMain
     {
+        [MyPriority(Priority.High)]
         [CustomDisplay(10)]
         [MyMinWidth(100)]
-        [MyPrimary]
         public string 单号 { get; set; }
 
+        [MyPriority(Priority.High)]
         [CustomDisplay(20)]
         [MyMinWidth(100)]
-        [MyPrimary]
         public string 业务类型 { get; set; }
 
+        [MyPriority(Priority.High)]
         [CustomDisplay(ForIndex = false, ForRead = false)]
+        [MyPrimary]
         public string 仓 { get; set; }
 
+        [MyPriority(Priority.High)]
         [Required]
         [CustomDisplay(30)]
         [MyMinWidth(120)]
-        [MyPrimary]
         public DateTime? 日期 { get; set; }
 
+        [MyPriority(Priority.High)]
         [Required]
         [CustomDisplay(40)]
         [MyMinWidth(120)]
-        [MyPrimary]
         public DateTime? 交期 { get; set; }
 
+        [MyPriority(Priority.High)]
         [CustomDisplay(50)]
         [MyMinWidth(120)]
-        [MyPrimary]
         public string 备注 { get; set; }
 
+        [MyPriority(Priority.High)]
         [CustomDisplay(21)]
-        [MyPrimary]
         [Display(Name = "客户名")]
         [MyMinWidth(100)]
         [MyEditable]
         public string 往来 { get; set; }
 
+        [MyPriority(Priority.High)]
         [Required]
         [CustomDisplay(20)]
         [Display(Name = "客户号")]
         [MyMinWidth(100)]
-        [MyPrimary]
         public string 往来号 { get; set; }
 
+        [MyPriority(Priority.High)]
         [CustomDisplay(9)]
         [Display(Name = "询价单")]
         [MyMinWidth(100)]
-        [MyPrimary]
         public string 报价单 { get; set; }
 
+        [MyPriority(Priority.High)]
         [CustomDisplay(25)]
         [MyMinWidth(100)]
-        [MyPrimary]
         public decimal? 应付 { get; set; }
     }
 

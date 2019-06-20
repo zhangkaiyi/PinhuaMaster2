@@ -16,7 +16,9 @@ namespace Pinhua2.Web.Pages.采购.采购订单
         {
         }
 
+        [BindProperty]
         public vm_采购订单 Record { get; set; }
+        [BindProperty]
         public IList<vm_采购订单D> RecordDs { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)

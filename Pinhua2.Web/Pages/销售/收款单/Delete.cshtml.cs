@@ -41,6 +41,9 @@ namespace Pinhua2.Web.Pages.销售.收款单
             {
                 return NotFound();
             }
+
+            RecordDs = _mapper.ProjectTo<vm_收款单D>(_context.tb_收付表D.Where(m => m.RecordId == id)).ToList();
+
             return Page();
         }
 

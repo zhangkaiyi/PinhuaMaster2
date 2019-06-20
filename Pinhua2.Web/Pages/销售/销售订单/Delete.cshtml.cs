@@ -24,6 +24,7 @@ namespace Pinhua2.Web.Pages.销售.销售订单
         }
 
         public vm_销售订单 vm_销售订单 { get; set; }
+        public IList<vm_销售订单D> vm_销售订单D列表 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -38,6 +39,9 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             {
                 return NotFound();
             }
+
+            vm_销售订单D列表 = await _mapper.ProjectTo<vm_销售订单D>(_context.tb_订单表D.Where(m => m.RecordId == id)).ToListAsync();
+
             return Page();
         }
 
