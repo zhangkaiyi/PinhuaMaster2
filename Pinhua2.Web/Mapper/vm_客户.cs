@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Pinhua2.Common.Attributes;
 using Pinhua2.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,53 @@ namespace Pinhua2.Web.Mapper
 {
     public class vm_客户 : _BaseTableMain
     {
+        [MyPriority(Priority.High)]
         [Display(Name = "客户编号")]
         public string 往来号 { get; set; }
+
+        [MyPriority(Priority.High)]
         [Required(ErrorMessage = "The {0} field is required.")]
         public string 简称 { get; set; }
+
+        [MyPriority(Priority.High)]
         public string 全称 { get; set; }
+
+        [MyPriority(Priority.High)]
         [Required]
         public string 联系人 { get; set; }
+
+        [MyPriority(Priority.High)]
         [Required(ErrorMessage = "The {0} field is required.")]
         public string 联系电话 { get; set; }
+
+        [MyPriority(Priority.Medium)]
         public string 公司电话 { get; set; }
+
+        [MyPriority(Priority.Medium)]
         public string 传真 { get; set; }
+
+        [MyPriority(Priority.Medium)]
+        [Display(Name = "QQ")]
         public string Qq { get; set; }
+
+        [MyPriority(Priority.Medium)]
+        [Display(Name = "邮箱")]
         public string Email { get; set; }
+
+        [MyPriority(Priority.High)]
         public string 地址 { get; set; }
+
+        [MyPriority(Priority.Medium)]
         public string 开户行 { get; set; }
+        [MyPriority(Priority.Medium)]
         public string 组织代码 { get; set; }
+        [MyPriority(Priority.Medium)]
         public string 账号 { get; set; }
+        [MyPriority(Priority.High)]
+        [CustomDisplay(10)]
         public string 状态 { get; set; }
+        [MyPriority(Priority.High)]
+        [CustomDisplay(20)]
         public string 类型 { get; set; }
     }
 

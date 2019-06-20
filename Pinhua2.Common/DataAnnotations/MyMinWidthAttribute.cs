@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 namespace Pinhua2.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class MySecondaryAttribute : Attribute
+    public class MyMinWidthAttribute : Attribute
     {
+        public double MinWidth { get; }
+        public MyMinWidthAttribute(double minWidth)
+        {
+            MinWidth = minWidth;
+        }
     }
 }

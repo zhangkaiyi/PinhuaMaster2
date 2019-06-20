@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Pinhua2.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class MyPrimaryAttribute : Attribute
+    public class MyEditableAttribute : Attribute
     {
+
     }
 }

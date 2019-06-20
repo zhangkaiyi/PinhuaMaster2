@@ -14,6 +14,7 @@ namespace Pinhua2.Data.Models
         DateTime? CreateTime { get; set; }
         string LastEditUser { get; set; }
         DateTime? LastEditTime { get; set; }
+        bool? IsDeleted { get; set; }
     }
     public partial class _BaseTableMain : _IBaseTableMain
     {
@@ -32,6 +33,8 @@ namespace Pinhua2.Data.Models
 
         [CustomDisplay(ForIndex = false)]
         public DateTime? LastEditTime { get; set; }
+
+        public bool? IsDeleted { get; set; }
     }
 
     public interface _IBaseTableDetail

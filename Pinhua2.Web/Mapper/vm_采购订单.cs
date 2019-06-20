@@ -23,7 +23,6 @@ namespace Pinhua2.Web.Mapper
 
         [MyPriority(Priority.High)]
         [CustomDisplay(ForIndex = false, ForRead = false)]
-        [MyPrimary]
         public string 仓 { get; set; }
 
         [MyPriority(Priority.High)]

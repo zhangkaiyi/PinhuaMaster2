@@ -8,7 +8,6 @@ namespace Pinhua2.Common.Attributes
 {
     public enum Priority
     {
-        None,
         High,
         Medium,
         Low

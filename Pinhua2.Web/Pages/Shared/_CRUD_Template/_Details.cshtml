@@ -1,85 +1,125 @@
 ﻿@model _CRUD_Template_Model
 @{
     ViewData["Title"] = "Details";
-    var main = CustomDisplayFactory.CustomDisplayModels(Model.RecordMain.Data);
-    var primaryCount = main.Where(p => p.ForRead && p.IsPrimary).Count();
+    var main = CustomDisplayFactory.CustomDisplayModels(Model.RecordMain.Data).Where(m => m.ForRead).OrderBy(m => m.Priority);
+    var hasPriority = main.Select(p => p.Priority).Distinct();
+    var hasPriorityCount = hasPriority.Count();
+    var hasPriorityHigh = main.Any(p => p.Priority == Priority.High);
+    var hasPriorityOthers = main.Any(p => p.Priority != Priority.High);
+    var detailsArray = Model.RecordDetailsArray ?? new List<_CRUD_Template_Model_Details>
+    ();
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>查看 - @Model.RecordMain.Title</h3>
+    <h3>查看 - @Model.RecordMain.Title - Priority @(hasPriorityCount)</h3>
 </div>
 <div class="row" id="vueScope">
     <div class="col-12">
         <div class="row">
-            @if (primaryCount == 0)
-            {
-                <div class="col-md-8 col-lg-6">
-                    @foreach (var cdm in main.Where(p => p.ForRead))
+            @{
+                if (hasPriorityCount == 1)
                 {
-                        <div class="form-group row">
-                            <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
-                            <div class="col-8 col-md-8 col-lg-9">
-                                <input value="@cdm.Value" class="form-control" readonly />
+                    <!-- hasPriorityCount == 1 -->
+                    <div class="col-md-12 col-lg-6">
+                        @foreach (var cdm in main)
+                        {
+                            <div class="form-group row">
+                                <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
+                                <div class="col-8 col-md-8 col-lg-9">
+                                    <input value="@cdm.Value" class="form-control" readonly />
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="col-md-6">
-                    @foreach (var cdm in main.Where(p => p.ForRead && p.IsPrimary))
+                        }
+                    </div>
+                }
+                else if (hasPriorityCount == 2)
                 {
-                        <div class="form-group row">
-                            <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
-                            <div class="col-8 col-md-8 col-lg-9">
-                                <input value="@cdm.Value" class="form-control" readonly />
+                    <!-- hasPriorityCount == 2 -->
+                    <div class="col-md-6">
+                        @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
+                        {
+                            <div class="form-group row">
+                                <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
+                                <div class="col-8 col-md-8 col-lg-9">
+                                    <input value="@cdm.Value" class="form-control" readonly />
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
-                <div class="col-md-6 d-none d-md-block">
-                    @foreach (var cdm in main.Where(p => p.ForRead && !p.IsPrimary))
+                        }
+                    </div>
+                    <div class="col-md-6 d-none d-md-block">
+                        @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
+                        {
+                            <div class="form-group row">
+                                <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
+                                <div class="col-8 col-md-8 col-lg-9">
+                                    <input value="@cdm.Value" class="form-control" readonly />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else if (hasPriorityCount == 3)
                 {
-                        <div class="form-group row">
-                            <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
-                            <div class="col-8 col-md-8 col-lg-9">
-                                <input value="@cdm.Value" class="form-control" readonly />
+                    <!-- hasPriorityCount == 3 -->
+                    <div class="col-md-4">
+                        @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
+                        {
+                            <div class="form-group row">
+                                <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
+                                <div class="col-8 col-md-8 col-lg-9">
+                                    <input value="@cdm.Value" class="form-control" readonly />
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
+                        {
+                            <div class="form-group row">
+                                <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
+                                <div class="col-8 col-md-8 col-lg-9">
+                                    <input value="@cdm.Value" class="form-control" readonly />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4 d-none d-md-block">
+                        @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(2)))
+                        {
+                            <div class="form-group row">
+                                <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
+                                <div class="col-8 col-md-8 col-lg-9">
+                                    <input value="@cdm.Value" class="form-control" readonly />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
             }
         </div>
 
-        @foreach (var recordDetails in Model.RecordDetailsArray ?? new List<_CRUD_Template_Model_Details>())
+        @foreach (var details in detailsArray)
         {
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-                <h4>@recordDetails.Title</h4>
+                <h4>@details.Title</h4>
             </div>
             <div class="table-responsive mb-3">
                 <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
                     <thead>
                         <tr>
-                            @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(recordDetails.Data.GetType().GetGenericArguments()[0]))
+                            @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(d => d.ForRead))
                             {
-                                if (cdm.ForRead)
-                                {
-                                    <th>@cdm.Name</th>
-                                }
+                                <th>@cdm.Name</th>
                             }
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in recordDetails.Data)
+                        @foreach (var item in details.Data)
                         {
                             <tr>
-                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(item))
+                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(item).Where(d => d.ForRead))
                                 {
-                                    if (cdm.ForRead)
-                                    {
-                                        <td>@cdm.Value</td>
-                                    }
+                                    <td>@cdm.Value</td>
                                 }
                             </tr>
                         }
