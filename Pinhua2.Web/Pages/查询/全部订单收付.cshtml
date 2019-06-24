@@ -11,14 +11,9 @@
     <table class="table table-bordered text-nowrap">
         <thead>
             <tr>
-                @foreach (var cdm in CustomDisplayFactory<view_AllOrdersPay>.CustomDisplayModels(pinhua2.view_全部订单收付().FirstOrDefault()))
+                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(typeof(view_AllOrdersPay)).Where(m => m.ForIndex))
                 {
-                    if (cdm.ForIndex)
-                    {
-                        <th>
-                            @cdm.Name
-                        </th>
-                    }
+                    <th>@cdm.Name</th>
                 }
             </tr>
         </thead>
@@ -26,27 +21,9 @@
             @foreach (var item in pinhua2.view_全部订单收付())
             {
                 <tr>
-                    @foreach (var cdm in CustomDisplayFactory<view_AllOrdersPay>.CustomDisplayModels(item))
+                    @foreach (var cdm in CustomDisplayFactory<view_AllOrdersPay>.CustomDisplayModels(item).Where(m => m.ForIndex))
                     {
-                        if (cdm.ForIndex)
-                        {
-                            <td>
-                                @{
-                                    if (cdm.IsDatetime)
-                                    {
-                                        @(((DateTime?)cdm.Value)?.ToString("yyyy-MM-dd"))
-                                    }
-                                    else if (cdm.IsDecimal)
-                                    {
-                                        @(((decimal?)cdm.Value)?.ToString("0.00"))
-                                    }
-                                    else
-                                    {
-                                        @cdm.Value
-                                    }
-                                }
-                            </td>
-                        }
+                        <td>@cdm.Value</td>
                     }
                 </tr>
             }

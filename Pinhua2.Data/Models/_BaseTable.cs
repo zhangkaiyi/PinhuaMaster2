@@ -34,6 +34,7 @@ namespace Pinhua2.Data.Models
         [CustomDisplay(ForIndex = false)]
         public DateTime? LastEditTime { get; set; }
 
+        [CustomDisplay(ForIndex = false)]
         public bool? IsDeleted { get; set; }
     }
 
@@ -54,7 +55,7 @@ namespace Pinhua2.Data.Models
         [CustomDisplay(10, ForIndex = false)]
         public int? RN { get; set; }
 
-        [CustomDisplay(ForIndex = false)]
+        [CustomDisplay]
         public int? RecordId { get; set; }
 
         [CustomDisplay(10)]

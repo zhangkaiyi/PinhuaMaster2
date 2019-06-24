@@ -19,7 +19,7 @@
                         <input asp-for="Record.单号" class="form-control" placeholder="自动生成 ..." readonly />
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是">
+                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是" style="margin-right:5px;">
                                 <label class="form-check-label" for="Record_报价单">
                                     询价单
                                 </label>
@@ -32,7 +32,7 @@
             <div class="form-group row">
                 <label asp-for="Record.往来号" class="col-4 col-sm-2 col-form-label"></label>
                 <div class="col-8 col-sm-10">
-                    <select class="form-control" asp-for="Record.往来号" asp-items="Model.SupplierSelectList" v-model="record.往来号" v-on:change="customerIdOnChange"></select>
+                    <select class="form-control" asp-for="Record.往来号" asp-items="pinhua2.SelectList_供应商()" v-model="record.往来号" v-on:change="customerIdOnChange"></select>
                     <span asp-validation-for="Record.往来号" class="text-danger"></span>
                 </div>
             </div>
@@ -306,6 +306,7 @@
                 },
 
                 putUnitOnClick: function (item) {
+                    // item.单位 = event.target.innerText
                     item.单位 = event.target.innerText
                 },
                 customerIdOnChange: function (e) {

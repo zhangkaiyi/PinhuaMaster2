@@ -30,31 +30,6 @@ namespace Pinhua2.Web.Pages.采购.采购订单
         [BindProperty]
         public IList<vm_采购订单D> RecordDs { get; set; }
 
-        public IList<SelectListItem> SupplierSelectList
-        {
-            get
-            {
-                var customers = _pinhua2.tb_往来表.AsNoTracking().Where(c => c.类型 == "供应商");
-
-                var customerSelectList = new List<SelectListItem>();
-
-                customerSelectList.Add(new SelectListItem
-                {
-                    Text = "无",
-                    Value = "",
-                });
-                foreach (var customer in customers)
-                {
-                    customerSelectList.Add(new SelectListItem
-                    {
-                        Text = customer.往来号 + " - " + customer.简称,
-                        Value = customer.往来号
-                    });
-                }
-                return customerSelectList;
-            }
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

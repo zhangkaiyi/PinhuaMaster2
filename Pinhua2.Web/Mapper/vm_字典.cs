@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Pinhua2.Common.Attributes;
 using Pinhua2.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,11 @@ namespace Pinhua2.Web.Mapper
 {
     public class vm_字典 : _BaseTableMain
     {
+        [MyPriority(Priority.High)]
         [Required(ErrorMessage = "The {0} field is required.")]
         public string 字典名 { get; set; }
+
+        [MyPriority(Priority.High)]
         public string 组 { get; set; }
     }
 

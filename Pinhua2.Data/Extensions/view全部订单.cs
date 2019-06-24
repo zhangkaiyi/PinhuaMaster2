@@ -21,7 +21,7 @@ namespace Pinhua2.Data
                     from p in pTemp.DefaultIfEmpty()
                     select new view_AllOrders
                     {
-                        RecordId = rd.RecordId,
+                        RecordId = r.RecordId,
                         业务类型 = r.业务类型,
                         交期 = r.交期,
                         仓 = r.仓,
@@ -48,7 +48,7 @@ namespace Pinhua2.Data
                         高度=p.高度,
                         面厚=p.面厚,
                         质保 = rd.质保,
-                        金额 = rd.金额
+                        金额 = rd.金额,
                     };
 
             return l.ToList();

@@ -18,6 +18,7 @@ namespace Pinhua2.Web.Mapper
     public class _CRUD_Template_Model_Details
     {
         public string Title { get; set; }
+        public string Url { get; set; }
         public IEnumerable<object> Data { get; set; }
         //public Type DataType { get; set; }
     }
@@ -25,6 +26,12 @@ namespace Pinhua2.Web.Mapper
     public class _CRUD_Template_Model
     {
         public _CRUD_Template_Model_Main RecordMain { get; set; }
+        public IEnumerable<_CRUD_Template_Model_Details> RecordDetailsArray { get; set; }
+    }
+
+    public class _CRUD_Template_Model_Index
+    {
+        public _CRUD_Template_Model_Details RecordMains { get; set; }
         public IEnumerable<_CRUD_Template_Model_Details> RecordDetailsArray { get; set; }
     }
 }

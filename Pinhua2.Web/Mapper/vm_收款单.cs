@@ -11,22 +11,40 @@ namespace Pinhua2.Web.Mapper
 {
     public class vm_收款单 : _BaseTableMain
     {
+        [MyPriority(Priority.High)]
         [CustomDisplay(10)]
         public string 类型 { get; set; } = "收款";
-        [CustomDisplay(30)]
-        public string 往来 { get; set; }
+
+        [MyPriority(Priority.High)]
+        [CustomDisplay(20)]
+        public string 单号 { get; set; }
+
+        [MyPriority(Priority.High)]
         [Required]
-        [CustomDisplay(ForIndex = false)]
+        [CustomDisplay(25, ForIndex = false)]
         public string 往来号 { get; set; }
+
+        [MyPriority(Priority.High)]
+        [CustomDisplay(26)]
+        public string 往来 { get; set; }
+
+        [MyPriority(Priority.High)]
         [Required]
         [CustomDisplay(30)]
         public decimal? 收 { get; set; }
-        [CustomDisplay(20)]
-        public string 单号 { get; set; }
+
+        [MyPriority(Priority.High)]
+        [CustomDisplay(40)]
         public DateTime? 日期 { get; set; }
+
+        [MyPriority(Priority.High)]
         public string 备注 { get; set; }
+
+        [MyPriority(Priority.High)]
         [CustomDisplay(31)]
         public decimal? 分配 { get; set; }
+
+        [MyPriority(Priority.High)]
         [CustomDisplay(ForIndex = false)]
         public string 发票号 { get; set; }
     }

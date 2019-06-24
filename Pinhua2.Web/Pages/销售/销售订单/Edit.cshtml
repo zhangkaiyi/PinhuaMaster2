@@ -19,7 +19,7 @@
                         <input asp-for="Record.单号" class="form-control" placeholder="自动生成 ..." readonly />
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是" @if (Model.Record.报价单 == "是") { <text> checked</text>}>
+                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是" @if (Model.Record.报价单 == "是") { <text> checked</text>} style="margin-right:5px;">
                                 <label class="form-check-label" for="Record_报价单">
                                     报价单
                                 </label>
@@ -121,16 +121,6 @@
             })
         })
     </script>
-    @*<script>
-        var customerId = @Html.Raw(customerId);
-        var url订单D = '/api/product/订单/@(customerId)'
-        var url订单D_data = []
-        fetch(url订单D)
-            .then(response => response.json())
-            .then(data => {
-                url订单D_data = data
-                vm.items = data
-        })
-    </script>*@
+
     <partial name="_vue" />
 }
