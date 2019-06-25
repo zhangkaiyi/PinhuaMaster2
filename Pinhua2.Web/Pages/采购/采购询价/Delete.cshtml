@@ -1,0 +1,14 @@
+﻿@page
+@model Pinhua2.Web.Pages.采购.采购询价.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<partial name="_CRUD_Template/_Delete" model="Model.templateModel" />
+
+<form method="post">
+    <input type="hidden" asp-for="Record.RecordId" />
+    <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-fw fa-close"></i> 删除</button> |
+    <a asp-page="./Index">返回列表</a>
+</form>

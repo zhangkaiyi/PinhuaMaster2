@@ -1,0 +1,300 @@
+﻿@page
+@model Pinhua2.Web.Pages.采购.采购询价.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>新增 - 采购询价</h3>
+</div>
+<div class="row" id="vueApp">
+    <div class="col-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Record.单号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.单号" class="form-control" placeholder="自动生成 ..." readonly />
+                    <span asp-validation-for="Record.单号" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.往来号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <select class="form-control" asp-for="Record.往来号" asp-items="pinhua2.SelectList_供应商()"></select>
+                    <span asp-validation-for="Record.往来号" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row d-none">
+                <label asp-for="Record.往来" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.往来" class="form-control" type="hidden" />
+                    <span asp-validation-for="Record.往来" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.日期" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.日期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" value="@(DateTime.Now.ToString("yyyy-MM-dd"))" />
+                    <span asp-validation-for="Record.日期" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.交期" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.交期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
+                    <span asp-validation-for="Record.交期" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.备注" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.备注" class="form-control" />
+                    <span asp-validation-for="Record.备注" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+                <h4>明细</h4>
+                <div>
+                    <button type="button" class="btn btn-outline-secondary" v-on:click="newRecord">
+                        添加明细
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive mb-3">
+                <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
+                    <thead>
+                        <tr>
+                            <th style="width:1%" data-width="1%"></th>
+                            <th>RN</th>
+                            <th>子单号</th>
+                            <th>品号</th>
+                            <th>型号</th>
+                            <th>品名</th>
+                            <th class="d-none">别名</th>
+                            <th>规格</th>
+                            <th>个数</th>
+                            <th>数量</th>
+                            <th>单位</th>
+                            <th>单价</th>
+                            <th>金额</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="items.length == 0"><td colspan="20" class="text-center">空</td></tr>
+                        <tr v-for="(todo,index) in items">
+                            <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)">修改</a></td>
+                            <td>
+                                {{ index+1 }}
+                                <input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" v-if="todo.Idx>0" />
+                                <input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
+                            </td>
+                            <td>{{ todo.子单号 }}<input :name="buildName(index,'子单号')" type="hidden" v-bind:value="todo.子单号" /></td>
+                            <td>{{ todo.品号 }}<input :name="buildName(index,'品号')" type="hidden" v-bind:value="todo.品号" /></td>
+                            <td>{{ todo.型号 }}<input :name="buildName(index,'型号')" type="hidden" v-bind:value="todo.型号" /></td>
+                            <td>{{ todo.品名 }}<input :name="buildName(index,'品名')" type="hidden" v-bind:value="todo.品名" /></td>
+                            <td class="d-none">{{ todo.别名 }}<input :name="buildName(index,'别名')" type="hidden" v-bind:value="todo.别名" /></td>
+                            <td>{{ todo.规格 }}<input :name="buildName(index,'规格')" type="hidden" v-bind:value="todo.规格" /></td>
+                            <td>{{ todo.个数 }}<input :name="buildName(index,'个数')" type="hidden" v-bind:value="todo.个数" /></td>
+                            <td>{{ computeUnitQty(todo) }}<input :name="buildName(index,'数量')" type="hidden" v-bind:value="computeUnitQty(todo)" /></td>
+                            <td>{{ todo.单位 }}<input :name="buildName(index,'单位')" type="hidden" v-bind:value="todo.单位" /></td>
+                            <td>{{ todo.单价 }}<input :name="buildName(index,'单价')" type="hidden" v-bind:value="todo.单价" /></td>
+                            <td>{{ computeMoney(todo) }}<input :name="buildName(index,'金额')" type="hidden" v-bind:value="computeMoney(todo)" /></td>
+                            <td>{{ todo.备注 }}<input :name="buildName(index,'备注')" type="hidden" v-bind:value="todo.备注" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary btn-flat">立即提交</button>
+                <button type="reset" class="btn btn-secondary btn-flat">重置</button>
+            </div>
+        </form>
+        <!-- Modal -->
+        <partial name="_modal_select" model="Model" />
+        <partial name="_modal_select2" model="Model" />
+        <partial name="_modal_edit" model="Model" />
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">返回列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        var record = JsonConvert.SerializeObject(new vm_采购询价());
+        var recordD = JsonConvert.SerializeObject(new vm_采购询价D());
+        var recordDs = JsonConvert.SerializeObject(new List<vm_采购询价D>());
+    }
+    <script>
+        var record = @Html.Raw(record);
+        var recordD = @Html.Raw(recordD);
+        var recordDs = @Html.Raw(recordDs);
+    </script>
+    <script>
+        var vm = new Vue({
+            el: '#vueApp',
+            data: {
+                record: record,
+                items: recordDs,
+                itemCurrent: JSON.parse(JSON.stringify(recordD)),
+                itemIndex: 1,
+                isNew: true,
+            },
+            watch: {
+                items: function (val1, val2) {
+                    console.log('watch')
+                    var $table = $('#selectTable')
+                    // 恢复所有隐藏行
+                    $table.bootstrapTable('getHiddenRows', true)
+                    // 获取数据
+                    var data = $table.bootstrapTable('getData')
+                    // 比对数据
+
+                },
+            },
+            mounted: function () {
+                this.init()
+                this.record.往来号 = this.record.往来号 || ""
+                this.$nextTick(function () {
+
+                })
+            },
+            computed: {
+                editModalRN: function () {
+                    if (this.isNew)
+                        return this.items.length + 1;
+                    else
+                        return this.itemIndex + 1
+                },
+                sumAmount() {
+                    return this.items.map(
+                        row => row.数量).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0)
+                },
+                sumMoney() {
+                    return (this.items.map(
+                        row => ((row.数量 || 0) * (row.单价 || 0))).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0)).toFixed(2)
+                },
+            },
+            methods: {
+                init() {
+                    this.items.forEach(function (v) {
+                        v.个数 = v.个数 || v.发
+                    })
+                },
+                fa(item) {
+                    return item.个数 || item.发
+                },
+                buildName: function (index, name) {
+                    return "RecordDs[" + index + "]." + name
+                },
+                newRecord: function () {
+                    console.log('newRecord')
+                    this.isNew = true;
+                    if ($('#Record_报价单').is(':checked')) {
+                        $('#selectModal2').modal('show')
+                    }
+                    else {
+                        $('#selectModal').modal('show')
+                    }
+                },
+                selectItem: function () {
+                    this.itemCurrent = JSON.parse(JSON.stringify(recordD))
+                    var itemList = $('#selectTable').bootstrapTable('getSelections')
+                    if (itemList.length > 0) {
+                        //for (var i in itemList) {
+                        //    this.items.push(itemList[i])
+                        //}
+                        this.itemCurrent = itemList[0]
+                        $('#selectModal').modal('hide')
+                        $('#editModal').modal('show')
+                    }
+                    else {
+                        alert('请选择至少一件报价商品！')
+                    }
+                },
+                selectItem2: function () {
+                    this.itemCurrent = JSON.parse(JSON.stringify(recordD))
+                    var itemList = $('#selectTable2').bootstrapTable('getSelections')
+                    if (itemList.length > 0) {
+                        //for (var i in itemList) {
+                        //    this.items.push(itemList[i])
+                        //}
+                        this.itemCurrent = itemList[0]
+                        $('#selectModal2').modal('hide')
+                        $('#editModal').modal('show')
+                    }
+                    else {
+                        alert('请选择至少一件报价商品！')
+                    }
+                },
+                saveRecord: function () {
+                    if (this.isNew) {
+                        this.items.push(JSON.parse(JSON.stringify(this.itemCurrent)));
+                        $('#editModal').modal('hide')
+                    }
+                    else {
+                        this.$set(this.items, this.itemIndex, JSON.parse(JSON.stringify(this.itemCurrent)))
+                        $('#editModal').modal('hide')
+                    }
+                },
+                editRecord: function (index) {
+                    this.isNew = false;
+                    this.itemIndex = index;
+                    this.itemCurrent = JSON.parse(JSON.stringify(this.items[index]))
+                    $('#editModal').modal('show')
+                },
+
+                removeTodo: function (index) {
+                    this.items.splice(index, 1)
+                },
+
+                computeMoney: function (item) {
+                    if (!this.computeUnitQty(item) || !item.单价)
+                        return ""
+                    return parseFloat(this.computeUnitQty(item) * item.单价).toFixed(2)
+                },
+
+                computeUnitQty: function (item) {
+                    //var p = item.个数
+                    var p = this.fa(item)
+                    var u = item.单位
+                    var l = item.长度
+                    var w = item.宽度
+                    var h = item.高度
+                    if (!p || !u || !l || !w || !h)
+                        return ""
+                    var result = 0
+                    if (u == 'PCS' || u == '片' || u == '个')
+                        result = p
+                    else if (u == '平方米')
+                        result = p * l * w / 1000 / 1000
+                    else if (u == '立方米')
+                        result = p * l * w * h / 1000 / 1000 / 1000
+                    else if (u == '延长米')
+                        result = p * l / 1000
+                    result = result || ""
+                    item.数量 = result
+                    return new Number(result).toFixed(4)
+
+                },
+
+                putUnitOnClick: function (item) {
+                    // item.单位 = event.target.innerText
+                    item.单位 = event.target.innerText
+                },
+                customerIdOnChange: function (e) {
+
+                }
+            }
+        })
+    </script>}

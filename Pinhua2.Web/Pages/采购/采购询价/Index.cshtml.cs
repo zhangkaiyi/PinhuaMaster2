@@ -11,32 +11,33 @@ using Pinhua2.Data.Models;
 using Pinhua2.Web.Common;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.采购.采购订单
+namespace Pinhua2.Web.Pages.采购.采购询价
 {
     public class IndexModel : MyPageModel
     {
-        public IndexModel(Pinhua2Context pinhua2, IMapper mapper) : base(pinhua2, mapper)
+        public IndexModel(Pinhua2.Data.Pinhua2Context context, IMapper mapper) : base(context, mapper)
         {
 
         }
 
-        public IList<vm_采购订单> Records { get; set; }
-        public IList<vm_采购订单D> RecordsDs { get; set; }
+        public IList<vm_采购询价> Records { get; set; }
+
+        public IList<vm_采购询价D> RecordsDs { get; set; }
 
         public _CRUD_Template_Model_Index templateModel { get; set; }
 
         public async Task OnGetAsync()
         {
-            Records = await _mapper.ProjectTo<vm_采购订单>(_pinhua2.tb_订单表)
-                .Where(m => m.业务类型 == "采购订单").OrderByDescending(m => m.交期).ThenByDescending(m => m.单号).ToListAsync();
-            RecordsDs = await _mapper.ProjectTo<vm_采购订单D>(_pinhua2.tb_订单表D)
+            Records = await _mapper.ProjectTo<vm_采购询价>(_pinhua2.tb_报价表)
+                .Where(m => m.业务类型 == "采购询价").OrderByDescending(m => m.交期).ThenByDescending(m => m.单号).ToListAsync();
+            RecordsDs = await _mapper.ProjectTo<vm_采购询价D>(_pinhua2.tb_报价表D)
                 .Where(m => Records.Any(r => r.RecordId == m.RecordId)).OrderByDescending(m => m.RecordId).ThenBy(m => m.RN).ToListAsync();
 
             templateModel = new _CRUD_Template_Model_Index
             {
                 RecordMains = new _CRUD_Template_Model_Details
                 {
-                    Title = "采购订单",
+                    Title = "采购询价",
                     Data = Records.Cast<object>()
                 },
                 RecordDetailsArray = new List<_CRUD_Template_Model_Details>
@@ -44,7 +45,7 @@ namespace Pinhua2.Web.Pages.采购.采购订单
                     new _CRUD_Template_Model_Details
                     {
                         Title = "明细",
-                        Url = "/api/mm/订单/",
+                        Url = "/api/mm/询价/",
                         Data = RecordsDs
                     },
                 },

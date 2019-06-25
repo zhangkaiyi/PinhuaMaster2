@@ -55,6 +55,8 @@ namespace Pinhua2.Web.Pages.采购.采购订单
             if (tb_订单表 != null)
             {
                 _pinhua2.tb_订单表.Remove(tb_订单表);
+                var tb_订单表D = _pinhua2.tb_订单表D.Where(d => d.RecordId == tb_订单表.RecordId);
+                _pinhua2.tb_订单表D.RemoveRange(tb_订单表D);
                 await _pinhua2.SaveChangesAsync();
             }
 

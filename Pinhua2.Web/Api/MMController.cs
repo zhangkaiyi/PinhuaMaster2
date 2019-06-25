@@ -34,5 +34,17 @@ namespace Pinhua2.Web.Api
             return _pinhua2.Get采购订单商品("", orderId);
         }
 
+        [HttpGet("询价/{orderId}")]
+        public JArray 询价_orderId(string orderId)
+        {
+            return _pinhua2.Get采购询价商品("", orderId);
+        }
+
+        [HttpGet("申请/{orderId}")]
+        public JArray 申请_orderId(string orderId)
+        {
+            return _pinhua2.Get采购申请商品("", orderId);
+        }
+
     }
 }

@@ -1,0 +1,13 @@
+﻿@page
+@model Pinhua2.Web.Pages.采购.采购申请.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<partial name="_CRUD_Template/_Details" model="Model.templateModel" />
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Record.RecordId">修改</a> |
+    <a asp-page="Index">返回列表</a>
+</div>

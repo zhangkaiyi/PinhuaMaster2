@@ -182,6 +182,52 @@ namespace Pinhua2.Data
             return jsonArray;
         }
 
+        public static JArray Get采购申请商品(this Pinhua2Context context, string customerId, string orderId)
+        {
+            if (orderId == null)
+                return new JArray();
+
+            var set = from m in context.tb_需求表.AsNoTracking()
+                      join d in context.tb_需求表D.AsNoTracking() on m.RecordId equals d.RecordId
+                      join x in context.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+                      where /*m.往来号 == customerId &&*/ m.业务类型 == "采购申请" && m.单号 == orderId
+                      select new
+                      {
+                          申 = d,
+                          品 = x
+                      };
+            JArray jsonArray = new JArray();
+            foreach (var item in set)
+            {
+                jsonArray.Add(Pinhua2Helper.JObjectFromMerge(item.申, item.品));
+            }
+
+            return jsonArray;
+        }
+
+        public static JArray Get采购询价商品(this Pinhua2Context context, string customerId, string orderId)
+        {
+            if (orderId == null)
+                return new JArray();
+
+            var set = from m in context.tb_报价表.AsNoTracking()
+                      join d in context.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
+                      join x in context.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+                      where /*m.往来号 == customerId &&*/ m.业务类型 == "采购询价" && m.单号 == orderId
+                      select new
+                      {
+                          询 = d,
+                          品 = x
+                      };
+            JArray jsonArray = new JArray();
+            foreach (var item in set)
+            {
+                jsonArray.Add(Pinhua2Helper.JObjectFromMerge(item.询, item.品));
+            }
+
+            return jsonArray;
+        }
+
         public static JArray Get采购订单商品(this Pinhua2Context context, string customerId, string orderId)
         {
             if (orderId == null)

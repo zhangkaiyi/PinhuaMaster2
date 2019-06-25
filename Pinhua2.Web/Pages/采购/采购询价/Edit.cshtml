@@ -1,0 +1,110 @@
+﻿@page
+@model Pinhua2.Web.Pages.采购.采购询价.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>tb_报价表</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.单号" class="control-label"></label>
+                <input asp-for="tb_报价表.单号" class="form-control" />
+                <span asp-validation-for="tb_报价表.单号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.往来单号" class="control-label"></label>
+                <input asp-for="tb_报价表.往来单号" class="form-control" />
+                <span asp-validation-for="tb_报价表.往来单号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.业务类型" class="control-label"></label>
+                <input asp-for="tb_报价表.业务类型" class="form-control" />
+                <span asp-validation-for="tb_报价表.业务类型" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.仓" class="control-label"></label>
+                <input asp-for="tb_报价表.仓" class="form-control" />
+                <span asp-validation-for="tb_报价表.仓" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.日期" class="control-label"></label>
+                <input asp-for="tb_报价表.日期" class="form-control" />
+                <span asp-validation-for="tb_报价表.日期" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.交期" class="control-label"></label>
+                <input asp-for="tb_报价表.交期" class="form-control" />
+                <span asp-validation-for="tb_报价表.交期" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.备注" class="control-label"></label>
+                <input asp-for="tb_报价表.备注" class="form-control" />
+                <span asp-validation-for="tb_报价表.备注" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.制单" class="control-label"></label>
+                <input asp-for="tb_报价表.制单" class="form-control" />
+                <span asp-validation-for="tb_报价表.制单" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.往来" class="control-label"></label>
+                <input asp-for="tb_报价表.往来" class="form-control" />
+                <span asp-validation-for="tb_报价表.往来" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.往来号" class="control-label"></label>
+                <input asp-for="tb_报价表.往来号" class="form-control" />
+                <span asp-validation-for="tb_报价表.往来号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.需求单" class="control-label"></label>
+                <input asp-for="tb_报价表.需求单" class="form-control" />
+                <span asp-validation-for="tb_报价表.需求单" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="tb_报价表.RecordId" />
+            <div class="form-group">
+                <label asp-for="tb_报价表.CreateUser" class="control-label"></label>
+                <input asp-for="tb_报价表.CreateUser" class="form-control" />
+                <span asp-validation-for="tb_报价表.CreateUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.CreateTime" class="control-label"></label>
+                <input asp-for="tb_报价表.CreateTime" class="form-control" />
+                <span asp-validation-for="tb_报价表.CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.LastEditUser" class="control-label"></label>
+                <input asp-for="tb_报价表.LastEditUser" class="form-control" />
+                <span asp-validation-for="tb_报价表.LastEditUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.LastEditTime" class="control-label"></label>
+                <input asp-for="tb_报价表.LastEditTime" class="form-control" />
+                <span asp-validation-for="tb_报价表.LastEditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_报价表.IsDeleted" class="control-label"></label>
+                <input asp-for="tb_报价表.IsDeleted" class="form-control" />
+                <span asp-validation-for="tb_报价表.IsDeleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

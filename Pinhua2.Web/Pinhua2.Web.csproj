@@ -37,8 +37,6 @@
   <ItemGroup>
     <Folder Include="Pages\采购\付款单\" />
     <Folder Include="Pages\采购\采购入库单\" />
-    <Folder Include="Pages\采购\采购询价\" />
-    <Folder Include="Pages\采购\采购申请\" />
   </ItemGroup>
 
 </Project>
