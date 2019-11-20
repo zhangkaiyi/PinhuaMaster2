@@ -29,7 +29,7 @@ namespace Pinhua2.Web.Mapper
         public string 备注 { get; set; }
 
         [CustomDisplay(40)]
-        [Display(Name = "供应商")]
+        [Display(Name = "供应商名")]
         public string 往来 { get; set; }
 
         [Required]

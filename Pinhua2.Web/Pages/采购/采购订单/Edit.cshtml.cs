@@ -116,10 +116,5 @@ namespace Pinhua2.Web.Pages.采购.采购订单
 
             return RedirectToPage("./Index");
         }
-
-        private bool tb_订单表Exists(int id)
-        {
-            return _context.tb_订单表.Any(e => e.RecordId == id);
-        }
     }
 }

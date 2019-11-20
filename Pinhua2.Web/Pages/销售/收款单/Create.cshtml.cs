@@ -54,8 +54,12 @@ namespace Pinhua2.Web.Pages.销售.收款单
             }
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string companyId, string refOrderId, string type)
         {
+            Record.往来号 = companyId;
+            Record.关联单号 = refOrderId;
+            Record.小类 = type;
+            Record.类型 = "收款";
             return Page();
         }
 

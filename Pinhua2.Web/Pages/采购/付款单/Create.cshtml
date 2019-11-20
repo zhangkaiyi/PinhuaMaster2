@@ -1,0 +1,109 @@
+﻿@page
+@model Pinhua2.Web.Pages.采购.付款单.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>tb_收付表</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.类型" class="control-label"></label>
+                <input asp-for="tb_收付表.类型" class="form-control" />
+                <span asp-validation-for="tb_收付表.类型" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.往来" class="control-label"></label>
+                <input asp-for="tb_收付表.往来" class="form-control" />
+                <span asp-validation-for="tb_收付表.往来" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.往来号" class="control-label"></label>
+                <input asp-for="tb_收付表.往来号" class="form-control" />
+                <span asp-validation-for="tb_收付表.往来号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.收" class="control-label"></label>
+                <input asp-for="tb_收付表.收" class="form-control" />
+                <span asp-validation-for="tb_收付表.收" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.付" class="control-label"></label>
+                <input asp-for="tb_收付表.付" class="form-control" />
+                <span asp-validation-for="tb_收付表.付" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.单号" class="control-label"></label>
+                <input asp-for="tb_收付表.单号" class="form-control" />
+                <span asp-validation-for="tb_收付表.单号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.日期" class="control-label"></label>
+                <input asp-for="tb_收付表.日期" class="form-control" />
+                <span asp-validation-for="tb_收付表.日期" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.制单" class="control-label"></label>
+                <input asp-for="tb_收付表.制单" class="form-control" />
+                <span asp-validation-for="tb_收付表.制单" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.备注" class="control-label"></label>
+                <input asp-for="tb_收付表.备注" class="form-control" />
+                <span asp-validation-for="tb_收付表.备注" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.分配" class="control-label"></label>
+                <input asp-for="tb_收付表.分配" class="form-control" />
+                <span asp-validation-for="tb_收付表.分配" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.发票号" class="control-label"></label>
+                <input asp-for="tb_收付表.发票号" class="form-control" />
+                <span asp-validation-for="tb_收付表.发票号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.CreateUser" class="control-label"></label>
+                <input asp-for="tb_收付表.CreateUser" class="form-control" />
+                <span asp-validation-for="tb_收付表.CreateUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.CreateTime" class="control-label"></label>
+                <input asp-for="tb_收付表.CreateTime" class="form-control" />
+                <span asp-validation-for="tb_收付表.CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.LastEditUser" class="control-label"></label>
+                <input asp-for="tb_收付表.LastEditUser" class="form-control" />
+                <span asp-validation-for="tb_收付表.LastEditUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.LastEditTime" class="control-label"></label>
+                <input asp-for="tb_收付表.LastEditTime" class="form-control" />
+                <span asp-validation-for="tb_收付表.LastEditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tb_收付表.IsDeleted" class="control-label"></label>
+                <input asp-for="tb_收付表.IsDeleted" class="form-control" />
+                <span asp-validation-for="tb_收付表.IsDeleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

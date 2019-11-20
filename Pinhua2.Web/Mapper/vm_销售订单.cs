@@ -12,39 +12,57 @@ namespace Pinhua2.Web.Mapper
     public class vm_销售订单 : _BaseTableMain
     {
         [CustomDisplay(10)]
+        [MyPriority(Priority.High)]
         public string 单号 { get; set; }
 
         [CustomDisplay(20)]
+        [MyPriority(Priority.High)]
         public string 业务类型 { get; set; }
 
         [CustomDisplay(ForIndex = false)]
+        [MyPriority(Priority.High)]
         public string 仓 { get; set; }
 
         [Required]
         [CustomDisplay(30)]
+        [MyPriority(Priority.High)]
         public DateTime? 日期 { get; set; }
 
         [Required]
         [CustomDisplay(40)]
+        [MyPriority(Priority.High)]
         public DateTime? 交期 { get; set; }
 
         [CustomDisplay(50)]
+        [MyPriority(Priority.High)]
         public string 备注 { get; set; }
 
         [CustomDisplay(21)]
         [Display(Name = "客户名")]
+        [MyPriority(Priority.High)]
         public string 往来 { get; set; }
 
         [Required]
         [CustomDisplay(20)]
         [Display(Name = "客户号")]
+        [MyPriority(Priority.High)]
         public string 往来号 { get; set; }
 
         [CustomDisplay(9)]
+        [MyPriority(Priority.High)]
         public string 报价单 { get; set; }
 
         [CustomDisplay(25)]
+        [MyPriority(Priority.Medium)]
         public decimal? 应收 { get; set; }
+
+        [CustomDisplay(26)]
+        [MyPriority(Priority.Medium)]
+        public string 已收 { get; set; }
+
+        [CustomDisplay(27)]
+        [MyPriority(Priority.Medium)]
+        public string 待收 { get; set; }
     }
 
     public class vm_销售订单D : _BaseTableDetail

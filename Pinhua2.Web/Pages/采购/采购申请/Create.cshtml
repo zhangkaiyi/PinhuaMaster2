@@ -17,14 +17,6 @@
                 <div class="col-8 col-sm-10">
                     <div class="input-group">
                         <input asp-for="Record.单号" class="form-control" placeholder="自动生成 ..." readonly />
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是" style="margin-right:5px;">
-                                <label class="form-check-label" for="Record_报价单">
-                                    询价单
-                                </label>
-                            </div>
-                        </div>
                     </div>
                     <span asp-validation-for="Record.单号" class="text-danger"></span>
                 </div>
@@ -139,9 +131,9 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     @{
-        var record = JsonConvert.SerializeObject(new vm_采购申请());
+        var record = JsonConvert.SerializeObject(new vm_采购申请() ?? Model.Record);
         var recordD = JsonConvert.SerializeObject(new vm_采购申请D());
-        var recordDs = JsonConvert.SerializeObject(new List<vm_采购申请D>());
+        var recordDs = JsonConvert.SerializeObject(new List<vm_采购申请D>() ?? Model.RecordDs);
     }
     <script>
         var record = @Html.Raw(record);

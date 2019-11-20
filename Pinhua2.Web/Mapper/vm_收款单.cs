@@ -13,10 +13,19 @@ namespace Pinhua2.Web.Mapper
     {
         [MyPriority(Priority.High)]
         [CustomDisplay(10)]
-        public string 类型 { get; set; } = "收款";
+        [Display(Name = "大类")]
+        public string 类型 { get; set; }
 
         [MyPriority(Priority.High)]
-        [CustomDisplay(20)]
+        [CustomDisplay(15, ForCreate = true, ForUpdate = true)]
+        public string 小类 { get; set; }
+
+        [MyPriority(Priority.High)]
+        [CustomDisplay(16, ForCreate = true, ForUpdate = true)]
+        public string 关联单号 { get; set; }
+
+        [MyPriority(Priority.High)]
+        [CustomDisplay(5)]
         public string 单号 { get; set; }
 
         [MyPriority(Priority.High)]

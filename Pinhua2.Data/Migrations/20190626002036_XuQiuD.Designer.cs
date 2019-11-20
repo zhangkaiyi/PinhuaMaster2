@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pinhua2.Data;
 
 namespace Pinhua2.Data.Migrations
 {
     [DbContext(typeof(Pinhua2Context))]
-    partial class Pinhua2ContextModelSnapshot : ModelSnapshot
+    [Migration("20190626002036_XuQiuD")]
+    partial class XuQiuD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -809,8 +811,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("付")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("关联单号");
-
                     b.Property<decimal?>("分配")
                         .HasColumnType("decimal(18,6)");
 
@@ -821,8 +821,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("发票号");
 
                     b.Property<string>("备注");
-
-                    b.Property<string>("小类");
 
                     b.Property<string>("往来");
 

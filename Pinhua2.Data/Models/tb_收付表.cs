@@ -11,6 +11,8 @@ namespace Pinhua2.Data.Models
         public string 类型 { get; set; }
         public string 往来 { get; set; }
         public string 往来号 { get; set; }
+        public string 小类 { get; set; }
+        public string 关联单号 { get; set; }
         public decimal? 收 { get; set; }
         public decimal? 付 { get; set; }
         public string 单号 { get; set; }

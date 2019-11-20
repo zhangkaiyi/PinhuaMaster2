@@ -75,6 +75,10 @@ namespace Pinhua2.Web.Mapper
         [MyPriority(Priority.Medium)]
         [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = false)]
         public string 图片 { get; set; }
+
+        [MyPriority(Priority.Medium)]
+        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
+        public decimal? 采购价 { get; set; }
     }
 
 

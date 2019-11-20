@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{companyId?}/{refOrderId}/{type?}"
 @model Pinhua2.Web.Pages.销售.收款单.CreateModel
 
 @{
@@ -33,6 +33,20 @@
                 <div class="col-8 col-sm-10">
                     <input asp-for="Record.类型" class="form-control" readonly type="text" />
                     <span asp-validation-for="Record.类型" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.小类" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.小类" class="form-control" readonly type="text" />
+                    <span asp-validation-for="Record.小类" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.关联单号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.关联单号" class="form-control" readonly type="text" />
+                    <span asp-validation-for="Record.关联单号" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">

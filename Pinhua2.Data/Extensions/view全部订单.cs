@@ -43,10 +43,10 @@ namespace Pinhua2.Data
                         状态 = rd.状态,
                         税率 = rd.税率,
                         规格 = rd.规格,
-                        长度=p.长度,
-                        宽度=p.宽度,
-                        高度=p.高度,
-                        面厚=p.面厚,
+                        长度 = p.长度,
+                        宽度 = p.宽度,
+                        高度 = p.高度,
+                        面厚 = p.面厚,
                         质保 = rd.质保,
                         金额 = rd.金额,
                     };
@@ -331,8 +331,8 @@ namespace Pinhua2.Data
                     from v in vTemp.DefaultIfEmpty()
                     select new view_AllOrders2Pay
                     {
-                        Order=m.Order,
-                        Product=m.Product,
+                        Order = m.Order,
+                        Product = m.Product,
                         Pay = new view_AllOrders2Pay_pay
                         {
                             已收 = v?.收 ?? 0,
@@ -341,6 +341,24 @@ namespace Pinhua2.Data
                             待付 = (m?.Order?.金额 ?? 0) - (v?.付 ?? 0),
                         }
                     };
+
+            return l.ToList();
+        }
+
+        public static IList<view_ShopPrice> view_门店报价(this Pinhua2Context context)
+        {
+            var l = from p in context.tb_商品表.AsNoTracking()
+                    select new view_ShopPrice
+                    {
+                        品名 = p.品名,
+                        品号 = p.品号,
+                        别名 = p.别名,
+                        型号 = p.型号,
+                        采购价 = p.采购价,
+                        批发价 = p.采购价 + 15,
+                        零售价 = p.采购价 + 15 + 20
+                    };
+
 
             return l.ToList();
         }
