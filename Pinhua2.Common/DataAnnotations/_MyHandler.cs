@@ -225,6 +225,139 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
+        public bool IsHidden
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsHiddenIndex
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenIndexAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsHiddenCreate
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenCreateAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsHiddenDetails
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenDetailsAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsHiddenEdit
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenEditAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsHiddenDelete
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenDeleteAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsVueComputed
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyVueComputedAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public Priority Priority
         {
             get

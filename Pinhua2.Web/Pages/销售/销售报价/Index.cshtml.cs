@@ -27,7 +27,11 @@ namespace Pinhua2.Web.Pages.销售.销售报价
 
         public async Task OnGetAsync()
         {
-            vm_销售报价表 = await _mapper.ProjectTo<vm_销售报价>(_context.tb_报价表).ToListAsync();
+            vm_销售报价表 = await _mapper.ProjectTo<vm_销售报价>(_context.tb_报价表)
+                                    .Where(m => m.业务类型 == "销售报价")
+                                    .OrderByDescending(m => m.交期)
+                                    .ThenByDescending(m => m.单号)
+                                    .ToListAsync();
         }
     }
 }

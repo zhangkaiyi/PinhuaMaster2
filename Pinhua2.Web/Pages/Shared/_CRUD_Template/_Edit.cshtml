@@ -1,0 +1,149 @@
+﻿@model _CRUD_Template_Model
+@{
+    ViewData["Title"] = "Edit";
+    var main = CustomDisplayFactory.CustomDisplayModels(Model.RecordMain.Data).OrderBy(m => m.Priority);
+    var hasPriority = main.Select(p => p.Priority).Distinct();
+    var hasPriorityCount = hasPriority.Count();
+    var hasPriorityHigh = main.Any(p => p.Priority == Priority.High);
+    var hasPriorityOthers = main.Any(p => p.Priority != Priority.High);
+    var detailsArray = Model.RecordDetailsArray ?? new List<_CRUD_Template_Model_Details>();
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>修改 - 销售报价 - Priority @(hasPriorityCount)</h3>
+</div>
+<div class="row" id="vueScope">
+    <div class="col-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                @{
+                    if (hasPriorityCount == 1)
+                    { <!-- hasPriorityCount == 1 -->
+                        <div class="col-md-12 col-lg-6">
+                            @foreach (var cdm in main)
+                            {
+                                <div class="form-group row" my-model-for="cdm" my-hidden-edit>
+                                    <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
+                                    <div class="col-8 col-md-8 col-lg-9">
+                                        <input my-model-for="cdm" class="form-control" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (hasPriorityCount == 2)
+                    { <!-- hasPriorityCount == 2 -->
+                        <div class="col-md-6">
+                            @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
+                            {
+                                <div class="form-group row" my-model-for="cdm" my-hidden-edit>
+                                    <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
+                                    <div class="col-8 col-md-8 col-lg-9">
+                                        <input my-model-for="cdm" class="form-control" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-6 d-none d-md-block">
+                            @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
+                            {
+                                <div class="form-group row" my-model-for="cdm" my-hidden-edit>
+                                    <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
+                                    <div class="col-8 col-md-8 col-lg-9">
+                                        <input my-model-for="cdm" class="form-control" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (hasPriorityCount == 3)
+                    { <!-- hasPriorityCount == 3 -->
+                        <div class="col-md-4">
+                            @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
+                            {
+                                <div class="form-group row" my-model-for="cdm" my-hidden-edit>
+                                    <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
+                                    <div class="col-8 col-md-8 col-lg-9">
+                                        <input my-model-for="cdm" class="form-control" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-4">
+                            @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
+                            {
+                                <div class="form-group row" my-model-for="cdm" my-hidden-edit>
+                                    <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
+                                    <div class="col-8 col-md-8 col-lg-9">
+                                        <input my-model-for="cdm" class="form-control" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-4 d-none d-md-block">
+                            @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(2)))
+                            {
+                                <div class="form-group row" my-model-for="cdm" my-hidden-edit>
+                                    <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
+                                    <div class="col-8 col-md-8 col-lg-9">
+                                        <input my-model-for="cdm" class="form-control" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                }
+            </div>
+
+            @foreach (var details in detailsArray)
+            {
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+                    <h4>明细</h4>
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecord">
+                        添加明细
+                    </button>
+                </div>
+                <div class="table-responsive mb-3">
+                    <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>RN</th>
+                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
+                                {
+                                    <th my-model-for="cdm" my-hidden-edit="true">@Html.Raw(cdm.Name)</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-if="items.length == 0"><td colspan="30" class="text-center">空</td></tr>
+                            <tr v-for="(todo,index) in items">
+                                <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)">修改</a></td>
+                                <td>
+                                    {{ index+1 }}
+                                    <input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
+                                    @*<input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" />*@
+                                    @*<input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" v-if="todo.Idx>0" />*@
+                                </td>
+                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
+                                {
+                                    <td my-model-for="cdm" my-hidden-edit="true"><input :name="buildName(index,'@Html.Raw(cdm.RawName)')" type="hidden" v-model="todo.@Html.Raw(cdm.RawName)" /></td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            <div class="form-group">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+
+            <!-- Modal -->
+            <partial name="_selectModal" />
+            <partial name="_editModal" />
+        </form>
+    </div>
+</div>

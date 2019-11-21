@@ -21,7 +21,7 @@
         },
         methods: {
             buildName: function (index, name) {
-                return "vm_销售报价D列表[" + index + "]." + name
+                return "vm_Details[" + index + "]." + name
             },
             newRecord: function () {
                 this.isNew = true;
@@ -33,6 +33,7 @@
                 var itemList = $('#selectTable').bootstrapTable('getSelections')
                 if (itemList.length > 0) {
                     this.itemCurrent = itemList[0]
+                    this.itemCurrent.Idx = 0    // 主键，不输入提交会报错
                     $('#selectModal').modal('toggle')
                     $('#editModal').modal('toggle')
                 }
@@ -60,6 +61,11 @@
                 this.items.splice(index, 1)
             },
             computeMoney: function (item) {
+                if (!this.computeUnitQty(item) || !item.单价)
+                    return ""
+                return parseFloat(this.computeUnitQty(item) * item.单价).toFixed(2)
+            },
+            MyVueComputed金额: function (item) {
                 if (!this.computeUnitQty(item) || !item.单价)
                     return ""
                 return parseFloat(this.computeUnitQty(item) * item.单价).toFixed(2)

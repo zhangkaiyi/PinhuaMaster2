@@ -23,9 +23,11 @@ namespace Pinhua2.Web.Pages.销售.销售报价
         }
 
         [BindProperty]
-        public vm_销售报价 vm_销售报价 { get; set; }
+        public vm_销售报价 vm_Main { get; set; }
         [BindProperty]
-        public IList<vm_销售报价D> vm_销售报价D列表 { get; set; }
+        public IList<vm_销售报价D> vm_Details { get; set; }
+        [BindProperty]
+        public _CRUD_Template_Model templateModel { get; set; }
 
         public IList<SelectListItem> CustomerSelectList
         {
@@ -82,45 +84,62 @@ namespace Pinhua2.Web.Pages.销售.销售报价
                 return NotFound();
             }
 
-            vm_销售报价 = _mapper.Map<vm_销售报价>(await _context.tb_报价表.FirstOrDefaultAsync(m => m.RecordId == id));
+            vm_Main = _mapper.Map<vm_销售报价>(await _context.tb_报价表.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (vm_销售报价 == null)
+            if (vm_Main == null)
             {
                 return NotFound();
             }
 
-            vm_销售报价D列表 = await _mapper.ProjectTo<vm_销售报价D>(_context.tb_报价表D.Where(m => m.RecordId == id)).ToListAsync();
-            vm_销售报价D列表 = (from d in _context.tb_报价表D.AsNoTracking()
-                        join prod in _context.tb_商品表.AsNoTracking() on d.品号 equals prod.品号
-                        where d.RecordId == vm_销售报价.RecordId
-                        select new vm_销售报价D
-                        {
-                            RecordId = d.RecordId,
-                            品号 = d.品号,
-                            Idx = d.Idx,
-                            RN = d.RN,
-                            个数 = d.个数,
-                            别名 = d.别名,
-                            单价 = d.单价,
-                            单位 = d.单位,
-                            品名 = d.品名,
-                            品牌 = d.品牌,
-                            型号 = d.型号,
-                            备注 = d.备注,
-                            子单号 = d.子单号,
-                            库存 = d.库存,
-                            数量 = d.数量,
-                            状态 = d.状态,
-                            税率 = d.税率,
-                            规格 = d.规格,
-                            宽度 = prod.宽度,
-                            金额 = d.金额,
-                            长度 = prod.长度,
-                            面厚 = prod.面厚,
-                            高度 = prod.高度,
-                            上次价=d.上次价,
-                            上次日期=d.上次日期,                            
-                        }).ToList();
+            vm_Details = await _mapper.ProjectTo<vm_销售报价D>(_context.tb_报价表D.Where(m => m.RecordId == id)).ToListAsync();
+            vm_Details = (from d in _context.tb_报价表D.AsNoTracking()
+                          join prod in _context.tb_商品表.AsNoTracking() on d.品号 equals prod.品号
+                          where d.RecordId == vm_Main.RecordId
+                          select new vm_销售报价D
+                          {
+                              RecordId = d.RecordId,
+                              品号 = d.品号,
+                              Idx = d.Idx,
+                              RN = d.RN,
+                              个数 = d.个数,
+                              别名 = d.别名,
+                              单价 = d.单价,
+                              单位 = d.单位,
+                              品名 = d.品名,
+                              品牌 = d.品牌,
+                              型号 = d.型号,
+                              备注 = d.备注,
+                              子单号 = d.子单号,
+                              库存 = d.库存,
+                              数量 = d.数量,
+                              状态 = d.状态,
+                              税率 = d.税率,
+                              规格 = d.规格,
+                              宽度 = prod.宽度,
+                              金额 = d.金额,
+                              长度 = prod.长度,
+                              面厚 = prod.面厚,
+                              高度 = prod.高度,
+                              上次价 = d.上次价,
+                              上次日期 = d.上次日期,
+                          }).ToList();
+
+            templateModel = new _CRUD_Template_Model
+            {
+                RecordMain = new _CRUD_Template_Model_Main
+                {
+                    Title = "销售报价",
+                    Data = vm_Main,
+                },
+                RecordDetailsArray = new List<_CRUD_Template_Model_Details>
+            {
+            new _CRUD_Template_Model_Details
+            {
+                Title = "明细",
+                Data = vm_Details.Cast<object>(),
+            }
+            }
+            };
 
             return Page();
         }
@@ -131,31 +150,31 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             {
                 return Page();
             }
-            var remote = _context.tb_报价表.FirstOrDefault(m => m.RecordId == vm_销售报价.RecordId);
+            var remote = _context.tb_报价表.FirstOrDefault(m => m.RecordId == vm_Main.RecordId);
             if (remote == null)
                 return NotFound();
 
             // 非空字段赋值给跟踪实体
-            vm_销售报价.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_销售报价.往来号)?.简称;
-            _mapper.Map<vm_销售报价, tb_报价表>(vm_销售报价, remote);
+            vm_Main.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
+            _mapper.Map<vm_销售报价, tb_报价表>(vm_Main, remote);
 
             var remoteDetails = _context.tb_报价表D.Where(d => d.RecordId == remote.RecordId);
 
             // 数据库中的子单号与新明细中没有相同的，则从数据库中删除
             foreach (var remoteD in remoteDetails)
             {
-                if (!vm_销售报价D列表.Where(p => !string.IsNullOrEmpty(p.子单号)).Any(p => p.子单号 == remoteD.子单号))
+                if (!vm_Details.Where(p => !string.IsNullOrEmpty(p.子单号)).Any(p => p.子单号 == remoteD.子单号))
                     _context.tb_报价表D.Remove(remoteD);
             }
             // 新明细中的子单号为空，则添加
-            foreach (var localD in vm_销售报价D列表.Where(p => string.IsNullOrEmpty(p.子单号)))
+            foreach (var localD in vm_Details.Where(p => string.IsNullOrEmpty(p.子单号)))
             {
                 Common.ModelHelper.CompleteDetailOnUpdate(remote, localD);
                 localD.子单号 = _context.funcAutoCode("子单号");
                 _context.tb_报价表D.Add(_mapper.Map<tb_报价表D>(localD));
             }
             // 子单号相同，则赋值
-            foreach (var localD in vm_销售报价D列表.Where(p => !string.IsNullOrEmpty(p.子单号)))
+            foreach (var localD in vm_Details.Where(p => !string.IsNullOrEmpty(p.子单号)))
             {
                 foreach (var remoteD in remoteDetails)
                 {

@@ -71,11 +71,11 @@
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择</button>
                                 <div class="dropdown-menu">
-                                    @foreach (var item in Model.UnitSelectList)
-                                    {
-                                    <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">@item.Text</a>
-
-                                    }
+                                    <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">片</a>
+                                    <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">平方米</a>
+                                    <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">延长米</a>
+                                    <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">立方米</a>
+                                    <a class="dropdown-item" href="javascript:;" v-on:click="putUnitOnClick(itemCurrent)">套</a>
                                 </div>
                             </div>
                         </div>

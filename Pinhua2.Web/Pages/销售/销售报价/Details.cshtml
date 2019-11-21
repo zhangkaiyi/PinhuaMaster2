@@ -4,26 +4,29 @@
 
 @{
     ViewData["Title"] = "Details";
-
-    var templateModel = new _CRUD_Template_Model
-    {
-        RecordMain = new _CRUD_Template_Model_Main
-        {
-            Title = "销售报价",
-            Data = Model.vm_销售报价,
-        },
-        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
-{
-            new _CRUD_Template_Model_Details
-            {
-                Title="明细",
-                Data = Model.vm_销售报价D列表.Cast<object>(),
-            },
-        }
-    };
 }
 
-<partial name="_CRUD_Template/_Details" model="templateModel" />
+    <nav class="navbar navbar-expand navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">操作</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-primary"
+                       asp-page="/销售/销售订单/Create"
+                       asp-route-companyId="@(Model.vm_销售报价.往来号)"
+                       asp-route-refOrderId="@(Model.vm_销售报价.单号)">生成销售订单</a>
+                </li>
+            </ul>
+            @*<span class="navbar-text">
+                Navbar text with an inline element
+            </span>*@
+        </div>
+    </nav>
+
+<partial name="_CRUD_Template/_Details" model="Model.templateModel" />
 
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.vm_销售报价.RecordId">修改</a> |
