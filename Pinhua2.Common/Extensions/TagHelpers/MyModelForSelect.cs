@@ -10,8 +10,8 @@ using System.Web;
 
 namespace TagHelpers
 {
-    [HtmlTargetElement("input", Attributes = "my-model-for")]
-    public class MyModelForInput : TagHelper
+    [HtmlTargetElement("select", Attributes = "my-model-for")]
+    public class MyModelForSelect : TagHelper
     {
         public CustomDisplayModel MyModelFor { get; set; }
 
@@ -20,20 +20,7 @@ namespace TagHelpers
             base.Process(context, output);
 
             output.Attributes.SetAttribute("id", $"{MyModelFor.RawName}");
-            output.Attributes.SetAttribute("value", $"{(MyModelFor.IsSysColumn ? MyModelFor.RawValue : MyModelFor.Value)}");
             output.Attributes.SetAttribute("name", $"vm_Main.{MyModelFor.RawName}");
-
-            if (!MyModelFor.Editable)
-            {
-                output.Attributes.SetAttribute("readonly", true);
-            }
-
-            if (MyModelFor.IsDatetime && !MyModelFor.IsSysColumn)
-            {
-                output.Attributes.Add("data-provide", "datepicker");
-                output.Attributes.Add("data-date-format", "yyyy-mm-dd");
-                output.Attributes.Add("readonly", "true");
-            }
         }
     }
 }

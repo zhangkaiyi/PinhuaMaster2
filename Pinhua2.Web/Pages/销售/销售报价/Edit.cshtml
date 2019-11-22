@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Edit";
     var emptyRecord = JsonConvert.SerializeObject(new vm_销售报价D());
-    var emptyRecordList = JsonConvert.SerializeObject(Model?.vm_Details ?? new List<vm_销售报价D>());
+    var emptyRecordList = JsonConvert.SerializeObject((Model?.vm_Details ?? new List<vm_销售报价D>()).OrderBy(m => m.RN));
 }
 
 <partial name="_CRUD_Template/_Edit" model="Model.templateModel" />

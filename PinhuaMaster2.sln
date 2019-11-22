@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinhua2.Web", "Pinhua2.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinhua2.Data", "Pinhua2.Data\Pinhua2.Data.csproj", "{CF18B6C5-5457-4758-86CF-4C3ACBE40F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinhua2.Common", "Pinhua2.Common\Pinhua2.Common.csproj", "{7A320036-5012-45C9-B4F9-E5191CF8F01C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinhua2.Common", "Pinhua2.Common\Pinhua2.Common.csproj", "{7A320036-5012-45C9-B4F9-E5191CF8F01C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

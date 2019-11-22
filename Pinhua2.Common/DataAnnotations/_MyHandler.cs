@@ -38,6 +38,25 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
+        public string ViewComponentName
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return string.Empty;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyViewComponentAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return (attrs[0] as MyViewComponentAttribute).Name;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
         public bool ForCreate
         {
             get
@@ -347,6 +366,44 @@ namespace Pinhua2.Common.Attributes
                     return false;
 
                 var attrs = _propertyInfo.GetCustomAttributes(typeof(MyVueComputedAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsViewComponent
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyViewComponentAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsSysColumn
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MySysColumnAttribute), false);
                 if (attrs?.Length > 0)
                 {
                     return true;

@@ -25,13 +25,13 @@ namespace Pinhua2.Web.Mapper
 
     public class _CRUD_Template_Model
     {
-        public _CRUD_Template_Model_Main RecordMain { get; set; }
-        public IEnumerable<_CRUD_Template_Model_Details> RecordDetailsArray { get; set; }
+        public _CRUD_Template_Model_Main RecordMain { get; set; } = new _CRUD_Template_Model_Main();
+        public IList<_CRUD_Template_Model_Details> RecordDetailsArray { get; set; } = new List<_CRUD_Template_Model_Details>();
     }
 
     public class _CRUD_Template_Model_Index
     {
         public _CRUD_Template_Model_Details RecordMains { get; set; }
-        public IEnumerable<_CRUD_Template_Model_Details> RecordDetailsArray { get; set; }
+        public IList<_CRUD_Template_Model_Details> RecordDetailsArray { get; set; }
     }
 }

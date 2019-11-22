@@ -43,8 +43,8 @@ namespace TagHelpers
 
             if (MyModelFor.IsVueComputed)
             {
-                var childContent = output.GetChildContentAsync().GetAwaiter().GetResult().GetContent();
-                output.Content.SetHtmlContent($"{{{{ MyVueComputed{MyModelFor.RawName}(todo) }}}}").AppendHtml(childContent);
+                output.Content.SetHtmlContent($"{{{{ MyVueComputed{MyModelFor.RawName}(todo) }}}}")
+                    .AppendHtml($"<input :name=\"buildName(index, '{MyModelFor.RawName}')\" type=\"hidden\" :value=\"MyVueComputed{MyModelFor.RawName}(todo)\" />");
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -156,6 +157,10 @@ namespace Pinhua2.Web.Pages.销售.销售报价
 
             // 非空字段赋值给跟踪实体
             vm_Main.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
+            // 修改时间
+            vm_Main.LastEditTime = DateTime.Now;
+            vm_Main.LastEditUser = vm_Main.LastEditUser ?? "张凯译";
+
             _mapper.Map<vm_销售报价, tb_报价表>(vm_Main, remote);
 
             var remoteDetails = _context.tb_报价表D.Where(d => d.RecordId == remote.RecordId);
@@ -185,6 +190,7 @@ namespace Pinhua2.Web.Pages.销售.销售报价
                     }
                 }
             }
+
             //_context.tb_报价表D.AddRange(_mapper.Map<IList<tb_报价表D>>(vm_销售报价D列表));
             await _context.SaveChangesAsync();
 

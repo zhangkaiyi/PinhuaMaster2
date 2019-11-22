@@ -24,13 +24,25 @@ namespace Pinhua2.Web.Pages.销售.销售报价
 
         public IActionResult OnGet()
         {
+            templateModel.RecordMain.Title = "销售报价";
+            templateModel.RecordMain.Data = vm_Main;
+
+            var details = new _CRUD_Template_Model_Details
+            {
+                Title = "明细",
+                Data = vm_Details?.Cast<object>(),
+            };
+            templateModel.RecordDetailsArray.Add(details);
+
             return Page();
         }
 
         [BindProperty]
-        public vm_销售报价 vm_销售报价 { get; set; }
+        public vm_销售报价 vm_Main { get; set; } = new vm_销售报价();
         [BindProperty]
-        public IList<vm_销售报价D> vm_销售报价D列表 { get; set; }
+        public IList<vm_销售报价D> vm_Details { get; set; } = new List<vm_销售报价D>();
+        [BindProperty]
+        public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
 
         public IList<SelectListItem> CustomerSelectList
         {
@@ -84,6 +96,16 @@ namespace Pinhua2.Web.Pages.销售.销售报价
         {
             if (!ModelState.IsValid)
             {
+                templateModel.RecordMain.Title = "销售报价";
+                templateModel.RecordMain.Data = vm_Main;
+
+                var details = new _CRUD_Template_Model_Details
+                {
+                    Title = "明细",
+                    Data = vm_Details?.Cast<object>(),
+                };
+                templateModel.RecordDetailsArray.Add(details);
+
                 return Page();
             }
             //Common.ModelHelper.CompleteMainOnCreate(vm_销售报价);
@@ -93,15 +115,15 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             //var tb_报价 = _mapper.Map<tb_报价表>(vm_销售报价);
             //_context.tb_报价表.Add(tb_报价);
 
-            var tb_报价 = _context.funcNewRecord<vm_销售报价, tb_报价表>(vm_销售报价, before =>
+            var tb_报价 = _context.funcNewRecord<vm_销售报价, tb_报价表>(vm_Main, before =>
             {
                 before.单号 = _context.funcAutoCode("订单号");
                 before.业务类型 = "销售报价";
-                before.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_销售报价.往来号)?.简称;
+                before.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
             });
             if (_context.SaveChanges() > 0)
             {
-                foreach (var item in vm_销售报价D列表)
+                foreach (var item in vm_Details)
                 {
                     _context.funcNewDetail<vm_销售报价, vm_销售报价D, tb_报价表, tb_报价表D>(tb_报价, item, beforeNewD =>
                     {

@@ -17,6 +17,7 @@ namespace Pinhua2.Web.Mapper
 
         [CustomDisplay(20)]
         [MyPriority(Priority.High)]
+        [MyHiddenCreate]
         public string 业务类型 { get; set; }
 
         [Required]
@@ -39,12 +40,14 @@ namespace Pinhua2.Web.Mapper
         [CustomDisplay(40)]
         [Display(Name = "客户名")]
         [MyPriority(Priority.High)]
+        [MyHiddenCreate]
         public string 往来 { get; set; }
 
         [Required]
         [CustomDisplay(30)]
         [Display(Name = "客户号")]
         [MyPriority(Priority.High)]
+        [MyViewComponent("SelectForCompany")]
         public string 往来号 { get; set; }
     }
 
@@ -57,20 +60,20 @@ namespace Pinhua2.Web.Mapper
         public string 型号 { get; set; }
         public string 规格 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public decimal? 长度 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public decimal? 宽度 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public decimal? 高度 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public decimal? 面厚 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public decimal? 库存 { get; set; }
         public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
@@ -80,24 +83,24 @@ namespace Pinhua2.Web.Mapper
         public decimal? 金额 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public decimal? 上次价 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public DateTime? 上次日期 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public string 品牌 { get; set; }
 
         [CustomDisplay(ForCreate = false)]
-        [MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit]
         public string 状态 { get; set; }
     }
 

@@ -61,6 +61,7 @@ namespace Pinhua2.Data
                       join d in context.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
                       join x in context.tb_商品表.AsNoTracking() on d.品号 equals x.品号
                       where /*m.往来号 == customerId &&*/ m.业务类型 == "销售报价" && m.单号 == orderId
+                      orderby d.RN
                       select new
                       {
                           报 = d,
@@ -72,7 +73,7 @@ namespace Pinhua2.Data
                 jsonArray.Add(Pinhua2Helper.JObjectFromMerge(item.报, item.品));
             }
 
-            return jsonArray;
+            return new JArray(jsonArray.OrderBy(m => m["RN"]));
         }
 
         public static JArray Get销售订单商品(this Pinhua2Context context, string customerId)
