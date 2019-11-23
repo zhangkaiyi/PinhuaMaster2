@@ -2,77 +2,27 @@
 @model Pinhua2.Web.Pages.销售.销售报价.CreateModel
 
 @{
+    var templateMain = new _CRUD_Template_Model_Main
+    {
+        Title = "销售报价",
+        Data = Model.vm_Main,
+    };
+    var templateDetails = new _CRUD_Template_Model_Details
+    {
+        Title = "明细",
+        Data = Model.vm_Details.Cast<object>(),
+    };
+
+    Model.templateModel = new _CRUD_Template_Model();
+    Model.templateModel.RecordMain = templateMain;
+    Model.templateModel.RecordDetailsArray.Add(templateDetails);
+
     ViewData["Title"] = "Create";
-    var emptyRecord = JsonConvert.SerializeObject(new vm_销售报价D());
-    var emptyRecordList = JsonConvert.SerializeObject(Model?.vm_Details ?? new List<vm_销售报价D>
-    ());
+    var jsonEmptyDetail = JsonConvert.SerializeObject(new vm_销售报价D());
+    var jsonCurrentDetails = JsonConvert.SerializeObject(Model?.vm_Details ?? new List<vm_销售报价D>());
 }
 
-    <partial name="_CRUD_Template/_Create" model="Model.templateModel" />
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>新增 - 销售报价</h3>
-</div>
-<div class="row" id="vueScope2">
-    <div class="col-12">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group row">
-                <label asp-for="vm_Main.单号" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_Main.单号" class="form-control" placeholder="自动生成 ..." readonly />
-                    <span asp-validation-for="vm_Main.单号" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_Main.往来号" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <select class="form-control" asp-for="vm_Main.往来号" asp-items="Model.CustomerSelectList"></select>
-                    <span asp-validation-for="vm_Main.往来号" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row d-none">
-                <label asp-for="vm_Main.往来" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_Main.往来" class="form-control" type="hidden" />
-                    <span asp-validation-for="vm_Main.往来" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_Main.日期" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_Main.日期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" value="@(DateTime.Now.ToString("yyyy-MM-dd"))" />
-                    <span asp-validation-for="vm_Main.日期" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_Main.交期" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_Main.交期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
-                    <span asp-validation-for="vm_Main.交期" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="vm_Main.备注" class="col-4 col-sm-2 col-form-label"></label>
-                <div class="col-8 col-sm-10">
-                    <input asp-for="vm_Main.备注" class="form-control" />
-                    <span asp-validation-for="vm_Main.备注" class="text-danger"></span>
-                </div>
-            </div>
-
-            <!-- Details Table -->
-            <partial name="_detailsTable" />
-
-            <div class="form-group">
-                <input type="submit" value="提交" class="btn btn-primary" />
-            </div>
-
-            <!-- Modal -->
-            <partial name="_selectModal" />
-            <partial name="_editModal" />
-        </form>
-    </div>
-</div>
+<partial name="_CRUD_Template/_Create" model="Model.templateModel" />
 
 <div>
     <a asp-page="Index">返回列表</a>
@@ -89,8 +39,8 @@
         })
     </script>
     <script>
-        var emptyRecord = @Html.Raw(emptyRecord);
-        var emptyRecordList = @Html.Raw(emptyRecordList);
+        var emptyDetail = @Html.Raw(jsonEmptyDetail);
+        var currentDetails = @Html.Raw(jsonCurrentDetails);
     </script>
     <partial name="_vue" />
 }

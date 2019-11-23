@@ -3,8 +3,24 @@
 
 @{
     ViewData["Title"] = "Edit";
-    var emptyRecord = JsonConvert.SerializeObject(new vm_销售报价D());
-    var emptyRecordList = JsonConvert.SerializeObject((Model?.vm_Details ?? new List<vm_销售报价D>()).OrderBy(m => m.RN));
+
+    var templateMain = new _CRUD_Template_Model_Main
+    {
+        Title = "销售报价",
+        Data = Model.vm_Main,
+    };
+    var templateDetails = new _CRUD_Template_Model_Details
+    {
+        Title = "明细",
+        Data = Model.vm_Details.Cast<object>(),
+    };
+
+    Model.templateModel = new _CRUD_Template_Model();
+    Model.templateModel.RecordMain = templateMain;
+    Model.templateModel.RecordDetailsArray.Add(templateDetails);
+
+    var jsonEmptyMain = JsonConvert.SerializeObject(new vm_销售报价D());
+    var jsonEmptyDetails = JsonConvert.SerializeObject((Model?.vm_Details ?? new List<vm_销售报价D>()).OrderBy(m => m.RN));
 }
 
 <partial name="_CRUD_Template/_Edit" model="Model.templateModel" />
@@ -24,8 +40,8 @@
         })
     </script>
     <script>
-        var emptyRecord = @Html.Raw(emptyRecord);
-        var emptyRecordList = @Html.Raw(emptyRecordList);
+        var emptyMain = @Html.Raw(jsonEmptyMain);
+        var emptyDetails = @Html.Raw(jsonEmptyDetails);
     </script>
     <partial name="_vue" />
 }

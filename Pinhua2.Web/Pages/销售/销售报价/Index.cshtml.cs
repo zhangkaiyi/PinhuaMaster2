@@ -23,11 +23,14 @@ namespace Pinhua2.Web.Pages.销售.销售报价
             _mapper = mapper;
         }
 
-        public IList<vm_销售报价> vm_销售报价表 { get; set; }
+        public IList<vm_销售报价> vm_Mains { get; set; }
+        public IList<vm_销售报价D> vm_Details { get; set; }
+
+        public _CRUD_Template_Model_Index templateModel { get; set; }
 
         public async Task OnGetAsync()
         {
-            vm_销售报价表 = await _mapper.ProjectTo<vm_销售报价>(_context.tb_报价表)
+            vm_Mains = await _mapper.ProjectTo<vm_销售报价>(_context.tb_报价表)
                                     .Where(m => m.业务类型 == "销售报价")
                                     .OrderByDescending(m => m.交期)
                                     .ThenByDescending(m => m.单号)

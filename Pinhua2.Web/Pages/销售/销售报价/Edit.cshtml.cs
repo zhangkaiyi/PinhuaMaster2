@@ -125,22 +125,7 @@ namespace Pinhua2.Web.Pages.销售.销售报价
                               上次日期 = d.上次日期,
                           }).ToList();
 
-            templateModel = new _CRUD_Template_Model
-            {
-                RecordMain = new _CRUD_Template_Model_Main
-                {
-                    Title = "销售报价",
-                    Data = vm_Main,
-                },
-                RecordDetailsArray = new List<_CRUD_Template_Model_Details>
-            {
-            new _CRUD_Template_Model_Details
-            {
-                Title = "明细",
-                Data = vm_Details.Cast<object>(),
-            }
-            }
-            };
+
 
             return Page();
         }

@@ -4,98 +4,31 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    var templateMainList = new _CRUD_Template_Model_Details
+    {
+        Title = "销售报价",
+        Data = Model.vm_Mains.Cast<object>(),
+    };
+    var templateDetails = new _CRUD_Template_Model_Details
+    {
+        Title = "明细",
+        Url = "/API/销售/报价/",
+        Data = new List<vm_销售报价D>()
+    };
+
+    Model.templateModel = new _CRUD_Template_Model_Index();
+    Model.templateModel.RecordMains = templateMainList;
+    Model.templateModel.RecordDetailsArray.Add(templateDetails);
 }
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>销售报价</h3>
-    <div class="btn-group">
-        <partial name="Buttons/CreateButton" />
-    </div>
-</div>
-<div class="table-responsive">
-    <table id="indexMain" class="table table-bordered text-nowrap"
-           data-toggle="table">
-        <thead>
-            <tr>
-                <th style="width:1%;" data-width="1%" data-field="actions"></th>
-                @foreach (var cdm in CustomDisplayFactory<vm_销售报价>.CustomDisplayModels(Model.vm_销售报价表.FirstOrDefault()))
-                {
-                    if (cdm.ForIndex)
-                    {
-                        <th data-field="@(cdm.RawName)">
-                            @cdm.Name
-                        </th>
-                    }
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.vm_销售报价表)
-            {
-                <tr>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
-                        <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
-                    </td>
-                    @foreach (var cdm in CustomDisplayFactory<vm_销售报价>.CustomDisplayModels(item))
-                    {
-                        if (cdm.ForIndex)
-                        {
-                            <td>
-                                @{
-                                    if (cdm.IsDatetime)
-                                    {
-                                        @(((DateTime?)cdm.RawValue)?.ToString("yyyy-MM-dd"))
-                                    }
-                                    else
-                                    {
-                                        @cdm.RawValue
-                                    }
-                                }
-                            </td>
-                        }
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-<div id="detailsGroup">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-        <h3>明细</h3>
-    </div>
-    <div class="table-responsive">
-        <table id="indexDetails" class="table table-bordered text-nowrap"
-               data-toggle="table">
-            <thead>
-                <tr>
-                    @foreach (var cdm in CustomDisplayFactory<vm_销售报价D>.CustomDisplayModels(default(vm_销售报价D)))
-                    {
-                        if (cdm.ForIndex)
-                        {
-                            <th data-field="@(cdm.RawName)">@(cdm.Name)</th>
-                        }
-                    }
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
+<partial name="_CRUD_Template/_Index2" model="Model.templateModel" />
 
 @section Scripts{
-    <script>
-        $(function () {
-            $('#indexDetails').on('load-success.bs.table', function (e, data) {
 
-            })
-            $('#indexMain').on('click-row.bs.table', function (e, row, $element, field) {
-                console.log(row)
-                var url = ["/api/sd/报价/", row.单号].join("")
-                console.log("vue:", "customerIdOnChange, url:", url)
-                $('#indexDetails').bootstrapTable('refresh', { url: url, silent: true });
-            })
-        })
+    @Html.RenderScripts()
+
+    <script type="text/javascript">
+
     </script>
 }

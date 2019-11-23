@@ -10,7 +10,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.销售订单
+namespace Pinhua2.Web.Pages.销售.销售订单.Bak
 {
     public class DeleteModel : PageModel
     {
@@ -23,9 +23,8 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             _mapper = mapper;
         }
 
-        public vm_销售订单 vm_Main { get; set; }
-        public IList<vm_销售订单D> vm_Details { get; set; }
-        public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
+        public vm_销售订单 vm_销售订单 { get; set; }
+        public IList<vm_销售订单D> vm_销售订单D列表 { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -34,14 +33,14 @@ namespace Pinhua2.Web.Pages.销售.销售订单
                 return NotFound();
             }
 
-            vm_Main = _mapper.Map<vm_销售订单>(await _context.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id));
+            vm_销售订单 = _mapper.Map<vm_销售订单>(await _context.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (vm_Main == null)
+            if (vm_销售订单 == null)
             {
                 return NotFound();
             }
 
-            vm_Details = await _mapper.ProjectTo<vm_销售订单D>(_context.tb_订单表D.Where(m => m.RecordId == id)).ToListAsync();
+            vm_销售订单D列表 = await _mapper.ProjectTo<vm_销售订单D>(_context.tb_订单表D.Where(m => m.RecordId == id)).ToListAsync();
 
             return Page();
         }

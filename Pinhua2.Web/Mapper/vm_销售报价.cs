@@ -60,20 +60,20 @@ namespace Pinhua2.Web.Mapper
         public string 型号 { get; set; }
         public string 规格 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 长度 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 宽度 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 高度 { get; set; }
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 面厚 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 库存 { get; set; }
         public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
@@ -83,24 +83,23 @@ namespace Pinhua2.Web.Mapper
         public decimal? 金额 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 上次价 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public DateTime? 上次日期 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForCreate = false)]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenEdit]
         public string 品牌 { get; set; }
 
         [CustomDisplay(ForCreate = false)]
-        [MyHiddenCreate, MyHiddenEdit]
         public string 状态 { get; set; }
     }
 

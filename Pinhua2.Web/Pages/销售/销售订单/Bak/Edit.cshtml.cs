@@ -12,7 +12,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.销售订单
+namespace Pinhua2.Web.Pages.销售.销售订单.Bak
 {
     public class EditModel : PageModel
     {
@@ -25,10 +25,9 @@ namespace Pinhua2.Web.Pages.销售.销售订单
         }
 
         [BindProperty]
-        public vm_销售订单 vm_Main { get; set; }
+        public vm_销售订单 Record { get; set; }
         [BindProperty]
-        public IList<vm_销售订单D> vm_Details { get; set; }
-        public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
+        public IList<vm_销售订单D> RecordDs { get; set; }
 
         public IList<SelectListItem> CustomerSelectList
         {
@@ -91,16 +90,16 @@ namespace Pinhua2.Web.Pages.销售.销售订单
                 return NotFound();
             }
 
-            vm_Main = _mapper.Map<vm_销售订单>(await _context.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id));
+            Record = _mapper.Map<vm_销售订单>(await _context.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (vm_Main == null)
+            if (Record == null)
             {
                 return NotFound();
             }
 
-            vm_Details = (from d in _context.tb_订单表D.AsNoTracking()
+            RecordDs = (from d in _context.tb_订单表D.AsNoTracking()
                         join prod in _context.tb_商品表.AsNoTracking() on d.品号 equals prod.品号
-                        where d.RecordId == vm_Main.RecordId
+                        where d.RecordId == Record.RecordId
                         select new vm_销售订单D
                         {
                             RecordId = d.RecordId,
@@ -140,20 +139,20 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             {
                 return Page();
             }
-            var remote = _context.Set<tb_订单表>().FirstOrDefault(m => m.RecordId == vm_Main.RecordId);
+            var remote = _context.Set<tb_订单表>().FirstOrDefault(m => m.RecordId == Record.RecordId);
             if (remote == null)
                 return NotFound();
 
             // 非空字段赋值给跟踪实体
-            vm_Main.往来 = _context.Set<tb_往来表>().AsNoTracking().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
-            _mapper.Map<vm_销售订单, tb_订单表>(vm_Main, remote);
+            Record.往来 = _context.Set<tb_往来表>().AsNoTracking().FirstOrDefault(p => p.往来号 == Record.往来号)?.简称;
+            _mapper.Map<vm_销售订单, tb_订单表>(Record, remote);
 
             var remoteDetails = _context.Set<tb_订单表D>().Where(d => d.RecordId == remote.RecordId).ToList();
 
             // 数据库中的子单号与新明细中没有相同的，则从数据库中删除
             foreach (var remoteD in remoteDetails)
             {
-                if (!vm_Details.Any(p => p.子单号 == remoteD.子单号))
+                if (!RecordDs.Any(p => p.子单号 == remoteD.子单号))
                 {
                     var tb_报价D = _context.Set<tb_报价表D>().FirstOrDefault(d => d.子单号 == remoteD.子单号);
                     if (tb_报价D != null)
@@ -162,7 +161,7 @@ namespace Pinhua2.Web.Pages.销售.销售订单
                 }
             }
 
-            foreach (var localD in vm_Details)
+            foreach (var localD in RecordDs)
             {
                 Common.ModelHelper.CompleteDetailOnUpdate(remote, localD);
 
@@ -203,14 +202,14 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             {
                 return Page();
             }
-            var remote = _context.funcEditRecord<vm_销售订单, tb_订单表>(vm_Main, BeforeNew: before =>
+            var remote = _context.funcEditRecord<vm_销售订单, tb_订单表>(Record, BeforeNew: before =>
             {
                 // 非空字段赋值给跟踪实体
                 before.业务类型 = "销售订单";
-                before.往来 = _context.Set<tb_往来表>().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
+                before.往来 = _context.Set<tb_往来表>().FirstOrDefault(p => p.往来号 == Record.往来号)?.简称;
             });
 
-            _context.funcEditDetails<vm_销售订单, vm_销售订单D, tb_订单表, tb_订单表D>(vm_Main, vm_Details,
+            _context.funcEditDetails<vm_销售订单, vm_销售订单D, tb_订单表, tb_订单表D>(Record, RecordDs,
                 creatingD =>
             {
                 if (string.IsNullOrEmpty(creatingD.子单号)) // 子单号为空的，表示新插入

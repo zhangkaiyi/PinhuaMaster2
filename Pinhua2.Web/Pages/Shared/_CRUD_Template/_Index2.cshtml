@@ -1,0 +1,92 @@
+﻿@model _CRUD_Template_Model_Index
+@{
+    ViewData["Title"] = "Index";
+    var mainType = Model.RecordMains.Data.GetType().GetGenericArguments()[0];
+    var detailsArray = Model.RecordDetailsArray ?? new List<_CRUD_Template_Model_Details>();
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>@Model.RecordMains.Title</h3>
+    <div class="btn-group">
+        <partial name="Buttons/CreateButton" />
+    </div>
+</div>
+<div class="table-responsive">
+    <table id="indexMain" class="table table-bordered text-nowrap"
+           data-toggle="table"
+           data-locale="zh-CN"
+           data-checkbox-header="true"
+           data-click-to-select="true"
+           data-single-select="true">
+        <thead>
+            <tr>
+                <th data-field="state" data-checkbox="true"></th>
+                <th style="width:1%;" data-width="1%">操作</th>
+                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(mainType))
+                {
+                    <th my-model-for="cdm" my-hidden-index="true" data-field="@(Html.Raw(cdm.RawName))">@(Html.Raw(cdm.Name))</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.RecordMains.Data)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@((item as _IBaseTableMain).RecordId)">修改</a> |
+                        <a asp-page="./Details" asp-route-id="@((item as _IBaseTableMain).RecordId)">查看</a> |
+                        <a asp-page="./Delete" asp-route-id="@((item as _IBaseTableMain).RecordId)">删除</a>
+                    </td>
+                    @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(item))
+                    {
+                        <td my-model-for="cdm" my-hidden-index="true">@(Html.Raw(cdm.Value))</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@foreach (var details in detailsArray)
+{
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+        <h4>@details.Title</h4>
+    </div>
+    <div class="table-responsive mb-3">
+        <table class="table table-bordered text-nowrap m-0 border-top-0" id="@Html.Raw($"indexDetails{detailsArray.ToList().IndexOf(details)}")"
+               data-toggle="table"
+               data-my-details-url="@(Html.Raw(details.Url))">
+            <thead>
+                <tr>
+                    @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]))
+                    {
+                        <th my-model-for="cdm" my-hidden-index="true" data-field="@(Html.Raw(cdm.RawName))">@(Html.Raw(cdm.Name))</th>
+                    }
+                </tr>
+            </thead>
+        </table>
+    </div>
+}
+
+@Html.Script(
+@<script>
+     $(function () {
+         //$('#indexMain').on('click-row.bs.table', function (e, row, $element, field) {
+         //    var url = ["/api/mm/订单/", row.单号].join("")
+         //    console.log(url)
+         //    $('#indexDetails').bootstrapTable('refresh', { url: url, silent: true });
+         //})
+
+         $('#indexMain').on('check.bs.table', function (e, row, $element) {
+             for (var x = 0; x != @(detailsArray.Count()); x++) {
+                 var name = '#indexDetails' + x;
+                 var options = $(name).bootstrapTable('getOptions')
+                 var url = [options.myDetailsUrl, row.单号].join("")
+                 console.log(url)
+                 $(name).bootstrapTable('refresh', { url: url, silent: true });
+             }
+         })
+     })
+</script>
+)

@@ -113,7 +113,7 @@
                                 <th>RN</th>
                                 @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
                                 {
-                                    <th my-model-for="cdm" my-hidden-edit="true">@Html.Raw(cdm.Name)</th>
+                                    <th my-vue-model-for="cdm" my-hidden-edit="true">@Html.Raw(cdm.Name)</th>
                                 }
                             </tr>
                         </thead>
@@ -129,7 +129,7 @@
                                 </td>
                                 @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
                                 {
-                                    <td my-model-for="cdm" my-hidden-edit="true"><input :name="buildName(index,'@Html.Raw(cdm.RawName)')" type="hidden" v-model="todo.@Html.Raw(cdm.RawName)" /></td>
+                                    <td my-vue-model-for="cdm" my-hidden-edit="true"><input :name="buildName(index,'@Html.Raw(cdm.RawName)')" type="hidden" v-model="todo.@Html.Raw(cdm.RawName)" /></td>
                                 }
                             </tr>
                         </tbody>

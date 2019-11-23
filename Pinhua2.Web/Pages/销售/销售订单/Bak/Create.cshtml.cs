@@ -10,7 +10,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.销售订单
+namespace Pinhua2.Web.Pages.销售.销售订单.Bak
 {
     public class CreateModel : PageModel
     {
@@ -28,11 +28,9 @@ namespace Pinhua2.Web.Pages.销售.销售订单
         }
 
         [BindProperty]
-        public vm_销售订单 vm_Main { get; set; } = new vm_销售订单();
+        public vm_销售订单 Record { get; set; }
         [BindProperty]
-        public IList<vm_销售订单D> vm_Details { get; set; } = new List<vm_销售订单D>();
-
-        public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
+        public IList<vm_销售订单D> RecordDs { get; set; }
 
         public IList<SelectListItem> UnitSelectList {
             get
@@ -88,15 +86,15 @@ namespace Pinhua2.Web.Pages.销售.销售订单
                 return Page();
             }
 
-            var remote = _context.funcNewRecord<vm_销售订单, tb_订单表>(vm_Main, BeforeNew: creating =>
+            var remote = _context.funcNewRecord<vm_销售订单, tb_订单表>(Record, BeforeNew: creating =>
             {
                 creating.单号 = _context.funcAutoCode("订单号");
                 creating.业务类型 = "销售订单";
-                creating.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
+                creating.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == Record.往来号)?.简称;
             });
             if (await _context.SaveChangesAsync() > 0)
             {
-                foreach (var localD in vm_Details)
+                foreach (var localD in RecordDs)
                 {
                     _context.funcNewDetail<vm_销售订单, vm_销售订单D, tb_订单表, tb_订单表D>(remote, localD, BeforeNewD: beforeD =>
                     {

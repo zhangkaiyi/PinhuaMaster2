@@ -1,0 +1,125 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.销售订单.Bak.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>新增 - 销售订单</h3>
+</div>
+<div class="row" id="vueScope">
+    <div class="col-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Record.单号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <div class="input-group">
+                        <input asp-for="Record.单号" class="form-control" placeholder="自动生成 ..." readonly />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="Record_报价单" name="Record.报价单" value="是" style="margin-right:5px;">
+                                <label class="form-check-label" for="Record_报价单">
+                                    报价单
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Record.单号" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.往来号" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <select class="form-control" asp-for="Record.往来号" asp-items="Model.CustomerSelectList" v-model="record.往来号" v-on:change="customerIdOnChange"></select>
+                    <span asp-validation-for="Record.往来号" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row d-none">
+                <label asp-for="Record.往来" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.往来" class="form-control" type="hidden" />
+                    <span asp-validation-for="Record.往来" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.应收" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.应收" class="form-control" readonly type="text" v-bind:value="sumMoney" />
+                    <span asp-validation-for="Record.应收" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.日期" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.日期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Record.日期" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.交期" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.交期" class="form-control" data-provide="datepicker" data-date-format="yyyy-mm-dd" readonly type="text" />
+                    <span asp-validation-for="Record.交期" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Record.备注" class="col-4 col-sm-2 col-form-label"></label>
+                <div class="col-8 col-sm-10">
+                    <input asp-for="Record.备注" class="form-control" />
+                    <span asp-validation-for="Record.备注" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Details Table -->
+            <partial name="_detailsTable" />
+
+            <div class="form-group">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+
+            <!-- Modal -->
+            <partial name="_selectModal" model="Model" />
+            <partial name="_selectModal2" model="Model" />
+            <partial name="_editModal" model="Model" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">返回列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        var customerId = Model?.Record?.往来号;
+    }
+
+    <script>
+        $(function () {
+            $table2 = $('#selectTable2')
+            $table2.bootstrapTable({
+                url: '/api/product/报价/@(customerId)',
+                onLoadSuccess: function (data) {
+                    console.log(data)
+                    // 恢复所有隐藏行
+                    $table2.bootstrapTable('getHiddenRows', true)
+                    // 比对数据
+                    vm.items.forEach(function (v) {
+                        for (var i in data) {
+                            // 已经添加的数据，从selectTable2中隐藏
+                            if (v.子单号 == data[i].子单号) {
+                                $table2.bootstrapTable('hideRow', { index: i })
+                            }
+                        }
+                    })
+                },
+
+            })
+        })
+    </script>
+
+    <partial name="_vue" model="Model" />
+}

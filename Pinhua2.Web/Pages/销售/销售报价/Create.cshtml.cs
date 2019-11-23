@@ -24,16 +24,6 @@ namespace Pinhua2.Web.Pages.销售.销售报价
 
         public IActionResult OnGet()
         {
-            templateModel.RecordMain.Title = "销售报价";
-            templateModel.RecordMain.Data = vm_Main;
-
-            var details = new _CRUD_Template_Model_Details
-            {
-                Title = "明细",
-                Data = vm_Details?.Cast<object>(),
-            };
-            templateModel.RecordDetailsArray.Add(details);
-
             return Page();
         }
 
@@ -96,16 +86,6 @@ namespace Pinhua2.Web.Pages.销售.销售报价
         {
             if (!ModelState.IsValid)
             {
-                templateModel.RecordMain.Title = "销售报价";
-                templateModel.RecordMain.Data = vm_Main;
-
-                var details = new _CRUD_Template_Model_Details
-                {
-                    Title = "明细",
-                    Data = vm_Details?.Cast<object>(),
-                };
-                templateModel.RecordDetailsArray.Add(details);
-
                 return Page();
             }
             //Common.ModelHelper.CompleteMainOnCreate(vm_销售报价);

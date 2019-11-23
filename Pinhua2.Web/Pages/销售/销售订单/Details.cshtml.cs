@@ -23,8 +23,8 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             _mapper = mapper;
         }
 
-        public vm_销售订单 vm_销售订单 { get; set; }
-        public IList<vm_销售订单D> vm_销售订单D列表 { get; set; }
+        public vm_销售订单 vm_Main { get; set; }
+        public IList<vm_销售订单D> vm_Details { get; set; }
 
         public _CRUD_Template_Model templateModel { get; set; }
 
@@ -35,31 +35,14 @@ namespace Pinhua2.Web.Pages.销售.销售订单
                 return NotFound();
             }
 
-            vm_销售订单 = _mapper.Map<vm_销售订单>(await _context.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id));
+            vm_Main = _mapper.Map<vm_销售订单>(await _context.tb_订单表.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (vm_销售订单 == null)
+            if (vm_Main == null)
             {
                 return NotFound();
             }
 
-            vm_销售订单D列表 = await _mapper.ProjectTo<vm_销售订单D>(_context.tb_订单表D.Where(m => m.RecordId == id)).ToListAsync();
-
-            templateModel = new _CRUD_Template_Model
-            {
-                RecordMain = new _CRUD_Template_Model_Main
-                {
-                    Title = "销售订单",
-                    Data = vm_销售订单,
-                },
-                RecordDetailsArray = new List<_CRUD_Template_Model_Details>
-{
-            new _CRUD_Template_Model_Details
-            {
-                Title="明细",
-                Data = vm_销售订单D列表.Cast<object>(),
-            },
-        }
-            };
+            vm_Details = await _mapper.ProjectTo<vm_销售订单D>(_context.tb_订单表D.Where(m => m.RecordId == id)).ToListAsync();
 
             return Page();
         }

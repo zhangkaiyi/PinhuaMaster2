@@ -5,28 +5,26 @@
 @{
     ViewData["Title"] = "Delete";
 
-    var templateModel = new _CRUD_Template_Model
+    var templateMain = new _CRUD_Template_Model_Main
     {
-        RecordMain = new _CRUD_Template_Model_Main
-        {
-            Title = "销售报价",
-            Data = Model.vm_销售报价,
-        },
-        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
-{
-            new _CRUD_Template_Model_Details
-            {
-                Title="明细",
-                Data = Model.vm_销售报价D列表.Cast<object>(),
-            },
-        }
+        Title = "销售报价",
+        Data = Model.vm_Main,
     };
+    var templateDetails = new _CRUD_Template_Model_Details
+    {
+        Title = "明细",
+        Data = Model.vm_Details.Cast<object>(),
+    };
+
+    Model.templateModel = new _CRUD_Template_Model();
+    Model.templateModel.RecordMain = templateMain;
+    Model.templateModel.RecordDetailsArray.Add(templateDetails);
 }
 
-<partial name="_CRUD_Template/_Delete" model="templateModel" />
+<partial name="_CRUD_Template/_Delete" model="Model.templateModel" />
 
 <form method="post">
-    <input type="hidden" asp-for="vm_销售报价.RecordId" />
+    <input type="hidden" asp-for="vm_Main.RecordId" />
     <input type="submit" value="删除" class="btn btn-danger" /> |
     <a asp-page="./Index">返回列表</a>
 </form>

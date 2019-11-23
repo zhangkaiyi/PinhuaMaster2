@@ -17,10 +17,12 @@ namespace Pinhua2.Web.Mapper
 
         [CustomDisplay(20)]
         [MyPriority(Priority.High)]
+        [MyHiddenCreate]
         public string 业务类型 { get; set; }
 
         [CustomDisplay(ForIndex = false)]
         [MyPriority(Priority.High)]
+        [MyHiddenCreate]
         public string 仓 { get; set; }
 
         [Required]
@@ -40,12 +42,14 @@ namespace Pinhua2.Web.Mapper
         [CustomDisplay(21)]
         [Display(Name = "客户名")]
         [MyPriority(Priority.High)]
+        [MyHiddenCreate]
         public string 往来 { get; set; }
 
         [Required]
         [CustomDisplay(20)]
         [Display(Name = "客户号")]
         [MyPriority(Priority.High)]
+        [MyViewComponent("SelectForCompany")]
         public string 往来号 { get; set; }
 
         [CustomDisplay(9)]
@@ -72,10 +76,15 @@ namespace Pinhua2.Web.Mapper
         public string 别名 { get; set; }
         public string 型号 { get; set; }
         public string 规格 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 长度 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 宽度 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 高度 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 面厚 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 库存 { get; set; }
         public string 单位 { get; set; }
         public decimal? 个数 { get; set; }
@@ -88,6 +97,7 @@ namespace Pinhua2.Web.Mapper
         public DateTime? 新价日期 { get; set; }
         public string 品牌 { get; set; }
         public string 状态 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 质保 { get; set; }
     }
 
