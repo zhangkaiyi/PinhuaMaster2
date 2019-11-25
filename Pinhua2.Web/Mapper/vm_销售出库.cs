@@ -12,37 +12,48 @@ namespace Pinhua2.Web.Mapper
     public class vm_销售出库 : _BaseTableMain
     {
         [CustomDisplay(10)]
+        [MyPriority(Priority.High)]
         public string 单号 { get; set; }
 
         [CustomDisplay(20)]
+        [MyPriority(Priority.High)]
         public string 类型 { get; set; }
 
         [Required]
         [CustomDisplay(30)]
+        [MyPriority(Priority.High)]
         public DateTime? 日期 { get; set; }
 
         [CustomDisplay(50)]
+        [MyPriority(Priority.High)]
         public string 备注 { get; set; }
 
         [CustomDisplay(21)]
+        [MyPriority(Priority.High)]
         [Display(Name = "客户名")]
+        [MyHiddenCreate]
         public string 往来 { get; set; }
 
         [Required]
         [CustomDisplay(20)]
         [Display(Name = "客户号")]
+        [MyPriority(Priority.High)]
+        [MyViewComponent("SelectForCompany")]
         public string 往来号 { get; set; }
 
         [CustomDisplay(9)]
+        [MyPriority(Priority.Medium)]
         public string 退单 { get; set; }
 
         //[CustomDisplay(44)]
         //public string 订单号 { get; set; }
 
         [CustomDisplay(45)]
+        [MyPriority(Priority.Medium)]
         public string 物流单号 { get; set; }
 
         [CustomDisplay(ForIndex = false, ForRead = false)]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 仓 { get; set; }
     }
 
@@ -60,8 +71,11 @@ namespace Pinhua2.Web.Mapper
         public string 批次 { get; set; }
         public string 条码 { get; set; }
         public string 规格 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 库位 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 库存 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 仓 { get; set; }
 
         [Display(Name = "个数")]

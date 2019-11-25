@@ -1,0 +1,16 @@
+﻿@model CustomDisplayModel
+<!-- __form_control begin -->
+@if (Model.IsViewComponent)
+{
+    @await Component.InvokeAsync(Model.ViewComponentName, new { model = Model, disabled = false })
+}
+else
+{
+    <div class="form-group row" my-model-for="Model" my-hidden-create="true">
+        <label my-model-for="Model" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
+        <div class="col-8 col-md-8 col-lg-9">
+            <input my-model-for="Model" class="form-control" />
+        </div>
+    </div>
+}
+<!-- __form_control end -->

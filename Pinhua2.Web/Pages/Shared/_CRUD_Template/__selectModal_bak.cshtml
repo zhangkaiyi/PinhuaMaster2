@@ -1,0 +1,41 @@
+﻿<div class="modal" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">选择商品</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="selectTable" class="table table-bordered text-nowrap"
+                       data-toggle="table"
+                       data-locale="zh-CN"
+                       data-checkbox-header="true"
+                       data-click-to-select="true"
+                       data-single-select="true"
+                       data-search="true"
+                       data-pagination="true"
+                       data-page-list="[10, 25, 50, 100, ALL]"
+                       data-url="/api/product/all">
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.品号))">品号</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.品名))">品名</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.别名))">别名</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.型号))">型号</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.规格))">规格</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.单位))">单位</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.状态))">状态</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="selectItem">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

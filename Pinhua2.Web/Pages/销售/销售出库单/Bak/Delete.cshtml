@@ -1,0 +1,32 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.销售出库单.Bak.DeleteModel
+@using Pinhua2.Common.Attributes
+
+@{
+    ViewData["Title"] = "Delete";
+
+    var templateModel = new _CRUD_Template_Model
+    {
+        RecordMain = new _CRUD_Template_Model_Main
+        {
+            Title = "销售出库单",
+            Data = Model.Record,
+        },
+        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
+{
+            new _CRUD_Template_Model_Details
+            {
+                Title="明细",
+                Data = Model.RecordDs.Cast<object>(),
+            },
+        }
+    };
+}
+
+<partial name="_CRUD_Template/_Delete" model="templateModel" />
+
+<form method="post">
+    <input type="hidden" asp-for="Record.RecordId" />
+    <input type="submit" value="删除" class="btn btn-danger" /> |
+    <a asp-page="./Index">返回列表</a>
+</form>

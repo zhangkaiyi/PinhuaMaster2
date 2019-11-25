@@ -1,0 +1,103 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.销售出库单.Bak.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h3>销售出库单</h3>
+    <div class="btn-group">
+        <partial name="Buttons/CreateButton" />
+    </div>
+</div>
+<div class="table-responsive">
+    <table id="indexMain" class="table table-bordered text-nowrap"
+           data-toggle="table">
+        <thead>
+            <tr>
+                <th style="width:1%;" data-width="1%"></th>
+                @foreach (var cdm in CustomDisplayFactory<vm_销售出库>.CustomDisplayModels(Model.Records.FirstOrDefault()))
+                {
+                    if (cdm.ForIndex)
+                    {
+                        <th data-field="@(cdm.RawName)">
+                            @cdm.Name
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Records)
+            {
+            <tr>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.RecordId">修改</a> |
+                    <a asp-page="./Details" asp-route-id="@item.RecordId">查看</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
+                </td>
+                @foreach (var cdm in CustomDisplayFactory<vm_销售出库>.CustomDisplayModels(item))
+                {
+                    if (cdm.ForIndex)
+                    {
+                        <td>
+                            @{
+                                if (cdm.IsDatetime)
+                                {
+                                    @(((DateTime?)cdm.RawValue)?.ToString("yyyy-MM-dd"))
+                                }
+                                else if (cdm.IsDecimal)
+                                {
+                                    @(((decimal?)cdm.RawValue)?.ToString("0.00"))
+                                }
+                                else
+                                {
+                                    @cdm.RawValue
+                                }
+                            }
+                        </td>
+                    }
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="detailsGroup">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+        <h3>明细</h3>
+    </div>
+    <div class="table-responsive">
+        <table id="indexDetails" class="table table-bordered text-nowrap"
+               data-toggle="table">
+            <thead>
+                <tr>
+                    @foreach (var cdm in CustomDisplayFactory<vm_销售出库D>.CustomDisplayModels(default(vm_销售出库D)))
+                    {
+                        if (cdm.ForIndex)
+                        {
+                            <th data-field="@(cdm.RawName)">@(cdm.Name)</th>
+                        }
+                    }
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#indexDetails').on('load-success.bs.table', function (e, data) {
+                //$('#detailsGroup').css('display', 'block')
+            })
+            $('#indexMain').on('click-row.bs.table', function (e, row, $element, field) {
+                var url = ["/api/sd/出库/", row.单号].join("")
+                console.log("url:", url)
+                $('#indexDetails').bootstrapTable('refresh', { url: url, silent: true });
+            })
+        })
+    </script>
+}

@@ -1,0 +1,42 @@
+﻿<div class="modal" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">选择商品</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="selectTable" class="table table-bordered text-nowrap"
+                       data-locale="zh-CN"
+                       data-checkbox-header="true"
+                       data-click-to-select="true"
+                       data-single-select="true"
+                       data-search="true"
+                       data-pagination="true"
+                       data-page-list="[10, 25, 50, 100, ALL]">
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.子单号))">子单号</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.交期))">交期</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.型号))">型号</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.品名))">品名</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.个数))">个数</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.数量))">数量</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.单位))">单位</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.规格))">规格</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.待发))">待发</th>
+                            <th data-field="@(nameof(Pinhua2.Data.Models.view_AllOrdersIO.已发))">已发</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="selectItem">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

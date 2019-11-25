@@ -4,27 +4,25 @@
 @{
     ViewData["Title"] = "Details";
 
-    var templateModel = new _CRUD_Template_Model
+    var templateMain = new _CRUD_Template_Model_Main
     {
-        RecordMain = new _CRUD_Template_Model_Main
-        {
-            Title = "销售出库单",
-            Data = Model.Record,
-        },
-        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
-{
-            new _CRUD_Template_Model_Details
-            {
-                Title="明细",
-                Data = Model.RecordDs.Cast<object>(),
-            },
-        }
+        Title = "销售出库",
+        Data = Model.vm_Main,
     };
+    var templateDetails = new _CRUD_Template_Model_Details
+    {
+        Title = "明细",
+        Data = Model.vm_Details.Cast<object>(),
+    };
+
+    Model.templateModel = new _CRUD_Template_Model();
+    Model.templateModel.RecordMain = templateMain;
+    Model.templateModel.RecordDetailsArray.Add(templateDetails);
 }
 
-<partial name="_CRUD_Template/_Details" model="templateModel" />
+<partial name="_CRUD_Template/_Details" model="Model.templateModel" />
 
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Record.RecordId">修改</a> |
+    <a asp-page="./Edit" asp-route-id="@Model.vm_Main.RecordId">修改</a> |
     <a asp-page="Index">返回列表</a>
 </div>

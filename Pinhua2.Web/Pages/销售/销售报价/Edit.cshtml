@@ -19,8 +19,8 @@
     Model.templateModel.RecordMain = templateMain;
     Model.templateModel.RecordDetailsArray.Add(templateDetails);
 
-    var jsonEmptyMain = JsonConvert.SerializeObject(new vm_销售报价D());
-    var jsonEmptyDetails = JsonConvert.SerializeObject((Model?.vm_Details ?? new List<vm_销售报价D>()).OrderBy(m => m.RN));
+    var jsonEmptyDetail = JsonConvert.SerializeObject(new vm_销售报价D());
+    var jsonCurrentDetails = JsonConvert.SerializeObject((Model?.vm_Details ?? new List<vm_销售报价D>()).OrderBy(m => m.RN));
 }
 
 <partial name="_CRUD_Template/_Edit" model="Model.templateModel" />
@@ -40,8 +40,8 @@
         })
     </script>
     <script>
-        var emptyMain = @Html.Raw(jsonEmptyMain);
-        var emptyDetails = @Html.Raw(jsonEmptyDetails);
+        var emptyDetail = @Html.Raw(jsonEmptyDetail);
+        var currentDetails = @Html.Raw(jsonCurrentDetails);
     </script>
-    <partial name="_vue" />
+    <partial name="_CRUD_Template/__vue" />
 }

@@ -10,7 +10,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.销售出库单
+namespace Pinhua2.Web.Pages.销售.销售出库单.Bak
 {
     public class IndexModel : PageModel
     {
@@ -24,15 +24,11 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
         }
 
         [BindProperty]
-        public IList<vm_销售出库> vm_Mains { get; set; }
-        [BindProperty]
-        public IList<vm_销售报价D> vm_Details { get; set; }
-        [BindProperty]
-        public _CRUD_Template_Model_Index templateModel { get; set; }
+        public IList<vm_销售出库> Records { get; set; }
 
         public async Task OnGetAsync()
         {
-            vm_Mains = await _mapper.ProjectTo<vm_销售出库>(_context.tb_IO).ToListAsync();
+            Records = await _mapper.ProjectTo<vm_销售出库>(_context.tb_IO).ToListAsync();
         }
     }
 }

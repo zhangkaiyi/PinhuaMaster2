@@ -1,0 +1,30 @@
+﻿@page
+@model Pinhua2.Web.Pages.销售.销售出库单.Bak.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+
+    var templateModel = new _CRUD_Template_Model
+    {
+        RecordMain = new _CRUD_Template_Model_Main
+        {
+            Title = "销售出库单",
+            Data = Model.Record,
+        },
+        RecordDetailsArray = new List<_CRUD_Template_Model_Details>
+{
+            new _CRUD_Template_Model_Details
+            {
+                Title="明细",
+                Data = Model.RecordDs.Cast<object>(),
+            },
+        }
+    };
+}
+
+<partial name="_CRUD_Template/_Details" model="templateModel" />
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Record.RecordId">修改</a> |
+    <a asp-page="Index">返回列表</a>
+</div>

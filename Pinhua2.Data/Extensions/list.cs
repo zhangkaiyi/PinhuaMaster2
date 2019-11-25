@@ -15,7 +15,7 @@ namespace Pinhua2.Data
         public static IEnumerable<view_AllOrdersIO> list_订单待发(this Pinhua2Context context)
         {
             var l = from m in context.view_全部订单收发()
-                    where m.待发 > 0
+                    where m.待发 > 0 && m.业务类型 == "销售订单"
                     select m;
 
             return l.ToList();
@@ -33,7 +33,7 @@ namespace Pinhua2.Data
         public static IEnumerable<view_AllOrdersIO> list_订单待收(this Pinhua2Context context)
         {
             var l = from m in context.view_全部订单收发()
-                    where m.待收 > 0
+                    where m.待收 > 0 && m.业务类型 == "采购订单"
                     select m;
 
             return l.ToList();
@@ -42,7 +42,7 @@ namespace Pinhua2.Data
         public static IEnumerable<view_AllOrdersIO> list_订单待收(this Pinhua2Context context, string customerId)
         {
             var l = from m in context.list_订单待发()
-                    where m.往来号 == customerId
+                    where m.往来号 == customerId 
                     select m;
 
             return l;

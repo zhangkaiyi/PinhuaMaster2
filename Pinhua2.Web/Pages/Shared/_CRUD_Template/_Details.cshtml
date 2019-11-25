@@ -23,7 +23,7 @@
                     <div class="col-md-12 col-lg-6">
                         @foreach (var cdm in main)
                         {
-                            <div class="form-group row">
+                            <div class="form-group row" my-model-for="cdm" my-hidden-details="true">
                                 <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
                                 <div class="col-8 col-md-8 col-lg-9">
                                     <input value="@cdm.Value" class="form-control" readonly />
@@ -64,7 +64,7 @@
                     <div class="col-md-4">
                         @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
                         {
-                            <div class="form-group row">
+                            <div class="form-group row" my-model-for="cdm" my-hidden-details="true">
                                 <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
                                 <div class="col-8 col-md-8 col-lg-9">
                                     <input value="@cdm.Value" class="form-control" readonly />
@@ -75,7 +75,7 @@
                     <div class="col-md-4">
                         @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
                         {
-                            <div class="form-group row">
+                            <div class="form-group row" my-model-for="cdm" my-hidden-details="true">
                                 <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
                                 <div class="col-8 col-md-8 col-lg-9">
                                     <input value="@cdm.Value" class="form-control" readonly />
@@ -86,7 +86,7 @@
                     <div class="col-md-4 d-none d-md-block">
                         @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(2)))
                         {
-                            <div class="form-group row">
+                            <div class="form-group row" my-model-for="cdm" my-hidden-details="true">
                                 <label for="" class="col-4 col-md-4 col-lg-3 col-form-label">@cdm.Name</label>
                                 <div class="col-8 col-md-8 col-lg-9">
                                     <input value="@cdm.Value" class="form-control" readonly />

@@ -23,19 +23,7 @@
                         <div class="col-md-12 col-lg-6">
                             @foreach (var cdm in main)
                             {
-                                if (cdm.IsViewComponent)
-                                {
-                                    @await Component.InvokeAsync(cdm.ViewComponentName, new { model = cdm, disabled = false })
-                                }
-                                else
-                                {
-                                    <div class="form-group row" my-model-for="cdm" my-hidden-create="true">
-                                        <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
-                                        <div class="col-8 col-md-8 col-lg-9">
-                                            <input my-model-for="cdm" class="form-control" />
-                                        </div>
-                                    </div>
-                                }
+                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
                             }
                         </div>
                     }
@@ -44,37 +32,13 @@
                         <div class="col-md-6">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
                             {
-                                if (cdm.IsViewComponent)
-                                {
-                                    @await Component.InvokeAsync(cdm.ViewComponentName, new { model = cdm, disabled = false })
-                                }
-                                else
-                                {
-                                    <div class="form-group row" my-model-for="cdm" my-hidden-create="true">
-                                        <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
-                                        <div class="col-8 col-md-8 col-lg-9">
-                                            <input my-model-for="cdm" class="form-control" />
-                                        </div>
-                                    </div>
-                                }
+                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
                             }
                         </div>
                         <div class="col-md-6 d-none d-md-block">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
                             {
-                                if (cdm.IsViewComponent)
-                                {
-                                    @await Component.InvokeAsync(cdm.ViewComponentName, new { model = cdm, disabled = false })
-                                }
-                                else
-                                {
-                                    <div class="form-group row" my-model-for="cdm" my-hidden-create="true">
-                                        <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
-                                        <div class="col-8 col-md-8 col-lg-9">
-                                            <input my-model-for="cdm" class="form-control" />
-                                        </div>
-                                    </div>
-                                }
+                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
                             }
                         </div>
                     }
@@ -83,55 +47,19 @@
                         <div class="col-md-4">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
                             {
-                                if (cdm.IsViewComponent)
-                                {
-                                    @await Component.InvokeAsync(cdm.ViewComponentName, new { model = cdm, disabled = false })
-                                }
-                                else
-                                {
-                                    <div class="form-group row" my-model-for="cdm" my-hidden-create="true">
-                                        <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
-                                        <div class="col-8 col-md-8 col-lg-9">
-                                            <input my-model-for="cdm" class="form-control" />
-                                        </div>
-                                    </div>
-                                }
+                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
                             }
                         </div>
                         <div class="col-md-4">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
                             {
-                                if (cdm.IsViewComponent)
-                                {
-                                    @await Component.InvokeAsync(cdm.ViewComponentName, new { model = cdm, disabled = false })
-                                }
-                                else
-                                {
-                                    <div class="form-group row" my-model-for="cdm" my-hidden-create="true">
-                                        <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
-                                        <div class="col-8 col-md-8 col-lg-9">
-                                            <input my-model-for="cdm" class="form-control" />
-                                        </div>
-                                    </div>
-                                }
+                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
                             }
                         </div>
                         <div class="col-md-4 d-none d-md-block">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(2)))
                             {
-                                if (cdm.IsViewComponent)
-                                {
-                                    @await Component.InvokeAsync(cdm.ViewComponentName, new { model = cdm, disabled = false })
-                                }
-                                else
-                                {
-                                    <div class="form-group row" my-model-for="cdm" my-hidden-create="true">
-                                        <label my-model-for="cdm" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
-                                        <div class="col-8 col-md-8 col-lg-9">
-                                            <input my-model-for="cdm" class="form-control" />
-                                        </div>
-                                    </div>
-                                }
+                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
                             }
                         </div>
                     }
@@ -184,8 +112,8 @@
             </div>
 
             <!-- Modal -->
-            <partial name="_CRUD_Template/__selectModal" />
-            <partial name="_CRUD_Template/__editModal" />
+            <partial name="_CRUD_Template/__selectModal" model="Model" />
+            <partial name="_CRUD_Template/__editModal" model="Model" />
         </form>
     </div>
 </div>

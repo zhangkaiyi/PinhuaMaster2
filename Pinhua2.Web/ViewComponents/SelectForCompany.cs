@@ -28,40 +28,13 @@ namespace Pinhua2.Web.ViewComponents
             _context = pinhua2;
         }
 
-        public CustomDisplayModel cdm { get; set; }
-
-        public IList<SelectListItem> CustomerSelectList
-        {
-            get
-            {
-                var customers = _context.tb_往来表.AsNoTracking().Where(c => c.类型 == "客户");
-
-                var customerSelectList = new List<SelectListItem>();
-
-                customerSelectList.Add(new SelectListItem
-                {
-                    Text = "无",
-                    Value = "",
-                });
-                foreach (var customer in customers)
-                {
-                    customerSelectList.Add(new SelectListItem
-                    {
-                        Text = customer.往来号 + " - " + customer.简称,
-                        Value = customer.往来号
-                    });
-                }
-                return customerSelectList;
-            }
-        }
-
         public IViewComponentResult Invoke(CustomDisplayModel model, bool disabled = false)
         {
             var viewModel = new SelectForCompanyModel
             {
                 Model = model,
                 Disabled = disabled,
-                CustomerSelectList = CustomerSelectList
+                CustomerSelectList = _context.SelectList_客户()
             };
             return View(viewModel);
         }

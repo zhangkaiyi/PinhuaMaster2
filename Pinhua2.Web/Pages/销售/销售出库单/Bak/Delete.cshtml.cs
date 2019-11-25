@@ -10,7 +10,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.销售出库单
+namespace Pinhua2.Web.Pages.销售.销售出库单.Bak
 {
     public class DeleteModel : PageModel
     {
@@ -24,12 +24,10 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
         }
 
         [BindProperty]
-        public vm_销售出库 vm_Main { get; set; }
+        public vm_销售出库 Record { get; set; }
 
         [BindProperty]
-        public IList<vm_销售出库D> vm_Details { get; set; }
-
-        public _CRUD_Template_Model templateModel { get; set; }
+        public IList<vm_销售出库D> RecordDs { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -38,14 +36,14 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
                 return NotFound();
             }
 
-            vm_Main = _mapper.Map<vm_销售出库>(await _context.tb_IO.FirstOrDefaultAsync(m => m.RecordId == id));
+            Record = _mapper.Map<vm_销售出库>(await _context.tb_IO.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (vm_Main == null)
+            if (Record == null)
             {
                 return NotFound();
             }
 
-            vm_Details = await _mapper.ProjectTo<vm_销售出库D>(_context.tb_IOD.Where(m => m.RecordId == id)).ToListAsync();
+            RecordDs = await _mapper.ProjectTo<vm_销售出库D>(_context.tb_IOD.Where(m => m.RecordId == id)).ToListAsync();
 
             return Page();
         }

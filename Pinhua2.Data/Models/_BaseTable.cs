@@ -20,26 +20,31 @@ namespace Pinhua2.Data.Models
     {
         [Key]
         [CustomDisplay(IsRendered = false, ForIndex = true)]
+        [Display(Name = "记录号")]
         [MyHiddenCreate, MyHiddenEdit]
         [MySysColumn]
         public int RecordId { get; set; }
 
         [CustomDisplay(ForIndex = false)]
+        [Display(Name = "制单人")]
         [MySysColumn]
         [MyHiddenIndex]
         public string CreateUser { get; set; }
 
         [CustomDisplay(ForIndex = false)]
+        [Display(Name = "制单时间")]
         [MySysColumn]
         [MyHiddenIndex]
         public DateTime? CreateTime { get; set; }
 
         [CustomDisplay(ForIndex = false)]
+        [Display(Name = "修改人")]
         [MySysColumn]
         [MyHiddenIndex]
         public string LastEditUser { get; set; }
 
         [CustomDisplay(ForIndex = false)]
+        [Display(Name = "修改时间")]
         [MySysColumn]
         [MyHiddenIndex]
         public DateTime? LastEditTime { get; set; }
@@ -62,14 +67,14 @@ namespace Pinhua2.Data.Models
     {
         [Key]
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public int Idx { get; set; }
 
         [CustomDisplay(10, ForIndex = false)]
         public int? RN { get; set; }
 
         [CustomDisplay]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public int? RecordId { get; set; }
 
         [CustomDisplay(10)]
