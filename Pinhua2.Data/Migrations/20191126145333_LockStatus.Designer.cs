@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pinhua2.Data;
 
 namespace Pinhua2.Data.Migrations
 {
     [DbContext(typeof(Pinhua2Context))]
-    partial class Pinhua2ContextModelSnapshot : ModelSnapshot
+    [Migration("20191126145333_LockStatus")]
+    partial class LockStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,8 +194,6 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("仓");
 
-                    b.Property<string>("别名");
-
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
 
@@ -208,14 +208,9 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("品牌");
 
-                    b.Property<string>("型号");
-
                     b.Property<string>("备注");
 
                     b.Property<string>("子单号");
-
-                    b.Property<decimal?>("宽度")
-                        .HasColumnType("decimal(18,6)");
 
                     b.Property<decimal?>("已完数")
                         .HasColumnType("decimal(18,6)");
@@ -253,15 +248,6 @@ namespace Pinhua2.Data.Migrations
                         .HasColumnType("decimal(18,6)");
 
                     b.Property<decimal?>("金额")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("长度")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("面厚")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("高度")
                         .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Idx");
@@ -799,9 +785,6 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("子单号");
 
-                    b.Property<decimal?>("宽度")
-                        .HasColumnType("decimal(18,6)");
-
                     b.Property<decimal?>("库存")
                         .HasColumnType("decimal(18,6)");
 
@@ -816,15 +799,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("规格");
 
                     b.Property<decimal?>("金额")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("长度")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("面厚")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("高度")
                         .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Idx");
@@ -897,8 +871,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("别名");
-
                     b.Property<string>("单位");
 
                     b.Property<decimal?>("可收付款额")
@@ -906,16 +878,9 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("品号");
 
-                    b.Property<string>("品名");
-
-                    b.Property<string>("型号");
-
                     b.Property<string>("备注");
 
                     b.Property<string>("子单号");
-
-                    b.Property<decimal?>("宽度")
-                        .HasColumnType("decimal(18,6)");
 
                     b.Property<decimal?>("已收付款数")
                         .HasColumnType("decimal(18,6)");
@@ -947,18 +912,7 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("本次收额")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("规格");
-
                     b.Property<decimal?>("金额")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("长度")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("面厚")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("高度")
                         .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Idx");
@@ -1072,9 +1026,6 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("子单号");
 
-                    b.Property<decimal?>("宽度")
-                        .HasColumnType("decimal(18,6)");
-
                     b.Property<decimal?>("库存")
                         .HasColumnType("decimal(18,6)");
 
@@ -1096,15 +1047,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("质保");
 
                     b.Property<decimal?>("金额")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("长度")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("面厚")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("高度")
                         .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Idx");
@@ -1290,9 +1232,6 @@ namespace Pinhua2.Data.Migrations
 
                     b.Property<string>("子单号");
 
-                    b.Property<decimal?>("宽度")
-                        .HasColumnType("decimal(18,6)");
-
                     b.Property<decimal?>("库存")
                         .HasColumnType("decimal(18,6)");
 
@@ -1307,15 +1246,6 @@ namespace Pinhua2.Data.Migrations
                     b.Property<string>("规格");
 
                     b.Property<decimal?>("金额")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("长度")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("面厚")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<decimal?>("高度")
                         .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Idx");

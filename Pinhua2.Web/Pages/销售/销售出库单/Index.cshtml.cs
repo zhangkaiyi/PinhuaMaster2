@@ -26,7 +26,7 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
         [BindProperty]
         public IList<vm_销售出库> vm_Mains { get; set; }
         [BindProperty]
-        public IList<vm_销售报价D> vm_Details { get; set; }
+        public IList<vm_销售出库D> vm_Details { get; set; }
         [BindProperty]
         public _CRUD_Template_Model_Index templateModel { get; set; }
 

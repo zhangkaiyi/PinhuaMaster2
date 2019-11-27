@@ -35,6 +35,13 @@ namespace Pinhua2.Web.Pages.销售.销售报价
                                     .OrderByDescending(m => m.交期)
                                     .ThenByDescending(m => m.单号)
                                     .ToListAsync();
+            foreach(var main in vm_Mains)
+            {
+                if(_context.tb_报价表D.Where(m=>m.RecordId == main.RecordId).Any(m => m.状态.Contains("已")))
+                {
+                    main.LockStatus = 1;
+                }
+            }
         }
     }
 }

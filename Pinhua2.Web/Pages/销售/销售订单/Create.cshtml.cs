@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -22,8 +23,52 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             _mapper = mapper;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string refOrderId)
         {
+            if (string.IsNullOrEmpty(refOrderId))
+                return Page();
+
+            var r = (from m in _context.tb_报价表.AsNoTracking()
+                     join d in _context.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId into ds
+                     where m.单号 == refOrderId
+                     select new
+                     {
+                         Main = m,
+                         Details = ds
+                     }).FirstOrDefault();
+
+            if (r == null)
+                return Page();
+
+            vm_Main.报价单 = refOrderId;
+            vm_Main.日期 = DateTime.Now;
+            vm_Main.交期 = r.Main.交期;
+            vm_Main.往来号 = r.Main.往来号;
+            vm_Main.往来 = r.Main.往来;
+
+            foreach (var d in r.Details.OrderBy(m => m.RN))
+            {
+                var x = new vm_销售订单D
+                {
+                    子单号 = d.子单号,
+                    品号 = d.品号,
+                    品名 = d.品名,
+                    别名 = d.别名,
+                    型号 = d.型号,
+                    品牌 = d.品牌,
+                    个数 = d.个数,
+                    单价 = d.单价,
+                    单位 = d.单位,
+                    金额 = d.金额,
+                    规格 = d.规格,
+                    备注 = d.备注,
+                    税率 = d.税率,
+                    数量 = d.数量,
+                    库存 = d.库存,
+                };
+                vm_Details.Add(x);
+            }
+
             return Page();
         }
 
@@ -33,53 +78,6 @@ namespace Pinhua2.Web.Pages.销售.销售订单
         public IList<vm_销售订单D> vm_Details { get; set; } = new List<vm_销售订单D>();
 
         public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
-
-        public IList<SelectListItem> UnitSelectList {
-            get
-            {
-                var dic = from p in _context.tb_字典表.AsNoTracking()
-                          join d in _context.tb_字典表D.AsNoTracking() on p.RecordId equals d.RecordId
-                          where p.字典名 == "地板计量单位"
-                          select d;
-
-                var unitSelectList = new List<SelectListItem>();
-
-                foreach (var item in dic)
-                {
-                    unitSelectList.Add(new SelectListItem
-                    {
-                        Text = item.名称,
-                        Value = item.名称
-                    });
-                }
-                return unitSelectList;
-            }
-        }
-
-        public IList<SelectListItem> CustomerSelectList
-        {
-            get
-            {
-                var customers = _context.tb_往来表.AsNoTracking().Where(c => c.类型 == "客户");
-
-                var customerSelectList = new List<SelectListItem>();
-
-                customerSelectList.Add(new SelectListItem
-                {
-                    Text = "无",
-                    Value = "",
-                });
-                foreach (var customer in customers)
-                {
-                    customerSelectList.Add(new SelectListItem
-                    {
-                        Text = customer.往来号 + " - " + customer.简称,
-                        Value = customer.往来号
-                    });
-                }
-                return customerSelectList;
-            }
-        }
 
         public async Task<IActionResult> OnPostAsync()
         {

@@ -9,6 +9,8 @@ using Pinhua2.Data.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pinhua2.Data.Helper;
+using AutoMapper;
+using Pinhua2.Web.Mapper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,9 +20,11 @@ namespace Pinhua2.Web.Api
     public class 销售Controller : Controller
     {
         private readonly Pinhua2Context _pinhua2;
-        public 销售Controller(Pinhua2Context pinhua2)
+        private readonly IMapper _mapper;
+        public 销售Controller(Pinhua2Context pinhua2, IMapper mapper)
         {
             _pinhua2 = pinhua2;
+            _mapper = mapper;
         }
 
         [HttpGet("报价/{orderId}")]
@@ -39,12 +43,24 @@ namespace Pinhua2.Web.Api
         [HttpGet("订单/{orderId}")]
         public JArray 订单_orderId(string orderId)
         {
-            return _pinhua2.Get销售订单商品("", orderId);
+            var set = from m in _pinhua2.tb_订单表.AsNoTracking()
+                      join d in _pinhua2.tb_订单表D.AsNoTracking() on m.RecordId equals d.RecordId
+                      join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+                      where m.业务类型 == "销售订单" && m.单号 == orderId
+                      select _mapper.Map<tb_订单表D, vm_销售订单D>(d);
+
+            return JArray.FromObject(set);
         }
 
         [HttpGet("出库/{orderId}")]
         public JArray 出库_orderId(string orderId)
         {
+            var set = from m in _pinhua2.tb_IO.AsNoTracking()
+                      join d in _pinhua2.tb_IOD.AsNoTracking() on m.RecordId equals d.RecordId
+                      join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+                      where m.单号 == orderId && m.类型 == "销售出库"
+                      select _mapper.Map<tb_IOD, vm_销售出库D>(d);
+
             return _pinhua2.Get销售出库商品("", orderId);
         }
 

@@ -34,9 +34,16 @@
                 <tr>
                     <td></td>
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@((item as _IBaseTableMain).RecordId)">修改</a> |
-                        <a asp-page="./Details" asp-route-id="@((item as _IBaseTableMain).RecordId)">查看</a> |
-                        <a asp-page="./Delete" asp-route-id="@((item as _IBaseTableMain).RecordId)">删除</a>
+                        @if ((item as _IBaseTableMain).LockStatus >= 1)
+                        {
+                            <a asp-page="./Details" asp-route-id="@((item as _IBaseTableMain).RecordId)">查看</a>
+                        }
+                        else
+                        {
+                            <a class="mr-1" asp-page="./Details" asp-route-id="@((item as _IBaseTableMain).RecordId)">查看</a>
+                            <a class="mr-1" asp-page="./Edit" asp-route-id="@((item as _IBaseTableMain).RecordId)">修改</a>
+                            <a asp-page="./Delete" asp-route-id="@((item as _IBaseTableMain).RecordId)">删除</a>
+                        }
                     </td>
                     @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(item))
                     {

@@ -24,9 +24,11 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
         }
 
         [BindProperty]
-        public vm_销售出库 Record { get; set; }
+        public vm_销售出库 vm_Main { get; set; }
         [BindProperty]
-        public IList<vm_销售出库D> RecordDs { get; set; }
+        public IList<vm_销售出库D> vm_Details { get; set; }
+
+        public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
 
         public IList<SelectListItem> CustomerSelectList
         {
@@ -88,14 +90,46 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
                 return NotFound();
             }
 
-            Record = _mapper.Map<vm_销售出库>(await _context.tb_IO.FirstOrDefaultAsync(m => m.RecordId == id));
+            vm_Main = _mapper.Map<vm_销售出库>(await _context.tb_IO.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (Record == null)
+            if (vm_Main == null)
             {
                 return NotFound();
             }
 
-            RecordDs = _mapper.ProjectTo<vm_销售出库D>(_context.tb_IOD.Where(m => m.RecordId == id)).ToList();
+            vm_Details = _mapper.ProjectTo<vm_销售出库D>(_context.tb_IOD.Where(m => m.RecordId == id)).ToList();
+            vm_Details = (from d in _context.tb_IOD.AsNoTracking()
+                          join prod in _context.tb_商品表.AsNoTracking() on d.品号 equals prod.品号
+                          where d.RecordId == vm_Main.RecordId
+                          select new vm_销售出库D
+                          {
+                              RecordId = d.RecordId,
+                              品号 = d.品号,
+                              Idx = d.Idx,
+                              RN = d.RN,
+                              个数 = d.发,
+                              单价 = d.单价,
+                              单位 = d.单位,
+                              品名 = d.品名,
+                              品牌 = d.品牌,
+                              备注 = d.备注,
+                              子单号 = d.子单号,
+                              库存 = d.库存,
+                              税率 = d.税率,
+                              规格 = d.规格,
+                              宽度 = prod.宽度,
+                              金额 = d.金额,
+                              长度 = prod.长度,
+                              面厚 = prod.面厚,
+                              高度 = prod.高度,
+                              仓 = d.仓,
+                              已完数 = d.已完数,
+                              库位 = d.库位,
+                              批次 = d.批次,
+                              条码 = d.条码,
+                              计划数 = d.计划数,
+                              质保 = d.质保
+                          }).ToList();
 
             return Page();
         }
@@ -106,14 +140,14 @@ namespace Pinhua2.Web.Pages.销售.销售出库单
             {
                 return Page();
             }
-            var remote = _context.funcEditRecord<vm_销售出库, tb_IO>(Record, BeforeNew: before =>
+            var remote = _context.funcEditRecord<vm_销售出库, tb_IO>(vm_Main, BeforeNew: before =>
             {
                 // 非空字段赋值给跟踪实体
                 before.类型 = "销售出库";
-                before.往来 = _context.Set<tb_往来表>().FirstOrDefault(p => p.往来号 == Record.往来号)?.简称;
+                before.往来 = _context.Set<tb_往来表>().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
             });
 
-            _context.funcEditDetails<vm_销售出库, vm_销售出库D, tb_IO, tb_IOD>(Record, RecordDs,
+            _context.funcEditDetails<vm_销售出库, vm_销售出库D, tb_IO, tb_IOD>(vm_Main, vm_Details,
                 creatingD =>
                 {
                     if (string.IsNullOrEmpty(creatingD.子单号)) // 子单号为空的，表示新插入

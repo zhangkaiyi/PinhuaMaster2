@@ -38,23 +38,8 @@ namespace Pinhua2.Web.Mapper
         public string 往来号 { get; set; }
     }
 
-    public class vm_采购询价D : _BaseTableDetail
+    public class vm_采购询价D : _BaseProductDetail
     {
-        [CustomDisplay(ForCreate = false)]
-        public string 品号 { get; set; }
-        public string 品名 { get; set; }
-        public string 别名 { get; set; }
-        public string 型号 { get; set; }
-        public string 规格 { get; set; }
-        [CustomDisplay(ForIndex = false)]
-        public decimal? 长度 { get; set; }
-        [CustomDisplay(ForIndex = false)]
-        public decimal? 宽度 { get; set; }
-        [CustomDisplay(ForIndex = false)]
-        public decimal? 高度 { get; set; }
-        [CustomDisplay(ForIndex = false)]
-        public decimal? 面厚 { get; set; }
-
         [CustomDisplay(ForIndex = false, ForCreate = false)]
         public decimal? 库存 { get; set; }
         public decimal? 个数 { get; set; }

@@ -136,7 +136,9 @@ namespace Pinhua2.Data
             JArray jsonArray = new JArray();
             foreach (var item in set)
             {
-                jsonArray.Add(Pinhua2Helper.JObjectFromMerge(item.出, item.品));
+                var jsonObj = Pinhua2Helper.JObjectFromMerge(item.出, item.品);
+                jsonObj["个数"] = jsonObj["发"];
+                jsonArray.Add(jsonObj);
             }
 
             return jsonArray;
@@ -156,7 +158,9 @@ namespace Pinhua2.Data
             JArray jsonArray = new JArray();
             foreach (var item in set)
             {
-                jsonArray.Add(Pinhua2Helper.JObjectFromMerge(item.出, item.品));
+                var jsonObj = Pinhua2Helper.JObjectFromMerge(item.出, item.品);
+                jsonObj["个数"] = jsonObj["发"];
+                jsonArray.Add(jsonObj);
             }
 
             return jsonArray;

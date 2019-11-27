@@ -6,17 +6,9 @@ using System.Text;
 namespace Pinhua2.Data.Models
 {
     [Table("tb_商品表")]
-    public class tb_商品表 : _BaseTableMain
+    public class tb_商品表 : _BaseProductMain
     {
-        public string 品号 { get; set; }
-        public string 品名 { get; set; }
-        public string 型号 { get; set; }
         public string 拼音码 { get; set; }
-        public string 规格 { get; set; }
-        public decimal? 长度 { get; set; }
-        public decimal? 宽度 { get; set; }
-        public decimal? 高度 { get; set; }
-        public decimal? 面厚 { get; set; }
         public string 库位 { get; set; }
         public string 单位 { get; set; }
         public string 分类1 { get; set; }
@@ -24,7 +16,6 @@ namespace Pinhua2.Data.Models
         public decimal? 安全库存 { get; set; }
         public string 状态 { get; set; }
         public string 大类 { get; set; }
-        public string 别名 { get; set; }
         public string 材质 { get; set; }
         public string 表面处理 { get; set; }
         public string 换算单位 { get; set; }

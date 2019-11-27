@@ -58,12 +58,8 @@ namespace Pinhua2.Web.Mapper
         public string 发票号 { get; set; }
     }
 
-    public class vm_收款单D : _BaseTableDetail
+    public class vm_收款单D : _BaseProductDetail
     {
-        public string 品号 { get; set; }
-        public string 型号 { get; set; }
-        public string 品名 { get; set; }
-        public string 别名 { get; set; }
         public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
         public string 单位 { get; set; }

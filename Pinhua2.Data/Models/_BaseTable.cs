@@ -14,6 +14,7 @@ namespace Pinhua2.Data.Models
         DateTime? CreateTime { get; set; }
         string LastEditUser { get; set; }
         DateTime? LastEditTime { get; set; }
+        int? LockStatus { get; set; }
         bool? IsDeleted { get; set; }
     }
     public partial class _BaseTableMain : _IBaseTableMain
@@ -53,6 +54,10 @@ namespace Pinhua2.Data.Models
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         [MySysColumn]
         public bool? IsDeleted { get; set; }
+
+        [Display(Name = "锁状态")]
+        [MySysColumn]
+        public int? LockStatus { get; set; }
     }
 
     public interface _IBaseTableDetail

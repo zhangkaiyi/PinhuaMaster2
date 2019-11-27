@@ -5,12 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Pinhua2.Data.Models
 {
     [Table("tb_IOD")]
-    public partial class tb_IOD : _BaseTableDetail
+    public partial class tb_IOD : _BaseProductDetail
     {
         public string 订单号 { get; set; }
         public string 行号 { get; set; }
-        public string 品号 { get; set; }
-        public string 品名 { get; set; }
         public string 品牌 { get; set; }
         public string 单位 { get; set; }
         public decimal? 单价 { get; set; }
@@ -20,7 +18,6 @@ namespace Pinhua2.Data.Models
         public decimal? 质保 { get; set; }
         public string 批次 { get; set; }
         public string 条码 { get; set; }
-        public string 规格 { get; set; }
         public string 库位 { get; set; }
         public string 库存 { get; set; }
         public string 仓 { get; set; }

@@ -68,21 +68,8 @@ namespace Pinhua2.Web.Mapper
         public decimal? 应付 { get; set; }
     }
 
-    public class vm_采购订单D : _BaseTableDetail
+    public class vm_采购订单D : _BaseProductDetail
     {
-        public string 品号 { get; set; }
-        public string 品名 { get; set; }
-        public string 别名 { get; set; }
-        public string 型号 { get; set; }
-        public string 规格 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 长度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 宽度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 高度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 面厚 { get; set; }
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 库存 { get; set; }
         public string 单位 { get; set; }

@@ -69,32 +69,24 @@ namespace Pinhua2.Web.Mapper
         public string 待收 { get; set; }
     }
 
-    public class vm_销售订单D : _BaseTableDetail
+    public class vm_销售订单D : _BaseProductDetail
     {
-        public string 品号 { get; set; }
-        public string 品名 { get; set; }
-        public string 别名 { get; set; }
-        public string 型号 { get; set; }
-        public string 规格 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 长度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 宽度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 高度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
-        public decimal? 面厚 { get; set; }
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 库存 { get; set; }
         public string 单位 { get; set; }
         public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
         public decimal? 单价 { get; set; }
+        [MyVueComputed]
         public decimal? 金额 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 最新价 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public DateTime? 新价日期 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 品牌 { get; set; }
         public string 状态 { get; set; }
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]

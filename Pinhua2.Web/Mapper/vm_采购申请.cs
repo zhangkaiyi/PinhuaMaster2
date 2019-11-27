@@ -31,17 +31,8 @@ namespace Pinhua2.Web.Mapper
         public string 备注 { get; set; }
     }
 
-    public class vm_采购申请D : _BaseTableDetail
+    public class vm_采购申请D : _BaseProductDetail
     {
-        public string 品号 { get; set; }
-        public string 品名 { get; set; }
-        public string 别名 { get; set; }
-        public string 型号 { get; set; }
-        public string 规格 { get; set; }
-        public decimal? 长度 { get; set; }
-        public decimal? 宽度 { get; set; }
-        public decimal? 高度 { get; set; }
-        public decimal? 面厚 { get; set; }
         public decimal? 库存 { get; set; }
         public string 单位 { get; set; }
         public decimal? 个数 { get; set; }

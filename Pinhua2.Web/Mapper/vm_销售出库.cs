@@ -57,20 +57,23 @@ namespace Pinhua2.Web.Mapper
         public string 仓 { get; set; }
     }
 
-    public class vm_销售出库D : _BaseTableDetail
+    public class vm_销售出库D : _BaseProductDetail
     {
-        public string 品号 { get; set; }
-        public string 品名 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 品牌 { get; set; }
         public string 单位 { get; set; }
         public decimal? 单价 { get; set; }
+        [MyVueComputed]
         public decimal? 金额 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 质保 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 批次 { get; set; }
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 条码 { get; set; }
-        public string 规格 { get; set; }
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 库位 { get; set; }
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
@@ -78,8 +81,8 @@ namespace Pinhua2.Web.Mapper
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 仓 { get; set; }
 
-        [Display(Name = "个数")]
-        public decimal? 发 { get; set; }
+        //[Display(Name = "个数")]
+        public decimal? 个数 { get; set; }
         public decimal? 计划数 { get; set; }
         public decimal? 已完数 { get; set; }
     }
@@ -103,8 +106,10 @@ namespace Pinhua2.Web.Mapper
                 });
 
 
-            CreateMap<tb_IOD, vm_销售出库D>();
+            CreateMap<tb_IOD, vm_销售出库D>()
+                .ForMember(dst => dst.个数, map => map.MapFrom(src => src.发));
             CreateMap<vm_销售出库D, tb_IOD>()
+                .ForMember(dst => dst.发, map => map.MapFrom(src => src.个数))
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }

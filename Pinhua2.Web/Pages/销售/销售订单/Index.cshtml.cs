@@ -23,13 +23,21 @@ namespace Pinhua2.Web.Pages.销售.销售订单
             _mapper = mapper;
         }
 
-        public IList<vm_销售订单> vm_销售订单表 { get; set; }
+        public IList<vm_销售订单> vm_Mains { get; set; }
 
         public _CRUD_Template_Model_Index templateModel { get; set; }
 
         public async Task OnGetAsync()
         {
-            vm_销售订单表 = await _mapper.ProjectTo<vm_销售订单>(_context.tb_订单表).Where(m => m.业务类型 == "销售订单").OrderByDescending(m => m.交期).ThenByDescending(m => m.单号).ToListAsync();
+            vm_Mains = await _mapper.ProjectTo<vm_销售订单>(_context.tb_订单表).Where(m => m.业务类型 == "销售订单").OrderByDescending(m => m.交期).ThenByDescending(m => m.单号).ToListAsync();
+
+            foreach (var main in vm_Mains)
+            {
+                if (_context.tb_订单表D.Where(m => m.RecordId == main.RecordId).Any(m => m.状态.Contains("已")))
+                {
+                    main.LockStatus = 1;
+                }
+            }
         }
     }
 }
