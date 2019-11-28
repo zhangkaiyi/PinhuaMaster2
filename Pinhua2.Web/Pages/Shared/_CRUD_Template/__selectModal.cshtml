@@ -23,9 +23,9 @@
                     <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
-                            @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(Model.SelectModal.DataType).Where(m => m.RawName != "已收" && m.RawName != "待收"))
+                            @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(Model.SelectModal.DataType).Where(m => m.RawName != "已收" && m.RawName != "待收").OrderBy(m => m.Order))
                             {
-                                <th my-model-for="cdm" my-hidden-create="true" my-hidden-edit="true" data-field="@Html.Raw(cdm.RawName)">@Html.Raw(cdm.Name)</th>
+                                <th my-model-for="cdm" my-hidden-ref="true" data-field="@Html.Raw(cdm.RawName)">@Html.Raw(cdm.Name)</th>
                             }
                             @*<th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.品号))">品号</th>
                                 <th data-field="@(nameof(Pinhua2.Data.Models.tb_商品表.品名))">品名</th>

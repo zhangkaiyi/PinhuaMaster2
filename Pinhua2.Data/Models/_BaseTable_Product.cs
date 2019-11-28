@@ -21,14 +21,27 @@ namespace Pinhua2.Data.Models
     }
     public partial class _BaseProductMain : _BaseTableMain, _IBaseTable_Product
     {
+        [CustomDisplay(1)]
         public string 品号 { get; set; }
+        [CustomDisplay(1)]
         public string 品名 { get; set; }
+        [CustomDisplay(1)]
         public string 别名 { get; set; }
+        [CustomDisplay(1)]
         public string 型号 { get; set; }
+        [CustomDisplay(1)]
         public string 规格 { get; set; }
+        [CustomDisplay(1)]
+        [MyHiddenRef]
         public decimal? 长度 { get; set; }
+        [CustomDisplay(1)]
+        [MyHiddenRef]
         public decimal? 宽度 { get; set; }
+        [CustomDisplay(1)]
+        [MyHiddenRef]
         public decimal? 高度 { get; set; }
+        [CustomDisplay(1)]
+        [MyHiddenRef]
         public decimal? 面厚 { get; set; }
     }
 

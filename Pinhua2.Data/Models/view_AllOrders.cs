@@ -9,7 +9,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Pinhua2.Data.Models
 {
-    public class view_AllOrders
+    public class view_AllOrders : _IBaseTable_Product 
     {
         [CustomDisplay(10)]
         public string 单号 { get; set; }
@@ -18,8 +18,10 @@ namespace Pinhua2.Data.Models
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public DateTime? 日期 { get; set; }
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public string 制单 { get; set; }
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public string 仓 { get; set; }
         [CustomDisplay(20)]
         public string 往来 { get; set; }
@@ -37,20 +39,32 @@ namespace Pinhua2.Data.Models
         public string 子单号 { get; set; }
         [CustomDisplay(49)]
         public string 品号 { get; set; }
+
         [CustomDisplay(50)]
-        public string 型号 { get; set; }
-        [CustomDisplay(51)]
         public string 品名 { get; set; }
-        [CustomDisplay(55)]
+        [CustomDisplay(51)]
+        public string 别名 { get; set; }
+        [CustomDisplay(52)]
+        public string 型号 { get; set; }
+        [CustomDisplay(53)]
         public string 规格 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+
+        [CustomDisplay(55.1)]
+        [MyHiddenRef]
         public decimal? 长度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+
+        [CustomDisplay(55.2)]
+        [MyHiddenRef]
         public decimal? 宽度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+
+        [CustomDisplay(55.3)]
+        [MyHiddenRef]
         public decimal? 高度 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+
+        [CustomDisplay(55.4)]
+        [MyHiddenRef]
         public decimal? 面厚 { get; set; }
+
         [CustomDisplay(58)]
         public string 单位 { get; set; }
         [CustomDisplay(56)]
@@ -58,20 +72,18 @@ namespace Pinhua2.Data.Models
         [CustomDisplay(57)]
         public decimal? 数量 { get; set; }
         [CustomDisplay(59)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 单价 { get; set; }
         [CustomDisplay(60)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 金额 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public decimal? 税率 { get; set; }
         public string 状态 { get; set; }
         [CustomDisplay(5)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public int? RecordId { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public string 品牌 { get; set; }
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public string 质保 { get; set; }
     }
 

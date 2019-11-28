@@ -9,55 +9,21 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.Mapper
 {
-    public class vm_商品_地板 : _BaseTableMain
+    public class vm_商品_地板 : _BaseProductMain
     {
         [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public string 品号 { get; set; }
-
-        [MyPriority(Priority.High)]
-        [Required]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public string 品名 { get; set; }
-
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public string 别名 { get; set; }
-
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public string 型号 { get; set; }
-
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public string 规格 { get; set; }
-
-        [MyPriority(Priority.Medium)]
         [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public decimal? 长度 { get; set; }
-
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public decimal? 宽度 { get; set; }
-
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public decimal? 高度 { get; set; }
-
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        public decimal? 面厚 { get; set; }
-
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
+        [MyHiddenRef]
         public string 单位 { get; set; }
 
         [MyPriority(Priority.High)]
         [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
+        [MyHiddenRef]
         public string 分类1 { get; set; }
 
         [MyPriority(Priority.High)]
         [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
+        [MyHiddenRef]
         public string 分类2 { get; set; }
 
         [MyPriority(Priority.High)]
@@ -66,6 +32,7 @@ namespace Pinhua2.Web.Mapper
 
         [MyPriority(Priority.Medium)]
         [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
+        [MyHiddenRef]
         public string 条码 { get; set; }
 
         [MyPriority(Priority.Medium)]
@@ -74,10 +41,12 @@ namespace Pinhua2.Web.Mapper
 
         [MyPriority(Priority.Medium)]
         [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = false)]
+        [MyHiddenRef]
         public string 图片 { get; set; }
 
         [MyPriority(Priority.Medium)]
         [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
+        [MyHiddenRef]
         public decimal? 采购价 { get; set; }
     }
 

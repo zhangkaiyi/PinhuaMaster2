@@ -22,41 +22,41 @@ namespace Pinhua2.Data.Models
         [Key]
         [CustomDisplay(IsRendered = false, ForIndex = true)]
         [Display(Name = "记录号")]
-        [MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenCreate, MyHiddenEdit, MyHiddenRef]
         [MySysColumn]
         public int RecordId { get; set; }
 
         [CustomDisplay(ForIndex = false)]
         [Display(Name = "制单人")]
         [MySysColumn]
-        [MyHiddenIndex]
+        [MyHiddenIndex, MyHiddenRef]
         public string CreateUser { get; set; }
 
         [CustomDisplay(ForIndex = false)]
         [Display(Name = "制单时间")]
         [MySysColumn]
-        [MyHiddenIndex]
+        [MyHiddenIndex, MyHiddenRef]
         public DateTime? CreateTime { get; set; }
 
         [CustomDisplay(ForIndex = false)]
         [Display(Name = "修改人")]
         [MySysColumn]
-        [MyHiddenIndex]
+        [MyHiddenIndex, MyHiddenRef]
         public string LastEditUser { get; set; }
 
         [CustomDisplay(ForIndex = false)]
         [Display(Name = "修改时间")]
         [MySysColumn]
-        [MyHiddenIndex]
+        [MyHiddenIndex, MyHiddenRef]
         public DateTime? LastEditTime { get; set; }
 
         [CustomDisplay(ForIndex = false)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit, MyHiddenRef]
         [MySysColumn]
         public bool? IsDeleted { get; set; }
 
         [Display(Name = "锁状态")]
-        [MySysColumn]
+        [MySysColumn, MyHiddenRef]
         public int? LockStatus { get; set; }
     }
 

@@ -20,6 +20,7 @@ namespace TagHelpers
         public bool MyHiddenDetails { get; set; }
         public bool MyHiddenEdit { get; set; }
         public bool MyHiddenDelete { get; set; }
+        public bool MyHiddenRef { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
@@ -51,6 +52,11 @@ namespace TagHelpers
             }
 
             if (MyHiddenDelete && MyModelFor.IsHiddenDelete)
+            {
+                CreateOrMergeAttribute("class", "d-none", output);
+            }
+
+            if (MyHiddenRef && MyModelFor.IsHiddenRef)
             {
                 CreateOrMergeAttribute("class", "d-none", output);
             }

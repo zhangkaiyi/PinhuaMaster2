@@ -27,7 +27,7 @@ namespace Pinhua2.Web.Mapper
     {
         public string Title { get; set; } = "商品列表";
         public string Url { get; set; } = "/api/product/all";
-        public Type DataType { get; set; } = typeof(tb_商品表);
+        public Type DataType { get; set; } = typeof(vm_商品_地板);
     }
 
     public class _CRUD_Template_Model

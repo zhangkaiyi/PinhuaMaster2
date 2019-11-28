@@ -358,6 +358,25 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
+        public bool IsHiddenRef
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenRefAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public bool IsVueComputed
         {
             get
