@@ -21,6 +21,11 @@ namespace TagHelpers
 
             output.Attributes.Add("for", $"{MyModelFor.RawName}");
             output.Content.SetHtmlContent(MyModelFor.Name.ToString());
+
+            if (MyModelFor.IsRequired)
+            {
+                output.CreateOrMergeAttribute("class", "text-danger");
+            }
         }
     }
 }

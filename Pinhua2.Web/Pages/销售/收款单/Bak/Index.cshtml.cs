@@ -10,7 +10,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.收款单
+namespace Pinhua2.Web.Pages.销售.收款单.Bak
 {
     public class IndexModel : PageModel
     {
@@ -23,13 +23,11 @@ namespace Pinhua2.Web.Pages.销售.收款单
             _mapper = mapper;
         }
 
-        public IList<vm_收款单> vm_Mains { get; set; }
-
-        public _CRUD_Template_Model_Index templateModel { get; set; }
+        public IList<vm_收款单> Record { get; set; }
 
         public async Task OnGetAsync()
         {
-            vm_Mains = await _mapper.ProjectTo<vm_收款单>(_context.tb_收付表.AsNoTracking()).ToListAsync();
+            Record = await _mapper.ProjectTo<vm_收款单>(_context.tb_收付表.AsNoTracking()).ToListAsync();
         }
     }
 }

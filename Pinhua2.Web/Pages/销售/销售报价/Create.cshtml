@@ -2,6 +2,8 @@
 @model Pinhua2.Web.Pages.销售.销售报价.CreateModel
 
 @{
+    ViewData["Title"] = "Create";
+
     var templateMain = new _CRUD_Template_Model_Main
     {
         Title = "销售报价",
@@ -17,7 +19,6 @@
     Model.templateModel.RecordMain = templateMain;
     Model.templateModel.RecordDetailsArray.Add(templateDetails);
 
-    ViewData["Title"] = "Create";
     var jsonEmptyDetail = JsonConvert.SerializeObject(new vm_销售报价D());
     var jsonCurrentDetails = JsonConvert.SerializeObject(Model?.vm_Details ?? new List<vm_销售报价D>());
 }

@@ -27,27 +27,27 @@ namespace TagHelpers
 
             if (MyHiddenIndex && MyVueModelFor.IsHiddenIndex)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenCreate && MyVueModelFor.IsHiddenCreate)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenDetails && MyVueModelFor.IsHiddenDetails)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenEdit && MyVueModelFor.IsHiddenEdit)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenDelete && MyVueModelFor.IsHiddenDelete)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             //var content = output.GetChildContentAsync().GetAwaiter().GetResult().GetContent();
@@ -55,25 +55,6 @@ namespace TagHelpers
             //{
             //    output.Attributes.SetAttribute("class", "text-primary");
             //}
-        }
-
-        private void CreateOrMergeAttribute(string name, object content, TagHelperOutput output)
-        {
-            var currentAttribute = output.Attributes.FirstOrDefault(attribute => attribute.Name == name);
-            if (currentAttribute == null)
-            {
-                var attribute = new TagHelperAttribute(name, content);
-                output.Attributes.Add(attribute);
-            }
-            else
-            {
-                var newAttribute = new TagHelperAttribute(
-                    name,
-                    $"{currentAttribute.Value.ToString()} {content.ToString()}",
-                    currentAttribute.ValueStyle);
-                output.Attributes.Remove(currentAttribute);
-                output.Attributes.Add(newAttribute);
-            }
         }
     }
     [HtmlTargetElement("td", Attributes = "my-vue-model-for")]
@@ -98,27 +79,27 @@ namespace TagHelpers
 
             if (MyHiddenIndex && MyVueModelFor.IsHiddenIndex)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenCreate && MyVueModelFor.IsHiddenCreate)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenDetails && MyVueModelFor.IsHiddenDetails)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenEdit && MyVueModelFor.IsHiddenEdit)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenDelete && MyVueModelFor.IsHiddenDelete)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyVueModelFor.IsVueComputed)
@@ -130,25 +111,6 @@ namespace TagHelpers
             {
                 var childContent = output.GetChildContentAsync().GetAwaiter().GetResult().GetContent();
                 output.Content.SetHtmlContent($"{{{{ todo.{MyVueModelFor.RawName} }}}}").AppendHtml(childContent);
-            }
-        }
-
-        private void CreateOrMergeAttribute(string name, object content, TagHelperOutput output)
-        {
-            var currentAttribute = output.Attributes.FirstOrDefault(attribute => attribute.Name == name);
-            if (currentAttribute == null)
-            {
-                var attribute = new TagHelperAttribute(name, content);
-                output.Attributes.Add(attribute);
-            }
-            else
-            {
-                var newAttribute = new TagHelperAttribute(
-                    name,
-                    $"{currentAttribute.Value.ToString()} {content.ToString()}",
-                    currentAttribute.ValueStyle);
-                output.Attributes.Remove(currentAttribute);
-                output.Attributes.Add(newAttribute);
             }
         }
     }

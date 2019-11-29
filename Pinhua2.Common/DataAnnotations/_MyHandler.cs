@@ -537,6 +537,28 @@ namespace Pinhua2.Common.Attributes
             Models = list.OrderBy(p => p.Order).ToList();
         }
 
+        private IList<CustomDisplayModel> ParseType(Type type)
+        {
+            var list = new List<CustomDisplayModel>();
+            foreach (var p in type.GetProperties())
+            {
+                var cdm = new CustomDisplayModel(p, null);
+                list.Add(cdm);
+            }
+            return list.OrderBy(p => p.Order).ToList();
+        }
+
+        private IList<CustomDisplayModel> ParseObject(object obj)
+        {
+            var list = new List<CustomDisplayModel>();
+            foreach (var p in obj.GetType().GetProperties())
+            {
+                var cdm = new CustomDisplayModel(p, obj);
+                list.Add(cdm);
+            }
+            return list.OrderBy(p => p.Order).ToList();
+        }
+
         public IList<CustomDisplayModel> Models { get; set; }
 
         static public CustomDisplayFactory Create(Type type, object obj)
@@ -546,12 +568,14 @@ namespace Pinhua2.Common.Attributes
 
         static public IList<CustomDisplayModel> CustomDisplayModels(object obj)
         {
-            return new CustomDisplayFactory(obj.GetType(), obj).Models;
+            //return new CustomDisplayFactory(obj.GetType(), obj).Models;
+            return new CustomDisplayFactory().ParseObject(obj);
         }
 
         static public IList<CustomDisplayModel> CustomDisplayModels(Type type)
         {
-            return new CustomDisplayFactory(type, null).Models;
+            //return new CustomDisplayFactory(type, null).Models;
+            return new CustomDisplayFactory().ParseType(type);
         }
     }
 

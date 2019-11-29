@@ -1,7 +1,7 @@
 ﻿@model _CRUD_Template_Model
 @{
     ViewData["Title"] = "Details";
-    var main = CustomDisplayFactory.CustomDisplayModels(Model.RecordMain.Data).Where(m => m.ForRead).OrderBy(m => m.Priority);
+    var main = CustomDisplayFactory.CustomDisplayModels(Model.RecordMain.Data).OrderBy(m => m.Priority);
     var hasPriority = main.Select(p => p.Priority).Distinct();
     var hasPriorityCount = hasPriority.Count();
     var hasPriorityHigh = main.Any(p => p.Priority == Priority.High);
@@ -107,7 +107,7 @@
                 <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
                     <thead>
                         <tr>
-                            @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(d => d.ForRead))
+                            @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).OrderBy(m => m.Order))
                             {
                                 <th my-model-for="cdm" my-hidden-details="true">@cdm.Name</th>
                             }
@@ -117,7 +117,7 @@
                         @foreach (var item in details.Data)
                         {
                             <tr>
-                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(item).Where(d => d.ForRead))
+                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(item).OrderBy(m => m.Order))
                                 {
                                     <td my-model-for="cdm" my-hidden-details="true">@cdm.Value</td>
                                 }

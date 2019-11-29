@@ -11,7 +11,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.收款单
+namespace Pinhua2.Web.Pages.销售.收款单.Bak
 {
     public class CreateModel : PageModel
     {
@@ -25,11 +25,9 @@ namespace Pinhua2.Web.Pages.销售.收款单
         }
 
         [BindProperty]
-        public vm_收款单 vm_Main { get; set; } = new vm_收款单();
+        public vm_收款单 Record { get; set; } = new vm_收款单();
         [BindProperty]
-        public IList<vm_收款单D> vm_Details { get; set; } = new List<vm_收款单D>();
-        [BindProperty]
-        public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
+        public IList<vm_收款单D> RecordDs { get; set; }
 
         public IList<SelectListItem> CustomerSelectList
         {
@@ -58,28 +56,10 @@ namespace Pinhua2.Web.Pages.销售.收款单
 
         public IActionResult OnGet(string companyId, string refOrderId, string type)
         {
-            vm_Main.往来号 = companyId;
-            vm_Main.关联单号 = refOrderId;
-            vm_Main.小类 = type;
-            vm_Main.类型 = "收款";
-
-            var set = _context.list_收付待收(vm_Main.往来号);
-            if (string.IsNullOrEmpty(refOrderId))
-            {
-                foreach (var item in set)
-                {
-                    vm_Details.Add(_mapper.Map<vm_收款单D>(item));
-                }
-            }
-            else
-            {
-                foreach (var item in set.Where(m => m.单号 == refOrderId))
-                {
-                    vm_Details.Add(_mapper.Map<vm_收款单D>(item));
-                }
-            }
-
-
+            Record.往来号 = companyId;
+            Record.关联单号 = refOrderId;
+            Record.小类 = type;
+            Record.类型 = "收款";
             return Page();
         }
 
@@ -90,16 +70,16 @@ namespace Pinhua2.Web.Pages.销售.收款单
                 return Page();
             }
 
-            var remote = _context.funcNewRecord<vm_收款单, tb_收付表>(vm_Main, creating =>
+            var remote = _context.funcNewRecord<vm_收款单, tb_收付表>(Record, creating =>
             {
                 creating.单号 = _context.funcAutoCode("订单号");
                 creating.类型 = "收款";
-                creating.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == vm_Main.往来号)?.简称;
+                creating.往来 = _context.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == Record.往来号)?.简称;
             });
 
             if (await _context.SaveChangesAsync() > 0)
             {
-                foreach (var localD in vm_Details)
+                foreach (var localD in RecordDs)
                 {
                     _context.funcNewDetail<vm_收款单, vm_收款单D, tb_收付表, tb_收付表D>(remote, localD, BeforeNewD: beforeD =>
                     {

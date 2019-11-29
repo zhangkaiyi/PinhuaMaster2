@@ -1,0 +1,56 @@
+﻿<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+    <h4>明细</h4>
+    <div>
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecord">
+            添加明细
+        </button>
+        @*<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecordByBaojiadan">
+                报价单
+            </button>*@
+    </div>
+</div>
+
+<div class="table-responsive mb-3">
+    <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>RN</th>
+                <th>子单号</th>
+                @foreach (var cdm in CustomDisplayFactory<vm_收款单D>.CustomDisplayModels(new vm_收款单D()))
+                {
+                    if (cdm.ForCreate)
+                    {
+                        <th>@cdm.RawName</th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-if="items.length == 0"><td colspan="20" class="text-center">空</td></tr>
+            <tr v-for="(todo,index) in items">
+                <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)">修改</a></td>
+                <td>
+                    {{ index+1 }}
+                    <input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" v-if="todo.Idx>0" />
+                    <input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
+                </td>
+                <td>{{ todo.子单号 }}<input :name="buildName(index,'子单号')" type="hidden" v-bind:value="todo.子单号" /></td>
+                @foreach (var cdm in CustomDisplayFactory<vm_收款单D>.CustomDisplayModels(new vm_收款单D()))
+                {
+                    if (cdm.ForCreate)
+                    {
+                        if (cdm.RawName == "可分配")
+                        {
+                            <td>{{ 可分配(index) }}<input :name="buildName(index,'@cdm.RawName')" type="hidden" v-bind:value="可分配(index)" /></td>
+                        }
+                        else
+                        {
+                            <td>{{ todo.@cdm.RawName }}<input :name="buildName(index,'@cdm.RawName')" type="hidden" v-bind:value="todo.@cdm.RawName" /></td>
+                        }
+                    }
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>

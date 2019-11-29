@@ -30,12 +30,12 @@ namespace Pinhua2.Web.Api
         [HttpGet("报价/{orderId}")]
         public JArray 报价_orderId(string orderId)
         {
-            var set = (from m in _pinhua2.tb_报价表.AsNoTracking()
+            var set = from m in _pinhua2.tb_报价表.AsNoTracking()
                        join d in _pinhua2.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
                        join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
                        where /*m.往来号 == customerId &&*/ m.业务类型 == "销售报价" && m.单号 == orderId
                        orderby d.RN
-                       select d).ToList();
+                       select _mapper.Map<tb_报价表D, vm_销售报价D>(d);
 
             return JArray.FromObject(set);
         }
@@ -47,6 +47,7 @@ namespace Pinhua2.Web.Api
                       join d in _pinhua2.tb_订单表D.AsNoTracking() on m.RecordId equals d.RecordId
                       join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
                       where m.业务类型 == "销售订单" && m.单号 == orderId
+                      orderby d.RN
                       select _mapper.Map<tb_订单表D, vm_销售订单D>(d);
 
             return JArray.FromObject(set);
@@ -59,15 +60,23 @@ namespace Pinhua2.Web.Api
                       join d in _pinhua2.tb_IOD.AsNoTracking() on m.RecordId equals d.RecordId
                       join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
                       where m.单号 == orderId && m.类型 == "销售出库"
+                      orderby d.RN
                       select _mapper.Map<tb_IOD, vm_销售出库D>(d);
 
-            return _pinhua2.Get销售出库商品("", orderId);
+            return JArray.FromObject(set);
         }
 
         [HttpGet("收款/{orderId}")]
         public JArray 收款_orderId(string orderId)
         {
-            return _pinhua2.Get销售收款商品("", orderId);
+            var set = from m in _pinhua2.tb_收付表.AsNoTracking()
+                      join d in _pinhua2.tb_收付表D.AsNoTracking() on m.RecordId equals d.RecordId
+                      join x in _pinhua2.tb_商品表.AsNoTracking() on d.品号 equals x.品号
+                      where m.单号 == orderId && m.类型 == "收款"
+                      orderby d.RN
+                      select _mapper.Map<tb_收付表D, vm_收款单D>(d);
+
+            return JArray.FromObject(set);
         }
 
         [HttpGet("订单待发")]
@@ -94,13 +103,22 @@ namespace Pinhua2.Web.Api
             return _pinhua2.list_订单待收(customerId);
         }
 
+        //[HttpGet("收付待收")]
+        //[HttpGet("金额待收")]
+        public IEnumerable<object> 收付待收()
+        {
+            return _pinhua2.list_收付待收();
+        }
+
         [HttpGet("收付待收/{customerId}")]
-        public IEnumerable<object> 收付待收(string customerId)
+        [HttpGet("金额待收/{customerId}")]
+        public IEnumerable<object> 收付待收_customerId(string customerId)
         {
             return _pinhua2.list_收付待收(customerId);
         }
 
         [HttpGet("收付待付/{customerId}")]
+        [HttpGet("金额待付/{customerId}")]
         public IEnumerable<object> 收付待付(string customerId)
         {
             return _pinhua2.list_收付待付(customerId);

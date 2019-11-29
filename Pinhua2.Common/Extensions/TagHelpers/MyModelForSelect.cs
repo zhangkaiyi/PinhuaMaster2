@@ -21,6 +21,11 @@ namespace TagHelpers
 
             output.Attributes.SetAttribute("id", $"{MyModelFor.RawName}");
             output.Attributes.SetAttribute("name", $"vm_Main.{MyModelFor.RawName}");
+
+            if (MyModelFor.IsReadonly)
+            {
+                output.CreateOrMergeAttribute("disabled", true);
+            }
         }
     }
 }

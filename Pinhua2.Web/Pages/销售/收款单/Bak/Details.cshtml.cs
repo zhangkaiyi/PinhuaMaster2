@@ -10,7 +10,7 @@ using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
-namespace Pinhua2.Web.Pages.销售.收款单
+namespace Pinhua2.Web.Pages.销售.收款单.Bak
 {
     public class DetailsModel : PageModel
     {
@@ -24,11 +24,9 @@ namespace Pinhua2.Web.Pages.销售.收款单
         }
 
         [BindProperty]
-        public vm_收款单 vm_Main { get; set; }
+        public vm_收款单 Record { get; set; }
         [BindProperty]
-        public IList<vm_收款单D> vm_Details { get; set; }
-
-        public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
+        public IList<vm_收款单D> RecordDs { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,14 +35,14 @@ namespace Pinhua2.Web.Pages.销售.收款单
                 return NotFound();
             }
 
-            vm_Main = _mapper.Map<vm_收款单>(await _context.tb_收付表.FirstOrDefaultAsync(m => m.RecordId == id));
+            Record = _mapper.Map<vm_收款单>(await _context.tb_收付表.FirstOrDefaultAsync(m => m.RecordId == id));
 
-            if (vm_Main == null)
+            if (Record == null)
             {
                 return NotFound();
             }
 
-            vm_Details = _mapper.ProjectTo<vm_收款单D>(_context.tb_收付表D.Where(m => m.RecordId == id)).ToList();
+            RecordDs = _mapper.ProjectTo<vm_收款单D>(_context.tb_收付表D.Where(m => m.RecordId == id)).ToList();
 
             return Page();
         }

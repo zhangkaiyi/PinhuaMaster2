@@ -1,0 +1,214 @@
+﻿
+@{
+    var record = JsonConvert.SerializeObject(Model?.Record ?? new vm_收款单());
+    var recordD = JsonConvert.SerializeObject(new vm_收款单D());
+    var customerId = (string)Model?.Record?.往来号;
+    var orderId = (string)Model?.Record?.单号;
+    var recordDs = JsonConvert.SerializeObject(Model?.RecordDs ?? new List<vm_收款单D>());
+}
+
+<script>
+    var record = @Html.Raw(record);
+    var recordD = @Html.Raw(recordD);
+    var recordDs = @Html.Raw(recordDs);
+</script>
+
+<script>
+    var vm = new Vue({
+        el: '#vueScope',
+        data: {
+            record: record,
+            items: recordDs,
+            itemCurrent: {},
+            itemIndex: 1,
+            isNew: true,
+        },
+        watch: {
+            aaa: function (val1, val2) {
+                for (var i in this.items) {
+                    var 待分配 = this.items[i].待收款额
+                    console.log("待分配",待分配)
+                    //console.log(left)
+                    var 已分 = (this.items.slice(0, i).map(
+                        row => (row.可分配 || 0)).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0))
+                    console.log("已分",已分)
+                    var 收 = this.aaa
+                    console.log('收',收)
+                    var 可分 = 收 - 已分
+
+                    var 最终分配 = 待分配 < 可分 ? 待分配 : 可分
+                    this.items[i].可分配 = 最终分配
+                }
+            },
+            items: function (val1, val2) {
+                console.log('watch')
+                var $table = $('#selectTable')
+                // 恢复所有隐藏行
+                $table.bootstrapTable('getHiddenRows', true)
+                // 获取数据
+                var data = $table.bootstrapTable('getData')
+                // 比对数据
+                //this.items.forEach(function (v) {
+
+                //    for (var i in data) {
+                //        // 已经添加的数据，从selectTable2中隐藏
+                //        if (v.子单号 == data[i].子单号) {
+                //            $table.bootstrapTable('hideRow', { index: i })
+                //        }
+                //    }
+                //})
+            },
+        },
+        mounted: function () {
+            this.init()
+            this.record.往来号 = this.record.往来号 || ""
+            this.$nextTick(function () {
+                $selectTable1 = $('#selectTable')
+                $selectTable1.bootstrapTable({
+                    url: ['/api/sd/收付待收/', this.record.往来号].join(""),
+                    onLoadSuccess: function (data) {
+                        console.log(data)
+                        // 恢复所有隐藏行
+                        $selectTable1.bootstrapTable('getHiddenRows', true)
+                        // 比对数据
+                        //vm.items.forEach(function (v) {
+                        //    for (var i in data) {
+                        //        // 已经添加的数据，从selectTable2中隐藏
+                        //        if (v.子单号 == data[i].子单号) {
+                        //            $selectTable1.bootstrapTable('hideRow', { index: i })
+                        //        }
+                        //    }
+                        //})
+                    },
+                })
+            })
+        },
+        computed: {
+            visible: function () {
+                return this.items.length > 0
+            },
+            editModalRN: function () {
+                if (this.isNew)
+                    return this.items.length + 1;
+                else
+                    return this.itemIndex + 1
+            },
+            sumAmount() {
+                return this.items.map(
+                    row => row.数量).reduce(
+                        (acc, cur) => (parseFloat(cur) + acc), 0)
+            },
+            sumMoney() {
+                return (this.items.map(
+                    row => ((row.数量 || 0) * (row.单价 || 0))).reduce(
+                        (acc, cur) => (parseFloat(cur) + acc), 0)).toFixed(2)
+            },
+            sumDistribution() {
+                return (this.items.map(
+                    row => (row.分配金额 || 0)).reduce(
+                        (acc, cur) => (parseFloat(cur) + acc), 0)).toFixed(2)
+            },
+            allowedDistribution() {
+                return function (index) {
+                    var left = (this.items[index] || {}).待收款额
+                    //console.log(left)
+                    var x = (this.items.slice(0, index + 1).map(
+                        row => (row.可分配 || 0)).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0))
+                    this.items[index].可分配 = 1000 * (index + 1)
+
+                    return 0
+                }
+            }
+        },
+        methods: {
+            可分配(index) {
+                var 待分配 = (this.items[index] || {}).待收款额
+                    //console.log(left)
+                var 已分 = (this.items.slice(0, index).map(
+                        row => (row.可分配 || 0)).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0))
+                var 收 = this.record.收
+                var 可分 = 收 - 已分
+                
+                var 最终分配 = 待分配 < 可分 ? 待分配 : 可分
+                this.items[index].可分配 = 最终分配
+                return 最终分配
+            },
+            init() {
+                this.items.forEach(function (v) {
+                    v.个数 = v.个数 || v.发
+                })
+            },
+            fa(item) {
+                return item.个数 || item.发
+            },
+            buildName: function (index, name) {
+                return "RecordDs[" + index + "]." + name
+            },
+            newRecord: function () {
+                console.log('newRecord')
+                this.isNew = true;
+                console.log($('#Record_退单').is(':checked'))
+                if (!$('#Record_退单').is(':checked')) {
+                    $('#selectModal2').modal('show')
+                }
+                else {
+                    $('#selectModal').modal('show')
+                }
+            },
+            selectItem: function () {
+                this.itemCurrent = JSON.parse(JSON.stringify(recordD))
+                var itemList = $('#selectTable').bootstrapTable('getSelections')
+                if (itemList.length > 0) {
+                    //for (var i in itemList) {
+                    //    this.items.push(itemList[i])
+                    //}
+                    this.itemCurrent = itemList[0]
+                    this.itemCurrent.已收款额 = this.itemCurrent.已收
+                    this.itemCurrent.待收款额 = this.itemCurrent.待收
+                    $('#selectModal').modal('hide')
+                    $('#editModal').modal('show')
+                }
+                else {
+                    alert('请选择至少一件报价商品！')
+                }
+            },
+            saveRecord: function () {
+                if (this.isNew) {
+                    this.items.push(JSON.parse(JSON.stringify(this.itemCurrent)));
+                    $('#editModal').modal('hide')
+                }
+                else {
+                    this.$set(this.items, this.itemIndex, JSON.parse(JSON.stringify(this.itemCurrent)))
+                    $('#editModal').modal('hide')
+                }
+            },
+            editRecord: function (index) {
+                this.isNew = false;
+                this.itemIndex = index;
+                this.itemCurrent = JSON.parse(JSON.stringify(this.items[index]))
+                $('#editModal').modal('show')
+            },
+
+            removeTodo: function (index) {
+                this.items.splice(index, 1)
+            },
+
+            putUnitOnClick: function (item) {
+                item.单位 = event.target.innerText
+            },
+            customerIdOnChange: function (e) {
+                var url = ['/api/sd/收付待收/', (this.record.往来号 || '无')].join("")
+                fetch(url).then(res => res.json()).then(data => {
+                    data.forEach(v => {
+                        v.已收款额 = v.已收
+                        v.待收款额 = v.待收
+                    })
+                    this.items = data
+                })
+            }
+        }
+    })
+</script>

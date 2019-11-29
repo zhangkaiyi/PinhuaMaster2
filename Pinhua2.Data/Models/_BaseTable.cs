@@ -75,7 +75,7 @@ namespace Pinhua2.Data.Models
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public int Idx { get; set; }
 
-        [CustomDisplay(10, ForIndex = false)]
+        [CustomDisplay(0, ForIndex = false)]
         public int? RN { get; set; }
 
         [CustomDisplay]

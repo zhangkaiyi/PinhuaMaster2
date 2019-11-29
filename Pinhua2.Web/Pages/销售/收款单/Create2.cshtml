@@ -1,16 +1,38 @@
-﻿@model _CRUD_Template_Model
+﻿@page "{companyId?}/{refOrderId?}/{type?}"
+@model Pinhua2.Web.Pages.销售.收款单.Create2Model
+
 @{
     ViewData["Title"] = "Create";
-    var main = CustomDisplayFactory.CustomDisplayModels(Model.RecordMain.Data).OrderBy(m => m.Priority);
+
+    var templateMain = new _CRUD_Template_Model_Main
+    {
+        Title = "收款单",
+        Data = Model.vm_Main,
+    };
+    var templateDetails = new _CRUD_Template_Model_Details
+    {
+        Title = "明细",
+        Data = Model?.vm_Details?.Cast<object>(),
+    };
+
+    Model.templateModel = MyTemplateCRUD.Create()
+    .SetMain(templateMain)
+    .AddDetails(templateDetails)
+    .GetModel();
+
+    var jsonEmptyDetail = JsonConvert.SerializeObject(new vm_收款单D());
+    var jsonCurrentDetails = JsonConvert.SerializeObject(Model?.vm_Details ?? new List<vm_收款单D>());
+}
+
+@{
+    var main = CustomDisplayFactory.CustomDisplayModels(Model.templateModel.RecordMain.Data).OrderBy(m => m.Priority);
     var hasPriority = main.Select(p => p.Priority).Distinct();
     var hasPriorityCount = hasPriority.Count();
-    var hasPriorityHigh = main.Any(p => p.Priority == Priority.High);
-    var hasPriorityOthers = main.Any(p => p.Priority != Priority.High);
-    var detailsArray = Model.RecordDetailsArray ?? new List<_CRUD_Template_Model_Details>();
+    var detailsArray = Model.templateModel.RecordDetailsArray ?? new List<_CRUD_Template_Model_Details>();
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>新增 - @Model.RecordMain.Title - Priority @(hasPriorityCount)</h3>
+    <h3>新增 - @Model.templateModel.RecordMain.Title - Priority @(hasPriorityCount)</h3>
 </div>
 <div class="row" id="vueScope">
     <div class="col-12">
@@ -71,9 +93,9 @@
             {
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
                     <h4>明细</h4>
-                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecord">
-                        添加明细
-                    </button>
+                    @*<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecord">
+                            添加明细
+                        </button>*@
                 </div>
                 <div class="table-responsive mb-3">
                     <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
@@ -94,8 +116,6 @@
                                 <td>
                                     {{ index+1 }}
                                     <input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
-                                    @*<input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" />*@
-                                    @*<input :name="buildName(index,'Idx')" type="hidden" v-bind:value="todo.Idx" v-if="todo.Idx>0" />*@
                                 </td>
                                 @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
                                 {
@@ -112,8 +132,31 @@
             </div>
 
             <!-- Modal -->
-            <partial name="_CRUD_Template/__selectModal" model="Model" />
-            <partial name="_CRUD_Template/__editModal" model="Model" />
+            <partial name="_CRUD_Template/__selectModal" model="Model.templateModel" />
+            <partial name="_CRUD_Template/__editModal" model="Model.templateModel" />
         </form>
     </div>
 </div>
+
+<div>
+    <a asp-page="Index">返回列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var emptyDetail = @Html.Raw(jsonEmptyDetail);
+        var currentDetails = @Html.Raw(jsonCurrentDetails);
+    </script>
+    <script>
+        $(function () {
+            $("#vueScope form").on('submit', function () {
+                $('#vueScope select').removeAttr('disabled')
+            })
+        })
+
+    </script>
+
+    <partial name="_CRUD_Template/__vue" model="Model.templateModel" />
+}

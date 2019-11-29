@@ -20,41 +20,47 @@ namespace Pinhua2.Web.Mapper
         [CustomDisplay(15, ForCreate = true, ForUpdate = true)]
         public string 小类 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(16, ForCreate = true, ForUpdate = true)]
+        [MyPriority(Priority.Medium)]
+        [CustomDisplay(5.2, ForCreate = true, ForUpdate = true)]
         public string 关联单号 { get; set; }
 
         [MyPriority(Priority.High)]
-        [CustomDisplay(5)]
+        [CustomDisplay(5.1)]
         public string 单号 { get; set; }
 
         [MyPriority(Priority.High)]
         [Required]
         [CustomDisplay(25, ForIndex = false)]
-        public string 往来号 { get; set; }
+        [MyViewComponent("SelectForCompany")]
+        virtual public string 往来号 { get; set; }
 
         [MyPriority(Priority.High)]
         [CustomDisplay(26)]
+        [MyHiddenCreate]
         public string 往来 { get; set; }
 
         [MyPriority(Priority.High)]
         [Required]
-        [CustomDisplay(30)]
+        [CustomDisplay(30.2)]
+        [MyEditable]
         public decimal? 收 { get; set; }
 
+        [Required]
         [MyPriority(Priority.High)]
-        [CustomDisplay(40)]
+        [CustomDisplay(30.1)]
         public DateTime? 日期 { get; set; }
 
-        [MyPriority(Priority.High)]
+        [MyPriority(Priority.Medium)]
+        [MyEditable]
         public string 备注 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(31)]
+        [MyPriority(Priority.Medium)]
+        [CustomDisplay(30.3)]
         public decimal? 分配 { get; set; }
 
         [MyPriority(Priority.High)]
         [CustomDisplay(ForIndex = false)]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 发票号 { get; set; }
     }
 
@@ -63,6 +69,7 @@ namespace Pinhua2.Web.Mapper
         public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
         public string 单位 { get; set; }
+        public decimal? 单价 { get; set; }
         public decimal? 金额 { get; set; }
         public decimal? 已收款额 { get; set; }
         public decimal? 待收款额 { get; set; }
@@ -89,6 +96,9 @@ namespace Pinhua2.Web.Mapper
                 .ForMember(dst => dst.待收付款额, map => map.MapFrom(src => src.待收款额))
                 .ForMember(dst => dst.可收付款额, map => map.MapFrom(src => src.可分配))
                 .ForMember(dst => dst.本次收额, map => map.MapFrom(src => src.分配金额));
+            CreateMap<view_AllOrdersPay, vm_收款单D>()
+                .ForMember(dst => dst.已收款额, map => map.MapFrom(src => src.已收))
+                .ForMember(dst => dst.待收款额, map => map.MapFrom(src => src.待收));
         }
     }
 }

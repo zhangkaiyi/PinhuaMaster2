@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,54 +8,40 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Pinhua2.Common.Attributes;
 using Pinhua2.Data;
 using Pinhua2.Data.Models;
 using Pinhua2.Web.Mapper;
 
 namespace Pinhua2.Web.Pages.销售.收款单
 {
-    public class CreateModel : PageModel
+    public class vm_收款单_Create2 : Mapper.vm_收款单
+    {
+        [MyPriority(Priority.High)]
+        [Required]
+        [CustomDisplay(25, ForIndex = false)]
+        [MyViewComponent("SelectForCompany")]
+        [Readonly]
+        override public string 往来号 { get; set; } 
+    }
+
+    public class Create2Model : PageModel
     {
         private readonly Pinhua2Context _context;
         private readonly IMapper _mapper;
 
-        public CreateModel(Pinhua2Context context, IMapper mapper)
+        public Create2Model(Pinhua2Context context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
         [BindProperty]
-        public vm_收款单 vm_Main { get; set; } = new vm_收款单();
+        public vm_收款单_Create2 vm_Main { get; set; } = new vm_收款单_Create2();
         [BindProperty]
         public IList<vm_收款单D> vm_Details { get; set; } = new List<vm_收款单D>();
         [BindProperty]
         public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
-
-        public IList<SelectListItem> CustomerSelectList
-        {
-            get
-            {
-                var customers = _context.tb_往来表.AsNoTracking().Where(c => c.类型 == "客户");
-
-                var customerSelectList = new List<SelectListItem>();
-
-                customerSelectList.Add(new SelectListItem
-                {
-                    Text = "无",
-                    Value = "",
-                });
-                foreach (var customer in customers)
-                {
-                    customerSelectList.Add(new SelectListItem
-                    {
-                        Text = customer.往来号 + " - " + customer.简称,
-                        Value = customer.往来号
-                    });
-                }
-                return customerSelectList;
-            }
-        }
 
         public IActionResult OnGet(string companyId, string refOrderId, string type)
         {
@@ -63,22 +50,12 @@ namespace Pinhua2.Web.Pages.销售.收款单
             vm_Main.小类 = type;
             vm_Main.类型 = "收款";
 
-            var set = _context.list_收付待收(vm_Main.往来号);
-            if (string.IsNullOrEmpty(refOrderId))
-            {
-                foreach (var item in set)
-                {
-                    vm_Details.Add(_mapper.Map<vm_收款单D>(item));
-                }
-            }
-            else
-            {
-                foreach (var item in set.Where(m => m.单号 == refOrderId))
-                {
-                    vm_Details.Add(_mapper.Map<vm_收款单D>(item));
-                }
-            }
+            var records = _context.list_收付待收().Where(m => m.往来号 == vm_Main.往来号 && m.单号 == refOrderId);
 
+            foreach (var item in records)
+            {
+                vm_Details.Add(_mapper.Map<vm_收款单D>(item));
+            }
 
             return Page();
         }

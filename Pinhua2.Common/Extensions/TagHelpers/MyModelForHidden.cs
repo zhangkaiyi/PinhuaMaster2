@@ -33,50 +33,32 @@ namespace TagHelpers
 
             if (MyHiddenIndex && MyModelFor.IsHiddenIndex)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenCreate && MyModelFor.IsHiddenCreate)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenDetails && MyModelFor.IsHiddenDetails)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenEdit && MyModelFor.IsHiddenEdit)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenDelete && MyModelFor.IsHiddenDelete)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
 
             if (MyHiddenRef && MyModelFor.IsHiddenRef)
             {
-                CreateOrMergeAttribute("class", "d-none", output);
-            }
-        }
-        private void CreateOrMergeAttribute(string name, object content, TagHelperOutput output)
-        {
-            var currentAttribute = output.Attributes.FirstOrDefault(attribute => attribute.Name == name);
-            if (currentAttribute == null)
-            {
-                var attribute = new TagHelperAttribute(name, content);
-                output.Attributes.Add(attribute);
-            }
-            else
-            {
-                var newAttribute = new TagHelperAttribute(
-                    name,
-                    $"{currentAttribute.Value.ToString()} {content.ToString()}",
-                    currentAttribute.ValueStyle);
-                output.Attributes.Remove(currentAttribute);
-                output.Attributes.Add(newAttribute);
+                output.CreateOrMergeAttribute("class", "d-none");
             }
         }
     }

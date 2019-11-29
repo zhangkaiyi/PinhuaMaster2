@@ -33,6 +33,7 @@ namespace TagHelpers
                 output.Attributes.Add("data-provide", "datepicker");
                 output.Attributes.Add("data-date-format", "yyyy-mm-dd");
                 output.Attributes.Add("readonly", "true");
+                output.CreateOrMergeAttribute("class", "bg-white");
             }
         }
     }
