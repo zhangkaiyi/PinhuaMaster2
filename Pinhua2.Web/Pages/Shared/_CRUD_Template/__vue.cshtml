@@ -7,6 +7,7 @@
             itemIndex: 1,
             isNew: false,
             trEdit: -1,
+            vm_Main: {},
         },
         computed: {
             visible: function () {
@@ -96,7 +97,21 @@
 
             putUnitOnClick: function (item) {
                 item.单位 = event.target.innerText
-            }
+            },
+
+            可分配(index) {
+                var 待分配 = (this.items[index] || {}).待收款额
+                    //console.log(left)
+                var 已分 = (this.items.slice(0, index).map(
+                        row => (row.可分配 || 0)).reduce(
+                            (acc, cur) => (parseFloat(cur) + acc), 0))
+                var 收 = this.vm_Main.收 || 0
+                var 可分 = 收 - 已分
+                
+                var 最终分配 = 待分配 < 可分 ? 待分配 : 可分
+                this.items[index].可分配 = 最终分配
+                return 最终分配
+            },
         }
     })
 </script>

@@ -4,20 +4,22 @@
 @{
     ViewData["Title"] = "Create";
 
-    var templateMain = new _CRUD_Template_Model_Main
-    {
-        Title = "收款单",
-        Data = Model.vm_Main,
-    };
-    var templateDetails = new _CRUD_Template_Model_Details
-    {
-        Title = "明细",
-        Data = Model?.vm_Details?.Cast<object>(),
-    };
+    var templateMain = new _CRUD_Template_Model_Main()
+        .SetTitle("收款单")
+        .SetData(Model.vm_Main);
+
+    var templateDetails = new _CRUD_Template_Model_Details()
+        .SetTitle("明细")
+        .SetData(Model?.vm_Details);
+
+    var templateEditModal = new _CRUD_Template_Model_EditModal()
+        .SetTitle("编辑")
+        .SetDataType(typeof(vm_收款单D));
 
     Model.templateModel = MyTemplateCRUD.Create()
     .SetMain(templateMain)
     .AddDetails(templateDetails)
+    .SetEditModal(templateEditModal)
     .GetModel();
 
     var jsonEmptyDetail = JsonConvert.SerializeObject(new vm_收款单D());
@@ -119,7 +121,14 @@
                                 </td>
                                 @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
                                 {
-                                    <td my-vue-model-for="cdm" my-hidden-create="true"><input :name="buildName(index,'@Html.Raw(cdm.RawName)')" type="hidden" v-model="todo.@Html.Raw(cdm.RawName)" /></td>
+                                    @if (cdm.RawName == "可分配")
+                                    {
+                                        <td>{{ 可分配(index) }}<input :name="buildName(index,'@cdm.RawName')" type="hidden" v-bind:value="可分配(index)" /></td>
+                                    }
+                                    else
+                                    {
+                                        <td my-vue-model-for="cdm" my-hidden-create="true"><input :name="buildName(index,'@Html.Raw(cdm.RawName)')" type="hidden" v-model="todo.@Html.Raw(cdm.RawName)" /></td>
+                                    }
                                 }
                             </tr>
                         </tbody>
@@ -133,7 +142,7 @@
 
             <!-- Modal -->
             <partial name="_CRUD_Template/__selectModal" model="Model.templateModel" />
-            <partial name="_CRUD_Template/__editModal" model="Model.templateModel" />
+            <partial name="_CRUD_Template/__editModal2" model="Model.templateModel" />
         </form>
     </div>
 </div>

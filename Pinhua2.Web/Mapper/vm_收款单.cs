@@ -43,6 +43,8 @@ namespace Pinhua2.Web.Mapper
         [Required]
         [CustomDisplay(30.2)]
         [MyEditable]
+        //[MyVue]
+        [MyVueVModel("vm_Main")]
         public decimal? 收 { get; set; }
 
         [Required]
@@ -66,15 +68,20 @@ namespace Pinhua2.Web.Mapper
 
     public class vm_收款单D : _BaseProductDetail
     {
+        [MyHiddenRef]
         public decimal? 个数 { get; set; }
+        [MyHiddenRef]
         public decimal? 数量 { get; set; }
+        [MyHiddenRef]
         public string 单位 { get; set; }
+        [MyHiddenRef]
         public decimal? 单价 { get; set; }
         public decimal? 金额 { get; set; }
         public decimal? 已收款额 { get; set; }
         public decimal? 待收款额 { get; set; }
         public decimal? 可分配 { get; set; }
         [Required]
+        [MyEditable]
         public decimal? 分配金额 { get; set; }
         public string 备注 { get; set; }
     }

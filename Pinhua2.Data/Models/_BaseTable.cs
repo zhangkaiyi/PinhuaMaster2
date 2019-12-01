@@ -73,6 +73,7 @@ namespace Pinhua2.Data.Models
         [Key]
         [CustomDisplay(ForIndex = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public int Idx { get; set; }
 
         [CustomDisplay(0, ForIndex = false)]
@@ -80,6 +81,7 @@ namespace Pinhua2.Data.Models
 
         [CustomDisplay]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenRef]
         public int? RecordId { get; set; }
 
         [CustomDisplay(10)]
