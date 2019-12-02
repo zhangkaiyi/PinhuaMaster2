@@ -44,7 +44,7 @@ namespace Pinhua2.Web.Mapper
         [CustomDisplay(30.2)]
         [MyEditable]
         //[MyVue]
-        [MyVueVModel("vm_Main")]
+        [MyVueVModel, MyVueVOn, MyVueVBind]
         public decimal? 收 { get; set; }
 
         [Required]

@@ -13,26 +13,27 @@ namespace TagHelpers
     [HtmlTargetElement("input", Attributes = "my-model-for")]
     public class MyModelForInput : TagHelper
     {
-        public CustomDisplayModel MyModelFor { get; set; }
+        [HtmlAttributeName("my-model-for")]
+        public CustomDisplayModel Model { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
 
-            output.Attributes.SetAttribute("id", $"{MyModelFor.RawName}");
-            output.Attributes.SetAttribute("value", $"{(MyModelFor.IsSysColumn ? MyModelFor.RawValue : MyModelFor.Value)}");
-            output.Attributes.SetAttribute("name", $"vm_Main.{MyModelFor.RawName}");
+            output.Attributes.SetHtmlStringAttribute("id", $"{Model.RawName}");
+            output.Attributes.SetHtmlStringAttribute("value", $"{(Model.IsSysColumn ? Model.RawValue : Model.Value)}");
+            output.Attributes.SetHtmlStringAttribute("name", $"vm_Main.{Model.RawName}");
 
-            if (!MyModelFor.Editable)
+            if (!Model.Editable)
             {
-                output.Attributes.SetAttribute("readonly", true);
+                output.Attributes.SetHtmlStringAttribute("readonly", "readonly");
             }
 
-            if (MyModelFor.IsDatetime && !MyModelFor.IsSysColumn)
+            if (Model.IsDatetime && !Model.IsSysColumn)
             {
-                output.Attributes.Add("data-provide", "datepicker");
-                output.Attributes.Add("data-date-format", "yyyy-mm-dd");
-                output.Attributes.Add("readonly", "true");
+                output.Attributes.AddHtmlStringAttribute("data-provide", "datepicker");
+                output.Attributes.AddHtmlStringAttribute("data-date-format", "yyyy-mm-dd");
+                output.Attributes.AddHtmlStringAttribute("readonly", "true");
                 output.CreateOrMergeAttribute("class", "bg-white");
             }
         }

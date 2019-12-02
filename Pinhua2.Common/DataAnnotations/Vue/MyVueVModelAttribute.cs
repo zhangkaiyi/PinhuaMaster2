@@ -10,6 +10,12 @@ namespace Pinhua2.Common.Attributes
     public class MyVueVModelAttribute : Attribute
     {
         public string TargetPrefix { get; set; }
+
+        public MyVueVModelAttribute()
+        {
+            
+        }
+
         public MyVueVModelAttribute(string targetPrefix)
         {
             TargetPrefix = targetPrefix;

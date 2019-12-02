@@ -19,7 +19,7 @@ namespace TagHelpers
         {
             base.Process(context, output);
 
-            output.Attributes.Add("for", $"{MyModelFor.RawName}");
+            output.Attributes.AddHtmlStringAttribute("for", $"{MyModelFor.RawName}");
             output.Content.SetHtmlContent(MyModelFor.Name.ToString());
 
             if (MyModelFor.IsRequired)

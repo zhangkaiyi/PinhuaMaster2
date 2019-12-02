@@ -7,10 +7,26 @@
 }
 else
 {
+    var vModel = new TagHelpers.MyVModelModel
+    {
+        Prefix = "vm_Main",
+        Name = Model.RawName
+    };
+    var vOn = new TagHelpers.MyVOnModel
+    {
+        Event = "click",
+        Method = "test"
+    };
+    var vBind = new TagHelpers.MyVBindModel
+    {
+        Attr = "value",
+        Method = "'Hello Vue TagHelper'"
+    };
+
     <div class="form-group row" my-model-for="Model" my-hidden-create="true">
         <label my-model-for="Model" class="col-4 col-md-4 col-lg-3 col-form-label"></label>
         <div class="col-8 col-md-8 col-lg-9">
-            <input my-model-for="Model" my-use-vue="Model" my-v-on-force="null" class="form-control" />
+            <input my-model-for="Model" my-use-vue="Model" my-v-model="vModel" class="form-control" />
         </div>
     </div>
 }

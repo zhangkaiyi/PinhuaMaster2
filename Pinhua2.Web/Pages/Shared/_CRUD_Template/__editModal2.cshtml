@@ -10,20 +10,45 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group row">
-                    <label class="col-4 col-sm-3 col-form-label">RN</label>
-                    <div class="col-8 col-sm-9">
-                        <input class="form-control" v-bind:value="editModalRN" readonly />
-                    </div>
-                </div>
-                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(Model.EditModal.DataType).Where(m => m.RawName != "RN"))
+
+                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(Model.EditModal.DataType))
                 {
-                    <div class="form-group row"  my-model-for="cdm" my-hidden-ref="true">
-                        <label class="col-4 col-sm-3 col-form-label">@Html.Raw(cdm.RawName)</label>
-                        <div class="col-8 col-sm-9">
-                            <input my-model-for="cdm" class="form-control" v-model="itemCurrent.@Html.Raw(cdm.RawName)" />
+                    if (cdm.RawName == "RN")
+                    {
+                        var vBindValue = new TagHelpers.MyVBindModel
+                        {
+                            Attr = "value",
+                            Method = "editModalRN"
+                        };
+
+                        <div class="form-group row">
+                            <label class="col-4 col-sm-3 col-form-label">RN</label>
+                            <div class="col-8 col-sm-9">
+                                <input class="form-control" 
+                                       my-use-vue="cdm" my-v-bind-force="vBindValue" 
+                                       my-model-readonly="cdm" />
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        var vModel = new TagHelpers.MyVModelModel
+                        {
+                            Prefix = "itemCurrent",
+                            Name = cdm.RawName
+                        };
+
+                        <div class="form-group row" my-model-hidden="cdm" hidden-type="Ref">
+                            <label class="col-4 col-sm-3 col-form-label">@Html.Raw(cdm.RawName)</label>
+                            <div class="col-8 col-sm-9">
+                                <input class="form-control" 
+                                       my-use-vue="cdm" my-v-model-force="vModel" 
+                                       my-model-readonly="cdm" />
+                            </div>
+                        </div>
+                    }
+
+
                 }
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>

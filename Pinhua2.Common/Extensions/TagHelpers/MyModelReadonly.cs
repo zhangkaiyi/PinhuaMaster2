@@ -10,21 +10,19 @@ using System.Web;
 
 namespace TagHelpers
 {
-    [HtmlTargetElement("select", Attributes = "my-model-for")]
-    public class MyModelForSelect : TagHelper
+    [HtmlTargetElement("input", Attributes = "my-model-readonly")]
+    public class MyModelReadonly : TagHelper
     {
-        public CustomDisplayModel MyModelFor { get; set; }
+        [HtmlAttributeName("my-model-readonly")]
+        public CustomDisplayModel Model { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
 
-            output.Attributes.SetHtmlStringAttribute("id", $"{MyModelFor.RawName}");
-            output.Attributes.SetHtmlStringAttribute("name", $"vm_Main.{MyModelFor.RawName}");
-
-            if (MyModelFor.IsReadonly)
+            if (!Model.Editable)
             {
-                output.CreateOrMergeAttribute("disabled", true);
+                output.Attributes.SetHtmlStringAttribute("readonly", "readonly");
             }
         }
     }

@@ -34,7 +34,7 @@
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h3>新增 - @Model.templateModel.RecordMain.Title - Priority @(hasPriorityCount)</h3>
+    <h3>新增 - @Html.Raw(Model.templateModel.RecordMain.Title)</h3>
 </div>
 <div class="row" id="vueScope">
     <div class="col-12">
@@ -47,7 +47,7 @@
                         <div class="col-md-12 col-lg-6">
                             @foreach (var cdm in main)
                             {
-                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
+                                <partial name="_CRUD_Template/__form_control_vue" model="cdm" />
                             }
                         </div>
                     }
@@ -56,13 +56,13 @@
                         <div class="col-md-6">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
                             {
-                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
+                                <partial name="_CRUD_Template/__form_control_vue" model="cdm" />
                             }
                         </div>
                         <div class="col-md-6 d-none d-md-block">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
                             {
-                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
+                                <partial name="_CRUD_Template/__form_control_vue" model="cdm" />
                             }
                         </div>
                     }
@@ -71,19 +71,19 @@
                         <div class="col-md-4">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(0)))
                             {
-                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
+                                <partial name="_CRUD_Template/__form_control_vue" model="cdm" />
                             }
                         </div>
                         <div class="col-md-4">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(1)))
                             {
-                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
+                                <partial name="_CRUD_Template/__form_control_vue" model="cdm" />
                             }
                         </div>
                         <div class="col-md-4 d-none d-md-block">
                             @foreach (var cdm in main.Where(p => p.Priority == hasPriority.ElementAt(2)))
                             {
-                                <partial name="_CRUD_Template/__form_control_create" model="cdm" />
+                                <partial name="_CRUD_Template/__form_control_vue" model="cdm" />
                             }
                         </div>
                     }
@@ -123,7 +123,7 @@
                                 {
                                     @if (cdm.RawName == "可分配")
                                     {
-                                        <td>{{ 可分配(index) }}<input :name="buildName(index,'@cdm.RawName')" type="hidden" v-bind:value="可分配(index)" /></td>
+                                        <td>{{ 可分配(index) }}<input :name="buildName(index,'@Html.Raw(cdm.RawName)')" type="hidden" v-bind:value="可分配(index)" /></td>
                                     }
                                     else
                                     {

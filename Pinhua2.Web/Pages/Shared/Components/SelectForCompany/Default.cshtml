@@ -18,11 +18,11 @@
                     if (Model?.Model?.Value?.ToString() == item.Value)
                     {
 
-                        <option value="@(item.Value)" selected>@(item.Text)</option>
+                        <option value="@(Html.Raw(item.Value))" selected>@(Html.Raw(item.Text))</option>
                     }
                     else
                     {
-                        <option value="@(item.Value)">@(item.Text)</option>
+                        <option value="@(Html.Raw(item.Value))">@(Html.Raw(item.Text))</option>
                     }
                 }
             </select>
@@ -35,11 +35,11 @@
                     if (Model?.Model?.Value?.ToString() == item.Value)
                     {
 
-                        <option value="@(item.Value)" selected>@(item.Text)</option>
+                        <option value="@(Html.Raw(item.Value))" selected>@(Html.Raw(item.Text))</option>
                     }
                     else
                     {
-                        <option value="@(item.Value)">@(item.Text)</option>
+                        <option value="@(Html.Raw(item.Value))">@(Html.Raw(item.Text))</option>
                     }
                 }
             </select>

@@ -462,6 +462,48 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
+        public string VueVBindAttr
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return string.Empty;
+                if (_obj == null)
+                    return string.Empty;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyVueVBindAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return $"{(attrs[0] as MyVueVBindAttribute).Attr}";
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public string VueVBindMethod
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return string.Empty;
+                if (_obj == null)
+                    return string.Empty;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyVueVBindAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return $"{(attrs[0] as MyVueVBindAttribute).Method}";
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
         public bool IsVueVOn
         {
             get
@@ -477,6 +519,49 @@ namespace Pinhua2.Common.Attributes
                 else
                 {
                     return false;
+                }
+            }
+        }
+
+
+        public string VueVOnEvent
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return string.Empty;
+                if (_obj == null)
+                    return string.Empty;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyVueVOnAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return $"{(attrs[0] as MyVueVOnAttribute).Event}";
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public string VueVOnMethod
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return string.Empty;
+                if (_obj == null)
+                    return string.Empty;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyVueVOnAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return $"{(attrs[0] as MyVueVOnAttribute).Method}";
+                }
+                else
+                {
+                    return string.Empty;
                 }
             }
         }

@@ -11,6 +11,12 @@ namespace Pinhua2.Common.Attributes
     {
         public string Event { get; set; }
         public string Method { get; set; }
+
+        public MyVueVOnAttribute()
+        {
+
+        }
+
         public MyVueVOnAttribute(string _event, string _method)
         {
             Event = _event;

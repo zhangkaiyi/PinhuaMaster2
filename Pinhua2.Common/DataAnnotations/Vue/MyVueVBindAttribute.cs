@@ -11,6 +11,12 @@ namespace Pinhua2.Common.Attributes
     {
         public string Attr { get; set; }
         public string Method { get; set; }
+
+        public MyVueVBindAttribute()
+        {
+
+        }
+
         public MyVueVBindAttribute(string attr, string method)
         {
             Attr = attr;
