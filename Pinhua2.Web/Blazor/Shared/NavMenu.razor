@@ -1,0 +1,18 @@
+﻿<style>
+    .sidebar .el-menu {
+        border: 0;
+    }
+</style>
+
+@code {
+
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+    protected override void OnInitialized()
+    {
+        if (new Uri(NavigationManager.Uri).LocalPath == "/")
+        {
+            NavigationManager.NavigateTo("button");
+        }
+    }
+}

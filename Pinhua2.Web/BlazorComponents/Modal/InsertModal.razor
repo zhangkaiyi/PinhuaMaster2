@@ -10,26 +10,31 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table id="selectTable" class="table table-bordered text-nowrap"
-                       data-toggle="table"
-                       data-locale="zh-CN"
-                       data-checkbox-header="true"
-                       data-click-to-select="true"
-                       data-single-select="true"
-                       data-search="true"
-                       data-pagination="true"
-                       data-page-list="[10, 25, 50, 100, ALL]"
-                       data-url="/API/销售/金额待收/190001">
-                    <thead>
-                        <tr>
-                            <th data-field="state" data-checkbox="true"></th>
-                            @foreach (var cdm in MyMark.Parse(typeof(TItem)).Where(m => m.RawName != "已收" && m.RawName != "待收").OrderBy(m => m.Order))
+                <div class="table-responsive">
+                    <table id="selectTable" class="table table-bordered text-nowrap">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" /></th>
+                                @foreach (var mm in MyMark.Parse(typeof(TItem)).Where(m => m.RawName != "已付" && m.RawName != "待付"))
+                                {
+                                    <th class="@(mm.IsHiddenRef?"d-none":"")">@(mm.Name)</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Items)
                             {
-                                <th data-field="@(cdm.RawName)">@(cdm.Name)</th>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    @foreach (var mm in MyMark.Parse(item).Where(m => !m.IsHiddenRef).Where(m => m.RawName != "已付" && m.RawName != "待付"))
+                                    {
+                                        <td class="@(mm.IsHiddenRef?"d-none":"")">@mm.Value</td>
+                                    }
+                                </tr>
                             }
-                        </tr>
-                    </thead>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" v-on:click="selectItem">确认</button>
@@ -38,3 +43,7 @@
         </div>
     </div>
 </div>
+
+@code{
+    private bool b { get; set; } = false;
+}
