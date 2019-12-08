@@ -68,6 +68,10 @@ namespace Pinhua2.Web.Mapper
 
     public class vm_收款单D : _BaseProductDetail
     {
+        [CustomDisplay(10)]
+        [MyHiddenRef]
+        override public string 子单号 { get; set; }
+
         [MyHiddenRef]
         public decimal? 个数 { get; set; }
         [MyHiddenRef]
@@ -79,6 +83,7 @@ namespace Pinhua2.Web.Mapper
         public decimal? 金额 { get; set; }
         public decimal? 已收款额 { get; set; }
         public decimal? 待收款额 { get; set; }
+        [MyVueVBind]
         public decimal? 可分配 { get; set; }
         [Required]
         [MyEditable]

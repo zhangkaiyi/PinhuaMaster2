@@ -15,7 +15,7 @@ using Pinhua2.Web.Mapper;
 
 namespace Pinhua2.Web.Pages.销售.收款单
 {
-    public class vm_收款单_Create2 : Mapper.vm_收款单
+    public class vm_收款单_Create3 : Mapper.vm_收款单
     {
         [MyPriority(Priority.High)]
         [Required]
@@ -24,41 +24,38 @@ namespace Pinhua2.Web.Pages.销售.收款单
         override public string 往来号 { get; set; } 
     }
 
-    public class vm_收款单D_Create2 : Mapper.vm_收款单D
+    public class vm_收款单D_Create3 : Mapper.vm_收款单D
     {
         
     }
 
-    public class Create2Model : PageModel
+    public class Create3Model : PageModel
     {
         private readonly Pinhua2Context _context;
         private readonly IMapper _mapper;
 
-        public Create2Model(Pinhua2Context context, IMapper mapper)
+        public Create3Model(Pinhua2Context context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
         [BindProperty]
-        public vm_收款单_Create2 vm_Main { get; set; } = new vm_收款单_Create2();
+        public vm_收款单_Create3 vm_Main { get; set; } = new vm_收款单_Create3();
         [BindProperty]
         public IList<vm_收款单D> vm_Details { get; set; } = new List<vm_收款单D>();
         [BindProperty]
         public _CRUD_Template_Model templateModel { get; set; } = new _CRUD_Template_Model();
 
-        public IActionResult OnGet(string companyId, string refOrderId, string type)
+        public IActionResult OnGet()
         {
-            vm_Main.往来号 = companyId;
-            vm_Main.关联单号 = refOrderId;
-            vm_Main.小类 = type;
-            vm_Main.类型 = "收款";
+            vm_Main.类型 = "收款222";
 
-            var records = _context.list_收付待收().Where(m => m.往来号 == vm_Main.往来号 && m.单号 == refOrderId);
+            var records = _context.tb_收付表D.ToList();
 
             foreach (var item in records)
             {
-                vm_Details.Add(_mapper.Map<vm_收款单D>(item));
+                vm_Details.Add(_mapper.Map<tb_收付表D,vm_收款单D>(item));
             }
 
             return Page();

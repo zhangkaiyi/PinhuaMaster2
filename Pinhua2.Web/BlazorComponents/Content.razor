@@ -1,0 +1,19 @@
+﻿@typeparam TItem
+
+<CascadingValue Value="Items" Name="ProfileItems">
+    <CascadingValue Value="editModalId" Name="EditModalId">
+        <CascadingValue Value="insertModalId" Name="InsertModalId">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+                <h4>明细</h4>
+                <div>
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="@($"#{insertModalId}")">
+                        添加明细
+                    </button>
+                </div>
+            </div>
+            <TableTemplate TItem="TItem" FromChild="ReceivedItemFromTable"></TableTemplate>
+            <EditModal Item="editingItem" FromChild="ReceivedItemFromDialog"></EditModal>
+            <InsertModal Items="pinhua.list_订单待收().ToList()"></InsertModal>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>

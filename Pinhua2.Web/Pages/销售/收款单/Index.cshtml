@@ -22,6 +22,10 @@
 
 <partial name="_CRUD_Template/_Index2" model="Model.templateModel" />
 
+@*@(await Html.RenderComponentAsync<Pinhua2.Web.Shared.Counter>(RenderMode.ServerPrerendered))*@
+
+@*<component type="typeof(Container<vm_收款单>)" param-Items="Model.vm_Mains" render-mode="ServerPrerendered" />*@
+
 @section Scripts{
 
     @Html.RenderScripts()

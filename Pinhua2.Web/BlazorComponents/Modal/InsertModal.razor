@@ -1,0 +1,40 @@
+﻿@typeparam TItem
+
+<div class="modal" id="@InsertModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">插入</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="selectTable" class="table table-bordered text-nowrap"
+                       data-toggle="table"
+                       data-locale="zh-CN"
+                       data-checkbox-header="true"
+                       data-click-to-select="true"
+                       data-single-select="true"
+                       data-search="true"
+                       data-pagination="true"
+                       data-page-list="[10, 25, 50, 100, ALL]"
+                       data-url="/API/销售/金额待收/190001">
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            @foreach (var cdm in MyMark.Parse(typeof(TItem)).Where(m => m.RawName != "已收" && m.RawName != "待收").OrderBy(m => m.Order))
+                            {
+                                <th data-field="@(cdm.RawName)">@(cdm.Name)</th>
+                            }
+                        </tr>
+                    </thead>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="selectItem">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

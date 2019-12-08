@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Pinhua2.Data;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Hosting;
+using Blazui.Component;
 
 namespace Pinhua2.Web
 {
@@ -36,11 +38,11 @@ namespace Pinhua2.Web
                 options => options.UseSqlServer(Configuration.GetConnectionString("Pinhua2Connection"),
                 o =>
                 {
-                    o.UseRowNumberForPaging();
+                    //o.UseRowNumberForPaging();
                     //o.MigrationsAssembly("Pinhua2.Web");
                 })
                 );
-            // Add AutoMapper£¨»´æ÷…Ë÷√≤ª”≥…‰ø’÷µ
+            // Add AutoMapperÔºåÂÖ®Â±ÄËÆæÁΩÆ‰∏çÊò†Â∞ÑÁ©∫ÂÄº
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddAutoMapper(cfg =>
             //{
@@ -48,12 +50,12 @@ namespace Pinhua2.Web
             //   {
             //       b.ForAllMembers(memberOptions => memberOptions.Condition((src, dest, sourceMember) =>
             //       {
-            //           // ø’÷µ≤ª”≥…‰
+            //           // Á©∫ÂÄº‰∏çÊò†Â∞Ñ
             //           if (sourceMember == null)
             //               return false;
             //           else
             //           {
-            //               // Guid Œ™ø’£®°∞00000000-0000-0000-0000-000000000000°±£© ±£¨≤ª”≥…‰
+            //               // Guid ‰∏∫Á©∫Ôºà‚Äú00000000-0000-0000-0000-000000000000‚ÄùÔºâÊó∂Ôºå‰∏çÊò†Â∞Ñ
             //               if (sourceMember?.GetType() == typeof(Guid) && sourceMember.ToString() == Guid.Empty.ToString())
             //               {
             //                   return false;
@@ -71,12 +73,12 @@ namespace Pinhua2.Web
                 //{
                 //    b.ForAllMembers(memberOptions => memberOptions.Condition((src, dest, sourceMember) =>
                 //    {
-                //        // ø’÷µ≤ª”≥…‰
+                //        // Á©∫ÂÄº‰∏çÊò†Â∞Ñ
                 //        if (sourceMember == null)
                 //            return false;
                 //        else
                 //        {
-                //            // Guid Œ™ø’£®°∞00000000-0000-0000-0000-000000000000°±£© ±£¨≤ª”≥…‰
+                //            // Guid ‰∏∫Á©∫Ôºà‚Äú00000000-0000-0000-0000-000000000000‚ÄùÔºâÊó∂Ôºå‰∏çÊò†Â∞Ñ
                 //            if (sourceMember?.GetType() == typeof(Guid) && sourceMember.ToString() == Guid.Empty.ToString())
                 //            {
                 //                return false;
@@ -94,18 +96,22 @@ namespace Pinhua2.Web
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            
+            services.AddServerSideBlazor();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddMvc().AddNewtonsoftJson()
                 .AddDataAnnotationsLocalization(options =>
                 {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
                         factory.Create(typeof(SharedResource));
-                });
+                })
+                .AddRazorRuntimeCompilation();
 
+            services.AddBlazuiServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -117,9 +123,19 @@ namespace Pinhua2.Web
             }
 
             app.UseStaticFiles();
-            //app.UseCookiePolicy();
 
-            app.UseMvc();
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapBlazorHub();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

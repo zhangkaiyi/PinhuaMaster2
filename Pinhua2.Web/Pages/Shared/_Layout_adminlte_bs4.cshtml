@@ -120,12 +120,29 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-        <div class="content-wrapper bg-white"><div class="content">@RenderBody()</div></div>
+        <div class="content-wrapper bg-white">
+            <div class="content">@RenderBody()</div>
+        </div>
         <footer class="main-footer">
             <!-- Default to the left -->
             <strong>Copyright © @(DateTime.Now.Year) <a href="#">PinhuaMaster</a>.</strong> All rights reserved.
         </footer>
     </div>
+
+    <!-- Blazui -->
+    <script src="_content/Blazui.Component/js/dom.js"></script>
+    <!-- Blazui -->
+    <!-- Blazor -->
+    <script src="~/_framework/blazor.server.js" autostart="false"></script>
+    <script>
+        Blazor.start({
+            configureSignalR: function (builder) {
+                builder.withUrl("/_blazor");
+            }
+        });
+    </script>
+    <!-- Blazor -->
+
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/bootstrap-table/dist/bootstrap-table.js"></script>
@@ -141,6 +158,7 @@
             $.fn.datepicker.defaults.language = 'zh-CN';
             $.fn.datepicker.defaults.todayHighlight = true;
             $.fn.datepicker.defaults.autoclose = true;
+
         })
     </script>
     @RenderSection("Scripts", required: false)

@@ -24,8 +24,9 @@ namespace TagHelpers
 
     public class MyVBindModel
     {
-        public string Attr { get; set; }
+        public string Prop { get; set; }
         public string Method { get; set; }
+        public string Args { get; set; }
     }
 
     [HtmlTargetElement(Attributes = "my-use-vue")]
@@ -47,10 +48,10 @@ namespace TagHelpers
         public MyVOnModel MyVOnForce { get; set; }
 
         [HtmlAttributeName("my-v-bind")]
-        public MyVBindModel MyVBind { get; set; }
+        public IList<MyVBindModel> MyVBind { get; set; }
 
         [HtmlAttributeName("my-v-bind-force")]
-        public MyVBindModel MyVBindForce { get; set; }
+        public IList<MyVBindModel> MyVBindForce { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -59,7 +60,7 @@ namespace TagHelpers
             // v-model
             if (MyVModelForce != null)
             {
-                
+
                 output.Attributes.SetHtmlStringAttribute("v-model", $"{MyVModelForce.Prefix}.{MyVModelForce.Name}");
             }
             else if (Model.IsVueVModel)
@@ -78,7 +79,6 @@ namespace TagHelpers
             else if (Model.IsVueVOn)
             {
                 if (MyVOn != null)
-
                 {
                     output.Attributes.SetHtmlStringAttribute($"v-on:{MyVOn.Event}", $"{MyVOn.Method}");
                 }
@@ -86,15 +86,21 @@ namespace TagHelpers
             }
 
             // v-bind
-            if (MyVBindForce != null)
+            if (MyVBindForce != null && MyVBindForce.Count > 0)
             {
-                output.Attributes.SetHtmlStringAttribute($"v-bind:{MyVBindForce.Attr}", $"{MyVBindForce.Method}");
+                foreach (var item in MyVBindForce)
+                {
+                    output.Attributes.SetHtmlStringAttribute($"v-bind:{item.Prop}", $"{item.Method}");
+                }
             }
             else if (Model.IsVueVBind)
             {
-                if (MyVBind != null)
+                if (MyVBind != null && MyVBind.Count > 0)
                 {
-                    output.Attributes.SetHtmlStringAttribute($"v-bind:{MyVBind.Attr}", $"{MyVBind.Method}");
+                    foreach (var item in MyVBind)
+                    {
+                        output.Attributes.SetHtmlStringAttribute($"v-bind:{item.Prop}", $"{item.Method}");
+                    }
                 }
 
             }

@@ -15,7 +15,7 @@ namespace Pinhua2.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -23,35 +23,50 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("AutoCodeId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AllowBatch");
+                    b.Property<int?>("AllowBatch")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("AllowMore");
+                    b.Property<int?>("AllowMore")
+                        .HasColumnType("int");
 
-                    b.Property<string>("AutoCodeName");
+                    b.Property<string>("AutoCodeName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("CreateUser");
+                    b.Property<int?>("CreateUser")
+                        .HasColumnType("int");
 
-                    b.Property<string>("DateType");
+                    b.Property<string>("DateType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IsActive");
+                    b.Property<int?>("IsActive")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Memo");
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Prefix");
+                    b.Property<string>("Prefix")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReuseType");
+                    b.Property<int?>("ReuseType")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RunBeforeSave");
+                    b.Property<int?>("RunBeforeSave")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("SeedLength");
+                    b.Property<int?>("SeedLength")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("SeedStart");
+                    b.Property<int?>("SeedStart")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("SysVar");
+                    b.Property<int?>("SysVar")
+                        .HasColumnType("int");
 
                     b.HasKey("AutoCodeId");
 
@@ -119,13 +134,17 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AutoCodeId");
+                    b.Property<int?>("AutoCodeId")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("CurrentSeed");
+                    b.Property<int?>("CurrentSeed")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PrimaryPart");
+                    b.Property<string>("PrimaryPart")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Idx");
 
@@ -136,41 +155,59 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("仓");
+                    b.Property<string>("仓")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("保修类型");
+                    b.Property<string>("保修类型")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("制单");
+                    b.Property<string>("制单")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("单号");
+                    b.Property<string>("单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来");
+                    b.Property<string>("往来")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("日期");
+                    b.Property<DateTime?>("日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("物流单号");
+                    b.Property<string>("物流单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("类型");
+                    b.Property<string>("类型")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("订单号");
+                    b.Property<string>("订单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("退单")
                         .HasColumnType("decimal(18,6)");
@@ -184,35 +221,47 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("仓");
+                    b.Property<string>("仓")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("别名");
+                    b.Property<string>("别名")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("单位");
+                    b.Property<string>("单位")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("发")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("品号");
+                    b.Property<string>("品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品名");
+                    b.Property<string>("品名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品牌");
+                    b.Property<string>("品牌")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("型号");
+                    b.Property<string>("型号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("宽度")
                         .HasColumnType("decimal(18,6)");
@@ -220,34 +269,44 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("已完数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("库位");
+                    b.Property<string>("库位")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("库存");
+                    b.Property<string>("库存")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("批次");
+                    b.Property<string>("批次")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("收")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<DateTime?>("日期");
+                    b.Property<DateTime?>("日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("日期唛");
+                    b.Property<string>("日期唛")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("条码");
+                    b.Property<string>("条码")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("版本号");
+                    b.Property<string>("版本号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("税率")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("行号");
+                    b.Property<string>("行号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("规格");
+                    b.Property<string>("规格")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("计划数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("订单号");
+                    b.Property<string>("订单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("质保")
                         .HasColumnType("decimal(18,6)");
@@ -273,76 +332,110 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("入职日期");
+                    b.Property<DateTime?>("入职日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("合同到期日期");
+                    b.Property<DateTime?>("合同到期日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("合同签订日期");
+                    b.Property<DateTime?>("合同签订日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("地址");
+                    b.Property<string>("地址")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("基本工资")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("姓名");
+                    b.Property<string>("姓名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("婚姻");
+                    b.Property<string>("婚姻")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("学历");
+                    b.Property<string>("学历")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("宅电");
+                    b.Property<string>("宅电")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("属性");
+                    b.Property<string>("属性")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("工号");
+                    b.Property<string>("工号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("性别");
+                    b.Property<string>("性别")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("手机");
+                    b.Property<string>("手机")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("是否签合同");
+                    b.Property<string>("是否签合同")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("是否购社保");
+                    b.Property<string>("是否购社保")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("状态");
+                    b.Property<string>("状态")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("生日");
+                    b.Property<DateTime?>("生日")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("电话");
+                    b.Property<string>("电话")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("社保开始日期");
+                    b.Property<DateTime?>("社保开始日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("社保退交日期");
+                    b.Property<DateTime?>("社保退交日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("离职日期");
+                    b.Property<DateTime?>("离职日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("紧急联系人");
+                    b.Property<string>("紧急联系人")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("紧急联系人关系");
+                    b.Property<string>("紧急联系人关系")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("紧急联系人地址");
+                    b.Property<string>("紧急联系人地址")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("紧急联系方式");
+                    b.Property<string>("紧急联系方式")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("职位");
+                    b.Property<string>("职位")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("身份证号");
+                    b.Property<string>("身份证号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("部门");
+                    b.Property<string>("部门")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecordId");
 
@@ -353,107 +446,149 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("上级品号");
+                    b.Property<string>("上级品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("上级品名");
+                    b.Property<string>("上级品名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("供应商");
+                    b.Property<string>("供应商")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("供应商号");
+                    b.Property<string>("供应商号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("分类1");
+                    b.Property<string>("分类1")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("分类2");
+                    b.Property<string>("分类2")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("别名");
+                    b.Property<string>("别名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("单位");
+                    b.Property<string>("单位")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("单重")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("品号");
+                    b.Property<string>("品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品名");
+                    b.Property<string>("品名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品牌");
+                    b.Property<string>("品牌")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("图片");
+                    b.Property<string>("图片")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("图片I");
+                    b.Property<int?>("图片I")
+                        .HasColumnType("int");
 
-                    b.Property<string>("型号");
+                    b.Property<string>("型号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("大类");
+                    b.Property<string>("大类")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("安全库存")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("客户");
+                    b.Property<string>("客户")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("客户号");
+                    b.Property<string>("客户号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("客户料号");
+                    b.Property<string>("客户料号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("宽度")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("库位");
+                    b.Property<string>("库位")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("拼音码");
+                    b.Property<string>("拼音码")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("指定销售价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("换算单位");
+                    b.Property<string>("换算单位")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("换算系数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("是否共用");
+                    b.Property<string>("是否共用")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("是否存储");
+                    b.Property<string>("是否存储")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("是否采购");
+                    b.Property<string>("是否采购")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("是否销售");
+                    b.Property<string>("是否销售")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("最新采购价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("材质");
+                    b.Property<string>("材质")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("条码");
+                    b.Property<string>("条码")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("档案号");
+                    b.Property<string>("档案号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("版本号");
+                    b.Property<string>("版本号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("状态");
+                    b.Property<string>("状态")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("色号");
+                    b.Property<string>("色号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("表面处理");
+                    b.Property<string>("表面处理")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("规格");
+                    b.Property<string>("规格")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("计算公式");
+                    b.Property<string>("计算公式")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("质保")
                         .HasColumnType("decimal(18,6)");
@@ -464,7 +599,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("采购周期")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("链接");
+                    b.Property<string>("链接")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("销售价")
                         .HasColumnType("decimal(18,6)");
@@ -487,23 +623,32 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("字典名");
+                    b.Property<string>("字典名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("组");
+                    b.Property<string>("组")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecordId");
 
@@ -514,25 +659,35 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("代码");
+                    b.Property<string>("代码")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("名称");
+                    b.Property<string>("名称")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("字典名");
+                    b.Property<string>("字典名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("序");
+                    b.Property<int?>("序")
+                        .HasColumnType("int");
 
-                    b.Property<string>("描述");
+                    b.Property<string>("描述")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("组");
+                    b.Property<string>("组")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Idx");
 
@@ -543,19 +698,26 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
                     b.HasKey("RecordId");
 
@@ -566,64 +728,92 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Qq");
+                    b.Property<string>("Qq")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("付款方式");
+                    b.Property<string>("付款方式")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("传真");
+                    b.Property<string>("传真")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("信用额")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("全称");
+                    b.Property<string>("全称")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("公司电话");
+                    b.Property<string>("公司电话")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("地址");
+                    b.Property<string>("地址")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("币种");
+                    b.Property<string>("币种")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("开户行");
+                    b.Property<string>("开户行")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("状态");
+                    b.Property<string>("状态")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("登记日期");
+                    b.Property<DateTime?>("登记日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("登记部门");
+                    b.Property<string>("登记部门")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("税收组");
+                    b.Property<string>("税收组")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("简称");
+                    b.Property<string>("简称")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("类型");
+                    b.Property<string>("类型")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("组织代码");
+                    b.Property<string>("组织代码")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("联系人");
+                    b.Property<string>("联系人")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("联系电话");
+                    b.Property<string>("联系电话")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("负责人");
+                    b.Property<string>("负责人")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("账号");
+                    b.Property<string>("账号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecordId");
 
@@ -634,21 +824,29 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("地址");
+                    b.Property<string>("地址")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("电话");
+                    b.Property<string>("电话")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("联系人");
+                    b.Property<string>("联系人")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Idx");
 
@@ -659,21 +857,29 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("发票抬头");
+                    b.Property<string>("发票抬头")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("税号");
+                    b.Property<string>("税号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("账号");
+                    b.Property<string>("账号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Idx");
 
@@ -684,33 +890,47 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Qq");
+                    b.Property<string>("Qq")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("传真");
+                    b.Property<string>("传真")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("手机");
+                    b.Property<string>("手机")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("电话");
+                    b.Property<string>("电话")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("职位");
+                    b.Property<string>("职位")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("联系人");
+                    b.Property<string>("联系人")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("部门");
+                    b.Property<string>("部门")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Idx");
 
@@ -721,41 +941,59 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("业务类型");
+                    b.Property<string>("业务类型")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("交期");
+                    b.Property<DateTime?>("交期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("仓");
+                    b.Property<string>("仓")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("制单");
+                    b.Property<string>("制单")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("单号");
+                    b.Property<string>("单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来");
+                    b.Property<string>("往来")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来单号");
+                    b.Property<string>("往来单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("日期");
+                    b.Property<DateTime?>("日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("需求单");
+                    b.Property<string>("需求单")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecordId");
 
@@ -766,38 +1004,50 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("上次价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<DateTime?>("上次日期");
+                    b.Property<DateTime?>("上次日期")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("别名");
+                    b.Property<string>("别名")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("单位");
+                    b.Property<string>("单位")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品号");
+                    b.Property<string>("品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品名");
+                    b.Property<string>("品名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品牌");
+                    b.Property<string>("品牌")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("型号");
+                    b.Property<string>("型号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("宽度")
                         .HasColumnType("decimal(18,6)");
@@ -808,12 +1058,14 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("数量")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("状态");
+                    b.Property<string>("状态")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("税率")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("规格");
+                    b.Property<string>("规格")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("金额")
                         .HasColumnType("decimal(18,6)");
@@ -836,48 +1088,65 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("付")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("关联单号");
+                    b.Property<string>("关联单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("分配")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("制单");
+                    b.Property<string>("制单")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("单号");
+                    b.Property<string>("单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("发票号");
+                    b.Property<string>("发票号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("小类");
+                    b.Property<string>("小类")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来");
+                    b.Property<string>("往来")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("收")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<DateTime?>("日期");
+                    b.Property<DateTime?>("日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("类型");
+                    b.Property<string>("类型")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecordId");
 
@@ -888,31 +1157,41 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("别名");
+                    b.Property<string>("别名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("单位");
+                    b.Property<string>("单位")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("可收付款额")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("品号");
+                    b.Property<string>("品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品名");
+                    b.Property<string>("品名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("型号");
+                    b.Property<string>("型号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("宽度")
                         .HasColumnType("decimal(18,6)");
@@ -947,7 +1226,8 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("本次收额")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("规格");
+                    b.Property<string>("规格")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("金额")
                         .HasColumnType("decimal(18,6)");
@@ -970,19 +1250,26 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
                     b.HasKey("RecordId");
 
@@ -993,31 +1280,44 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("业务类型");
+                    b.Property<string>("业务类型")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("交期");
+                    b.Property<DateTime?>("交期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("仓");
+                    b.Property<string>("仓")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("制单");
+                    b.Property<string>("制单")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("单号");
+                    b.Property<string>("单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("应付")
                         .HasColumnType("decimal(18,6)");
@@ -1025,15 +1325,20 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("应收")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("往来");
+                    b.Property<string>("往来")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来单号");
+                    b.Property<string>("往来单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("报价单");
+                    b.Property<string>("报价单")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("日期");
+                    b.Property<DateTime?>("日期")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("RecordId");
 
@@ -1044,33 +1349,44 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("别名");
+                    b.Property<string>("别名")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("单位");
+                    b.Property<string>("单位")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品号");
+                    b.Property<string>("品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品名");
+                    b.Property<string>("品名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品牌");
+                    b.Property<string>("品牌")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("型号");
+                    b.Property<string>("型号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("宽度")
                         .HasColumnType("decimal(18,6)");
@@ -1081,19 +1397,23 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("数量")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<DateTime?>("新价日期");
+                    b.Property<DateTime?>("新价日期")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal?>("最新价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("状态");
+                    b.Property<string>("状态")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("税率")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("规格");
+                    b.Property<string>("规格")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("质保");
+                    b.Property<string>("质保")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("金额")
                         .HasColumnType("decimal(18,6)");
@@ -1116,33 +1436,47 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("产能公式");
+                    b.Property<string>("产能公式")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("使用部门");
+                    b.Property<string>("使用部门")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("厂商");
+                    b.Property<string>("厂商")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("名称");
+                    b.Property<string>("名称")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("属性");
+                    b.Property<string>("属性")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("工作日历");
+                    b.Property<string>("工作日历")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("序号")
                         .HasColumnType("decimal(18,6)");
@@ -1150,17 +1484,23 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("折旧年限")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("折旧方法");
+                    b.Property<string>("折旧方法")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("是否主线");
+                    b.Property<string>("是否主线")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("类型");
+                    b.Property<string>("类型")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("编号");
+                    b.Property<string>("编号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("规格型号");
+                    b.Property<string>("规格型号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("购置时间");
+                    b.Property<DateTime?>("购置时间")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal?>("资产原值")
                         .HasColumnType("decimal(18,6)");
@@ -1174,41 +1514,59 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("品号");
+                    b.Property<string>("品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("图片");
+                    b.Property<string>("图片")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("图片I");
+                    b.Property<int?>("图片I")
+                        .HasColumnType("int");
 
-                    b.Property<string>("文件");
+                    b.Property<string>("文件")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("文件A");
+                    b.Property<int?>("文件A")
+                        .HasColumnType("int");
 
-                    b.Property<string>("是否预警");
+                    b.Property<string>("是否预警")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("有效日");
+                    b.Property<DateTime?>("有效日")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("档案号");
+                    b.Property<string>("档案号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("登记人");
+                    b.Property<string>("登记人")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("登记日期");
+                    b.Property<DateTime?>("登记日期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("说明");
+                    b.Property<string>("说明")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecordId");
 
@@ -1219,39 +1577,56 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreateTime");
+                    b.Property<DateTime?>("CreateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CreateUser");
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsDeleted");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastEditTime");
+                    b.Property<DateTime?>("LastEditTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastEditUser");
+                    b.Property<string>("LastEditUser")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LockStatus");
+                    b.Property<int?>("LockStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("业务类型");
+                    b.Property<string>("业务类型")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("交期");
+                    b.Property<DateTime?>("交期")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("仓");
+                    b.Property<string>("仓")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("制单");
+                    b.Property<string>("制单")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("单号");
+                    b.Property<string>("单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来");
+                    b.Property<string>("往来")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来单号");
+                    b.Property<string>("往来单号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("往来号");
+                    b.Property<string>("往来号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("日期");
+                    b.Property<DateTime?>("日期")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("RecordId");
 
@@ -1262,33 +1637,44 @@ namespace Pinhua2.Data.Migrations
                 {
                     b.Property<int>("Idx")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RN");
+                    b.Property<int?>("RN")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("个数")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("别名");
+                    b.Property<string>("别名")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("单价")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("单位");
+                    b.Property<string>("单位")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品号");
+                    b.Property<string>("品号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品名");
+                    b.Property<string>("品名")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("品牌");
+                    b.Property<string>("品牌")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("型号");
+                    b.Property<string>("型号")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("备注");
+                    b.Property<string>("备注")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("子单号");
+                    b.Property<string>("子单号")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("宽度")
                         .HasColumnType("decimal(18,6)");
@@ -1299,12 +1685,14 @@ namespace Pinhua2.Data.Migrations
                     b.Property<decimal?>("数量")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("状态");
+                    b.Property<string>("状态")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("税率")
                         .HasColumnType("decimal(18,6)");
 
-                    b.Property<string>("规格");
+                    b.Property<string>("规格")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("金额")
                         .HasColumnType("decimal(18,6)");

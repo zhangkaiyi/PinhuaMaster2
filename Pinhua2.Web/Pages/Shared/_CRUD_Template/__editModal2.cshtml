@@ -17,7 +17,7 @@
                     {
                         var vBindValue = new TagHelpers.MyVBindModel
                         {
-                            Attr = "value",
+                            Prop = "value",
                             Method = "editModalRN"
                         };
 
@@ -25,7 +25,7 @@
                             <label class="col-4 col-sm-3 col-form-label">RN</label>
                             <div class="col-8 col-sm-9">
                                 <input class="form-control" 
-                                       my-use-vue="cdm" my-v-bind-force="vBindValue" 
+                                       my-use-vue="cdm" my-v-bind-force="new List<TagHelpers.MyVBindModel> { vBindValue }" 
                                        my-model-readonly="cdm" />
                             </div>
                         </div>

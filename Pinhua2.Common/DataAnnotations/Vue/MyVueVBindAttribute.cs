@@ -9,18 +9,20 @@ namespace Pinhua2.Common.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class MyVueVBindAttribute : Attribute
     {
-        public string Attr { get; set; }
+        public string Prop { get; set; }
         public string Method { get; set; }
+        public string Args { get; set; }
 
         public MyVueVBindAttribute()
         {
 
         }
 
-        public MyVueVBindAttribute(string attr, string method)
+        public MyVueVBindAttribute(string prop, string method, string args)
         {
-            Attr = attr;
+            Prop = prop;
             Method = method;
+            Args = args;
         }
     }
 }

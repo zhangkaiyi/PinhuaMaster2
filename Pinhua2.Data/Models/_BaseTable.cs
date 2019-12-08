@@ -85,6 +85,6 @@ namespace Pinhua2.Data.Models
         public int? RecordId { get; set; }
 
         [CustomDisplay(10)]
-        public string 子单号 { get; set; }
+        virtual public string 子单号 { get; set; }
     }
 }

@@ -1,0 +1,35 @@
+﻿@typeparam TItem
+
+<div class="table-responsive">
+    <table class="table table-bordered text-nowrap">
+        <thead>
+            <tr>
+                <th style="width:1%;" data-width="1%">操作</th>
+                <th>RN</th>
+                @foreach (var m in MyMark.Parse(typeof(TItem)).Where(m => m.RawName != "RN"))
+                {
+                    <th class="@(m.IsHiddenRef?"d-none":"")">@m.RawName</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Items)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:;" @onclick="e => Items.Remove(item)">移除</a>
+                        <a href="javascript:;" @onclick="e => PassToParent(item,Items.IndexOf(item))" data-toggle="modal" data-target="@($"#{EditModalId}")">修改</a>
+                    </td>
+                    <td>@(Items.IndexOf(item) + 1)</td>
+                    @foreach (var m in MyMark.Parse(item).Where(m => m.RawName != "RN"))
+                    {
+                        <td class="@(m.IsHiddenRef?"d-none":"")">@m.Value</td>
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>@TableFooter</tr>
+        </tfoot>
+    </table>
+</div>

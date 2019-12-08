@@ -22,7 +22,7 @@ namespace Pinhua2.Data
                 .SelectMany(t => t.GetProperties())
                 .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
             {
-                property.Relational().ColumnType = "decimal(18,6)";
+                property.SetColumnType("decimal(18,6)");
             }
 
             //foreach (var property in modelBuilder.Model.GetEntityTypes()

@@ -7,38 +7,19 @@ using TagHelpers;
 
 namespace Pinhua2.Common.Attributes
 {
-    public class CustomDisplayModel
+    public partial class  MyMarkModel
     {
         private readonly object _obj;
 
         private readonly PropertyInfo _propertyInfo;
 
-        public CustomDisplayModel(PropertyInfo propertyInfo, object obj)
+        public MyMarkModel(PropertyInfo propertyInfo, object obj)
         {
             _obj = obj;
             _propertyInfo = propertyInfo;
 
         }
         #region 各种属性
-        public double Order
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return 100;
-
-                var attrs = _propertyInfo.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
-                if (attrs?.Length > 0)
-                {
-                    return (attrs[0] as CustomDisplayAttribute).Order;
-                }
-                else
-                {
-                    return 100;
-                }
-            }
-        }
-
         public string ViewComponentName
         {
             get
@@ -54,97 +35,6 @@ namespace Pinhua2.Common.Attributes
                 else
                 {
                     return string.Empty;
-                }
-            }
-        }
-
-        public bool ForCreate
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return false;
-
-                var attrs = _propertyInfo.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
-                if (attrs?.Length > 0)
-                {
-                    return (attrs[0] as CustomDisplayAttribute).ForCreate;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-        public bool ForRead
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return false;
-
-                var attrs = _propertyInfo.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
-                if (attrs?.Length > 0)
-                {
-                    return (attrs[0] as CustomDisplayAttribute).ForRead;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-        public bool ForUpdate
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return false;
-
-                var attrs = _propertyInfo.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
-                if (attrs?.Length > 0)
-                {
-                    return (attrs[0] as CustomDisplayAttribute).ForUpdate;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-        public bool ForDelete
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return false;
-
-                var attrs = _propertyInfo.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
-                if (attrs?.Length > 0)
-                {
-                    return (attrs[0] as CustomDisplayAttribute).ForDelete;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-        public bool ForIndex
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return false;
-
-                var attrs = _propertyInfo.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
-                if (attrs?.Length > 0)
-                {
-                    return (attrs[0] as CustomDisplayAttribute).ForIndex;
-                }
-                else
-                {
-                    return true;
                 }
             }
         }
@@ -172,76 +62,6 @@ namespace Pinhua2.Common.Attributes
             get
             {
                 return _propertyInfo?.Name ?? string.Empty;
-            }
-        }
-
-        public string BlazorValue
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return null;
-
-                if (_obj == null)
-                    return null;
-
-                return _propertyInfo?.GetValue(_obj)?.ToString() ?? string.Empty;
-            }
-            set
-            {
-                if (_propertyInfo != null && _obj != null)
-                {
-                    if (_propertyInfo.PropertyType == typeof(DateTime) || _propertyInfo.PropertyType == typeof(DateTime?))
-                    {
-                        if(DateTime.TryParse(value,out var dt))
-                        {
-                            _propertyInfo.SetValue(_obj, dt);
-                        }
-                    }
-                    else
-                    {
-                        _propertyInfo.SetValue(_obj, value.ToString());
-                    }
-                }
-            }
-        }
-
-        public object RawValue
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return null;
-
-                if (_obj == null)
-                    return null;
-
-                return _propertyInfo.GetValue(_obj);
-            }
-        }
-        public object Value
-        {
-            get
-            {
-                if (_propertyInfo == null)
-                    return null;
-
-                if (_obj == null)
-                    return null;
-
-                var tmpValue = _propertyInfo.GetValue(_obj);
-                if (IsDatetime)
-                {
-                    return ((DateTime?)tmpValue)?.ToString("yyyy-MM-dd");
-                }
-                else if (IsDecimal)
-                {
-                    return ((decimal?)tmpValue)?.ToString("0.00");
-                }
-                else
-                {
-                    return tmpValue;
-                }
             }
         }
 
@@ -747,130 +567,45 @@ namespace Pinhua2.Common.Attributes
         #endregion
     }
 
-    public class CustomDisplayFactory
+    public class MyMark
     {
-        private CustomDisplayFactory() { }
-
-        private CustomDisplayFactory(Type type, object obj)
+        private IList<MyMarkModel> ParseType(Type type)
         {
-            var list = new List<CustomDisplayModel>();
+            var list = new List<MyMarkModel>();
             foreach (var p in type.GetProperties())
             {
-                var cdm = new CustomDisplayModel(p, obj);
-                list.Add(cdm);
-            }
-            Models = list.OrderBy(p => p.Order).ToList();
-        }
-
-        private IList<CustomDisplayModel> ParseType(Type type)
-        {
-            var list = new List<CustomDisplayModel>();
-            foreach (var p in type.GetProperties())
-            {
-                var cdm = new CustomDisplayModel(p, null);
+                var cdm = new MyMarkModel(p, null);
                 list.Add(cdm);
             }
             return list.OrderBy(p => p.Order).ToList();
         }
 
-        private IList<CustomDisplayModel> ParseObject(object obj)
+        private IList<MyMarkModel> ParseObject(object obj)
         {
-            var list = new List<CustomDisplayModel>();
+            if (obj == null)
+                return null;
+
+            var list = new List<MyMarkModel>();
             foreach (var p in obj.GetType().GetProperties())
             {
-                var cdm = new CustomDisplayModel(p, obj);
+                var cdm = new MyMarkModel(p, obj);
                 list.Add(cdm);
             }
             return list.OrderBy(p => p.Order).ToList();
         }
 
-        public IList<CustomDisplayModel> Models { get; set; }
+        public IList<MyMarkModel> Models { get; set; }
 
-        static public CustomDisplayFactory Create(Type type, object obj)
-        {
-            return new CustomDisplayFactory(type, obj);
-        }
-
-        static public IList<CustomDisplayModel> CustomDisplayModels(object obj)
+        static public IList<MyMarkModel> Parse(object obj)
         {
             //return new CustomDisplayFactory(obj.GetType(), obj).Models;
-            return new CustomDisplayFactory().ParseObject(obj);
+            return new MyMark().ParseObject(obj);
         }
 
-        static public IList<CustomDisplayModel> CustomDisplayModels(Type type)
+        static public IList<MyMarkModel> Parse(Type type)
         {
             //return new CustomDisplayFactory(type, null).Models;
-            return new CustomDisplayFactory().ParseType(type);
-        }
-    }
-
-
-    public class CustomDisplayFactory<T>
-    {
-        private CustomDisplayFactory() { }
-
-        private CustomDisplayFactory(T obj)
-        {
-            var list = new List<CustomDisplayModel>();
-            foreach (var p in typeof(T).GetProperties())
-            {
-                var cdm = new CustomDisplayModel(p, obj);
-                list.Add(cdm);
-
-                #region -- Old --
-                //var attrs = p.GetCustomAttributes(typeof(CustomDisplayAttribute), false);
-                //if (attrs.Length > 0)
-                //{
-                //    var cda = attrs[0] as CustomDisplayAttribute;
-
-                //    cdm.ForIndex = cda.ForIndex;
-                //    cdm.ForCreate = cda.ForCreate;
-                //    cdm.ForRead = cda.ForDelete;
-                //    cdm.ForUpdate = cda.ForUpdate;
-                //    cdm.ForDelete = cda.ForDelete;
-                //    cdm.Order = cda.Order;
-                //    cdm.PropertyInfo = p;
-                //}
-                //else
-                //{
-                //    cdm.ForIndex = true;
-                //    cdm.ForCreate = true;
-                //    cdm.ForRead = true;
-                //    cdm.ForUpdate = true;
-                //    cdm.ForDelete = true;
-                //    cdm.PropertyInfo = p;
-                //}
-                //attrs = p.GetCustomAttributes(typeof(MyMinWidthAttribute), false);
-                //if (attrs.Length > 0)
-                //{
-                //    var cda = attrs[0] as MyMinWidthAttribute;
-                //    cdm.MinWidth = cda.MinWidth;
-                //}
-                //attrs = p.GetCustomAttributes(typeof(MyEditableAttribute), false);
-                //if (attrs.Length > 0)
-                //{
-                //    var cda = attrs[0] as MyEditableAttribute;
-                //    cdm.Editable = true;
-                //}
-                //else
-                //{
-                //    cdm.Editable = false;
-                //}
-                #endregion
-            }
-            Models = list.OrderBy(p => p.Order).ToList();
-        }
-
-        public IList<CustomDisplayModel> Models { get; set; }
-
-        static public CustomDisplayFactory<T> Create(T obj)
-        {
-            return new CustomDisplayFactory<T>(obj);
-        }
-
-        static public IList<CustomDisplayModel> CustomDisplayModels(T obj)
-        {
-            return new CustomDisplayFactory<T>(obj).Models;
+            return new MyMark().ParseType(type);
         }
     }
 }

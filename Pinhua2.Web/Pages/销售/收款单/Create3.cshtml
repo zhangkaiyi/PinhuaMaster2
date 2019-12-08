@@ -1,4 +1,4 @@
-﻿@page "{companyId?}/{refOrderId?}/{type?}"
+﻿@page
 @model Pinhua2.Web.Pages.销售.收款单.Create2Model
 
 @{
@@ -24,6 +24,9 @@
 
     var jsonEmptyDetail = JsonConvert.SerializeObject(new vm_收款单D());
     var jsonCurrentDetails = JsonConvert.SerializeObject(Model?.vm_Details ?? new List<vm_收款单D>());
+
+    var records = pinhua2.tb_收付表D.ToList();
+    var ddd = mapper.Map<IList<tb_收付表D>, IList<vm_收款单D>>(records);
 }
 
 @{
@@ -91,83 +94,12 @@
                 }
             </div>
 
-            @foreach (var details in detailsArray)
-            {
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-                    <h4>明细</h4>
-                    @*<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#selectModal" v-on:click="newRecord">
-                            添加明细
-                        </button>*@
-                </div>
-                <div class="table-responsive mb-3">
-                    <table class="table table-bordered text-nowrap m-0 border-top-0" id="formTable">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>RN</th>
-                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
-                                {
-                                    <th my-vue-model-for="cdm" my-hidden-create="true">@Html.Raw(cdm.Name)</th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-if="items.length == 0"><td colspan="30" class="text-center">空</td></tr>
-                            <tr v-for="(todo,index) in items">
-                                <td><a href="javascript:;" v-on:click="removeTodo(index)">移除</a> <a href="javascript:;" v-on:click="editRecord(index)">修改</a></td>
-                                <td>
-                                    {{ index+1 }}
-                                    <input :name="buildName(index,'RN')" type="hidden" v-bind:value="index + 1" />
-                                </td>
-                                @foreach (var cdm in CustomDisplayFactory.CustomDisplayModels(details.Data.GetType().GetGenericArguments()[0]).Where(m => m.RawName != "RN"))
-                                {
-                                    var vBindName = new TagHelpers.MyVBindModel
-                                    {
-                                        Prop = "name",
-                                        Method = $"buildName(index,{cdm.RawName})",
-                                    };
-                                    cdm.VueVBindModel.Add(vBindName);
-
-                                    @if (cdm.IsVueVBind)
-                                    {
-                                        var vBindValue = new TagHelpers.MyVBindModel
-                                        {
-                                            Prop = "value",
-                                            Method = $"{cdm.RawName}(index)"
-                                        };
-                                        cdm.VueVBindModel.Add(vBindValue);
-                                        <td>
-                                            {{ 可分配(index) }}
-                                            <input type="hidden" my-use-vue="cdm" my-v-bind="cdm.VueVBindModel" />
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        var vModel = new TagHelpers.MyVModelModel
-                                        {
-                                            Prefix = "todo",
-                                            Name = cdm.RawName
-                                        };
-
-                                        <td my-model-hidden="cdm" hidden-type="Create">
-                                            {{todo.@(cdm.RawName)}}
-                                            <input type="hidden" my-use-vue="cdm" my-v-bind-force="cdm.VueVBindModel" my-v-model-force="vModel " />
-                                        </td>
-                                    }
-                                }
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            }
+            <component type="typeof(Content<vm_收款单D>)" param-Items="ddd" render-mode="ServerPrerendered" />
 
             <div class="form-group">
                 <input type="submit" value="提交" class="btn btn-primary" />
             </div>
 
-            <!-- Modal -->
-            <partial name="_CRUD_Template/__selectModal" model="Model.templateModel" />
-            <partial name="_CRUD_Template/__editModal2" model="Model.templateModel" />
         </form>
     </div>
 </div>
@@ -192,5 +124,5 @@
 
     </script>
 
-    <partial name="_CRUD_Template/__vue" model="Model.templateModel" />
+    
 }
