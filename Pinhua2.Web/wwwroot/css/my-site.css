@@ -32,10 +32,10 @@ input-group-prepend .input-group-text,
 
 /* bootstrap-table
 -------------------------------------------------- */
-td.bs-checkbox {
-    line-height: 1rem;
+th.bs-checkbox, .bs-checkbox {
+    /*line-height: 1rem;*/
 }
 
-    td.bs-checkbox label {
+    .bs-checkbox label {
         margin: 0;
     }

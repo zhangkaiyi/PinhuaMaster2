@@ -1,0 +1,87 @@
+﻿@inherits ComponentBase
+@typeparam TRow
+@if (ConditionModels.Any())
+{
+    var styles = new List<string>();
+    var tableClsList = new List<string>();
+    tableClsList.Add("table");
+    if (IsHover)
+    {
+        tableClsList.Add("table-hover");
+    }
+    if (IsStripe)
+    {
+        tableClsList.Add("table-striped");
+    }
+    if (IsBordered)
+    {
+        tableClsList.Add("table-bordered");
+    }
+    if (IsTextNoWrap)
+    {
+        tableClsList.Add("text-nowrap");
+    }
+
+    styles.Add("width:100%");
+    if (Height > 0)
+    {
+        //tableClsList.Add("el-table--scrollable-y");
+        //styles.Add("height:" + Height + "px");
+    }
+
+    <div style="@string.Join(";",styles)" @ref="Container" class="">
+        <div class="@(IsResponsive?"table-responsive":"")">
+            <table cellspacing="0" cellpadding="0" border="0" class="@string.Join(" ",tableClsList)">
+                <colgroup>
+                    @for (int i = 0; i != ConditionModels[0].Count; i++)
+                    {
+                        var mm = ConditionModels[0].ElementAt(i);
+                        if (mm.Hidden) { }
+                        <col name="my-table_1_column_@i" class="@(mm.Hidden?"d-none":"")" />
+                    }
+                </colgroup>
+                <thead class="">
+                    <tr class="">
+                        @for (int i = 0; i != ConditionModels[0].Count; i++)
+                        {
+                            @if (ConditionModels[0].ElementAt(i) is MyMarkModelWithOperation mm)
+                            {
+                                <th colspan="1" rowspan="1" class="my-table_1_column_@i @(mm.Hidden?"d-none":"")">
+                                    <div class="">
+                                        @mm.Model.Name
+                                    </div>
+                                </th>
+                            }
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i != ConditionModels.Count; i++)
+                    {
+                        var clsList = new List<string>();
+                        <tr class="@string.Join(" ",clsList)">
+                            @for (int n = 0; n != ConditionModels[i].Count; n++)
+                            {
+                                if (ConditionModels[i].ElementAt(n) is MyMarkModelWithOperation mm)
+                                {
+                                    <td rowspan="1" colspan="1" class="my-table_1_column_@i @(mm.Hidden?"d-none":"")">
+                                        @mm.Model.BlazorValue
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        @*<div style="margin-top:20px;margin-bottom:20px;">
+                <BPagination Total="Total" PageSize="PageSize" @bind-CurrentPage="CurrentPage"></BPagination>
+            </div>*@
+    </div>
+}
+else
+{
+    <CascadingValue Value="@this">
+        @ChildContent
+    </CascadingValue>
+}

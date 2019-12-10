@@ -17,12 +17,9 @@
             _isIndeterminate = "is-indeterminate";
             break;
     }
-    <label role="checkbox" aria-checked="true" class="el-checkbox @_isChecked @isDisabled">
-        <span aria-checked="mixed" class="el-checkbox__input @_isChecked @isDisabled @_isIndeterminate">
-            <span class="el-checkbox__inner"></span>
-            <input type="checkbox" aria-hidden="true" @onchange="ChangeStatus" class="el-checkbox__original @isDisabled" value="" />
-        </span>
-        <span class="el-checkbox__label">
+    <label class="">
+            <input type="checkbox" @onchange="ChangeStatus" class="" value="" checked="@((Status == Status.Checked)?true:false)" />
+        <span class="">
             @ChildContent
         </span>
     </label>

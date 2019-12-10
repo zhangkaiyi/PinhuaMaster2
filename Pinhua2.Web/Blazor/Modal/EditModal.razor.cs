@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pinhua2.Web.BlazorComponents.Modal
+namespace Pinhua2.Web.Blazor.Modal
 {
-    public partial class InsertModal<TItem> : ComponentBase
+    public partial class EditModal<TItem> : ComponentBase
     {
         [CascadingParameter(Name = "EditModalId")]
         public string EditModalId { get; set; }
@@ -15,7 +15,10 @@ namespace Pinhua2.Web.BlazorComponents.Modal
         public string InsertModalId { get; set; }
 
         [Parameter]
-        public IList<TItem> Items { get; set; }
+        public int Index { get; set; }
+
+        [Parameter]
+        public TItem Item { get; set; }
 
         [Parameter]
         public Action<TItem, int> FromChild { get; set; }
@@ -27,7 +30,7 @@ namespace Pinhua2.Web.BlazorComponents.Modal
 
         private void PassToParent()
         {
-            //FromChild(Item, Index);
+            FromChild(Item, Index);
         }
     }
 }

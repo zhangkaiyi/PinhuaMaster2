@@ -1,0 +1,58 @@
+﻿@typeparam TItem
+
+<div class="modal" id="@InsertModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">插入</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <BTable TRow="Pinhua2.Data.Models.view_AllOrdersPay" DataSource="Items.Cast<Pinhua2.Data.Models.view_AllOrdersPay>().ToList()" IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true">
+                    <BTableColumns TRow="Pinhua2.Data.Models.view_AllOrdersPay">
+                        <BTableCheckBoxColumn TRow="Pinhua2.Data.Models.view_AllOrdersPay"></BTableCheckBoxColumn>
+                        <BTableColumn TRow="Pinhua2.Data.Models.view_AllOrdersPay" Width="500" Property="@(x=>x.单号)" Text="单号"></BTableColumn>
+                        <BTableDateTimeColumn TRow="Pinhua2.Data.Models.view_AllOrdersPay" Width="500" Format="yyyy-MM-dd" Property="@(x=>x.交期)" Text="交期"></BTableDateTimeColumn>
+                        <BTableColumn TRow="Pinhua2.Data.Models.view_AllOrdersPay" Width="500" Property="@(x=>x.业务类型)" Text="业务类型"></BTableColumn>
+                    </BTableColumns>
+                </BTable>
+                @*<div class="table-responsive">
+            <table id="selectTable" class="table table-bordered text-nowrap">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" /></th>
+                        @foreach (var mm in MyMark.Parse(typeof(TItem)).Where(m => m.RawName != "已付" && m.RawName != "待付"))
+                        {
+                            <th class="@(mm.IsHiddenRef?"d-none":"")">@(mm.Name)</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Items)
+                    {
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            @foreach (var mm in MyMark.Parse(item).Where(m => !m.IsHiddenRef).Where(m => m.RawName != "已付" && m.RawName != "待付"))
+                            {
+                                <td class="@(mm.IsHiddenRef?"d-none":"")">@mm.Value</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>*@
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="selectItem">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    private bool b { get; set; } = false;
+}

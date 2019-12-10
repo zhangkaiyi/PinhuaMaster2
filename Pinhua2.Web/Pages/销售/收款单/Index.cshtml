@@ -1,30 +1,38 @@
 ﻿@page
 @model Pinhua2.Web.Pages.销售.收款单.IndexModel
+@using System.Linq.Expressions
 
 @{
     ViewData["Title"] = "Index";
-    var templateMainList = new _CRUD_Template_Model_Details
-    {
-        Title = "收款单",
-        Data = Model.vm_Mains.Cast<object>(),
-    };
-    var templateDetails = new _CRUD_Template_Model_Details
-    {
-        Title = "明细",
-        Url = "/API/销售/收款/",
-        Data = new List<vm_收款单D>()
-    };
+ var templateMainList = new _CRUD_Template_Model_Details
+ {
+     Title = "收款单",
+     Data = Model.vm_Mains.Cast<object>(),
+ };
+ var templateDetails = new _CRUD_Template_Model_Details
+ {
+     Title = "明细",
+     Url = "/API/销售/收款/",
+     Data = new List<vm_收款单D>()
+ };
 
-    Model.templateModel = new _CRUD_Template_Model_Index();
-    Model.templateModel.RecordMains = templateMainList;
-    Model.templateModel.RecordDetailsArray.Add(templateDetails);
+ Model.templateModel = new _CRUD_Template_Model_Index();
+ Model.templateModel.RecordMains = templateMainList;
+ Model.templateModel.RecordDetailsArray.Add(templateDetails);
+
+ var l = new List<vm_付款单D> { new vm_付款单D { 单位 = "1" }, new vm_付款单D { 单位 = "2" }, new vm_付款单D { 单位 = "3" } };
+ var x = new vm_付款单D();
+ Expression<Func<vm_付款单D, bool>> predicate = x => x.单位 =="1" || x.单位 == "2";
+ var z = l.Where(predicate.Compile());
 }
 
 <partial name="_CRUD_Template/_Index2" model="Model.templateModel" />
 
 @*@(await Html.RenderComponentAsync<Pinhua2.Web.Shared.Counter>(RenderMode.ServerPrerendered))*@
 
-@*<component type="typeof(Container<vm_收款单>)" param-Items="Model.vm_Mains" render-mode="ServerPrerendered" />*@
+<component type="typeof(Blazor.MyTable)" render-mode="ServerPrerendered" />
+
+@*@Newtonsoft.Json.JsonConvert.SerializeObject(z);*@
 
 @section Scripts{
 

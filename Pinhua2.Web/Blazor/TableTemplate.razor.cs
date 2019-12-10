@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pinhua2.Web.BlazorComponents
+namespace Pinhua2.Web.Blazor
 {
     public partial class TableTemplate<TItem> : ComponentBase
     {

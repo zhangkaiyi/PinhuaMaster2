@@ -3,20 +3,22 @@ using Blazui.Component.EventArgs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
+using Pinhua2.Common.Attributes;
 using Pinhua2.Web.BlazorComponents.CheckBox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pinhua2.Web.BlazorComponents.Table
+namespace Pinhua2.Web.BlazorComponents.TableReflect
 {
-    public partial class BTable<TRow> : ComponentBase, Blazui.Component.IContainerComponent
+    public partial class STable<TRow> : ComponentBase, Blazui.Component.IContainerComponent
     {
-        protected ElementReference headerElement;
-        public List<TableHeader<TRow>> Headers { get; set; } = new List<TableHeader<TRow>>();
         private bool requireRender = true;
-        protected int headerHeight = 49;
+        public IList<IList<MyMarkModel>> MarkModels = new List<IList<MyMarkModel>>();
+        public IList<IList<MyMarkModelWithOperation>> MarkModels2 = new List<IList<MyMarkModelWithOperation>>();
+
+        public IList<IList<MyMarkModelWithOperation>> ConditionModels = new List<IList<MyMarkModelWithOperation>>();
 
         [Parameter]
         public Action RenderCompleted { get; set; }
@@ -82,6 +84,7 @@ namespace Pinhua2.Web.BlazorComponents.Table
         /// </summary>
         [Parameter]
         public bool IsResponsive { get; set; }
+
         public ElementReference Container { get; set; }
 
         protected override void OnAfterRender(bool firstRender)
@@ -95,9 +98,19 @@ namespace Pinhua2.Web.BlazorComponents.Table
             RenderCompleted?.Invoke();
         }
 
+        protected override void OnInitialized()
+        {
+
+        }
+
         protected override void OnParametersSet()
         {
             RefreshSelectAllStatus();
+
+            foreach (var item in DataSource)
+            {
+                MarkModels.Add(MyMark.Parse(item).ToList());
+            }
         }
 
         void RefreshSelectAllStatus()
