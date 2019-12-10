@@ -6,26 +6,25 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Pinhua2.Web.BlazorComponents.TableReflect
+namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class STableCondition<TRow> : ComponentBase
+    public partial class RTableCondition<TRow> : ComponentBase
     {
-        internal virtual bool IsCheckBox { get; set; }
+        [Parameter]
+        public virtual ColumnType CellType { get; set; } = ColumnType.Text;
 
         [Parameter]
         public virtual bool IsHidden { get; set; } = false;
 
         [Parameter]
-        public Expression<Func<MyMarkModelWithOperation, bool>> Predicate { get; set; }
+        public virtual Expression<Func<RTableColumnConfig, bool>> Predicate { get; set; }
 
         [CascadingParameter]
-        public STableConditions<TRow> Conditions { get; set; }
+        public RTableConditions<TRow> Conditions { get; set; }
 
         [Parameter]
         public virtual RenderFragment<TRow> ChildContent { get; set; }
 
-        [Parameter]
-        public string Text { get; set; }
 
         protected override void OnParametersSet()
         {

@@ -25,8 +25,7 @@
     styles.Add("width:100%");
     if (Height > 0)
     {
-        //tableClsList.Add("el-table--scrollable-y");
-        //styles.Add("height:" + Height + "px");
+        styles.Add("height:" + Height + "px");
     }
 
     <div style="@string.Join(";",styles)" @ref="Container" class="">
@@ -36,19 +35,19 @@
                     @for (int i = 0; i != ConditionModels[0].Count; i++)
                     {
                         var mm = ConditionModels[0].ElementAt(i);
-                        if (mm.Hidden) { }
-                        <col name="my-table_1_column_@i" class="@(mm.Hidden?"d-none":"")" />
+                        if (mm.IsHidden) { }
+                        <col name="my-table_1_column_@i" class="@(mm.IsHidden?"d-none":"")" />
                     }
                 </colgroup>
                 <thead class="">
                     <tr class="">
                         @for (int i = 0; i != ConditionModels[0].Count; i++)
                         {
-                            @if (ConditionModels[0].ElementAt(i) is MyMarkModelWithOperation mm)
+                            @if (ConditionModels[0].ElementAt(i) is RTableColumnConfig mm)
                             {
-                                <th colspan="1" rowspan="1" class="my-table_1_column_@i @(mm.Hidden?"d-none":"")">
+                                <th colspan="1" rowspan="1" class="my-table_1_column_@i @(mm.IsHidden?"d-none":"")">
                                     <div class="">
-                                        @mm.Model.Name
+                                        @mm.Model.RawName
                                     </div>
                                 </th>
                             }
@@ -62,10 +61,22 @@
                         <tr class="@string.Join(" ",clsList)">
                             @for (int n = 0; n != ConditionModels[i].Count; n++)
                             {
-                                if (ConditionModels[i].ElementAt(n) is MyMarkModelWithOperation mm)
+                                if (ConditionModels[i].ElementAt(n) is RTableColumnConfig mm)
                                 {
-                                    <td rowspan="1" colspan="1" class="my-table_1_column_@i @(mm.Hidden?"d-none":"")">
-                                        @mm.Model.BlazorValue
+                                    <td rowspan="1" colspan="1" class="my-table_1_column_@i @(mm.IsHidden?"d-none":"")">
+                                        @{
+                                            switch (mm.ColumnType)
+                                            {
+                                                case ColumnType.Text:
+                                                    @mm.Model.BlazorValue;
+                                                    break;
+                                                case ColumnType.DateTime:
+                                                    @(DateTime.Parse(mm.Model.BlazorValue).ToString(mm.Format));
+                                                    break;
+                                                case ColumnType.Decimal:
+                                                    break;
+                                            }
+                                        }
                                     </td>
                                 }
                             }

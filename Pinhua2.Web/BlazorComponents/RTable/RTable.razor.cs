@@ -10,15 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pinhua2.Web.BlazorComponents.TableReflect
+namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class STable<TRow> : ComponentBase, Blazui.Component.IContainerComponent
+    public partial class RTable<TRow> : ComponentBase, Blazui.Component.IContainerComponent
     {
         private bool requireRender = true;
-        public IList<IList<MyMarkModel>> MarkModels = new List<IList<MyMarkModel>>();
-        public IList<IList<MyMarkModelWithOperation>> MarkModels2 = new List<IList<MyMarkModelWithOperation>>();
+        public List<List<MyMarkModel>> MarkModels = new List<List<MyMarkModel>>();
 
-        public IList<IList<MyMarkModelWithOperation>> ConditionModels = new List<IList<MyMarkModelWithOperation>>();
+        public List<List<RTableColumnConfig>> ConditionModels = new List<List<RTableColumnConfig>>();
 
         [Parameter]
         public Action RenderCompleted { get; set; }
@@ -106,11 +105,6 @@ namespace Pinhua2.Web.BlazorComponents.TableReflect
         protected override void OnParametersSet()
         {
             RefreshSelectAllStatus();
-
-            foreach (var item in DataSource)
-            {
-                MarkModels.Add(MyMark.Parse(item).ToList());
-            }
         }
 
         void RefreshSelectAllStatus()

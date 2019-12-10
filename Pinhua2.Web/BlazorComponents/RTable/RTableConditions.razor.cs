@@ -7,16 +7,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Pinhua2.Web.BlazorComponents.TableReflect
+namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class STableConditions<TRow> : ComponentBase
+    public partial class RTableConditions<TRow> : ComponentBase
     {
         [Parameter]
         public RenderFragment ChildContent { get; set; }
         [CascadingParameter]
-        public STable<TRow> Table { get; set; }
+        public RTable<TRow> Table { get; set; }
 
-        public void AddCondition(STableCondition<TRow> condition)
+        public void AddCondition(RTableCondition<TRow> condition)
         {
             //var columnConfig = new TableHeader<TRow>
             //{
@@ -30,29 +30,30 @@ namespace Pinhua2.Web.BlazorComponents.TableReflect
             //Table.Headers.Add(columnConfig);
             if (!Table.ConditionModels.Any())
             {
-                foreach (var models in Table.MarkModels)
+                foreach (var row in Table.DataSource)
                 {
-                    var r = models.Select(m => new MyMarkModelWithOperation
+                    var rowModel = MyMark.Parse(row);
+                    var cfg = rowModel.Select(cellModel => new RTableColumnConfig
                     {
-                        Model = m,
-                        Hidden = false,
+                        Model = cellModel,
                     });
-                    Table.ConditionModels.Add(r.ToList());
+                    Table.ConditionModels.Add(cfg.ToList());
                 }
             }
-            if(Table.ConditionModels.Any())
+            if (Table.ConditionModels.Any())
             {
-                foreach (var models in Table.ConditionModels)
+                foreach (var rowModel in Table.ConditionModels)
                 {
-                    var eval = condition.Predicate.Compile();
-                    var shouyingxiang = models.Where(eval).ToList();
-                    foreach (var item in models)
+                    var where = rowModel.Where(condition.Predicate.Compile());
+                    foreach (var cell in where)
                     {
-                        if (shouyingxiang.Contains(item))
+                        cell.Predicate = condition.Predicate;
+                        cell.Eval = condition.Predicate.Compile();
+                        cell.IsHidden = condition.IsHidden;
+                        if(condition is RTableFormatCondition<TRow> formatCondition)
                         {
-                            //Console.WriteLine(condition.Predicate);
-                            item.Model.BlazorValue = "change";
-                            //item.Hidden = condition.IsHidden;
+                            cell.ColumnType = formatCondition.CellType;
+                            cell.Format = formatCondition.Format;
                         }
                     }
                 }
