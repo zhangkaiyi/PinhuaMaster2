@@ -49,11 +49,14 @@ namespace Pinhua2.Web.BlazorComponents.RTable
                     {
                         cell.Predicate = condition.Predicate;
                         cell.Eval = condition.Predicate.Compile();
-                        cell.IsHidden = condition.IsHidden;
-                        if(condition is RTableFormatCondition<TRow> formatCondition)
+                        if (condition is RTableHiddenCondition<TRow> hiddenCondition)
                         {
-                            cell.ColumnType = formatCondition.CellType;
-                            cell.Format = formatCondition.Format;
+                            cell.IsHidden = hiddenCondition.IsHidden;
+                        }
+                        if (condition is RTableFormatCondition<TRow> formatCondition)
+                        {
+                            cell.ColumnType = formatCondition.Type;
+                            cell.ColumnFormat = formatCondition.Format;
                         }
                     }
                 }

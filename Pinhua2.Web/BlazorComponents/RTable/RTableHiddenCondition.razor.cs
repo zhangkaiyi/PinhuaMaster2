@@ -10,7 +10,7 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 {
     public partial class RTableHiddenCondition<TRow> : RTableCondition<TRow>
     {
-        public override bool IsHidden { get; set; } = true;
+        public bool IsHidden { get; set; } = true;
 
     }
 }

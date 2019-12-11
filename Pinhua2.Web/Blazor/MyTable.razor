@@ -1,19 +1,31 @@
 ﻿@page "/table"
 @using Pinhua2.Data.Models
 
-<BTable TRow="TestData" DataSource="Datas" IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true">
+@*<BTable TRow="TestData" DataSource="Datas" IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true">
     <BTableColumns TRow="TestData">
         <BTableCheckBoxColumn TRow="TestData"></BTableCheckBoxColumn>
         <BTableColumn TRow="TestData" Width="500" Property="@(x=>x.Name)" Text="姓名"></BTableColumn>
         <BTableDateTimeColumn TRow="TestData" Width="500" Format="yyyy-MM-dd" Property="@(x=>x.Time)" Text="时间"></BTableDateTimeColumn>
         <BTableColumn TRow="TestData" Width="500" Property="@(x=>x.Address)" Text="地址"></BTableColumn>
     </BTableColumns>
-</BTable>
+</BTable>*@
 
-<RTable TRow="view_AllOrdersPay" DataSource="pinhua.list_收付待收().ToList()"  IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true">
+<RTable TRow="view_AllOrdersPay" DataSource="pinhua.list_收付待收().ToList()" IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true">
+    <RTableCustomColumns TRow="view_AllOrdersPay">
+        <RTableCustomColumn TRow="view_AllOrdersPay"></RTableCustomColumn>
+    </RTableCustomColumns>
     <RTableConditions TRow="view_AllOrdersPay">
         <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsHiddenRef)"></RTableHiddenCondition>
-        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == "已付" || m.Model.RawName == "待付")"></RTableHiddenCondition>
-        <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDatetime)" CellType="ColumnType.DateTime" Format="yyyy-MM-dd"></RTableFormatCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.往来号))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.子单号))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.品号))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.数量))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.单位))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.单价))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.已付))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.待付))"></RTableHiddenCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.日期))"></RTableHiddenCondition>
+        <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDatetime)" Type="ColumnType.DateTime" Format="yyyy-MM-dd"></RTableFormatCondition>
+        <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDecimal)" Type="ColumnType.Decimal" Format="0.00"></RTableFormatCondition>
     </RTableConditions>
 </RTable>

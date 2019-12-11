@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Pinhua2.Common.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,25 +7,31 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class RTableCondition<TRow> : ComponentBase
+    public partial class RTableCustomColumn<TRow> : ComponentBase
     {
+        internal virtual bool IsCheckBox { get; set; } = true;
         [Parameter]
-        public virtual Expression<Func<RTableColumnConfig, bool>> Predicate { get; set; }
+        public virtual int? Width { get; set; }
+
+        [Parameter]
+        public Expression<Func<TRow, object>> Property { get; set; }
 
         [CascadingParameter]
-        public RTableConditions<TRow> Conditions { get; set; }
+        public RTableCustomColumns<TRow> Columns { get; set; }
 
         [Parameter]
         public virtual RenderFragment<TRow> ChildContent { get; set; }
 
+        [Parameter]
+        public string Text { get; set; }
 
         protected override void OnParametersSet()
         {
-            if (Conditions == null)
+            if (Columns == null)
             {
                 return;
             }
-            Conditions.AddCondition(this);
+            Columns.AddColumn(this);
         }
     }
 }

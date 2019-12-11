@@ -14,7 +14,10 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 {
     public partial class RTable<TRow> : ComponentBase, Blazui.Component.IContainerComponent
     {
+        protected ElementReference headerElement;
         private bool requireRender = true;
+        public List<RTableHeader<TRow>> Headers { get; set; } = new List<RTableHeader<TRow>>();
+
         public List<List<MyMarkModel>> MarkModels = new List<List<MyMarkModel>>();
 
         public List<List<RTableColumnConfig>> ConditionModels = new List<List<RTableColumnConfig>>();

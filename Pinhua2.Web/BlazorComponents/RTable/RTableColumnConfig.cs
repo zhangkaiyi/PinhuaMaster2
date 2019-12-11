@@ -13,8 +13,8 @@ namespace Pinhua2.Web.BlazorComponents.RTable
         public Func<RTableColumnConfig, bool> Eval { get; set; }
         public MyMarkModel Model { get; set; }
         public bool IsHidden { get; set; } = false;
-        public string Format { get; set; } = string.Empty;
-        public IList<string> ClsList { get; set; } = new List<string>();
+        public IList<string> ColumnClasses { get; set; } = new List<string>();
         public ColumnType ColumnType { get; set; } = ColumnType.Text;
+        public string ColumnFormat { get; set; } = string.Empty;
     }
 }
