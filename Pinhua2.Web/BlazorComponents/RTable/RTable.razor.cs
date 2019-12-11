@@ -142,19 +142,16 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 
         protected void ChangeAllStatus(Status status)
         {
-            if (!IsSingleSelect)
+            if (status == Status.Checked)
             {
-                if (status == Status.Checked)
-                {
-                    SelectedRows = new HashSet<TRow>(DataSource);
-                }
-                else
-                {
-                    SelectedRows = new HashSet<TRow>();
-                }
-
-                RefreshSelectAllStatus();
+                SelectedRows = new HashSet<TRow>(DataSource);
             }
+            else
+            {
+                SelectedRows = new HashSet<TRow>();
+            }
+
+            RefreshSelectAllStatus();
         }
 
         protected void ChangeRowStatus(Status status, TRow row)

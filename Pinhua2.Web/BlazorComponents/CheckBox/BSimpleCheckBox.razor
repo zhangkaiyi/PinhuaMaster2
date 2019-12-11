@@ -18,7 +18,7 @@
             break;
     }
     <label class="">
-            <input type="checkbox" @onchange="ChangeStatus" class="" value="" checked="@((Status == Status.Checked)?true:false)" />
+            <input type="checkbox" @onchange="ChangeStatus" class="" value="" checked="@((Status == Status.Checked)?true:false)" @onclick:stopPropagation="stopPropagationOnClick" />
         <span class="">
             @ChildContent
         </span>

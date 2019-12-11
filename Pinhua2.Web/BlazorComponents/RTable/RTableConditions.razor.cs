@@ -32,13 +32,14 @@ namespace Pinhua2.Web.BlazorComponents.RTable
             }
             if (Table.ConditionModels.Any())
             {
+                var eval = condition.Predicate.Compile();
                 foreach (var rowModel in Table.ConditionModels)
                 {
-                    var where = rowModel.Where(condition.Predicate.Compile());
+                    var where = rowModel.Where(eval);
                     foreach (var cell in where)
                     {
                         cell.Predicate = condition.Predicate;
-                        cell.Eval = condition.Predicate.Compile();
+                        cell.Eval = eval;
                         if (condition is RTableHiddenCondition<TRow> hiddenCondition)
                         {
                             cell.IsHidden = hiddenCondition.IsHidden;

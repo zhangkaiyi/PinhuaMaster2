@@ -22,6 +22,8 @@ namespace Pinhua2.Web.BlazorComponents.CheckBox
         private TValue originValue;
         [Parameter]
         public TValue Value { get; set; }
+        [Parameter]
+        public bool stopPropagationOnClick { get; set; } = false;
 
         [Parameter]
         public EventCallback<TValue> ValueChanged { get; set; }
