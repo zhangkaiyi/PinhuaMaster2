@@ -1,19 +1,12 @@
 ﻿@page "/table"
 @using Pinhua2.Data.Models
 
-@*<BTable TRow="TestData" DataSource="Datas" IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true">
-    <BTableColumns TRow="TestData">
-        <BTableCheckBoxColumn TRow="TestData"></BTableCheckBoxColumn>
-        <BTableColumn TRow="TestData" Width="500" Property="@(x=>x.Name)" Text="姓名"></BTableColumn>
-        <BTableDateTimeColumn TRow="TestData" Width="500" Format="yyyy-MM-dd" Property="@(x=>x.Time)" Text="时间"></BTableDateTimeColumn>
-        <BTableColumn TRow="TestData" Width="500" Property="@(x=>x.Address)" Text="地址"></BTableColumn>
-    </BTableColumns>
-</BTable>*@
-
-<RTable TRow="view_AllOrdersPay" DataSource="pinhua.list_收付待收().ToList()" IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true">
-    <RTableCustomColumns TRow="view_AllOrdersPay">
-        <RTableCustomColumn TRow="view_AllOrdersPay"></RTableCustomColumn>
-    </RTableCustomColumns>
+<RTable TRow="view_AllOrdersPay" DataSource="pinhua.list_收付待收().ToList()"
+        IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true" IsClickToSelect="true" IsSingleSelect="true">
+    <RTableUserColumns TRow="view_AllOrdersPay">
+        <RTableUserColumnCheckBox TRow="view_AllOrdersPay"></RTableUserColumnCheckBox>
+        <RTableUserColumn TRow="view_AllOrdersPay"></RTableUserColumn>
+    </RTableUserColumns>
     <RTableConditions TRow="view_AllOrdersPay">
         <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsHiddenRef)"></RTableHiddenCondition>
         <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.RawName == nameof(view_AllOrdersPay.往来号))"></RTableHiddenCondition>

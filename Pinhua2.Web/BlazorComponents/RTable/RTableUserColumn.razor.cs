@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class RTableCustomColumn<TRow> : ComponentBase
+    public partial class RTableUserColumn<TRow> : ComponentBase
     {
-        internal virtual bool IsCheckBox { get; set; } = true;
+        internal virtual bool IsCheckBox { get; set; }
         [Parameter]
         public virtual int? Width { get; set; }
 
@@ -17,7 +17,7 @@ namespace Pinhua2.Web.BlazorComponents.RTable
         public Expression<Func<TRow, object>> Property { get; set; }
 
         [CascadingParameter]
-        public RTableCustomColumns<TRow> Columns { get; set; }
+        public RTableUserColumns<TRow> Columns { get; set; }
 
         [Parameter]
         public virtual RenderFragment<TRow> ChildContent { get; set; }

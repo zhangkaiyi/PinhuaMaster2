@@ -86,58 +86,58 @@
                         {
                             var clsList = new List<string>();
                             var row = DataSource.ElementAt(i);
-                        <tr class="@string.Join(" ",clsList)">
-                            @for (int j = 1; j <= Headers.Count; j++)
-                            {
-                                var header = Headers.ElementAt(j - 1);
-                                <td rowspan="1" colspan="1" class="my-table_1_column_@j @(header.IsCheckBox?"bs-checkbox":"")">
-                                    @if (header.IsCheckBox)
-                                    {
-                                        <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked: Status.UnChecked" StatusChanged="(status=>ChangeRowStatus(status,row))"></BSimpleCheckBox>
-                                    }
-                                    else if (header.Template != null)
-                                    {
-                                        @header.Template(row)
-                                    }
-                                    else if (header.Eval != null)
-                                    {
-                                        @header.Eval(row)
-                                    }
-                                </td>
-                            }
-                            @for (int n = 0; n != ConditionModels[i].Count; n++)
-                            {
-                                if (ConditionModels[i].ElementAt(n) is RTableColumnConfig mm)
+                            <tr class="@string.Join(" ",clsList)" @onclick="e=>RowClicked(row)">
+                                @for (int j = 1; j <= Headers.Count; j++)
                                 {
-                                    var cls = new List<string>();
-                                    if (mm.IsHidden)
-                                    {
-                                        cls.Add("d-none");
-                                    }
-                                    <td rowspan="1" colspan="1" class="my-table_1_column_@i @string.Join("",cls)">
-                                        @if (mm.ColumnType == ColumnType.Text)
+                                    var header = Headers.ElementAt(j - 1);
+                                    <td rowspan="1" colspan="1" class="my-table_1_column_@j @(header.IsCheckBox?"bs-checkbox":"")">
+                                        @if (header.IsCheckBox)
                                         {
-                                            @mm.Model.RawValue
+                                            <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked: Status.UnChecked" StatusChanged="(status=>ChangeRowStatus(status,row))"></BSimpleCheckBox>
                                         }
-                                        else if (mm.ColumnType == ColumnType.DateTime)
+                                        else if (header.Template != null)
                                         {
-                                            if (DateTime.TryParse(mm.Model.RawValue.ToString(), out var result))
-                                            {
-                                                @result.ToString(mm.ColumnFormat);
-                                            }
+                                            @header.Template(row)
                                         }
-                                        else if (mm.ColumnType == ColumnType.Decimal)
+                                        else if (header.Eval != null)
                                         {
-                                            if (decimal.TryParse(mm.Model.RawValue?.ToString(), out var result))
-                                            {
-                                                @result.ToString(mm.ColumnFormat);
-                                            }
+                                            @header.Eval(row)
                                         }
-
                                     </td>
                                 }
-                            }
-                        </tr>
+                                @for (int n = 0; n != ConditionModels[i].Count; n++)
+                                {
+                                    if (ConditionModels[i].ElementAt(n) is RTableColumnConfig mm)
+                                    {
+                                        var cls = new List<string>();
+                                        if (mm.IsHidden)
+                                        {
+                                            cls.Add("d-none");
+                                        }
+                                        <td rowspan="1" colspan="1" class="my-table_1_column_@i @string.Join("",cls)">
+                                            @if (mm.ColumnType == ColumnType.Text)
+                                            {
+                                                @mm.Model.RawValue
+                                            }
+                                            else if (mm.ColumnType == ColumnType.DateTime)
+                                            {
+                                                if (DateTime.TryParse(mm.Model.RawValue.ToString(), out var result))
+                                                {
+                                                    @result.ToString(mm.ColumnFormat);
+                                                }
+                                            }
+                                            else if (mm.ColumnType == ColumnType.Decimal)
+                                            {
+                                                if (decimal.TryParse(mm.Model.RawValue?.ToString(), out var result))
+                                                {
+                                                    @result.ToString(mm.ColumnFormat);
+                                                }
+                                            }
+
+                                        </td>
+                                    }
+                                }
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -150,7 +150,7 @@
 }
 else
 {
-    <CascadingValue Value="@this">
-        @ChildContent
-    </CascadingValue>
+<CascadingValue Value="@this">
+    @ChildContent
+</CascadingValue>
 }

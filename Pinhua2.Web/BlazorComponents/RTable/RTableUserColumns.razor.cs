@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class RTableCustomColumns<TRow> : ComponentBase
+    public partial class RTableUserColumns<TRow> : ComponentBase
     {
         [Parameter]
         public RenderFragment ChildContent { get; set; }
         [CascadingParameter]
         public RTable<TRow> Table { get; set; }
 
-        public void AddColumn(RTableCustomColumn<TRow> column)
+        public void AddColumn(RTableUserColumn<TRow> column)
         {
             var columnConfig = new RTableHeader<TRow>
             {

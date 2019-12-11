@@ -87,7 +87,21 @@ namespace Pinhua2.Web.BlazorComponents.RTable
         [Parameter]
         public bool IsResponsive { get; set; }
 
+        /// <summary>
+        /// 启用单击选中
+        /// </summary>
+        [Parameter]
+        public bool IsClickToSelect { get; set; }
+
+        /// <summary>
+        /// 启用单选
+        /// </summary>
+        [Parameter]
+        public bool IsSingleSelect { get; set; }
+
         public ElementReference Container { get; set; }
+
+        public ElementReference abc { get; set; }
 
         protected override void OnAfterRender(bool firstRender)
         {
@@ -128,22 +142,29 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 
         protected void ChangeAllStatus(Status status)
         {
-            if (status == Status.Checked)
+            if (!IsSingleSelect)
             {
-                SelectedRows = new HashSet<TRow>(DataSource);
-            }
-            else
-            {
-                SelectedRows = new HashSet<TRow>();
-            }
+                if (status == Status.Checked)
+                {
+                    SelectedRows = new HashSet<TRow>(DataSource);
+                }
+                else
+                {
+                    SelectedRows = new HashSet<TRow>();
+                }
 
-            RefreshSelectAllStatus();
+                RefreshSelectAllStatus();
+            }
         }
 
         protected void ChangeRowStatus(Status status, TRow row)
         {
             if (status == Status.Checked)
             {
+                if (IsSingleSelect)
+                {
+                    SelectedRows = new HashSet<TRow>();
+                }
                 SelectedRows.Add(row);
             }
             else
@@ -151,7 +172,19 @@ namespace Pinhua2.Web.BlazorComponents.RTable
                 SelectedRows.Remove(row);
             }
             RefreshSelectAllStatus();
+        }
 
+        protected void InvertRowStatus(TRow row)
+        {
+            ChangeRowStatus(SelectedRows.Contains(row) ? Status.UnChecked : Status.Checked, row);
+        }
+
+        protected void RowClicked(TRow row)
+        {
+            if (IsClickToSelect)
+            {
+                InvertRowStatus(row);
+            }
         }
     }
 }
