@@ -13,8 +13,11 @@ namespace Pinhua2.Web.BlazorComponents.RTable
         [Parameter]
         public virtual Expression<Func<RTableColumnConfig, bool>> Predicate { get; set; }
 
+        [Parameter]
+        public virtual Expression<Func<ReflectionCell, bool>> Predicate2 { get; set; }
+
         [CascadingParameter]
-        public RTableConditions<TRow> Conditions { get; set; }
+        public RTableConditionContainer<TRow> Parent { get; set; }
 
         [Parameter]
         public virtual RenderFragment<TRow> ChildContent { get; set; }
@@ -22,11 +25,11 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 
         protected override void OnParametersSet()
         {
-            if (Conditions == null)
+            if (Parent == null)
             {
                 return;
             }
-            Conditions.AddCondition(this);
+            Parent.AddCondition(this);
         }
     }
 }

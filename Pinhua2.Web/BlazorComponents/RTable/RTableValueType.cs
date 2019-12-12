@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public enum ColumnType
+    public enum RTableValueType
     {
         Text,
         DateTime,

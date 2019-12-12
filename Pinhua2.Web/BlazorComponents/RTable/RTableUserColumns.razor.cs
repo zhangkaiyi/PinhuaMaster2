@@ -17,8 +17,9 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 
         public void AddColumn(RTableUserColumn<TRow> column)
         {
-            var columnConfig = new RTableHeader<TRow>
+            var columnConfig = new RTableUserColumnConfig<TRow>
             {
+                Column = column,
                 Property = column.Property == null ? string.Empty : GetPropertyName(column.Property),
                 Eval = column.Property == null ? null : column.Property.Compile(),
                 Text = column.Text,
@@ -26,7 +27,10 @@ namespace Pinhua2.Web.BlazorComponents.RTable
                 IsCheckBox = column.IsCheckBox,
                 Template = column.ChildContent
             };
-            Table.Headers.Add(columnConfig);
+
+            var exsisted = Table.UserColumns.Any(c => c.Column == columnConfig.Column);
+            if (!exsisted)
+                Table.UserColumns.Add(columnConfig);
         }
 
         private string GetPropertyName(Expression<Func<TRow, object>> propertyGetter)

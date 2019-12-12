@@ -1,0 +1,165 @@
+﻿@inherits ComponentBase
+@typeparam TRow
+@if (ConditionModels.Any())
+{
+    var styles = new List<string>();
+    var tableClsList = new List<string>();
+    tableClsList.Add("table");
+    if (IsHover)
+    {
+        tableClsList.Add("table-hover");
+    }
+    if (IsStripe)
+    {
+        tableClsList.Add("table-striped");
+    }
+    if (IsBordered)
+    {
+        tableClsList.Add("table-bordered");
+    }
+    if (IsTextNoWrap)
+    {
+        tableClsList.Add("text-nowrap");
+    }
+
+    styles.Add("width:100%");
+    if (Height > 0)
+    {
+        styles.Add("height:" + Height + "px");
+    }
+
+    <div style="@string.Join(";",styles)" @ref="Container" class="">
+        <div class="" @ref="headerElement">
+            <div class="@(IsResponsive ? "table-responsive" : "")">
+                <table cellspacing="0" cellpadding="0" border="0" class="@string.Join(" ", tableClsList)">
+                    <colgroup>
+                        @for (int i = 1; i <= Headers.Count; i++)
+                        {
+                            var header = Headers.ElementAt(i - 1);
+                            var width = header.Width;
+                            if (header.IsCheckBox)
+                            {
+                                width = 1;
+                            }
+                            <col name="my-table_1_column_@i" width="@width" />
+                        }
+                        @for (int i = 0; i != ConditionModels[0].Count; i++)
+                        {
+                            var mm = ConditionModels[0].ElementAt(i);
+                            if (mm.IsHidden) { }
+                            <col name="my-table_1_column_@i" class="@(mm.IsHidden ? "d-none" : "")" />
+                        }
+                    </colgroup>
+                    <thead class="">
+                        <tr class="">
+                            @for (int i = 1; i <= Headers.Count; i++)
+                            {
+                                var header = Headers.ElementAt(i - 1);
+                                <th colspan="1" rowspan="1" class="my-table_1_column_@i  @(header.IsCheckBox ? "bs-checkbox" : "")">
+                                    <div class="">
+                                        @if (header.IsCheckBox)
+                                        {
+                                            if (!IsSingleSelect)
+                                            {
+                                                <BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @header.Text
+                                        }
+                                    </div>
+                                </th>
+                            }
+                            @for (int i = 0; i != ConditionModels[0].Count; i++)
+                            {
+                                @if (ConditionModels[0].ElementAt(i) is RTableColumnConfig mm)
+                                {
+                                    <th colspan="1" rowspan="1" class="my-table_1_column_@i @(mm.IsHidden ? "d-none" : "")">
+                                        <div class="">
+                                            @mm.Model.RawName
+                                        </div>
+                                    </th>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i != ConditionModels.Count; i++)
+                        {
+                            var clsList = new List<string>();
+                            var row = DataSource.ElementAt(i);
+                            <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
+                                @for (int j = 1; j <= Headers.Count; j++)
+                                {
+                                    var header = Headers.ElementAt(j - 1);
+                                    <td rowspan="1" colspan="1" class="my-table_1_column_@j @(header.IsCheckBox ? "bs-checkbox" : "")">
+                                        @if (header.IsCheckBox)
+                                        {
+                                            <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked : Status.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                        }
+                                        else if (header.Template != null)
+                                        {
+                                            @header.Template(row)
+                                        }
+                                        else if (header.Eval != null)
+                                        {
+                                            @header.Eval(row)
+                                        }
+                                    </td>
+                                }
+                                @for (int n = 0; n != ConditionModels[i].Count; n++)
+                                {
+                                    if (ConditionModels[i].ElementAt(n) is RTableColumnConfig mm)
+                                    {
+                                        var cls = new List<string>();
+                                        if (mm.IsHidden)
+                                        {
+                                            cls.Add("d-none");
+                                        }
+                                        <td rowspan="1" colspan="1" class="my-table_1_column_@i @string.Join("", cls)">
+                                            @if (mm.ValueType == RTableValueType.Text)
+                                            {
+                                                @mm.Model.RawValue
+                                            }
+                                            else if (mm.ValueType == RTableValueType.DateTime)
+                                            {
+                                                if (DateTime.TryParse(mm.Model.RawValue.ToString(), out var result))
+                                                {
+                                                    @result.ToString(mm.ValueFormat);
+                                                }
+                                            }
+                                            else if (mm.ValueType == RTableValueType.Decimal)
+                                            {
+                                                if (decimal.TryParse(mm.Model.RawValue?.ToString(), out var result))
+                                                {
+                                                    @result.ToString(mm.ValueFormat);
+                                                }
+                                            }
+
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @*<div style="margin-top:20px;margin-bottom:20px;">
+                    <BPagination Total="Total" PageSize="PageSize" @bind-CurrentPage="CurrentPage"></BPagination>
+                </div>*@
+            @*<pre>@Newtonsoft.Json.JsonConvert.SerializeObject(DataSource, Newtonsoft.Json.Formatting.Indented)</pre>*@
+            @{
+                DataSource.Add(DataSource.First());
+
+            }
+            @DataSource.Count
+        </div>
+    </div>
+}
+else
+{
+    <CascadingValue Value="@this">
+        @ChildContent
+    </CascadingValue>
+}

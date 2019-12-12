@@ -11,9 +11,9 @@ namespace Pinhua2.Web.BlazorComponents.RTable
     public partial class RTableFormatCondition<TRow> : RTableCondition<TRow>
     {
         [Parameter]
-        public ColumnType Type { get; set; } = ColumnType.Text;
+        public RTableValueType ValueType { get; set; } = RTableValueType.Text;
 
         [Parameter]
-        public string Format { get; set; }
+        public string ValueFormat { get; set; }
     }
 }

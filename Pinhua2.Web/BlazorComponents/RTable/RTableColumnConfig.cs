@@ -14,7 +14,13 @@ namespace Pinhua2.Web.BlazorComponents.RTable
         public MyMarkModel Model { get; set; }
         public bool IsHidden { get; set; } = false;
         public IList<string> ColumnClasses { get; set; } = new List<string>();
-        public ColumnType ColumnType { get; set; } = ColumnType.Text;
-        public string ColumnFormat { get; set; } = string.Empty;
+        public RTableValueType ValueType { get; set; } = RTableValueType.Text;
+        public string ValueFormat { get; set; } = string.Empty;
+    }
+
+    public class RTableAutoColumnConfig<TRow>
+    {
+        public List<RTableCondition<TRow>> Conditions { get; set; }
+        public List<MyMarkModel> Row { get; set; }
     }
 }
