@@ -3,19 +3,7 @@
 @using System.Linq.Expressions;
 
 @{
-    Expression<Func<RTableColumnConfig, bool>> predicate = m =>
-    m.Model.IsHiddenRef ||
-    m.Model.RawName == nameof(view_AllOrdersPay.往来号) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.子单号) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.品号) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.数量) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.单位) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.单价) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.已付) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.待付) ||
-    m.Model.RawName == nameof(view_AllOrdersPay.日期);
-
-    Expression<Func<ReflectionCell, bool>> predicate2 = m =>
+    Expression<Func<ReflectionCell<view_AllOrdersPay>, bool>> predicate = m =>
     m.Model.IsHiddenRef ||
     m.Model.RawName == nameof(view_AllOrdersPay.往来号) ||
     m.Model.RawName == nameof(view_AllOrdersPay.子单号) ||
@@ -27,14 +15,29 @@
     m.Model.RawName == nameof(view_AllOrdersPay.待付) ||
     m.Model.RawName == nameof(view_AllOrdersPay.日期);
 }
-<RTable TRow="view_AllOrdersPay" DataSource="pinhua.list_收付待收().ToList()"
+<RTable TDataSource="view_AllOrdersPay" DataSource="dataSource"
         IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
     <RTableUserColumns TRow="view_AllOrdersPay">
-
+        <RTableUserColumn TRow="view_AllOrdersPay"><a href="#" class="mr-1">查看</a><a href="#" class="mr-1">修改</a><a href="#">删除</a></RTableUserColumn>
     </RTableUserColumns>
     <RTableConditionContainer TRow="view_AllOrdersPay">
-        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="predicate" Predicate2="predicate2"></RTableHiddenCondition>
-        <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDatetime)" Predicate2="@(m=>m.Model.IsDatetime)" ValueType="RTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></RTableFormatCondition>
-        <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDecimal)" Predicate2="@(m=>m.Model.IsDatetime)" ValueType="RTableValueType.Decimal" ValueFormat="0.00"></RTableFormatCondition>
+        <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="predicate"></RTableHiddenCondition>
+        <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDatetime)" ValueType="RTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></RTableFormatCondition>
+        <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDecimal)" ValueType="RTableValueType.Decimal" ValueFormat="0.00"></RTableFormatCondition>
     </RTableConditionContainer>
 </RTable>
+@{
+var x = new Data.Models.view_AllOrdersPay
+            {
+                RecordId = 1987,
+                业务类型 = "test",
+                个数 = 1987,
+                交期 = new DateTime(1987, 9, 22),
+                仓 = "test",
+                别名 = "test",
+                日期 = new DateTime(1987, 9, 22)
+
+            };
+}
+<button class="btn btn-primary" @onclick="e=>dataSource.Add(x)">添加数据</button>
+<button class="btn btn-primary" @onclick="e=>dataSource.Remove(dataSource.LastOrDefault())">删除</button>

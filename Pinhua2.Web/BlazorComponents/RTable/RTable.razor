@@ -1,53 +1,18 @@
 ﻿@inherits ComponentBase
-@typeparam TRow
+@typeparam TDataSource
 @if (DataSource.Any())
 {
-    var styles = new List<string>();
-    var tableClsList = new List<string>();
-    tableClsList.Add("table");
-    if (IsHover)
-    {
-        tableClsList.Add("table-hover");
-    }
-    if (IsStripe)
-    {
-        tableClsList.Add("table-striped");
-    }
-    if (IsBordered)
-    {
-        tableClsList.Add("table-bordered");
-    }
-    if (IsTextNoWrap)
-    {
-        tableClsList.Add("text-nowrap");
-    }
-
-    styles.Add("width:100%");
-    if (Height > 0)
-    {
-        styles.Add("height:" + Height + "px");
-    }
     <CascadingValue Value="@this">
         @ChildContent
 
-        <div style="@string.Join(";",styles)" @ref="Container" class="@(visible?"":"d-none")">
+        <div style="@Stylename" @ref="Container" class="@(isContainerHidden?"d-none":"")">
             <div class="@(IsResponsive ? "table-responsive" : "")">
-                <table cellspacing="0" cellpadding="0" border="0" class="@string.Join(" ", tableClsList)">
+                <table cellspacing="0" cellpadding="0" border="0" class="@Classname">
                     <colgroup>
                         @if (CheckBoxHeader)
                         {
                             <col name="auto_column_checkbox" width="1" />
                         }
-                        @*@for (int i = 1; i <= UserColumns.Count; i++)
-                            {
-                                var header = UserColumns.ElementAt(i - 1);
-                                var width = header.Width;
-                                if (header.IsCheckBox)
-                                {
-                                    width = 1;
-                                }
-                                <col name="user_column_@i" width="@width" />
-                            }*@
                         @foreach (var userColumn in UserColumns)
                         {
                             var width = userColumn.Width;
@@ -57,22 +22,9 @@
                             }
                             <col name="user_column_@(UserColumns.IndexOf(userColumn)+1)" width="@width" />
                         }
-                        @*@for (int i = 0; i != AutoColumns[0].Count; i++)
-                            {
-                                var mm = AutoColumns[0].ElementAt(i);
-                                if (mm.IsHidden) { }
-                                <col name="auto_column_@i" class="@(mm.IsHidden ? "d-none" : "")" />
-                            }*@
-                        @*@if (AutoColumns.Any())
+                        @if (ReflectionTable.Rows.Any())
                         {
-                            @foreach (var cfg in AutoColumns[0])
-                            {
-                                <col name="auto_column_@(AutoColumns[0].IndexOf(cfg)+1)" class="@(cfg.IsHidden ? "d-none" : "")" />
-                            }
-                        }*@
-                        @if (ReflectionData.Rows.Any())
-                        {
-                            var rRow = ReflectionData.Rows[0];
+                            var rRow = ReflectionTable.Rows[0];
                             if (rRow.Cells.Any())
                             {
                                 @foreach (var rCell in rRow.Cells)
@@ -111,20 +63,9 @@
                                     </div>
                                 </th>
                             }
-                            @*@if (AutoColumns.Any())
+                            @if (ReflectionTable.Rows.Any())
                             {
-                                @foreach (var cfg in AutoColumns[0])
-                                {
-                                    <th colspan="1" rowspan="1" class="auto_column_@(AutoColumns[0].IndexOf(cfg)) @(cfg.IsHidden ? "d-none" : "")">
-                                        <div class="">
-                                            @cfg.Model.RawName
-                                        </div>
-                                    </th>
-                                }
-                            }*@
-                            @if (ReflectionData.Rows.Any())
-                            {
-                                var rRow = ReflectionData.Rows[0];
+                                var rRow = ReflectionTable.Rows[0];
                                 if (rRow.Cells.Any())
                                 {
                                     @foreach (var rCell in rRow.Cells)
@@ -143,95 +84,66 @@
                         @foreach (var row in DataSource)
                         {
                             var clsList = new List<string>();
-                        <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
-                            @if (CheckBoxHeader)
-                            {
-                                <td class="auto_column_checkbox">
-                                    <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked : Status.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
-                                </td>
-                            }
-                            @foreach (var userColumn in UserColumns)
-                            {
-                                <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn)+1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
-                                    @if (userColumn.IsCheckBox)
-                                    {
+                            <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
+                                @if (CheckBoxHeader)
+                                {
+                                    <td class="auto_column_checkbox">
                                         <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked : Status.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
-                                    }
-                                    else if (userColumn.Template != null)
-                                    {
-                                        @userColumn.Template(row)
-                                    }
-                                    else if (userColumn.Eval != null)
-                                    {
-                                        @userColumn.Eval(row)
-                                    }
-                                </td>
-                            }
-                            @*@foreach (var cfg in AutoColumns[DataSource.IndexOf(row)])
-                            {
-                                var cls = new List<string>();
-                                if (cfg.IsHidden)
-                                {
-                                    cls.Add("d-none");
+                                    </td>
                                 }
-                                <td rowspan="1" colspan="1" class="auto_column_@(AutoColumns[DataSource.IndexOf(row)].IndexOf(cfg)+1) @string.Join("", cls)">
-                                    @if (cfg.ColumnType == ColumnType.Text)
-                                    {
-                                        @cfg.Model.RawValue
-                                    }
-                                    else if (cfg.ColumnType == ColumnType.DateTime)
-                                    {
-                                        if (DateTime.TryParse(cfg.Model.RawValue.ToString(), out var result))
-                                        {
-                                            @result.ToString(cfg.ColumnFormat);
-                                        }
-                                    }
-                                    else if (cfg.ColumnType == ColumnType.Decimal)
-                                    {
-                                        if (decimal.TryParse(cfg.Model.RawValue?.ToString(), out var result))
-                                        {
-                                            @result.ToString(cfg.ColumnFormat);
-                                        }
-                                    }
-
-                                </td>
-                            }*@
-                            @foreach (var rCell in ReflectionData.Rows[DataSource.IndexOf(row)].Cells)
-                            {
-                                var cls = new List<string>();
-                                if (rCell.IsHidden)
+                                @foreach (var userColumn in UserColumns)
                                 {
-                                    cls.Add("d-none");
+                                    <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn)+1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                        @if (userColumn.IsCheckBox)
+                                        {
+                                            <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked : Status.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                        }
+                                        else if (userColumn.Template != null)
+                                        {
+                                            @userColumn.Template(row)
+                                        }
+                                        else if (userColumn.Eval != null)
+                                        {
+                                            @userColumn.Eval(row)
+                                        }
+                                    </td>
                                 }
-                                <td rowspan="1" colspan="1" class="auto_column_@(ReflectionData.Rows[DataSource.IndexOf(row)].Cells.IndexOf(rCell)+1) @string.Join("", cls)">
-                                    @if (rCell.ValueType == RTableValueType.Text)
+                                @foreach (var rCell in ReflectionTable.Rows[DataSource.IndexOf(row)].Cells)
+                                {
+                                    var cls = new List<string>();
+                                    if (rCell.IsHidden)
                                     {
-                                        @rCell.Model.RawValue
+                                        cls.Add("d-none");
                                     }
-                                    else if (rCell.ValueType == RTableValueType.DateTime)
-                                    {
-                                        if (DateTime.TryParse(rCell.Model.RawValue.ToString(), out var result))
+                                    <td rowspan="1" colspan="1" class="auto_column_@(ReflectionTable.Rows[DataSource.IndexOf(row)].Cells.IndexOf(rCell)+1) @string.Join("", cls)">
+                                        @if (rCell.ValueType == RTableValueType.Text)
                                         {
-                                            @result.ToString(rCell.ValueFormat);
+                                            @rCell.Model.RawValue
                                         }
-                                    }
-                                    else if (rCell.ValueType == RTableValueType.Decimal)
-                                    {
-                                        if (decimal.TryParse(rCell.Model.RawValue?.ToString(), out var result))
+                                        else if (rCell.ValueType == RTableValueType.DateTime)
                                         {
-                                            @result.ToString(rCell.ValueFormat);
+                                            if (DateTime.TryParse(rCell.Model.RawValue.ToString(), out var result))
+                                            {
+                                                @result.ToString(rCell.ValueFormat);
+                                            }
                                         }
-                                    }
+                                        else if (rCell.ValueType == RTableValueType.Decimal)
+                                        {
+                                            if (decimal.TryParse(rCell.Model.RawValue?.ToString(), out var result))
+                                            {
+                                                @result.ToString(rCell.ValueFormat);
+                                            }
+                                        }
 
-                                </td>
-                            }
-                        </tr>
+                                    </td>
+                                }
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
-        <button class="btn btn-primary" @onclick="x=> { Add(DataSource[1]); }">Add</button>
-        <button class="btn btn-primary" @onclick="x=> RTableConfigCreate()">All</button>
+        <button class="btn btn-primary" @onclick="x=>  Add(DataSource.LastOrDefault()?? default)">Add</button>
+        <button class="btn btn-primary">All</button>
     </CascadingValue>
 }

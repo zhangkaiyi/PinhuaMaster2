@@ -8,19 +8,16 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class RTableCondition<TRow> : ComponentBase
+    public partial class RTableCondition<TDataSource> : ComponentBase
     {
         [Parameter]
-        public virtual Expression<Func<RTableColumnConfig, bool>> Predicate { get; set; }
-
-        [Parameter]
-        public virtual Expression<Func<ReflectionCell, bool>> Predicate2 { get; set; }
+        public virtual Expression<Func<ReflectionCell<TDataSource>, bool>> Predicate { get; set; }
 
         [CascadingParameter]
-        public RTableConditionContainer<TRow> Parent { get; set; }
+        public RTableConditionContainer<TDataSource> Parent { get; set; }
 
         [Parameter]
-        public virtual RenderFragment<TRow> ChildContent { get; set; }
+        public virtual RenderFragment<TDataSource> ChildContent { get; set; }
 
 
         protected override void OnParametersSet()

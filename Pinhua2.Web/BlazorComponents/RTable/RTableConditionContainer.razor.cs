@@ -11,53 +11,24 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 {
     public partial class RTableConditionContainer<TRow> : ComponentBase
     {
-        [Parameter]
-        public RenderFragment ChildContent { get; set; }
-        [CascadingParameter]
-        public RTable<TRow> Table { get; set; }
+        [Parameter] public RenderFragment ChildContent { get; set; }
+        [CascadingParameter] public RTable<TRow> Table { get; set; }
 
         public void AddCondition(RTableCondition<TRow> condition)
         {
-            // way1
-            if (!Table.Conditions.Contains(condition))
+            if (!Table.ReflectionTable.Conditions.Contains(condition))
             {
-                Table.Conditions.Add(condition);
+                Table.ReflectionTable.Conditions.Add(condition);
             }
-            // way2
-            if (!Table.ReflectionData.Conditions.Contains(condition))
-            {
-                Table.Conditions.Add(condition);
-            }
+        }
 
-            // way1
-            if (Table.AutoColumns.Any())
+        public void ApplyCondition(RTableCondition<TRow> condition)
+        {
+            if (Table.ReflectionTable.Rows.Any())
             {
-                var eval = condition.Predicate.Compile();
-                foreach (var rowModel in Table.AutoColumns)
+                foreach (var rRow in Table.ReflectionTable.Rows)
                 {
-                    var where = rowModel.Where(eval);
-                    foreach (var cell in where)
-                    {
-                        cell.Predicate = condition.Predicate;
-                        cell.Eval = eval;
-                        if (condition is RTableHiddenCondition<TRow> hiddenCondition)
-                        {
-                            cell.IsHidden = hiddenCondition.IsHidden;
-                        }
-                        if (condition is RTableFormatCondition<TRow> formatCondition)
-                        {
-                            cell.ValueType = formatCondition.ValueType;
-                            cell.ValueFormat = formatCondition.ValueFormat;
-                        }
-                    }
-                }
-            }
-            // way2
-            if (Table.ReflectionData.Rows.Any())
-            {
-                foreach (var rRow in Table.ReflectionData.Rows)
-                {
-                    foreach(var cell in rRow.Cells.Where(condition.Predicate2.Compile()))
+                    foreach (var cell in rRow.Cells.Where(condition.Predicate.Compile()))
                     {
                         if (condition is RTableHiddenCondition<TRow> hiddenCondition)
                         {

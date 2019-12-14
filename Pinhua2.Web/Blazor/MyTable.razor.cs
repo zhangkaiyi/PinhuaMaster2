@@ -1,5 +1,7 @@
 ﻿using Blazui.Component;
 using Microsoft.AspNetCore.Components;
+using Pinhua2.Data;
+using Pinhua2.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,14 @@ namespace Pinhua2.Web.Blazor
     {
         protected List<TestData> Datas = new List<TestData>();
         protected List<TestData> LargeDatas = new List<TestData>();
+        private List<view_AllOrdersPay> dataSource { get; set; }
+
 
         [Inject]
         MessageService MessageService { get; set; }
+
+        [Inject]
+        Pinhua2Context pinhua2 { get; set; }
 
         protected override void OnInitialized()
         {
@@ -47,6 +54,9 @@ namespace Pinhua2.Web.Blazor
             LargeDatas.AddRange(Datas);
             LargeDatas.AddRange(Datas);
             LargeDatas.AddRange(Datas);
+
+            dataSource = pinhua2.list_收付待收().ToList();
+
         }
 
         public void Edit(TestData testData)

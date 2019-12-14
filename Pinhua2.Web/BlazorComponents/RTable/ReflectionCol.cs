@@ -8,7 +8,7 @@ using Pinhua2.Common.Attributes;
 
 namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public class ReflectionRow<TDataSource>
+    public class ReflectionCol<TDataSource>
     {
         public List<ReflectionCell<TDataSource>> Cells { get; set; } = new List<ReflectionCell<TDataSource>>();
     }
