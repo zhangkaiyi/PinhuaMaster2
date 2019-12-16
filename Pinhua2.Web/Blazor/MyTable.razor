@@ -17,27 +17,55 @@
 }
 <RTable TDataSource="view_AllOrdersPay" DataSource="dataSource"
         IsBordered="true" IsHover="true" IsTextNoWrap="true" IsResponsive="true" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
-    <RTableUserColumns TRow="view_AllOrdersPay">
-        <RTableUserColumn TRow="view_AllOrdersPay"><a href="#" class="mr-1">查看</a><a href="#" class="mr-1">修改</a><a href="#">删除</a></RTableUserColumn>
-    </RTableUserColumns>
-    <RTableConditionContainer TRow="view_AllOrdersPay">
+    <ConditionContainer>
         <RTableHiddenCondition TRow="view_AllOrdersPay" Predicate="predicate"></RTableHiddenCondition>
         <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDatetime)" ValueType="RTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></RTableFormatCondition>
         <RTableFormatCondition TRow="view_AllOrdersPay" Predicate="@(m=>m.Model.IsDecimal)" ValueType="RTableValueType.Decimal" ValueFormat="0.00"></RTableFormatCondition>
-    </RTableConditionContainer>
+    </ConditionContainer>
+    <ChildContent>
+        <RTableUserColumns TRow="view_AllOrdersPay">
+            <RTableUserColumn TRow="view_AllOrdersPay"><a href="#" class="mr-1">查看</a><a href="#" class="mr-1">修改</a><a href="#">删除</a></RTableUserColumn>
+        </RTableUserColumns>
+    </ChildContent>
 </RTable>
 @{
-var x = new Data.Models.view_AllOrdersPay
-            {
-                RecordId = 1987,
-                业务类型 = "test",
-                个数 = 1987,
-                交期 = new DateTime(1987, 9, 22),
-                仓 = "test",
-                别名 = "test",
-                日期 = new DateTime(1987, 9, 22)
+    var x = new Data.Models.view_AllOrdersPay
+    {
+        RecordId = 1987,
+        业务类型 = "test",
+        个数 = 1987,
+        交期 = new DateTime(1987, 9, 22),
+        仓 = "test",
+        别名 = "test",
+        日期 = new DateTime(1987, 9, 22)
 
-            };
+    };
 }
 <button class="btn btn-primary" @onclick="e=>dataSource.Add(x)">添加数据</button>
 <button class="btn btn-primary" @onclick="e=>dataSource.Remove(dataSource.LastOrDefault())">删除</button>
+
+<BSButton Color="Color.Primary" data-toggle="modal" data-target="#staticBackdrop">Launch demo modal</BSButton>
+<!-- Modal -->
+<div class="modal" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    BSModal LiveDemo;
+}

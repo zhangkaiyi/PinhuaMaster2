@@ -1,0 +1,27 @@
+﻿@inherits BSimpleCheckBoxBase<TValue>
+@typeparam TValue
+@namespace Klazor
+@using  Blazui.Component.EventArgs
+@{
+    switch (Status)
+    {
+        case Status.UnChecked:
+            _isChecked = string.Empty;
+            _isIndeterminate = string.Empty;
+            break;
+        case Status.Checked:
+            _isChecked = "is-checked";
+            _isIndeterminate = string.Empty;
+            break;
+        case Status.Indeterminate:
+            _isChecked = string.Empty;
+            _isIndeterminate = "is-indeterminate";
+            break;
+    }
+    <label class="">
+        <input type="checkbox" @onchange="ChangeStatus" class="" value="" checked="@((Status == Status.Checked)?true:false)" @onclick:stopPropagation="stopPropagationOnClick" />
+        <span class="">
+            @ChildContent
+        </span>
+    </label>
+}

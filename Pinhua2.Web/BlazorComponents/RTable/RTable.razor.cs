@@ -12,11 +12,10 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.Web.BlazorComponents.RTable
 {
-    public partial class RTable<TDataSource> : ComponentBase, Blazui.Component.IContainerComponent
+    public partial class RTable<TDataSource> : ComponentBase
     {
-        [Inject] private IJSRuntime jsRunTime { get; set; }
+        private bool makeRDataSource = true;
         public ElementReference Container { get; set; }
-        protected ElementReference headerElement;
         protected Status selectAllStatus;
         private bool isContainerHidden = true;
         private bool requireRender = true;
@@ -38,7 +37,6 @@ namespace Pinhua2.Web.BlazorComponents.RTable
             .Build();
 
         public List<RTableUserColumnConfig<TDataSource>> UserColumns { get; set; } = new List<RTableUserColumnConfig<TDataSource>>();
-        public ReflectionTable<TDataSource> ReflectionTable { get; set; } = new ReflectionTable<TDataSource>();
 
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
 
@@ -46,10 +44,16 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 
         [Parameter] public List<TDataSource> DataSource { get; set; } = new List<TDataSource>();
 
+        public List<RDataSource<TDataSource>> RDataSource = new List<RDataSource<TDataSource>>();
+        public List<RTableCondition<TDataSource>> RConditions = new List<RTableCondition<TDataSource>>();
+
         [Parameter] public HashSet<TDataSource> SelectedRows { get; set; } = new HashSet<TDataSource>();
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
+
+        [Parameter]
+        public RenderFragment ConditionContainer { get; set; }
 
         [Parameter] public int Height { get; set; }
 
@@ -115,24 +119,63 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 
         protected override void OnInitialized()
         {
-
+            //FillReflectionTable(ReflectionTable);
         }
 
         protected override void OnParametersSet()
         {
-            FillReflectionTable();
+            //makeRDataSource = true;
+            MakeAllRDataSource();
             RefreshSelectAllStatus();
+        }
+
+        protected void MakeAllRDataSource()
+        {
+            RDataSource = new List<RDataSource<TDataSource>>();
+            foreach (var row in DataSource)
+            {
+                var rRow = new RDataSource<TDataSource>();
+                rRow.Data = row;
+                rRow.RData = MyMark.Parse(row).Select(m =>
+                new ReflectionCell<TDataSource>
+                {
+                    Model = m
+                }.ApplyConditions(RConditions)).ToList();
+
+                RDataSource.Add(rRow);
+            }
+        }
+
+        protected void MakeOneRDataSource(TDataSource row)
+        {
+            var rRow = new RDataSource<TDataSource>();
+            rRow.Data = row;
+            rRow.RData = (from m in MyMark.Parse(row)
+                          select new ReflectionCell<TDataSource>
+                          {
+                              Model = m
+                          }.ApplyConditions(RConditions))
+                          .ToList();
+
+            RDataSource.Add(rRow);
         }
 
         protected override void OnAfterRender(bool firstRender)
         {
-            ApplyConditions();
+            if (RConditions.Any() && makeRDataSource)
+            {
+                MakeAllRDataSource();
+
+                makeRDataSource = false;
+
+                StateHasChanged();
+                return;
+            }
             if (requireRender)
             {
                 if (isContainerHidden)
                 {
                     isContainerHidden = false;
-                    //StateHasChanged();
                 }
                 requireRender = false;
                 StateHasChanged();
@@ -143,89 +186,7 @@ namespace Pinhua2.Web.BlazorComponents.RTable
 
         }
 
-        protected void FillReflectionTable()
-        {
-            ReflectionTable = new ReflectionTable<TDataSource>();
-            ReflectionTable.Rows = BuildReflectionRows();
-            ReflectionTable.Cols = BuildReflectionCols();
-            ReflectionTable.ColsNamed = BuildReflectionColsNamed();
-        }
-
-        protected void DoConditions()
-        {
-            foreach (var row in ReflectionTable.Rows)
-            {
-                foreach (var cell in row.Cells)
-                {
-                    //cell.DoConditions(ReflectionTable.Conditions);
-                }
-            }
-        }
-
-        private List<ReflectionRow<TDataSource>> BuildReflectionRows()
-        {
-            var rRows = new List<ReflectionRow<TDataSource>>();
-            foreach (var row in DataSource)
-            {
-                var rCells = from mm in MyMark.Parse(row)
-                             select new ReflectionCell<TDataSource>
-                             {
-                                 Table = ReflectionTable,
-                                 Model = mm,
-                             };
-                var rRow = new ReflectionRow<TDataSource>
-                {
-                    Cells = rCells.ToList()
-                };
-                rRows.Add(rRow);
-            }
-            return rRows;
-        }
-
-        private List<ReflectionCol<TDataSource>> BuildReflectionCols()
-        {
-            var rCols = new List<ReflectionCol<TDataSource>>();
-            var rRow = MyMark.Parse(typeof(TDataSource));
-            foreach (var cell in rRow)
-            {
-                rCols.Add(new ReflectionCol<TDataSource>());
-            }
-            foreach (var row in DataSource)
-            {
-                var rCells = (from mm in MyMark.Parse(row)
-                              select new ReflectionCell<TDataSource>
-                              {
-                                  Model = mm
-                              }).ToList();
-                foreach (var rCell in rCells)
-                {
-                    rCols[rCells.IndexOf(rCell)].Cells.Add(rCell);
-                }
-            }
-            return rCols;
-        }
-
-        private Dictionary<string, ReflectionCol<TDataSource>> BuildReflectionColsNamed()
-        {
-            var rCols = new Dictionary<string, ReflectionCol<TDataSource>>();
-            var rRow = MyMark.Parse(typeof(TDataSource));
-            foreach (var row in DataSource)
-            {
-                var rCells = (from mm in MyMark.Parse(row)
-                              select new ReflectionCell<TDataSource>
-                              {
-                                  Model = mm
-                              }).ToList();
-                foreach (var rCell in rCells)
-                {
-                    rCols.TryAdd(rCell.Model.RawName, new ReflectionCol<TDataSource>());
-                    rCols[rCell.Model.RawName].Cells.Add(rCell);
-                }
-            }
-            return rCols;
-        }
-
-        protected void Add(TDataSource row)
+        protected void Add()
         {
             var x = new Data.Models.view_AllOrdersPay
             {
@@ -238,10 +199,19 @@ namespace Pinhua2.Web.BlazorComponents.RTable
                 日期 = new DateTime(1987, 9, 22)
 
             };
+
             DataSource.Add((TDataSource)(object)x);
-            FillReflectionTable();
-            StateHasChanged();
+            MakeOneRDataSource((TDataSource)(object)x);
         }
+
+        protected void Remove()
+        {
+            var item = DataSource.FirstOrDefault();
+            DataSource.Remove(item);
+            var ritem = RDataSource.Find(m => m.Data.Equals(item));
+            RDataSource.Remove(ritem);
+        }
+
         protected void RefreshSelectAllStatus()
         {
             if (DataSource.Count == 0 || SelectedRows.Count == 0)
@@ -299,32 +269,6 @@ namespace Pinhua2.Web.BlazorComponents.RTable
             if (IsClickToSelect)
             {
                 InverTDataSourceStatus(row);
-            }
-        }
-
-        public void ApplyConditions()
-        {
-            foreach (var row in ReflectionTable.Rows)
-            {
-                foreach (var cell in row.Cells)
-                {
-                    foreach (var condition in ReflectionTable.Conditions)
-                    {
-                        var eval = condition.Predicate.Compile();
-                        if (eval(cell))
-                        {
-                            if (condition is RTableHiddenCondition<TDataSource> hiddenCondition)
-                            {
-                                cell.IsHidden = hiddenCondition.IsHidden;
-                            }
-                            else if (condition is RTableFormatCondition<TDataSource> formatCondition)
-                            {
-                                cell.ValueType = formatCondition.ValueType;
-                                cell.ValueFormat = formatCondition.ValueFormat;
-                            }
-                        }
-                    }
-                }
             }
         }
     }

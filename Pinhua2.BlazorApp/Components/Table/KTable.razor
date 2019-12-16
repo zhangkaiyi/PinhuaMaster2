@@ -1,0 +1,152 @@
+﻿@inherits KTableBase<TDataSource>
+@typeparam TDataSource
+<CascadingValue Value="@this">
+    @if (!RConditions.Any())
+    {
+        @ConditionContainer
+    }
+    else
+    {
+        @ChildContent
+        <div style="@Stylename" @ref="Container" class="@(isContainerHidden?"d-none":"")">
+            <div class="@(IsResponsive ? "table-responsive" : "")">
+                <table cellspacing="0" cellpadding="0" border="0" class="@Classname">
+                    <colgroup>
+                        @if (CheckBoxHeader)
+                        {
+                            <col name="auto_column_checkbox" width="1" />
+                        }
+                        @foreach (var userColumn in UserColumns)
+                        {
+                            var width = userColumn.Width;
+                            if (userColumn.IsCheckBox)
+                            {
+                                width = 1;
+                            }
+                            <col name="user_column_@(UserColumns.IndexOf(userColumn)+1)" width="@width" />
+                        }
+                        @if (RDataSource.Any())
+                        {
+                            var rRow = RDataSource[0].RData;
+                            if (rRow.Any())
+                            {
+                                @foreach (var rCell in rRow)
+                                {
+                                    <col name="auto_column_@(rRow.IndexOf(rCell)+1)" class="@(rCell.IsHidden ? "d-none" : "")" />
+                                }
+                            }
+                        }
+                    </colgroup>
+                    <thead class="">
+                        <tr class="">
+                            @if (CheckBoxHeader)
+                            {
+                                <th class="auto_column_checkbox bs-checkbox">
+                                    @if (!IsSingleSelect)
+                                    {
+                                        <BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>
+                                    }
+                                </th>
+                            }
+                            @foreach (var userColumn in UserColumns)
+                            {
+                                <th colspan="1" rowspan="1" class="user_column_@(UserColumns.IndexOf(userColumn)+1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                    <div class="">
+                                        @if (userColumn.IsCheckBox)
+                                        {
+                                            if (!IsSingleSelect)
+                                            {
+                                                <BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @userColumn.Text
+                                        }
+                                    </div>
+                                </th>
+                            }
+                            @if (RDataSource.Any())
+                            {
+                                var rRow = RDataSource[0].RData;
+                                if (rRow.Any())
+                                {
+                                    @foreach (var rCell in rRow)
+                                    {
+                                        <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
+                                            <div class="">
+                                                @rCell.Model.RawName
+                                            </div>
+                                        </th>
+                                    }
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in DataSource)
+                        {
+                            var clsList = new List<string>();
+                            <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
+                                @if (CheckBoxHeader)
+                                {
+                                    <td class="auto_column_checkbox">
+                                        <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked : Status.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                    </td>
+                                }
+                                @foreach (var userColumn in UserColumns)
+                                {
+                                    <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn)+1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                        @if (userColumn.IsCheckBox)
+                                        {
+                                            <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? Status.Checked : Status.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                        }
+                                        else if (userColumn.Template != null)
+                                        {
+                                            @userColumn.Template(row)
+                                        }
+                                        else if (userColumn.Eval != null)
+                                        {
+                                            @userColumn.Eval(row)
+                                        }
+                                    </td>
+                                }
+                                @foreach (var rCell in RDataSource[DataSource.IndexOf(row)].RData)
+                                {
+                                    var cls = new List<string>();
+                                    if (rCell.IsHidden)
+                                    {
+                                        cls.Add("d-none");
+                                    }
+                                    <td rowspan="1" colspan="1" class="auto_column_@(RDataSource[DataSource.IndexOf(row)].RData.IndexOf(rCell)+1) @string.Join("", cls)">
+                                        @if (rCell.ValueType == RTableValueType.Text)
+                                        {
+                                            @rCell.Model.RawValue
+                                        }
+                                        else if (rCell.ValueType == RTableValueType.DateTime)
+                                        {
+                                            if (DateTime.TryParse(rCell.Model.RawValue.ToString(), out var result))
+                                            {
+                                                @result.ToString(rCell.ValueFormat);
+                                            }
+                                        }
+                                        else if (rCell.ValueType == RTableValueType.Decimal)
+                                        {
+                                            if (decimal.TryParse(rCell.Model.RawValue?.ToString(), out var result))
+                                            {
+                                                @result.ToString(rCell.ValueFormat);
+                                            }
+                                        }
+
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button class="btn btn-primary" @onclick="x=>Add()">Add</button>
+        <button class="btn btn-primary" @onclick="x=>Remove()">Remove</button>
+    }
+</CascadingValue>

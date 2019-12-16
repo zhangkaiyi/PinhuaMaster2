@@ -1,0 +1,9 @@
+﻿@using Blazui.Component.EventArgs
+@namespace Klazor
+@inherits BCheckBoxBase<TModel, TValue>
+@typeparam TModel
+@typeparam TValue
+@foreach (var item in models)
+{
+    <BSimpleCheckBox TValue="TValue" StatusChanged="status=>OnInnerStatusChanged(status,item.Model)" Status="item.Status" IsDisabled="item.IsDisabled">@item.Label</BSimpleCheckBox>
+}

@@ -14,19 +14,22 @@ namespace Pinhua2.Web.BlazorComponents.RTable
         public virtual Expression<Func<ReflectionCell<TDataSource>, bool>> Predicate { get; set; }
 
         [CascadingParameter]
-        public RTableConditionContainer<TDataSource> Parent { get; set; }
+        public RTable<TDataSource> Table { get; set; }
 
         [Parameter]
         public virtual RenderFragment<TDataSource> ChildContent { get; set; }
 
-
         protected override void OnParametersSet()
         {
-            if (Parent == null)
+            if (Table?.RConditions == null)
             {
                 return;
             }
-            Parent.AddCondition(this);
+            if (Table.RConditions.Contains(this))
+            {
+                return;
+            }
+            Table.RConditions.Add(this);
         }
     }
 }

@@ -1,0 +1,8 @@
+﻿@inherits BFieldComponentBase<IEnumerable<TValue>>
+@typeparam TValue
+@namespace Klazor
+<div role="group" aria-label="checkbox-group" class="el-checkbox-group">
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>

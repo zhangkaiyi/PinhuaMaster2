@@ -1,10 +1,13 @@
 ﻿@inherits ComponentBase
 @typeparam TDataSource
-@if (DataSource.Any())
-{
-    <CascadingValue Value="@this">
+<CascadingValue Value="@this">
+    @if (!RConditions.Any())
+    {
+        @ConditionContainer
+    }
+    else
+    {
         @ChildContent
-
         <div style="@Stylename" @ref="Container" class="@(isContainerHidden?"d-none":"")">
             <div class="@(IsResponsive ? "table-responsive" : "")">
                 <table cellspacing="0" cellpadding="0" border="0" class="@Classname">
@@ -22,14 +25,14 @@
                             }
                             <col name="user_column_@(UserColumns.IndexOf(userColumn)+1)" width="@width" />
                         }
-                        @if (ReflectionTable.Rows.Any())
+                        @if (RDataSource.Any())
                         {
-                            var rRow = ReflectionTable.Rows[0];
-                            if (rRow.Cells.Any())
+                            var rRow = RDataSource[0].RData;
+                            if (rRow.Any())
                             {
-                                @foreach (var rCell in rRow.Cells)
+                                @foreach (var rCell in rRow)
                                 {
-                                    <col name="auto_column_@(rRow.Cells.IndexOf(rCell)+1)" class="@(rCell.IsHidden ? "d-none" : "")" />
+                                    <col name="auto_column_@(rRow.IndexOf(rCell)+1)" class="@(rCell.IsHidden ? "d-none" : "")" />
                                 }
                             }
                         }
@@ -63,14 +66,14 @@
                                     </div>
                                 </th>
                             }
-                            @if (ReflectionTable.Rows.Any())
+                            @if (RDataSource.Any())
                             {
-                                var rRow = ReflectionTable.Rows[0];
-                                if (rRow.Cells.Any())
+                                var rRow = RDataSource[0].RData;
+                                if (rRow.Any())
                                 {
-                                    @foreach (var rCell in rRow.Cells)
+                                    @foreach (var rCell in rRow)
                                     {
-                                        <th colspan="1" rowspan="1" class="auto_column_@(rRow.Cells.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
+                                        <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
                                             <div class="">
                                                 @rCell.Model.RawName
                                             </div>
@@ -108,14 +111,14 @@
                                         }
                                     </td>
                                 }
-                                @foreach (var rCell in ReflectionTable.Rows[DataSource.IndexOf(row)].Cells)
+                                @foreach (var rCell in RDataSource[DataSource.IndexOf(row)].RData)
                                 {
                                     var cls = new List<string>();
                                     if (rCell.IsHidden)
                                     {
                                         cls.Add("d-none");
                                     }
-                                    <td rowspan="1" colspan="1" class="auto_column_@(ReflectionTable.Rows[DataSource.IndexOf(row)].Cells.IndexOf(rCell)+1) @string.Join("", cls)">
+                                    <td rowspan="1" colspan="1" class="auto_column_@(RDataSource[DataSource.IndexOf(row)].RData.IndexOf(rCell)+1) @string.Join("", cls)">
                                         @if (rCell.ValueType == RTableValueType.Text)
                                         {
                                             @rCell.Model.RawValue
@@ -143,7 +146,7 @@
                 </table>
             </div>
         </div>
-        <button class="btn btn-primary" @onclick="x=>  Add(DataSource.LastOrDefault()?? default)">Add</button>
-        <button class="btn btn-primary">All</button>
-    </CascadingValue>
-}
+        <button class="btn btn-primary" @onclick="x=>Add()">Add</button>
+        <button class="btn btn-primary" @onclick="x=>Remove()">Remove</button>
+    }
+</CascadingValue>
