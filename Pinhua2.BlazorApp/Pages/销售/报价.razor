@@ -1,0 +1,47 @@
+﻿@page "/销售/报价"
+
+<div class="row">
+    <div class="col-12">
+        <KTable TItem="tb_报价表" DataSource="list" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true">
+            <ConditionContainer>
+                <KTableHiddenCondition TItem="tb_报价表" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
+                <KTableHiddenCondition TItem="tb_报价表" Predicate="m=>m.Model.IsHiddenIndex"></KTableHiddenCondition>
+                <KTableFormatCondition TItem="tb_报价表" Predicate="m=>m.Model.IsDatetime" ValueType="RTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
+            </ConditionContainer>
+        </KTable>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <KModal IsFade="false" IsBackdrop="false" IsCentered="true">
+            <KModalHeader></KModalHeader>
+            <KModalBody>
+                I Love BMW!
+            </KModalBody>
+            <KModalFooter></KModalFooter>
+        </KModal>
+    </div>
+</div>
+
+@code {
+    BSModal Centered;
+
+    protected List<tb_报价表> list { get; set; }
+
+    protected override void OnInitialized()
+    {
+        list = pinhuaContext.tb_报价表.ToList();
+    }
+
+    protected void modal()
+    {
+        JSRuntime.InvokeVoidAsync("klazor.openModal");
+    }
+
+    void onToggle(MouseEventArgs e)
+    {
+        Centered.Toggle();
+    }
+
+    [Inject] protected Microsoft.JSInterop.IJSRuntime JSRuntime { get; set; }
+}

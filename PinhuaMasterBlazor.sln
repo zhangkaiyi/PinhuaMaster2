@@ -13,6 +13,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinhua2.Common", "Pinhua2.Common\Pinhua2.Common.csproj", "{7A320036-5012-45C9-B4F9-E5191CF8F01C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinhua2.BlazorApp", "Pinhua2.BlazorApp\Pinhua2.BlazorApp.csproj", "{32EDFE9F-4C08-48D7-8F68-B329AE289B1D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7A320036-5012-45C9-B4F9-E5191CF8F01C} = {7A320036-5012-45C9-B4F9-E5191CF8F01C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

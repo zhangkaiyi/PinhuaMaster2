@@ -12,8 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PinhuaMaster.App</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
     <link href="css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_content/BlazorStrap/css/submenu.css" />
 </head>
 <body>
     <app>
@@ -32,5 +33,13 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+
+    <!-- The below two files are needed by BlazorStrap -->
+    <script src="_content/BlazorStrap/blazorStrap.js"></script>
+    <script src="_content/BlazorStrap/popper.min.js"></script>
+
+    <script src="~/lib/jquery/jquery-3.4.1.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/js/Klazor.js"></script>
 </body>
 </html>

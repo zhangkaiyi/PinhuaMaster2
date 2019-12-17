@@ -1,0 +1,13 @@
+﻿@namespace Klazor
+
+<div @attributes="UnknownParameters" class="@Classname">
+    @if (ChildContent == default)
+    {
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">保存修改</button>
+    }
+    else
+    {
+        @ChildContent
+    }
+</div>

@@ -11,12 +11,13 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public abstract class KTableBase<TDataSource> : ComponentBase
+    public partial class KTable<TItem> : ComponentBase
     {
-        protected bool makeRDataSource = true;
+        protected bool firstRun = true;
+        protected bool refreshRDataSource = false;
         public ElementReference Container { get; set; }
         protected Status selectAllStatus;
-        protected bool isContainerHidden = true;
+        protected bool hideContainer = true;
         protected bool requireRender = true;
         protected string Classname =>
             new CssBuilder("table")
@@ -31,22 +32,22 @@ namespace Klazor
             .Build();
 
         protected string Stylename =>
-            new StyleBuilder("witdh", "100%")
+            new StyleBuilder("width", "100%")
             .AddStyle("height", Height + "px", Height > 0)
             .Build();
 
-        public List<RTableUserColumnConfig<TDataSource>> UserColumns { get; set; } = new List<RTableUserColumnConfig<TDataSource>>();
+        public List<RTableUserColumnConfig<TItem>> UserColumns { get; set; } = new List<RTableUserColumnConfig<TItem>>();
 
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
 
         [Parameter] public Action RenderCompleted { get; set; }
 
-        [Parameter] public List<TDataSource> DataSource { get; set; } = new List<TDataSource>();
+        [Parameter] public List<TItem> DataSource { get; set; } = new List<TItem>();
 
-        public List<RDataSource<TDataSource>> RDataSource = new List<RDataSource<TDataSource>>();
-        public List<KTableConditionBase<TDataSource>> RConditions = new List<KTableConditionBase<TDataSource>>();
+        public List<RDataSource<TItem>> RDataSource = new List<RDataSource<TItem>>();
+        public List<KTableConditionBase<TItem>> RConditions = new List<KTableConditionBase<TItem>>();
 
-        [Parameter] public HashSet<TDataSource> SelectedRows { get; set; } = new HashSet<TDataSource>();
+        [Parameter] public HashSet<TItem> SelectedRows { get; set; } = new HashSet<TItem>();
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
@@ -130,13 +131,13 @@ namespace Klazor
 
         protected void MakeAllRDataSource()
         {
-            RDataSource = new List<RDataSource<TDataSource>>();
+            RDataSource = new List<RDataSource<TItem>>();
             foreach (var row in DataSource)
             {
-                var rRow = new RDataSource<TDataSource>();
+                var rRow = new RDataSource<TItem>();
                 rRow.Data = row;
                 rRow.RData = MyMark.Parse(row).Select(m =>
-                new ReflectionCell<TDataSource>
+                new ReflectionCell<TItem>
                 {
                     Model = m
                 }.ApplyConditions(RConditions)).ToList();
@@ -145,12 +146,12 @@ namespace Klazor
             }
         }
 
-        protected void MakeOneRDataSource(TDataSource row)
+        protected void MakeOneRDataSource(TItem row)
         {
-            var rRow = new RDataSource<TDataSource>();
+            var rRow = new RDataSource<TItem>();
             rRow.Data = row;
             rRow.RData = (from m in MyMark.Parse(row)
-                          select new ReflectionCell<TDataSource>
+                          select new ReflectionCell<TItem>
                           {
                               Model = m
                           }.ApplyConditions(RConditions))
@@ -161,21 +162,24 @@ namespace Klazor
 
         protected override void OnAfterRender(bool firstRender)
         {
-            if (RConditions.Any() && makeRDataSource)
+            if (firstRun)
             {
+                firstRun = false;
+                hideContainer = false;
                 MakeAllRDataSource();
-
-                makeRDataSource = false;
-
+                StateHasChanged();
+                return;
+            }
+            if (RConditions.Any() && refreshRDataSource)
+            {
+                refreshRDataSource = false;
+                MakeAllRDataSource();
                 StateHasChanged();
                 return;
             }
             if (requireRender)
             {
-                if (isContainerHidden)
-                {
-                    isContainerHidden = false;
-                }
+
                 requireRender = false;
                 StateHasChanged();
                 return;
@@ -199,8 +203,8 @@ namespace Klazor
 
             };
 
-            DataSource.Add((TDataSource)(object)x);
-            MakeOneRDataSource((TDataSource)(object)x);
+            DataSource.Add(default);
+            MakeOneRDataSource(default);
         }
 
         protected void Remove()
@@ -231,23 +235,23 @@ namespace Klazor
         {
             if (status == Status.Checked)
             {
-                SelectedRows = new HashSet<TDataSource>(DataSource);
+                SelectedRows = new HashSet<TItem>(DataSource);
             }
             else
             {
-                SelectedRows = new HashSet<TDataSource>();
+                SelectedRows = new HashSet<TItem>();
             }
 
             RefreshSelectAllStatus();
         }
 
-        protected void ChangeRowStatus(Status status, TDataSource row)
+        protected void ChangeRowStatus(Status status, TItem row)
         {
             if (status == Status.Checked)
             {
                 if (IsSingleSelect)
                 {
-                    SelectedRows = new HashSet<TDataSource>();
+                    SelectedRows = new HashSet<TItem>();
                 }
                 SelectedRows.Add(row);
             }
@@ -258,16 +262,16 @@ namespace Klazor
             RefreshSelectAllStatus();
         }
 
-        protected void InverTDataSourceStatus(TDataSource row)
+        protected void InverTItemStatus(TItem row)
         {
             ChangeRowStatus(SelectedRows.Contains(row) ? Status.UnChecked : Status.Checked, row);
         }
 
-        protected void RowClicked(TDataSource row)
+        protected void RowClicked(TItem row)
         {
             if (IsClickToSelect)
             {
-                InverTDataSourceStatus(row);
+                InverTItemStatus(row);
             }
         }
     }

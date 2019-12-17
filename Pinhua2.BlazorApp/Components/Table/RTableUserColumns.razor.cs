@@ -10,7 +10,7 @@ namespace Klazor
         [Parameter]
         public RenderFragment ChildContent { get; set; }
         [CascadingParameter]
-        public KTableBase<TRow> Table { get; set; }
+        public KTable<TRow> Table { get; set; }
 
         public void AddColumn(RTableUserColumnBase<TRow> column)
         {

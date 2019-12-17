@@ -1,0 +1,26 @@
+﻿@page "/销售/收款" 
+
+<BSTable IsResponsive="true" IsBordered="true" IsHovarable="true">
+    <BSTableHead>
+        <BSTableRow>
+            <BSTableHeadCell>字典名</BSTableHeadCell>
+            <BSTableHeadCell>组</BSTableHeadCell>
+        </BSTableRow>
+    </BSTableHead>
+    <BSTableBody>
+        @foreach (var item in pinhuaContext.tb_字典表.AsNoTracking())
+        {
+            <BSTableRow>
+                <BSTableCell>
+                    <a class="mr-1" href="/">修改</a><a href="/">删除</a>
+                </BSTableCell>
+                <BSTableCell>@item.字典名</BSTableCell>
+                <BSTableCell>@item.组</BSTableCell>
+            </BSTableRow>
+        }
+    </BSTableBody>
+</BSTable>
+
+@code{
+
+}
