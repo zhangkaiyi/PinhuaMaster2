@@ -1,5 +1,18 @@
-﻿@page "/销售/报价"
-
+﻿@page "/销售/报价/D"
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+        <h3>D</h3>
+        <div class="btn-group">
+            <partial name="Buttons/CreateButton" />
+        </div>
+    </div>
+<div class="row">
+    <div class="col">
+        <div class="float-right mb-3">
+            <button class="btn btn-primary" @onclick="@(e => PriceModal?.Show())">添加报价</button>
+            <button class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <KTable DataSource="dingdanDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable">
@@ -40,14 +53,6 @@
         </KModal>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <div class="float-right">
-            <button class="btn btn-primary" @onclick="@(e => PriceModal?.Show())">添加报价</button>
-            <button class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
-        </div>
-    </div>
-</div>
 @code {
     KModal PriceModal;
     KModal ProductModal;
@@ -79,7 +84,7 @@
 
             DetailsTable.Add(vm_detail);
         }
-        ProductTable.ChangeAllStatus(Status.UnChecked);
+        ProductTable.ChangeAllStatus(CheckBoxStatus.UnChecked);
         ProductModal.Hide();
     }
 }

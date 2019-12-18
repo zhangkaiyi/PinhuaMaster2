@@ -1,0 +1,39 @@
+﻿@page "/销售/报价/A"
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <h3>销售报价</h3>
+    <div>
+        <button class="btn btn-primary"><i class="oi oi-plus"></i> 添加商品</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <KTable DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="table_Main">
+            <ConditionContainer>
+                    <KTableHiddenCondition TItem="dto销售报价" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
+                    <KTableHiddenCondition TItem="dto销售报价" Predicate="m=>m.Model.IsHiddenIndex"></KTableHiddenCondition>
+                    <KTableFormatCondition TItem="dto销售报价" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
+                    <KTableFormatCondition TItem="dto销售报价" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
+                </ConditionContainer>
+            <ChildContent>
+                <KTableUserColumns TItem="dto销售报价">
+                    <KTableUserColumn TItem="dto销售报价" Width="1">
+                        <a href="javascript:;" class="mr-1">查看</a>
+                        <a href="javascript:;" class="mr-1">修改</a>
+                        <a href="javascript:;">删除</a>
+                    </KTableUserColumn>
+                </KTableUserColumns>
+            </ChildContent>
+        </KTable>
+    </div>
+</div>
+@code {
+    protected List<dto销售报价> list_Main { get; set; }
+
+    protected KTable<dto销售报价> table_Main;
+
+    protected override void OnInitialized()
+    {
+        list_Main = mapper.ProjectTo<dto销售报价>(pinhuaContext.tb_报价表).ToList();
+    }
+}

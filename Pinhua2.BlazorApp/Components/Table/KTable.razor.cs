@@ -18,7 +18,7 @@ namespace Klazor
         protected bool hideContainer = true;
         protected bool refreshRDataSource = false;
         public ElementReference Container { get; set; }
-        protected Status selectAllStatus;
+        protected CheckBoxStatus selectAllStatus;
         protected string Classname =>
             new CssBuilder("table")
             .AddClass("table-dark", IsDark)
@@ -237,21 +237,21 @@ namespace Klazor
         {
             if (DataSource.Count == 0 || SelectedRows.Count == 0)
             {
-                selectAllStatus = Status.UnChecked;
+                selectAllStatus = CheckBoxStatus.UnChecked;
             }
             else if (DataSource.Count > SelectedRows.Count)
             {
-                selectAllStatus = Status.Indeterminate;
+                selectAllStatus = CheckBoxStatus.Indeterminate;
             }
             else
             {
-                selectAllStatus = Status.Checked;
+                selectAllStatus = CheckBoxStatus.Checked;
             }
         }
 
-        public void ChangeAllStatus(Status status)
+        public void ChangeAllStatus(CheckBoxStatus status)
         {
-            if (status == Status.Checked)
+            if (status == CheckBoxStatus.Checked)
             {
                 SelectedRows = new HashSet<TItem>(DataSource);
             }
@@ -263,9 +263,9 @@ namespace Klazor
             RefreshSelectAllStatus();
         }
 
-        public void ChangeRowStatus(Status status, TItem row)
+        public void ChangeRowStatus(CheckBoxStatus status, TItem row)
         {
-            if (status == Status.Checked)
+            if (status == CheckBoxStatus.Checked)
             {
                 if (IsSingleSelect)
                 {
@@ -282,7 +282,7 @@ namespace Klazor
 
         protected void InverTItemStatus(TItem row)
         {
-            ChangeRowStatus(SelectedRows.Contains(row) ? Status.UnChecked : Status.Checked, row);
+            ChangeRowStatus(SelectedRows.Contains(row) ? CheckBoxStatus.UnChecked : CheckBoxStatus.Checked, row);
         }
 
         protected void RowClicked(TItem row)

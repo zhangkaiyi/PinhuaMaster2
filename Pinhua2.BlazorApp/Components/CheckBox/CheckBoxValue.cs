@@ -7,7 +7,7 @@ namespace Klazor
 {
     public class CheckBoxValue
     {
-        public Status Status { get; set; }
+        public CheckBoxStatus Status { get; set; }
         public bool IsDisabled { get; set; }
     }
 }

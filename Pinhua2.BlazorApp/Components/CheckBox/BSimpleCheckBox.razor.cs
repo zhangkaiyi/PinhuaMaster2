@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public abstract class BSimpleCheckBoxBase<TValue> : BFieldComponentBase<TValue>
+    public partial class BSimpleCheckBox<TValue> : BFieldComponentBase<TValue>
     {
         protected string _isChecked = string.Empty;
         protected string _isIndeterminate = string.Empty;
@@ -18,7 +18,7 @@ namespace Klazor
         public BCheckBoxGroup<TValue> CheckBoxGroup { get; set; }
 
         [Parameter]
-        public Status Status { get; set; }
+        public CheckBoxStatus Status { get; set; }
 
         private TValue originValue;
         [Parameter]
@@ -29,7 +29,7 @@ namespace Klazor
         [Parameter]
         public EventCallback<TValue> ValueChanged { get; set; }
         [Parameter]
-        public EventCallback<Status> StatusChanged { get; set; }
+        public EventCallback<CheckBoxStatus> StatusChanged { get; set; }
 
         protected override void OnInitialized()
         {
@@ -41,7 +41,7 @@ namespace Klazor
         {
             CheckBoxGroup?.SelectedItems?.Remove(Value);
             Value = default;
-            Status = Status.UnChecked;
+            Status = CheckBoxStatus.UnChecked;
         }
 
         protected void ChangeStatus(ChangeEventArgs uIMouseEvent)
@@ -57,17 +57,17 @@ namespace Klazor
             var newValue = new CheckBoxValue();
             switch (Status)
             {
-                case Status.UnChecked:
-                    newValue.Status = Status.Checked;
+                case CheckBoxStatus.UnChecked:
+                    newValue.Status = CheckBoxStatus.Checked;
                     break;
-                case Status.Checked:
-                    newValue.Status = Status.UnChecked;
+                case CheckBoxStatus.Checked:
+                    newValue.Status = CheckBoxStatus.UnChecked;
                     break;
-                case Status.Indeterminate:
-                    newValue.Status = Status.Checked;
+                case CheckBoxStatus.Indeterminate:
+                    newValue.Status = CheckBoxStatus.Checked;
                     break;
             }
-            if (newValue.Status == Status.Checked)
+            if (newValue.Status == CheckBoxStatus.Checked)
             {
                 CheckBoxGroup?.SelectedItems?.Add(Value);
                 Value = originValue;

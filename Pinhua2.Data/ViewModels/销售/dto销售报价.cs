@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.ViewModels
 {
-    public class vm_销售报价 : _BaseTableMain
+    public class dto销售报价 : _BaseTableMain
     {
         [CustomDisplay(10)]
         [MyPriority(Priority.High)]
@@ -51,7 +51,7 @@ namespace Pinhua2.ViewModels
         public string 往来号 { get; set; }
     }
 
-    public class vm_销售报价D : _BaseProductDetail
+    public class dto销售报价D : _BaseProductDetail
     {
         [CustomDisplay(ForIndex = false, ForCreate = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
@@ -84,15 +84,15 @@ namespace Pinhua2.ViewModels
         public string 状态 { get; set; }
     }
 
-    public class 销售报价Profile : Profile
+    public class Profile_销售报价 : Profile
     {
-        public 销售报价Profile()
+        public Profile_销售报价()
         {
-            CreateMap<tb_报价表, vm_销售报价>();
-            CreateMap<vm_销售报价, tb_报价表>();
+            CreateMap<tb_报价表, dto销售报价>();
+            CreateMap<tb_报价表D, dto销售报价D>();
 
-            CreateMap<tb_报价表D, vm_销售报价D>();
-            CreateMap<vm_销售报价D, tb_报价表D>()
+            CreateMap<dto销售报价, tb_报价表>();
+            CreateMap<dto销售报价D, tb_报价表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }

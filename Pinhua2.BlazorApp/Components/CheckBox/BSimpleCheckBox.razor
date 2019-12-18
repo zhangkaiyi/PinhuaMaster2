@@ -1,25 +1,25 @@
-﻿@inherits BSimpleCheckBoxBase<TValue>
+﻿@inherits BFieldComponentBase<TValue>
 @typeparam TValue
 @namespace Klazor
 @using  Blazui.Component.EventArgs
 @{
     switch (Status)
     {
-        case Status.UnChecked:
+        case CheckBoxStatus.UnChecked:
             _isChecked = string.Empty;
             _isIndeterminate = string.Empty;
             break;
-        case Status.Checked:
+        case CheckBoxStatus.Checked:
             _isChecked = "is-checked";
             _isIndeterminate = string.Empty;
             break;
-        case Status.Indeterminate:
+        case CheckBoxStatus.Indeterminate:
             _isChecked = string.Empty;
             _isIndeterminate = "is-indeterminate";
             break;
     }
     <div class="">
-        <input type="checkbox" @onchange="ChangeStatus" class="" value="" checked="@((Status == Status.Checked)?true:false)" @onclick:stopPropagation="stopPropagationOnClick" />
+        <input type="checkbox" @onchange="ChangeStatus" class="" value="" checked="@((Status == CheckBoxStatus.Checked)?true:false)" @onclick:stopPropagation="stopPropagationOnClick" />
         <span class="">
             @ChildContent
         </span>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public enum Status
+    public enum CheckBoxStatus
     {
         UnChecked,
         Checked,

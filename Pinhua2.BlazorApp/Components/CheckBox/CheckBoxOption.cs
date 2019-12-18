@@ -7,7 +7,7 @@ namespace Klazor
 {
     public class CheckBoxOption<TModel,TValue>
     {
-        public Status Status { get; set; }
+        public CheckBoxStatus Status { get; set; }
         public TValue Value { get; set; }
         public string Label { get; set; }
         public bool IsDisabled { get; set; }

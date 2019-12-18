@@ -3,11 +3,11 @@
 @{
     switch (Status)
     {
-        case Status.UnChecked:
+        case CheckBoxStatus.UnChecked:
             _isChecked = string.Empty;
             _isIndeterminate = string.Empty;
             break;
-        case Status.Checked:
+        case CheckBoxStatus.Checked:
             _isChecked = "is-checked";
             _isIndeterminate = string.Empty;
             break;

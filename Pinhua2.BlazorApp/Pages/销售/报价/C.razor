@@ -1,0 +1,90 @@
+﻿@page "/销售/报价/C"
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
+        <h3>C</h3>
+        <div class="btn-group">
+            <partial name="Buttons/CreateButton" />
+        </div>
+    </div>
+<div class="row">
+    <div class="col">
+        <div class="float-right mb-3">
+            <button class="btn btn-primary" @onclick="@(e => PriceModal?.Show())">添加报价</button>
+            <button class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <KTable DataSource="dingdanDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable">
+            <ConditionContainer>
+                <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
+                <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsHiddenIndex"></KTableHiddenCondition>
+                <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
+                <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
+            </ConditionContainer>
+            <ChildContent>
+                <KTableUserColumns TItem="dto销售订单D">
+                    <KTableUserColumn TItem="dto销售订单D" Width="1">
+                        <a href="javascript:;" class="mr-1">查看</a>
+                        <a href="javascript:;" class="mr-1">修改</a>
+                        <a href="javascript:;" @onclick="e=>DetailsTable.Remove(context)">删除</a>
+                    </KTableUserColumn>
+                </KTableUserColumns>
+            </ChildContent>
+        </KTable>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="ProductModal">
+            <KModalHeader>商品列表</KModalHeader>
+            <KModalBody>
+                <KTable DataSource="shangpinList" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true"
+                        CheckBoxHeader="true" IsClickToSelect="true" @ref="ProductTable">
+                    <ConditionContainer>
+                        <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
+                        <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsHiddenRef"></KTableHiddenCondition>
+                        <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
+                        <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
+                    </ConditionContainer>
+                </KTable>
+            </KModalBody>
+            <KModalFooter OnOK="e=>OKOK()"></KModalFooter>
+        </KModal>
+    </div>
+</div>
+@code {
+    KModal PriceModal;
+    KModal ProductModal;
+
+    protected List<tb_报价表D> baojiaDetails { get; set; }
+    protected List<dto销售订单D> dingdanDetails { get; set; }
+    protected List<dto商品> shangpinList { get; set; }
+
+    protected KTable<tb_报价表D> ModalTable;
+    protected KTable<dto销售订单D> DetailsTable;
+    protected KTable<dto商品> ProductTable;
+
+    protected override void OnInitialized()
+    {
+        baojiaDetails = pinhuaContext.tb_报价表D.ToList();
+        dingdanDetails = mapper.ProjectTo<dto销售订单D>(pinhuaContext.tb_订单表D).ToList();
+        shangpinList = mapper.ProjectTo<dto商品>(pinhuaContext.tb_商品表).ToList();
+    }
+
+    protected void OKOK()
+    {
+        var items = ProductTable.SelectedRows;
+        var list = new List<dto销售订单D>();
+        foreach (var item in items)
+        {
+
+            var tb_detail = mapper.Map<dto商品, tb_商品表>(item);
+            var vm_detail = mapper.Map<tb_商品表, dto销售订单D>(tb_detail);
+
+            DetailsTable.Add(vm_detail);
+        }
+        ProductTable.ChangeAllStatus(CheckBoxStatus.UnChecked);
+        ProductModal.Hide();
+    }
+}

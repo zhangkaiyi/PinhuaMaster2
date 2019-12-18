@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blazui
+namespace Klazor
 {
-    public enum Size
+    public enum CheckBoxSize
     {
         Medium,
 

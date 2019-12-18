@@ -34,13 +34,13 @@ namespace Klazor
 
         protected IList<CheckBoxOption<TModel, TValue>> models { get; set; }
 
-        protected void OnInnerStatusChanged(Status status, TModel model)
+        protected void OnInnerStatusChanged(CheckBoxStatus status, TModel model)
         {
             if (SelectedItems == null)
             {
                 return;
             }
-            if (status == Status.Checked)
+            if (status == CheckBoxStatus.Checked)
             {
                 lock (SelectedItems)
                 {
@@ -50,7 +50,7 @@ namespace Klazor
                     }
                 }
             }
-            else if (status == Status.UnChecked)
+            else if (status == CheckBoxStatus.UnChecked)
             {
                 lock (SelectedItems)
                 {
@@ -85,19 +85,19 @@ namespace Klazor
             {
                 return null;
             }
-            Status status = Status.Checked;
+            CheckBoxStatus status = CheckBoxStatus.Checked;
             if (IsChecked != null)
             {
-                status = IsChecked(modelItem) ? Status.Checked : Status.UnChecked;
+                status = IsChecked(modelItem) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked;
             }
 
             if (IsIndeterminate != null)
             {
-                status = IsIndeterminate(modelItem) ? Status.Indeterminate : Status.UnChecked;
+                status = IsIndeterminate(modelItem) ? CheckBoxStatus.Indeterminate : CheckBoxStatus.UnChecked;
             }
             if (SelectedItems != null)
             {
-                status = SelectedItems.Contains(modelItem) ? Status.Checked : Status.UnChecked;
+                status = SelectedItems.Contains(modelItem) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked;
             }
 
             var label = string.Empty;
