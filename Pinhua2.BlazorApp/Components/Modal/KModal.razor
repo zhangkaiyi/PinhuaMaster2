@@ -1,12 +1,12 @@
 ﻿@namespace Klazor
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@Id">
-    ShowModal
-</button>
-<!-- Modal -->
-<div class="@Classname" id="@Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" @attributes="UnknownParameters" @ref="Me">
-    <div class="@InnerClassname" role="document">
-        <div class="modal-content">
-            @ChildContent
+
+<CascadingValue Value="this">
+    <!-- Modal -->
+    <div class="@Classname" id="@Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" @attributes="UnknownParameters" @ref="Me">
+        <div class="@InnerClassname" role="document">
+            <div class="modal-content">
+                @ChildContent
+            </div>
         </div>
     </div>
-</div>
+</CascadingValue>

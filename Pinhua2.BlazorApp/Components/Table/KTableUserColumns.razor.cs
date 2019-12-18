@@ -5,16 +5,16 @@ using System.Linq.Expressions;
 
 namespace Klazor
 {
-    public abstract class RTableUserColumnsBase<TRow> : ComponentBase
+    public partial class KTableUserColumns<TItem> : ComponentBase
     {
         [Parameter]
         public RenderFragment ChildContent { get; set; }
         [CascadingParameter]
-        public KTable<TRow> Table { get; set; }
+        public KTable<TItem> Table { get; set; }
 
-        public void AddColumn(RTableUserColumnBase<TRow> column)
+        public void AddColumn(KTableUserColumn<TItem> column)
         {
-            var columnConfig = new RTableUserColumnConfig<TRow>
+            var columnConfig = new RTableUserColumnConfig<TItem>
             {
                 Column = column,
                 Property = column.Property == null ? string.Empty : GetPropertyName(column.Property),
@@ -30,7 +30,7 @@ namespace Klazor
                 Table.UserColumns.Add(columnConfig);
         }
 
-        private string GetPropertyName(Expression<Func<TRow, object>> propertyGetter)
+        private string GetPropertyName(Expression<Func<TItem, object>> propertyGetter)
         {
             if (propertyGetter.Body is UnaryExpression unaryExpression)
             {

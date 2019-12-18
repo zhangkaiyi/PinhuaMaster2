@@ -18,10 +18,10 @@
             _isIndeterminate = "is-indeterminate";
             break;
     }
-    <label class="">
+    <div class="">
         <input type="checkbox" @onchange="ChangeStatus" class="" value="" checked="@((Status == Status.Checked)?true:false)" @onclick:stopPropagation="stopPropagationOnClick" />
         <span class="">
             @ChildContent
         </span>
-    </label>
+    </div>
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public enum RTableValueType
+    public enum KTableValueType
     {
         Text,
         DateTime,

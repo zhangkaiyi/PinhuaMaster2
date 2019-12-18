@@ -18,10 +18,17 @@ namespace Klazor
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
+        [Parameter] public EventCallback<KModalEvent> OnOK { get; set; }
+        [CascadingParameter] public KModal Modal { get; set; }
         protected override void OnInitialized()
         {
 
         }
 
+        protected void OK()
+        {
+            var KModalEvent = new KModalEvent() { Target = Modal };
+            OnOK.InvokeAsync(KModalEvent);
+        }
     }
 }

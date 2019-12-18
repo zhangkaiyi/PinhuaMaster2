@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public partial class RTableUserColumnCheckBox<TRow> : RTableUserColumnBase<TRow>
+    public class KTableUserColumnCheckBox<TRow> : KTableUserColumn<TRow>
     {
         internal override bool IsCheckBox { get; set; } = true;
     }

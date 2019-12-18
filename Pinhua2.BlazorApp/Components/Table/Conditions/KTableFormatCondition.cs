@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public abstract class KTableFormatConditionBase<TItem> : KTableConditionBase<TItem>
+    public partial class KTableFormatCondition<TItem> : KTableCondition<TItem>
     {
         [Parameter]
-        public RTableValueType ValueType { get; set; } = RTableValueType.Text;
+        public KTableValueType ValueType { get; set; } = KTableValueType.Text;
 
         [Parameter]
         public string ValueFormat { get; set; }

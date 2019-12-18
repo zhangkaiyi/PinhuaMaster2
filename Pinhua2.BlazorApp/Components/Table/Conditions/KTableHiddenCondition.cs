@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public abstract class KTableHiddenConditionBase<TItem> : KTableConditionBase<TItem>
+    public partial class KTableHiddenCondition<TItem> : KTableCondition<TItem>
     {
         public bool IsHidden { get; set; } = true;
 

@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Klazor
 {
-    public abstract class RTableUserColumnBase<TRow> : ComponentBase
+    public class KTableUserColumn<TItem> : ComponentBase
     {
         internal virtual bool IsCheckBox { get; set; }
         [Parameter]
         public virtual int? Width { get; set; }
 
         [Parameter]
-        public Expression<Func<TRow, object>> Property { get; set; }
+        public Expression<Func<TItem, object>> Property { get; set; }
 
         [CascadingParameter]
-        public RTableUserColumnsBase<TRow> Columns { get; set; }
+        public KTableUserColumns<TItem> Columns { get; set; }
 
         [Parameter]
-        public virtual RenderFragment<TRow> ChildContent { get; set; }
+        public virtual RenderFragment<TItem> ChildContent { get; set; }
 
         [Parameter]
         public string Text { get; set; }

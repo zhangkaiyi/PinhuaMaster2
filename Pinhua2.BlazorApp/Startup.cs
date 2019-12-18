@@ -18,6 +18,7 @@ using Pinhua2.BlazorApp.Data;
 using BlazorPrettyCode;
 using BlazorStrap;
 using Pinhua2.Data;
+using AutoMapper;
 
 namespace Pinhua2.BlazorApp
 {
@@ -55,6 +56,8 @@ namespace Pinhua2.BlazorApp
             services.AddDbContext<Pinhua2Context>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Pinhua2Connection"))
                 );
+            // Add AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

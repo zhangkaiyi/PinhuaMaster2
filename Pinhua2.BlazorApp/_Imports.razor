@@ -5,13 +5,20 @@
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.EntityFrameworkCore
-@using Microsoft.JSInterop
 @using Pinhua2.BlazorApp
 @using Pinhua2.BlazorApp.Shared
 @using BlazorPrettyCode
 @using BlazorStrap
 @using Klazor
 
-@using Pinhua2.Data
 @using Pinhua2.Data.Models
+@using Pinhua2.ViewModels
+
+@using Pinhua2.Data
 @inject Pinhua2Context pinhuaContext
+
+@using AutoMapper
+@inject IMapper  mapper
+
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime

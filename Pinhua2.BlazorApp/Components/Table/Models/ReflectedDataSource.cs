@@ -8,9 +8,9 @@ using Pinhua2.Common.Attributes;
 
 namespace Klazor
 {
-    public class RDataSource<TItem>
+    public class KDataSource<TItem>
     {
-        public TItem Data { get; set; }
-        public List<ReflectionCell<TItem>> RData { get; set; } = new List<ReflectionCell<TItem>>();
+        public object Data { get; set; }
+        public List<ReflectedCell<TItem>> RData { get; set; } = new List<ReflectedCell<TItem>>();
     }
 }

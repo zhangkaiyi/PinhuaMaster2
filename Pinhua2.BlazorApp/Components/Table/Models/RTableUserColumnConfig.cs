@@ -9,7 +9,7 @@ namespace Klazor
 {
     public class RTableUserColumnConfig<TRow>
     {
-        public RTableUserColumnBase<TRow> Column { get; set; }
+        public KTableUserColumn<TRow> Column { get; set; }
         public string Text { get; set; }
         public int? Width { get; set; }
         public string Property { get; set; }

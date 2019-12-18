@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Pinhua2.ViewModels;
 using System;
 using System.Linq.Expressions;
 
 namespace Klazor
 {
-    public abstract class KTableConditionBase<TItem> : ComponentBase
+    public abstract class KTableCondition<TItem> : ComponentBase
     {
         [Parameter]
-        public virtual Expression<Func<ReflectionCell<TItem>, bool>> Predicate { get; set; }
+        public virtual Expression<Func<ReflectedCell<TItem>, bool>> Predicate { get; set; }
 
         [CascadingParameter]
         public KTable<TItem> Table { get; set; }

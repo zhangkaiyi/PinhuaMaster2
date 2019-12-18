@@ -14,11 +14,11 @@ namespace Klazor
     public partial class KTable<TItem> : ComponentBase
     {
         protected bool firstRun = true;
+        protected bool secondRun = true;
+        protected bool hideContainer = true;
         protected bool refreshRDataSource = false;
         public ElementReference Container { get; set; }
         protected Status selectAllStatus;
-        protected bool hideContainer = true;
-        protected bool requireRender = true;
         protected string Classname =>
             new CssBuilder("table")
             .AddClass("table-dark", IsDark)
@@ -44,8 +44,8 @@ namespace Klazor
 
         [Parameter] public List<TItem> DataSource { get; set; } = new List<TItem>();
 
-        public List<RDataSource<TItem>> RDataSource = new List<RDataSource<TItem>>();
-        public List<KTableConditionBase<TItem>> RConditions = new List<KTableConditionBase<TItem>>();
+        public List<KDataSource<TItem>> RDataSource = new List<KDataSource<TItem>>();
+        public List<KTableCondition<TItem>> RConditions = new List<KTableCondition<TItem>>();
 
         [Parameter] public HashSet<TItem> SelectedRows { get; set; } = new HashSet<TItem>();
 
@@ -125,19 +125,19 @@ namespace Klazor
         protected override void OnParametersSet()
         {
             //makeRDataSource = true;
-            MakeAllRDataSource();
+            MakeFirstRDataSource();
             RefreshSelectAllStatus();
         }
 
         protected void MakeAllRDataSource()
         {
-            RDataSource = new List<RDataSource<TItem>>();
+            RDataSource = new List<KDataSource<TItem>>();
             foreach (var row in DataSource)
             {
-                var rRow = new RDataSource<TItem>();
+                var rRow = new KDataSource<TItem>();
                 rRow.Data = row;
                 rRow.RData = MyMark.Parse(row).Select(m =>
-                new ReflectionCell<TItem>
+                new ReflectedCell<TItem>
                 {
                     Model = m
                 }.ApplyConditions(RConditions)).ToList();
@@ -146,12 +146,40 @@ namespace Klazor
             }
         }
 
+        protected void MakeFirstRDataSource()
+        {
+            RDataSource = new List<KDataSource<TItem>>();
+            foreach (var row in DataSource)
+            {
+                var rRow = new KDataSource<TItem>();
+                rRow.Data = row;
+                var i = DataSource.IndexOf(row);
+                if (i == 0)
+                {
+                    rRow.RData = MyMark.Parse(row).Select(m =>
+                    new ReflectedCell<TItem>
+                    {
+                        Model = m
+                    }.ApplyConditions(RConditions)).ToList();
+                }
+                else
+                {
+                    rRow.RData = MyMark.Parse(row).Select(m =>
+                    new ReflectedCell<TItem>
+                    {
+                        Model = m
+                    }).ToList();
+                }
+                RDataSource.Add(rRow);
+            }
+        }
+
         protected void MakeOneRDataSource(TItem row)
         {
-            var rRow = new RDataSource<TItem>();
+            var rRow = new KDataSource<TItem>();
             rRow.Data = row;
             rRow.RData = (from m in MyMark.Parse(row)
-                          select new ReflectionCell<TItem>
+                          select new ReflectedCell<TItem>
                           {
                               Model = m
                           }.ApplyConditions(RConditions))
@@ -164,9 +192,10 @@ namespace Klazor
         {
             if (firstRun)
             {
+                // 第一次执行，执行if语句true的部分
                 firstRun = false;
                 hideContainer = false;
-                MakeAllRDataSource();
+                MakeFirstRDataSource();
                 StateHasChanged();
                 return;
             }
@@ -177,37 +206,26 @@ namespace Klazor
                 StateHasChanged();
                 return;
             }
-            if (requireRender)
-            {
-
-                requireRender = false;
-                StateHasChanged();
-                return;
-            }
 
             RenderCompleted?.Invoke();
 
         }
 
-        protected void Add()
+        public void Add(TItem item)
         {
-            var x = new Pinhua2.Data.Models.view_AllOrdersPay
-            {
-                RecordId = 1987,
-                业务类型 = "test",
-                个数 = 1987,
-                交期 = new DateTime(1987, 9, 22),
-                仓 = "test",
-                别名 = "test",
-                日期 = new DateTime(1987, 9, 22)
 
-            };
-
-            DataSource.Add(default);
-            MakeOneRDataSource(default);
+            DataSource.Add(item);
+            MakeOneRDataSource(item);
         }
 
-        protected void Remove()
+        public void Remove(TItem item)
+        {
+            DataSource.Remove(item);
+            var ritem = RDataSource.Find(m => m.Data.Equals(item));
+            RDataSource.Remove(ritem);
+        }
+
+        public void RemoveAt(int index)
         {
             var item = DataSource.FirstOrDefault();
             DataSource.Remove(item);
@@ -231,7 +249,7 @@ namespace Klazor
             }
         }
 
-        protected void ChangeAllStatus(Status status)
+        public void ChangeAllStatus(Status status)
         {
             if (status == Status.Checked)
             {
@@ -245,7 +263,7 @@ namespace Klazor
             RefreshSelectAllStatus();
         }
 
-        protected void ChangeRowStatus(Status status, TItem row)
+        public void ChangeRowStatus(Status status, TItem row)
         {
             if (status == Status.Checked)
             {
