@@ -79,72 +79,99 @@
                                         }
                                     }
                                 }
+                                else
+                                {
+                                    var rRow = Pinhua2.Common.Attributes.MyMark.Parse(typeof(TItem)).Select(m => new ReflectedCell<TItem>
+                                    {
+                                        Model = m
+                                    }.ApplyConditions(RConditions)).ToList();
+                                    if (rRow.Any())
+                                    {
+                                        @foreach (var rCell in rRow)
+                                        {
+                                            <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
+                                                <div class="">
+                                                    @rCell.Model.RawName
+                                                </div>
+                                            </th>
+                                        }
+                                    }
+                                }
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var row in DataSource)
+                            @if (DataSource == null || !DataSource.Any())
                             {
-                                var clsList = new List<string>();
-                                <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
-                                    @if (CheckBoxHeader)
-                                    {
-                                        <td class="auto_column_checkbox">
-                                            <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
-                                        </td>
-                                    }
-                                    @foreach (var userColumn in UserColumns)
-                                    {
-                                        <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn) + 1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
-                                            @if (userColumn.IsCheckBox)
-                                            {
-                                                <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
-                                            }
-                                            else if (userColumn.Template != null)
-                                            {
-                                                @userColumn.Template(row)
-                                            }
-                                            else if (userColumn.Eval != null)
-                                            {
-                                                @userColumn.Eval(row)
-                                            }
-                                        </td>
-                                    }
-                                    @{
-                                        var firstRData = RDataSource[0].RData;
-                                        var nowRData = RDataSource[(DataSource.IndexOf(row))].RData;
-
-                                        foreach (var rCell in nowRData)
+                                <tr>
+                                    <td class="text-center" colspan="50">暂无</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var row in DataSource)
+                                {
+                                    var clsList = new List<string>();
+                                    <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
+                                        @if (CheckBoxHeader)
                                         {
-                                            var i = nowRData.IndexOf(rCell);
-                                            var cls = new List<string>();
-                                            if (firstRData[i].IsHidden)
-                                            {
-                                                cls.Add("d-none");
-                                            }
-                                            <td rowspan="1" colspan="1" class="auto_column_@(RDataSource?.ElementAtOrDefault(DataSource.IndexOf(row))?.RData?.IndexOf(rCell)+1) @string.Join("", cls)">
-                                                @if (firstRData[i].ValueType == KTableValueType.Text)
-                                                {
-                                                    @rCell.Model.RawValue
-                                                }
-                                                else if (firstRData[i].ValueType == KTableValueType.DateTime)
-                                                {
-                                                    if (DateTime.TryParse(rCell?.Model?.RawValue?.ToString(), out var result))
-                                                    {
-                                                        @result.ToString(firstRData[i].ValueFormat);
-                                                    }
-                                                }
-                                                else if (firstRData[i].ValueType == KTableValueType.Decimal)
-                                                {
-                                                    if (decimal.TryParse(rCell?.Model?.RawValue?.ToString(), out var result))
-                                                    {
-                                                        @result.ToString(firstRData[i].ValueFormat);
-                                                    }
-                                                }
-
+                                            <td class="auto_column_checkbox">
+                                                <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
                                             </td>
                                         }
-                                    }
-                                </tr>
+                                        @foreach (var userColumn in UserColumns)
+                                        {
+                                            <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn) + 1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                                @if (userColumn.IsCheckBox)
+                                                {
+                                                    <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                                }
+                                                else if (userColumn.Template != null)
+                                                {
+                                                    @userColumn.Template(row)
+                                                }
+                                                else if (userColumn.Eval != null)
+                                                {
+                                                    @userColumn.Eval(row)
+                                                }
+                                            </td>
+                                        }
+                                        @{
+                                            var firstRData = RDataSource[0].RData;
+                                            var nowRData = RDataSource[(DataSource.IndexOf(row))].RData;
+
+                                            foreach (var rCell in nowRData)
+                                            {
+                                                var i = nowRData.IndexOf(rCell);
+                                                var cls = new List<string>();
+                                                if (firstRData[i].IsHidden)
+                                                {
+                                                    cls.Add("d-none");
+                                                }
+                                                <td rowspan="1" colspan="1" class="auto_column_@(RDataSource?.ElementAtOrDefault(DataSource.IndexOf(row))?.RData?.IndexOf(rCell) + 1) @string.Join("", cls)">
+                                                    @if (firstRData[i].ValueType == KTableValueType.Text)
+                                                    {
+                                                        @rCell.Model.RawValue
+                                                    }
+                                                    else if (firstRData[i].ValueType == KTableValueType.DateTime)
+                                                    {
+                                                        if (DateTime.TryParse(rCell?.Model?.RawValue?.ToString(), out var result))
+                                                        {
+                                                            @result.ToString(firstRData[i].ValueFormat);
+                                                        }
+                                                    }
+                                                    else if (firstRData[i].ValueType == KTableValueType.Decimal)
+                                                    {
+                                                        if (decimal.TryParse(rCell?.Model?.RawValue?.ToString(), out var result))
+                                                        {
+                                                            @result.ToString(firstRData[i].ValueFormat);
+                                                        }
+                                                    }
+
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>

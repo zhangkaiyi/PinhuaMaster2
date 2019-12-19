@@ -1,6 +1,6 @@
 ﻿namespace Klazor
 {
-    public class KModalEvent
+    public class KTableEvent
     {
         public KModal Target { get; set; }
     }

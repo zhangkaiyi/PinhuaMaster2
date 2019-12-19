@@ -117,6 +117,9 @@ namespace Klazor
         /// </summary>
         [Parameter] public bool IsSingleSelect { get; set; }
 
+        [Parameter] public EventCallback<KTableEvent<TItem>> OnRowClicking { get; set; }
+        [Parameter] public EventCallback<KTableEvent<TItem>> OnRowClicked { get; set; }
+
         protected override void OnInitialized()
         {
             //FillReflectionTable(ReflectionTable);
@@ -287,10 +290,25 @@ namespace Klazor
 
         protected void RowClicked(TItem row)
         {
+            var KTableEvent = new KTableEvent<TItem>
+            {
+                Target = this,
+                Row = row
+            };
+
+            OnRowClicking.InvokeAsync(KTableEvent);
+
             if (IsClickToSelect)
             {
                 InverTItemStatus(row);
             }
+
+            OnRowClicked.InvokeAsync(KTableEvent);
+        }
+
+        public void SetDataSource(List<TItem> datasource)
+        {
+            DataSource = datasource;
         }
     }
 }
