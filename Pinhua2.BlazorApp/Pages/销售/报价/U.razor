@@ -1,4 +1,4 @@
-﻿@page "/销售/报价/U/{RecordId:int}"
+﻿@page "/销售/报价/修改/{RecordId:int}"
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <h3>删除</h3>
@@ -27,7 +27,7 @@
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <div>
-        <button class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo("销售/报价/A"))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
+        <button class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo("销售/报价/列表"))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
         <button class="btn btn-primary"><i class="oi oi-arrow-thick-right"></i> 确认删除</button>
     </div>
 </div>

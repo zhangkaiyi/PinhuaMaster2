@@ -7,5 +7,8 @@
     },
     toggleModal: function (name) {
         $(name).modal('toggle');
+    },
+    alert: function (message) {
+        alert(message);
     }
 };

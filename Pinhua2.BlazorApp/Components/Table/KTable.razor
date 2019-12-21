@@ -2,13 +2,12 @@
 @typeparam TItem
 
 <CascadingValue Value="@this">
-    @ConditionContainer
     @ChildContent
     <div style="@Stylename" @ref="Container" class="@(hideContainer?"d-none":"")">
         <div class="row">
             <div class="col">
                 <div class="@(IsResponsive ? "table-responsive" : "")">
-                    <table cellspacing="0" cellpadding="0" border="0" class="@Classname">
+                    <table cellspacing="0" cellpadding="0" border="0" class="@Classname" tabindex="-1">
                         <colgroup>
                             @if (CheckBoxHeader)
                             {

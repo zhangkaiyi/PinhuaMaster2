@@ -13,20 +13,29 @@ namespace Klazor
         [CascadingParameter]
         public KTable<TItem> Table { get; set; }
 
+        [CascadingParameter]
+        public KTableConditionContainer<TItem> Container { get; set; }
+
         [Parameter]
         public virtual RenderFragment<TItem> ChildContent { get; set; }
 
         protected override void OnParametersSet()
         {
-            if (Table?.RConditions == null)
+            //if (Table?.RConditions == null)
+            //{
+            //    return;
+            //}
+            //if (Table.RConditions.Contains(this))
+            //{
+            //    return;
+            //}
+            //Table.RConditions.Add(this);
+
+            if (Container == null)
             {
                 return;
             }
-            if (Table.RConditions.Contains(this))
-            {
-                return;
-            }
-            Table.RConditions.Add(this);
+            Container.AddCondition(this);
         }
     }
 }

@@ -13,8 +13,12 @@
     <title>PinhuaMaster.App</title>
     <base href="~/" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link rel="stylesheet" href="_content/BlazorStrap/css/submenu.css" />
+    <link href="_content/NodaTimePicker/datepicker.css" rel="stylesheet" />
+    <link href="_content/NodaTimePicker/timepicker.css" rel="stylesheet" />
+
 </head>
 <body>
     <app>
@@ -40,6 +44,16 @@
 
     <script src="~/lib/jquery/jquery-3.4.1.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.fn.datepicker.defaults.language = 'zh-CN';
+            $.fn.datepicker.defaults.todayHighlight = true;
+            $.fn.datepicker.defaults.autoclose = true;
+
+        })
+    </script>
     <script src="~/js/Klazor.js"></script>
 </body>
 </html>

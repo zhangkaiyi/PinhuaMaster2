@@ -63,22 +63,22 @@ namespace Pinhua2.Data.Models
         public string 规格 { get; set; }
 
         [CustomDisplay(2.1)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit, MyHiddenDelete]
         [MyHiddenRef]
         public decimal? 长度 { get; set; }
 
         [CustomDisplay(2.2)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit, MyHiddenDelete]
         [MyHiddenRef]
         public decimal? 宽度 { get; set; }
 
         [CustomDisplay(2.3)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit, MyHiddenDelete]
         [MyHiddenRef]
         public decimal? 高度 { get; set; }
 
         [CustomDisplay(2.4)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit, MyHiddenDelete]
         [MyHiddenRef]
         public decimal? 面厚 { get; set; }
     }

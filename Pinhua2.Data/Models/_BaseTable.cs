@@ -50,6 +50,7 @@ namespace Pinhua2.Data.Models
         [MyHiddenIndex, MyHiddenRef]
         public DateTime? LastEditTime { get; set; }
 
+        [Display(Name = "已删除")]
         [CustomDisplay(ForIndex = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit, MyHiddenRef]
         [MySysColumn]

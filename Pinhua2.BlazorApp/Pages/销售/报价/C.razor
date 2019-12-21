@@ -1,59 +1,128 @@
-﻿@page "/销售/报价/C"
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-        <h3>C</h3>
-        <div class="btn-group">
-            <partial name="Buttons/CreateButton" />
-        </div>
-    </div>
-<div class="row">
-    <div class="col">
-        <div class="float-right mb-3">
-            <button class="btn btn-primary" @onclick="@(e => PriceModal?.Show())">添加报价</button>
-            <button class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
-        </div>
-    </div>
+﻿@page "/销售/报价/新增"
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <h3>新增</h3>
 </div>
-<div class="row">
-    <div class="col-12">
-        <KTable DataSource="dingdanDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable">
-            <ConditionContainer>
-                <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
-                <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsHiddenIndex"></KTableHiddenCondition>
-                <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
-                <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
-            </ConditionContainer>
-            <ChildContent>
+<EditForm Model="main">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    @foreach (var mm in Pinhua2.Common.Attributes.MyMark.Parse(main).Where(m => !m.IsSysColumn))
+                    {
+                        <div class="form-group row">
+                            <label for="@mm.RawName" class="col-3 col-form-label">@mm.Name</label>
+                            <div class="col-9 col-md-9 col-lg-9">
+                                @if (mm.IsDatetime)
+                                {
+                                    datePickers.TryAdd(mm.RawName, new Models.DatePickerModel());
+
+                                    <input type="text" @bind="datePickers[mm.RawName].Date" id="@mm.RawName" @onfocus="e => datePickers[mm.RawName].Visible = true" class="form-control" readonly />
+                                    <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
+                                                Visible="datePickers[mm.RawName].Visible"
+                                                CloseText="关闭" ShowClose="true"
+                                                TodayText="今天" ShowClear="false"
+                                                OnSelected="@(e=>{ datePickers[mm.RawName].Visible = false; datePickers[mm.RawName].Date = e.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture); })" />
+
+                                }
+                                else if (mm.IsDecimal)
+                                {
+                                    <input type="number" @bind="mm.BlazorValue" id="@mm.RawName" class="form-control" />
+                                }
+                                else
+                                {
+                                    <input type="text" @bind="mm.BlazorValue" id="@mm.RawName" class="form-control" />
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    @functions {
+                        string b = string.Empty;
+                        bool datePicker2Visible = false;
+                        void focussed2(FocusEventArgs e)
+                        {
+                            datePicker2Visible = true;
+                        }
+                        void focusout(FocusEventArgs e)
+                        {
+                            //datePicker2Visible = false;
+                        }
+                        void selected2(LocalDate localDate)
+                        {
+                            datePicker2Visible = false;
+                            b = localDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                            //StateHasChanged();
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="float-right mb-3">
+                <button class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <KTable DataSource="dingdanDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable"
+                    CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                <KTableConditionContainer TItem="dto销售订单D">
+                    <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
+                    <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsHiddenIndex"></KTableHiddenCondition>
+                    <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
+                    <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
+                </KTableConditionContainer>
                 <KTableUserColumns TItem="dto销售订单D">
-                    <KTableUserColumn TItem="dto销售订单D" Width="1">
+                    <KTableUserColumn TItem="dto销售订单D" Width="1" Context="thisRow">
                         <a href="javascript:;" class="mr-1">查看</a>
                         <a href="javascript:;" class="mr-1">修改</a>
-                        <a href="javascript:;" @onclick="e=>DetailsTable.Remove(context)">删除</a>
+                        <a href="javascript:;" @onclick="e=>DetailsTable.Remove(thisRow)">删除</a>
                     </KTableUserColumn>
                 </KTableUserColumns>
-            </ChildContent>
-        </KTable>
+            </KTable>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="ProductModal">
-            <KModalHeader>商品列表</KModalHeader>
-            <KModalBody>
-                <KTable DataSource="shangpinList" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true"
-                        CheckBoxHeader="true" IsClickToSelect="true" @ref="ProductTable">
-                    <ConditionContainer>
-                        <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
-                        <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsHiddenRef"></KTableHiddenCondition>
-                        <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
-                        <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
-                    </ConditionContainer>
-                </KTable>
-            </KModalBody>
-            <KModalFooter OnOK="e=>OKOK()"></KModalFooter>
-        </KModal>
+    <div class="row">
+        <div class="col-12">
+            <KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="ProductModal">
+                <KModalHeader>商品列表</KModalHeader>
+                <KModalBody>
+                    <KTable DataSource="shangpinList" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true"
+                            CheckBoxHeader="true" IsClickToSelect="true" @ref="ProductTable">
+                        <KTableConditionContainer TItem="dto商品">
+                            <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
+                            <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsHiddenRef"></KTableHiddenCondition>
+                            <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
+                            <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
+                        </KTableConditionContainer>
+                    </KTable>
+                </KModalBody>
+                <KModalFooter OnOK="e=>OKOK()"></KModalFooter>
+            </KModal>
+        </div>
     </div>
-</div>
+    <button type="submit" class="btn btn-primary">保存</button>
+
+</EditForm>
+
 @code {
+    protected dto销售报价 main = new dto销售报价();
+
+    protected Dictionary<string, Pinhua2.BlazorApp.Pages.Models.DatePickerModel> datePickers = new Dictionary<string, Models.DatePickerModel>();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+
     KModal PriceModal;
     KModal ProductModal;
 

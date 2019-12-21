@@ -7,7 +7,7 @@ using TagHelpers;
 
 namespace Pinhua2.Common.Attributes
 {
-    public partial class  MyMarkModel
+    public partial class MyMarkModel
     {
 
         #region 各种属性
@@ -31,9 +31,9 @@ namespace Pinhua2.Common.Attributes
                     if (_propertyInfo.PropertyType == typeof(DateTime) || _propertyInfo.PropertyType == typeof(DateTime?))
                     {
                         if (DateTime.TryParse(value, out var dt))
-                        {
                             _propertyInfo.SetValue(_obj, dt);
-                        }
+                        else
+                            _propertyInfo.SetValue(_obj, default);
                     }
                     else if (_propertyInfo.PropertyType == typeof(double) || _propertyInfo.PropertyType == typeof(double?))
                     {

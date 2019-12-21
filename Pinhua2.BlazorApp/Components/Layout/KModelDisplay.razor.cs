@@ -6,25 +6,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlazorStrap;
 using Microsoft.JSInterop;
+using Pinhua2.Common.Attributes;
 
 namespace Klazor
 {
     public partial class KModelDisplay : ComponentBase
     {
-        protected string Classname => new CssBuilder("")
-            .AddClass(Class)
-            .Build();
-        protected ElementReference Me { get; set; }
-
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
-        [Parameter] public string Class { get; set; }
+
+        [Parameter] public object DataSource { get; set; } = new object();
+
+        protected List<MyMarkModel> myMarkModels;
 
         //[Inject] protected Microsoft.JSInterop.IJSRuntime JSRuntime { get; set; }
 
         protected override void OnInitialized()
         {
 
+        }
+
+        protected override void OnParametersSet()
+        {
+            myMarkModels = MyMark.Parse(DataSource).ToList();
         }
     }
 }
