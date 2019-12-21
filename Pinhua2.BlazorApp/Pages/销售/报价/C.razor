@@ -17,15 +17,7 @@
                             <div class="col-9 col-md-9 col-lg-9">
                                 @if (mm.IsDatetime)
                                 {
-                                    datePickers.TryAdd(mm.RawName, new Models.DatePickerModel());
-
-                                    <input type="text" @bind="datePickers[mm.RawName].Date" id="@mm.RawName" @onfocus="e => datePickers[mm.RawName].Visible = true" class="form-control" readonly />
-                                    <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
-                                                Visible="datePickers[mm.RawName].Visible"
-                                                CloseText="关闭" ShowClose="true"
-                                                TodayText="今天" ShowClear="false"
-                                                OnSelected="@(e=>{ datePickers[mm.RawName].Visible = false; datePickers[mm.RawName].Date = e.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture); })" />
-
+                                    <KDatePicker Id="@mm.RawName" Model="mm"></KDatePicker>
                                 }
                                 else if (mm.IsDecimal)
                                 {

@@ -11,6 +11,7 @@ namespace Pinhua2.BlazorApp.Pages.Models
     public class DatePickerModel
     {
         public bool Visible { get; set; } = false;
+        public bool IsMouseOver { get; set; } = false;
         public string Date { get; set; } = string.Empty;
     }
 }
