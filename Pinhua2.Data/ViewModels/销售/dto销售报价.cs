@@ -48,6 +48,7 @@ namespace Pinhua2.ViewModels
         [Display(Name = "客户号")]
         [MyPriority(Priority.High)]
         [MyViewComponent("SelectForCompany")]
+        [MyDropdown]
         public string 往来号 { get; set; }
     }
 

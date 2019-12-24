@@ -1,0 +1,19 @@
+﻿@namespace Klazor
+
+<CascadingValue Value="this">
+    @if (ChildContent != null)
+    {
+        if (string.IsNullOrEmpty(Value))
+        {
+            <option class="@Classname" @attributes="@UnknownParameters">@ChildContent</option>
+        }
+        else
+        {
+            <option class="@Classname" @attributes="@UnknownParameters" value="@Value">@ChildContent</option>
+        }
+    }
+    else
+    {
+        <option class="@Classname" @attributes="@UnknownParameters" value="@Value">@Text</option>
+    }
+</CascadingValue>

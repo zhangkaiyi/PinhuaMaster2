@@ -479,6 +479,25 @@ namespace Pinhua2.Common.Attributes
             }
         }
 
+        public bool IsDropdown
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyDropdownAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public Priority Priority
         {
             get

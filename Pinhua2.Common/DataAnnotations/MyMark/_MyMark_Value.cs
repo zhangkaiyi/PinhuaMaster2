@@ -104,6 +104,85 @@ namespace Pinhua2.Common.Attributes
 
                 return _propertyInfo.GetValue(_obj);
             }
+            set
+            {
+                if (_propertyInfo != null && _obj != null && value != null)
+                {
+                    var stringValue = value.ToString();
+                    if (_propertyInfo.PropertyType == typeof(DateTime) || _propertyInfo.PropertyType == typeof(DateTime?))
+                    {
+                        if (DateTime.TryParse(stringValue, out var parsed))
+                            _propertyInfo.SetValue(_obj, parsed);
+                        else
+                            _propertyInfo.SetValue(_obj, default);
+                    }
+                    else if (_propertyInfo.PropertyType == typeof(double) || _propertyInfo.PropertyType == typeof(double?))
+                    {
+                        if (double.TryParse(stringValue, out var parsed))
+                        {
+                            _propertyInfo.SetValue(_obj, parsed);
+                        }
+                    }
+                    else if (_propertyInfo.PropertyType == typeof(decimal) || _propertyInfo.PropertyType == typeof(decimal?))
+                    {
+                        if (decimal.TryParse(stringValue, out var parsed))
+                        {
+                            _propertyInfo.SetValue(_obj, parsed);
+                        }
+                    }
+                    else if (_propertyInfo.PropertyType == typeof(float) || _propertyInfo.PropertyType == typeof(float?))
+                    {
+                        if (float.TryParse(stringValue, out var parsed))
+                        {
+                            _propertyInfo.SetValue(_obj, parsed);
+                        }
+                    }
+                    else if (_propertyInfo.PropertyType == typeof(int) || _propertyInfo.PropertyType == typeof(int?))
+                    {
+                        if (int.TryParse(stringValue, out var parsed))
+                        {
+                            _propertyInfo.SetValue(_obj, parsed);
+                        }
+                    }
+                    else if (_propertyInfo.PropertyType == typeof(uint) || _propertyInfo.PropertyType == typeof(uint?))
+                    {
+                        if (uint.TryParse(stringValue, out var parsed))
+                        {
+                            _propertyInfo.SetValue(_obj, parsed);
+                        }
+                    }
+                    else if (_propertyInfo.PropertyType == typeof(ulong) || _propertyInfo.PropertyType == typeof(ulong?))
+                    {
+                        if (ulong.TryParse(stringValue, out var parsed))
+                        {
+                            _propertyInfo.SetValue(_obj, parsed);
+                        }
+                    }
+                    else if (_propertyInfo.PropertyType == typeof(bool) || _propertyInfo.PropertyType == typeof(bool?))
+                    {
+                        if (bool.TryParse(stringValue, out var parsed))
+                        {
+                            _propertyInfo.SetValue(_obj, parsed);
+                        }
+                    }
+                    else
+                    {
+                        _propertyInfo.SetValue(_obj, stringValue);
+                    }
+                }
+            }
+
+        }
+        public string RawValueString
+        {
+            get
+            {
+                return RawValue?.ToString();
+            }
+            set
+            {
+                RawValue = value;
+            }
         }
         public object Value
         {

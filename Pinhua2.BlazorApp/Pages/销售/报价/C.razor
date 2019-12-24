@@ -10,44 +10,40 @@
                 <div class="col-md-6">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
-                    @foreach (var mm in Pinhua2.Common.Attributes.MyMark.Parse(main).Where(m => !m.IsSysColumn))
+                    @foreach (var model in Pinhua2.Common.Attributes.MyMark.Parse(main).Where(m => !m.IsSysColumn))
                     {
                         <div class="form-group row">
-                            <label for="@mm.RawName" class="col-3 col-form-label">@mm.Name</label>
+                            <label for="@model.RawName" class="col-3 col-form-label">@model.Name</label>
                             <div class="col-9 col-md-9 col-lg-9">
-                                @if (mm.IsDatetime)
+                                @if (model.IsDatetime)
                                 {
-                                    <KDatePicker Id="@mm.RawName" Model="mm"></KDatePicker>
+                                    <KDatePicker Model="model" Format="yyyy-MM-dd" Placeholder="输入日期 ..."></KDatePicker>
                                 }
-                                else if (mm.IsDecimal)
+                                else if (model.IsDecimal)
                                 {
-                                    <input type="number" @bind="mm.BlazorValue" id="@mm.RawName" class="form-control" />
+                                    <input type="number" @bind="model.RawValueString" id="@model.RawName" class="form-control" />
+                                }
+                                else if (model.IsDropdown)
+                                {
+                                    <KDropdown Model="model" Placeholder="请选择 ..." >
+                                        @if (model.RawName == "往来号")
+                                        {
+                                            foreach (var customer in pinhuaContext.SelectList_客户())
+                                            {
+                                                <KDropdownOption Value="@customer.Value" Text="@customer.Text"></KDropdownOption>
+                                            }
+                                        }
+                                    </KDropdown>
                                 }
                                 else
                                 {
-                                    <input type="text" @bind="mm.BlazorValue" id="@mm.RawName" class="form-control" />
+                                    <KInput Model="model" Readonly="true">
+                                        <KInputExpression Condition="@(e=>e.Model.RawName == "备注")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
+                                        <KInputExpression Condition="@(e=>e.Model.RawName == "往来号")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
+                                    </KInput>
                                 }
                             </div>
                         </div>
-                    }
-
-                    @functions {
-                        string b = string.Empty;
-                        bool datePicker2Visible = false;
-                        void focussed2(FocusEventArgs e)
-                        {
-                            datePicker2Visible = true;
-                        }
-                        void focusout(FocusEventArgs e)
-                        {
-                            //datePicker2Visible = false;
-                        }
-                        void selected2(LocalDate localDate)
-                        {
-                            datePicker2Visible = false;
-                            b = localDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-                            //StateHasChanged();
-                        }
                     }
                 </div>
             </div>
@@ -57,7 +53,7 @@
     <div class="row">
         <div class="col">
             <div class="float-right mb-3">
-                <button class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
+                <button type="button" class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
             </div>
         </div>
     </div>
@@ -107,8 +103,6 @@
 
 @code {
     protected dto销售报价 main = new dto销售报价();
-
-    protected Dictionary<string, Pinhua2.BlazorApp.Pages.Models.DatePickerModel> datePickers = new Dictionary<string, Models.DatePickerModel>();
 
     private void HandleValidSubmit()
     {

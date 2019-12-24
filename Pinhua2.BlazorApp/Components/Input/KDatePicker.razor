@@ -1,14 +1,13 @@
 ﻿@namespace Klazor
 
-<CascadingValue Value="this">
-    <!-- Modal -->
-    <div class="@Classname" @attributes="UnknownParameters"
-         @onmouseover="@(e => isMouseOver = true)" @onmouseout="@(e => isMouseOver = false)">
-        <input type="text" id="@Id" @bind="@Model.BlazorValue" @onfocus="@(e=>isVisible = true)" @onblur="@(e => isVisible = isMouseOver ? true : false)" class="form-control" readonly />
-        <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
-                    Visible="isVisible"
-                    CloseText="关闭" ShowClose="true"
-                    TodayText="今天" ShowClear="false"
-                    OnSelected="@(e=>{ isVisible = false; Model.BlazorValue = e.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture); })" />
-    </div>
-</CascadingValue>
+<div class="@Classname" @attributes="UnknownParameters" @onmouseover="@(e => isMouseOver = true)" @onmouseout="@(e => isMouseOver = false)">
+
+    <input type="text" id="@Model.RawName" placeholder="@Placeholder"
+           @bind="@inputDate" @onfocus="@(e=>isVisible = true)" @onblur="@(e => isVisible = isMouseOver ? true : false)" class="form-control" readonly />
+
+    <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
+                Visible="isVisible"
+                CloseText="关闭" ShowClose="true"
+                TodayText="今天" ShowClear="false"
+                OnSelected="@(e=>{ isVisible = false; Model.BlazorValue = e.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture); })" />
+</div>

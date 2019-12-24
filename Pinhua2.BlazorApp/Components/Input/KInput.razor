@@ -1,0 +1,7 @@
+﻿@namespace Klazor
+
+<CascadingValue Value="this">
+    <input type="text" id="@(Model.RawName)" class="@Classname" placeholder="@(Placeholder)" readonly="@(Readonly)"
+           @attributes="@UnknownParameters" @bind="@(inputValue)" />
+    @ChildContent
+</CascadingValue>
