@@ -10,10 +10,10 @@
                 <div class="col-md-6">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
-                    @foreach (var model in Pinhua2.Common.Attributes.MyMark.Parse(main).Where(m => !m.IsSysColumn))
+                    @foreach (var model in Pinhua2.Common.MyAnnotations.MyAnnotations.Parse(main).Where(m => !m.Field.IsSystemField))
                     {
-                        <div class="form-group row">
-                            <label for="@model.RawName" class="col-3 col-form-label">@model.Name</label>
+                        <div class="form-group row @(model.Field.IsHidden?"d-none":"")">
+                            <label for="@model.Field.Name" class="col-3 col-form-label">@model.Field.ProcessedName</label>
                             <div class="col-9 col-md-9 col-lg-9">
                                 @if (model.IsDatetime)
                                 {
@@ -21,14 +21,14 @@
                                 }
                                 else if (model.IsDecimal)
                                 {
-                                    <input type="number" @bind="model.RawValueString" id="@model.RawName" class="form-control" />
+                                    <input type="number" @bind="model.Field.ValueString" id="@model.Field.Name" class="form-control" />
                                 }
-                                else if (model.IsDropdown)
+                                else if (model.FormControl.IsDropdown)
                                 {
-                                    <KDropdown Model="model" Placeholder="请选择 ..." >
-                                        @if (model.RawName == "往来号")
+                                    <KDropdown Model="model" Placeholder="请选择 ...">
+                                        @if (model.Field.Name == "往来号")
                                         {
-                                            foreach (var customer in pinhuaContext.SelectList_客户())
+                                            foreach (var customer in pinhuaContext.DropdownOptions_客户())
                                             {
                                                 <KDropdownOption Value="@customer.Value" Text="@customer.Text"></KDropdownOption>
                                             }
@@ -38,8 +38,8 @@
                                 else
                                 {
                                     <KInput Model="model" Readonly="true">
-                                        <KInputExpression Condition="@(e=>e.Model.RawName == "备注")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
-                                        <KInputExpression Condition="@(e=>e.Model.RawName == "往来号")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
+                                        <KInputExpression Condition="@(e=>e.Model.Field.Name == "备注")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
+                                        <KInputExpression Condition="@(e=>e.Model.Field.Name == "往来号")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
                                     </KInput>
                                 }
                             </div>

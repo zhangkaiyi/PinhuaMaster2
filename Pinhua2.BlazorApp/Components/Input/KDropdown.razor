@@ -1,8 +1,8 @@
 ﻿@namespace Klazor
 
 <CascadingValue Value="this">
-    <select id="@(Model.RawName)" @bind="Model.RawValueString" class="@Classname" @attributes="@UnknownParameters" disabled="@(Readonly)">
-        @*<option value="无">@(Placeholder)</option>*@
+    <select id="@(Model.Field.Name)" @bind="Model.Field.ValueString" class="@Classname" @attributes="@UnknownParameters" disabled="@(Readonly)">
+        <option value="@string.Empty">@(Placeholder)</option>
         @ChildContent
     </select>
 </CascadingValue>

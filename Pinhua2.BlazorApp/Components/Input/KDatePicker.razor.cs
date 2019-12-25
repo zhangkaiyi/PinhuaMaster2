@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlazorStrap;
 using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
+using Pinhua2.Common.MyAnnotations;
 
 namespace Klazor
 {
@@ -23,7 +24,7 @@ namespace Klazor
         {
             get
             {
-                if( DateTime.TryParse(Model?.RawValue?.ToString(), out var date))
+                if( DateTime.TryParse(Model?.Field?.Value?.ToString(), out var date))
                 {
                     return date.ToString(string.IsNullOrEmpty(Format) ? "" : Format);
                 }
@@ -34,11 +35,11 @@ namespace Klazor
             }
             set
             {
-                Model.RawValue = value;
+                Model.Field.Value = value;
             }
         }
 
-        [Parameter] public MyMarkModel Model { get; set; }
+        [Parameter] public MyAnnotationsModel Model { get; set; }
         [Parameter] public string Format { get; set; }
         //[Parameter] public string Id { get; set; } = string.Empty;
         [Parameter] public RenderFragment ChildContent { get; set; }

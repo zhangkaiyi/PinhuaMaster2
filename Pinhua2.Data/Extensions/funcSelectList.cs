@@ -55,6 +55,23 @@ namespace Pinhua2.Data
             return customerSelectList;
         }
 
+        static public List<SelectListItem> DropdownOptions_客户(this Pinhua2Context _context)
+        {
+            var customers = _context.tb_往来表.AsNoTracking().Where(c => c.类型 == "客户");
+
+            var customerSelectList = new List<SelectListItem>();
+
+            foreach (var customer in customers)
+            {
+                customerSelectList.Add(new SelectListItem
+                {
+                    Text = customer.往来号 + " - " + customer.简称,
+                    Value = customer.往来号
+                });
+            }
+            return customerSelectList;
+        }
+
         static public IList<SelectListItem> SelectList_供应商(this Pinhua2Context _context)
         {
             var customers = _context.tb_往来表.AsNoTracking().Where(c => c.类型 == "供应商");

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlazorStrap;
 using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
+using Pinhua2.Common.MyAnnotations;
 using System.Linq.Expressions;
 
 namespace Klazor
@@ -21,21 +22,21 @@ namespace Klazor
         {
             get
             {
-                return Model.RawValueString;
+                return Model.Field.ValueString;
             }
             set
             {
-                Model.RawValueString = value;
+                Model.Field.ValueString = value;
             }
         }
 
-        [Parameter] public MyMarkModel Model { get; set; }
+        [Parameter] public MyAnnotationsModel Model { get; set; }
         [Parameter] public string Value { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public string Placeholder { get; set; }
-        [Parameter] public bool Readonly { get; set; } = false;
+        [Parameter] public bool? Readonly { get; set; }
 
         public void SetReadonly(bool result)
         {

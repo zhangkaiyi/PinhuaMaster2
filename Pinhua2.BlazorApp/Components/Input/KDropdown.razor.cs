@@ -8,6 +8,7 @@ using BlazorStrap;
 using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
 using System.Linq.Expressions;
+using Pinhua2.Common.MyAnnotations;
 
 namespace Klazor
 {
@@ -21,15 +22,15 @@ namespace Klazor
         {
             get
             {
-                return Model.RawValueString;
+                return Model.Field.ValueString;
             }
             set
             {
-                Model.RawValueString = value;
+                Model.Field.ValueString = value;
             }
         }
 
-        [Parameter] public MyMarkModel Model { get; set; }
+        [Parameter] public MyAnnotationsModel Model { get; set; }
         [Parameter] public string Value { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }

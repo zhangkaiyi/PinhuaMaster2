@@ -2,12 +2,12 @@
 
 <div class="@Classname" @attributes="UnknownParameters" @onmouseover="@(e => isMouseOver = true)" @onmouseout="@(e => isMouseOver = false)">
 
-    <input type="text" id="@Model.RawName" placeholder="@Placeholder"
+    <input type="text" id="@Model.Field.Name" placeholder="@Placeholder"
            @bind="@inputDate" @onfocus="@(e=>isVisible = true)" @onblur="@(e => isVisible = isMouseOver ? true : false)" class="form-control" readonly />
 
     <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
                 Visible="isVisible"
                 CloseText="关闭" ShowClose="true"
                 TodayText="今天" ShowClear="false"
-                OnSelected="@(e=>{ isVisible = false; Model.BlazorValue = e.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture); })" />
+                OnSelected="@(e=>{ isVisible = false; Model.Field.Value = e.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture); })" />
 </div>

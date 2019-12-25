@@ -11,45 +11,39 @@ namespace Pinhua2.ViewModels
 {
     public class dto销售报价 : _BaseTableMain
     {
-        [CustomDisplay(10)]
-        [MyPriority(Priority.High)]
+        [MyOrder(10)]
+        [MyFormControl(Visible = true, Readonly = true, Placeholder = "自动生成 ...")]
         public string 单号 { get; set; }
 
-        [CustomDisplay(20)]
-        [MyPriority(Priority.High)]
-        [MyHiddenCreate]
+        [MyOrder(20)]
+        [MyFormControl(Visible = false, Readonly = true)]
+        [MyHidden]
         public string 业务类型 { get; set; }
 
         [Required]
-        [CustomDisplay(50)]
-        [MyEditable]
-        [MyPriority(Priority.High)]
+        [MyOrder(50)]
         public DateTime? 日期 { get; set; }
 
         [Required]
-        [CustomDisplay(60)]
-        [MyEditable]
-        [MyPriority(Priority.High)]
+        [MyOrder(60)]
         public DateTime? 交期 { get; set; }
 
-        [CustomDisplay(70)]
-        [MyEditable]
-        [MyPriority(Priority.High)]
+        [MyOrder(70)]
+        [MyFormControl(Visible = false, Readonly = false)]
         public string 备注 { get; set; }
 
-        [CustomDisplay(40)]
-        [Display(Name = "客户名")]
-        [MyPriority(Priority.High)]
-        [MyHiddenCreate]
-        public string 往来 { get; set; }
-
         [Required]
-        [CustomDisplay(30)]
+        [MyOrder(30)]
         [Display(Name = "客户号")]
-        [MyPriority(Priority.High)]
-        [MyViewComponent("SelectForCompany")]
         [MyDropdown]
         public string 往来号 { get; set; }
+
+        [MyOrder(40)]
+        [Display(Name = "客户名")]
+        [MyFormControl(Visible = false, Readonly = true)]
+        [MyHidden]
+        public string 往来 { get; set; }
+
     }
 
     public class dto销售报价D : _BaseProductDetail
