@@ -1,0 +1,18 @@
+﻿@namespace Piuhua2.Components.Modal
+
+<KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
+    <KModalHeader>商品</KModalHeader>
+    <KModalBody>
+        <KTable DataSource="products" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
+                CheckBoxHeader="true" IsClickToSelect="true">
+            <KTableConditionContainer TItem="dto商品">
+                <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
+                <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsHiddenRef"></KTableHiddenCondition>
+            </KTableConditionContainer>
+        </KTable>
+    </KModalBody>
+    <KModalFooter>
+        <button type="button" class="btn btn-secondary" @onclick="Cancel">取消</button>
+        <button type="button" class="btn btn-primary" @onclick="OK">选择</button>
+    </KModalFooter>
+</KModal>

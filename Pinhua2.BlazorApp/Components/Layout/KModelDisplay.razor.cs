@@ -28,7 +28,7 @@ namespace Klazor
 
         protected override void OnParametersSet()
         {
-            myMarkModels = MyMark.Parse(DataSource).ToList();
+            myMarkModels = MyMark.Parse(DataSource)?.ToList();
         }
     }
 }

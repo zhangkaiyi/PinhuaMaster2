@@ -1,5 +1,5 @@
 ﻿using Pinhua2.Common.Attributes;
-using Pinhua2.Common.MyAnnotations.Models;
+using Pinhua2.Common.DataAnnotations.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TagHelpers;
 
-namespace Pinhua2.Common.MyAnnotations
+namespace Pinhua2.Common.DataAnnotations
 {
     public partial class MyAnnotationsModel
     {

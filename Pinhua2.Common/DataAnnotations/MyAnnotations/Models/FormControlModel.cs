@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TagHelpers;
 
-namespace Pinhua2.Common.MyAnnotations.Models
+namespace Pinhua2.Common.DataAnnotations.Models
 {
     public partial class FormControlModel
     {
@@ -77,7 +77,7 @@ namespace Pinhua2.Common.MyAnnotations.Models
             get
             {
                 if (_model._propertyInfo == null)
-                    return false;
+                    return true;
 
                 var attrs = _model._propertyInfo.GetCustomAttributes(typeof(MyFormControlAttribute), false);
                 if (attrs?.Length > 0)
@@ -86,7 +86,7 @@ namespace Pinhua2.Common.MyAnnotations.Models
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
         }

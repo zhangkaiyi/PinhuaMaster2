@@ -1,4 +1,5 @@
 ﻿@page "/销售/报价/新增"
+@using Piuhua2.Components.Modal
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <h3>新增</h3>
@@ -10,7 +11,7 @@
                 <div class="col-md-6">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
-                    @foreach (var model in Pinhua2.Common.MyAnnotations.MyAnnotations.Parse(main).Where(m => !m.Field.IsSystemField))
+                    @foreach (var model in MyAnnotations.Parse(main).Where(m => !m.Field.IsSystemField))
                     {
                         <div class="form-group row @(model.Field.IsHidden?"d-none":"")">
                             <label for="@model.Field.Name" class="col-3 col-form-label">@model.Field.ProcessedName</label>
@@ -53,93 +54,91 @@
     <div class="row">
         <div class="col">
             <div class="float-right mb-3">
-                <button type="button" class="btn btn-primary" @onclick="@(e => ProductModal?.Show())">添加商品</button>
+                <button type="button" class="btn btn-primary" @onclick="@(e => Modal_商品列表?.Show())">添加商品</button>
             </div>
         </div>
     </div>
-
+    @{
+        Expression<Func<ReflectedCell<dto销售报价D>, bool>> predicate = m =>
+        m.Model.IsSysColumn ||
+        m.Model.IsHiddenRef ||
+        m.Model.RawName == nameof(dto销售报价D.子单号);
+    }
     <div class="row">
         <div class="col-12">
-            <KTable DataSource="dingdanDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable"
+            <KTable DataSource="quoteDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable"
                     CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
-                <KTableConditionContainer TItem="dto销售订单D">
-                    <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
-                    <KTableHiddenCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsHiddenIndex"></KTableHiddenCondition>
-                    <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
-                    <KTableFormatCondition TItem="dto销售订单D" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
+                <KTableConditionContainer TItem="dto销售报价D">
+                    <KTableHiddenCondition TItem="dto销售报价D" Predicate="predicate"></KTableHiddenCondition>
+                    <KTableFormatCondition TItem="dto销售报价D" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
+                    <KTableFormatCondition TItem="dto销售报价D" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
                 </KTableConditionContainer>
-                <KTableUserColumns TItem="dto销售订单D">
-                    <KTableUserColumn TItem="dto销售订单D" Width="1" Context="thisRow">
-                        <a href="javascript:;" class="mr-1">查看</a>
-                        <a href="javascript:;" class="mr-1">修改</a>
-                        <a href="javascript:;" @onclick="e=>DetailsTable.Remove(thisRow)">删除</a>
+                <KTableUserColumns TItem="dto销售报价D">
+                    <KTableUserColumn TItem="dto销售报价D" Width="1" Context="thisRow">
+                        <a href="javascript:;" class="mr-1" @onclick="e=>DetailsTable.Remove(thisRow)">移除</a>
+                        <a href="javascript:;" @onclick="e=>Editing(thisRow)">修改</a>
                     </KTableUserColumn>
                 </KTableUserColumns>
             </KTable>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
-            <KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="ProductModal">
-                <KModalHeader>商品列表</KModalHeader>
-                <KModalBody>
-                    <KTable DataSource="shangpinList" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true"
-                            CheckBoxHeader="true" IsClickToSelect="true" @ref="ProductTable">
-                        <KTableConditionContainer TItem="dto商品">
-                            <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
-                            <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsHiddenRef"></KTableHiddenCondition>
-                            <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
-                            <KTableFormatCondition TItem="dto商品" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
-                        </KTableConditionContainer>
-                    </KTable>
-                </KModalBody>
-                <KModalFooter OnOK="e=>OKOK()"></KModalFooter>
-            </KModal>
+        <div class="col">
+            <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>OKOK(e.SelectedProducts.ToList())"></Modal_商品列表>
+            <Modal_修改销售报价明细 Datasource="editingQuoteDetail" @ref="Modal_修改销售报价明细"></Modal_修改销售报价明细>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>
-
 </EditForm>
 
 @code {
-    protected dto销售报价 main = new dto销售报价();
 
     private void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
     }
 
-    KModal PriceModal;
-    KModal ProductModal;
+    protected dto销售报价 main = new dto销售报价();
+    protected List<dto销售报价D> quoteDetails { get; set; }
+    protected List<dto商品> products { get; set; }
 
-    protected List<tb_报价表D> baojiaDetails { get; set; }
-    protected List<dto销售订单D> dingdanDetails { get; set; }
-    protected List<dto商品> shangpinList { get; set; }
+    protected dto销售报价D editingQuoteDetail { get; set; } = new dto销售报价D();
+    protected dto销售报价D editingQuoteDetailBak { get; set; } = new dto销售报价D();
 
-    protected KTable<tb_报价表D> ModalTable;
-    protected KTable<dto销售订单D> DetailsTable;
+    protected KTable<dto销售报价D> DetailsTable;
     protected KTable<dto商品> ProductTable;
+
+    protected Modal_修改销售报价明细 Modal_修改销售报价明细;
+    protected Modal_商品列表 Modal_商品列表;
 
     protected override void OnInitialized()
     {
-        baojiaDetails = pinhuaContext.tb_报价表D.ToList();
-        dingdanDetails = mapper.ProjectTo<dto销售订单D>(pinhuaContext.tb_订单表D).ToList();
-        shangpinList = mapper.ProjectTo<dto商品>(pinhuaContext.tb_商品表).ToList();
+        quoteDetails = new List<dto销售报价D>();
+        products = mapper.ProjectTo<dto商品>(pinhuaContext.tb_商品表).ToList();
     }
 
-    protected void OKOK()
+    protected void OKOK(List<dto商品> items)
     {
-        var items = ProductTable.SelectedRows;
-        var list = new List<dto销售订单D>();
+        var list = new List<dto销售报价D>();
         foreach (var item in items)
         {
 
-            var tb_detail = mapper.Map<dto商品, tb_商品表>(item);
-            var vm_detail = mapper.Map<tb_商品表, dto销售订单D>(tb_detail);
+            var tb_product = mapper.Map<dto商品, tb_商品表>(item);
+            var dto_detail = mapper.Map<tb_商品表, dto销售报价D>(tb_product);
 
-            DetailsTable.Add(vm_detail);
+            quoteDetails.Add(dto_detail);
         }
-        ProductTable.ChangeAllStatus(CheckBoxStatus.UnChecked);
-        ProductModal.Hide();
+    }
+
+    protected void OKOK2()
+    {
+        editingQuoteDetail = Newtonsoft.Json.JsonConvert.DeserializeObject<dto销售报价D>(Newtonsoft.Json.JsonConvert.SerializeObject(editingQuoteDetailBak)); ;
+        StateHasChanged();
+    }
+
+    protected void Editing(dto销售报价D item)
+    {
+        editingQuoteDetail = item;
+        Modal_修改销售报价明细?.Show();
     }
 }

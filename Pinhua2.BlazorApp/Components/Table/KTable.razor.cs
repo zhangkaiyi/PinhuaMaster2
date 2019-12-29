@@ -250,6 +250,7 @@ namespace Klazor
             {
                 selectAllStatus = CheckBoxStatus.Checked;
             }
+            StateHasChanged();
         }
 
         public void ChangeAllStatus(CheckBoxStatus status)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using BlazorStrap;
 using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
-using Pinhua2.Common.MyAnnotations;
+using Pinhua2.Common.DataAnnotations;
 using System.Linq.Expressions;
 
 namespace Klazor
@@ -37,15 +37,6 @@ namespace Klazor
         [Parameter] public string Class { get; set; }
         [Parameter] public string Placeholder { get; set; }
         [Parameter] public bool? Readonly { get; set; }
-
-        public void SetReadonly(bool result)
-        {
-            if (Readonly != result)
-            {
-                Readonly = result;
-                StateHasChanged();
-            }
-        }
 
         public void Set(string propName, object newValue)
         {

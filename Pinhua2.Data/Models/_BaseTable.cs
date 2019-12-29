@@ -75,17 +75,21 @@ namespace Pinhua2.Data.Models
         [CustomDisplay(ForIndex = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         [MyHiddenRef]
+        [MySysColumn]
         public int Idx { get; set; }
 
         [CustomDisplay(0, ForIndex = false)]
+        [MySysColumn]
         public int? RN { get; set; }
 
         [CustomDisplay]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         [MyHiddenRef]
+        [MySysColumn]
         public int? RecordId { get; set; }
 
         [CustomDisplay(10)]
+        [MyOrder(10)]
         virtual public string 子单号 { get; set; }
     }
 }

@@ -48,34 +48,37 @@ namespace Pinhua2.ViewModels
 
     public class dto销售报价D : _BaseProductDetail
     {
-        [CustomDisplay(ForIndex = false, ForCreate = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenField]
         public decimal? 库存 { get; set; }
+        [MyFormControl(Readonly = false)]
         public decimal? 个数 { get; set; }
         public decimal? 数量 { get; set; }
         public string 单位 { get; set; }
+        [MyFormControl(Readonly = false)]
         public decimal? 单价 { get; set; }
         [MyVueComputed]
         public decimal? 金额 { get; set; }
 
-        [CustomDisplay(ForIndex = false, ForCreate = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenField]
         public decimal? 税率 { get; set; }
         public string 备注 { get; set; }
 
-        [CustomDisplay(ForIndex = false, ForCreate = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenField]
         public decimal? 上次价 { get; set; }
 
-        [CustomDisplay(ForIndex = false, ForCreate = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [MyHiddenField]
         public DateTime? 上次日期 { get; set; }
 
-        [CustomDisplay(ForIndex = false, ForCreate = false)]
         [MyHiddenIndex, MyHiddenCreate, MyHiddenEdit]
+        [MyHiddenField]
         public string 品牌 { get; set; }
 
-        [CustomDisplay(ForCreate = false)]
+        [MyHiddenField]
+        [MyFormControl(Readonly = false)]
         public string 状态 { get; set; }
     }
 
@@ -85,10 +88,13 @@ namespace Pinhua2.ViewModels
         {
             CreateMap<tb_报价表, dto销售报价>();
             CreateMap<tb_报价表D, dto销售报价D>();
+            CreateMap<tb_商品表, dto销售报价D>();
 
             CreateMap<dto销售报价, tb_报价表>();
             CreateMap<dto销售报价D, tb_报价表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+            CreateMap<dto销售报价D, tb_商品表>();
+
         }
     }
 }

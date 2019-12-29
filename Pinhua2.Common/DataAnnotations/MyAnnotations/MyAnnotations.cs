@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TagHelpers;
 
-namespace Pinhua2.Common.MyAnnotations
+namespace Pinhua2.Common.DataAnnotations
 {
     public class MyAnnotations
     {

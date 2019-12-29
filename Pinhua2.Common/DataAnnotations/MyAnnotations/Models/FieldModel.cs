@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TagHelpers;
 
-namespace Pinhua2.Common.MyAnnotations.Models
+namespace Pinhua2.Common.DataAnnotations.Models
 {
     public partial class FieldModel
     {
@@ -67,6 +67,25 @@ namespace Pinhua2.Common.MyAnnotations.Models
                     return false;
 
                 var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenAttribute), false);
+                if (attrs?.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsHiddenField
+        {
+            get
+            {
+                if (_propertyInfo == null)
+                    return false;
+
+                var attrs = _propertyInfo.GetCustomAttributes(typeof(MyHiddenFieldAttribute), false);
                 if (attrs?.Length > 0)
                 {
                     return true;

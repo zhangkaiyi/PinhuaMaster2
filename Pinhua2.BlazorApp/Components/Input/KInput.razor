@@ -4,7 +4,7 @@
     <input type="text" id="@(Model.Field.Name)" 
            class="@Classname" 
            placeholder="@(!string.IsNullOrEmpty(Placeholder) ? Placeholder : Model.FormControl.Placeholder)"
-           readonly="@(Readonly.HasValue ? Readonly.Value : Model.FormControl.Readonly)"
+           readonly="@(Readonly??Model.FormControl.Readonly)"
            @attributes="@UnknownParameters" @bind="@(inputValue)" />
     @ChildContent
 </CascadingValue>

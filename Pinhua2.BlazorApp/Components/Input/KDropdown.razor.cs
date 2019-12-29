@@ -8,7 +8,7 @@ using BlazorStrap;
 using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
 using System.Linq.Expressions;
-using Pinhua2.Common.MyAnnotations;
+using Pinhua2.Common.DataAnnotations;
 
 namespace Klazor
 {
