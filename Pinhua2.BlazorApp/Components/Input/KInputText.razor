@@ -1,0 +1,20 @@
+﻿@namespace Klazor
+
+<CascadingValue Value="this">
+    @if (Model == null)
+    {
+        <input type="text" id="@(Id)"
+               class="@Classname"
+               placeholder="@Placeholder"
+               readonly="@(Readonly ?? false)"
+               @attributes="@UnknownParameters" @bind="@CurrentValue" />
+    }
+    else
+    {
+        <input type="text" id="@(Model.Field.Name)"
+               class="@Classname"
+               placeholder="@(!string.IsNullOrEmpty(Placeholder) ? Placeholder : Model.FormControl.Placeholder)"
+               readonly="@(Readonly ?? Model.FormControl.Readonly)"
+               @attributes="@UnknownParameters" @bind="@(modelValue)" />
+    }
+</CascadingValue>

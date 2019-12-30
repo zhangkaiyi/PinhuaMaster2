@@ -72,7 +72,7 @@
                                         {
                                             <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
                                                 <div class="">
-                                                    @rCell.Model.RawName
+                                                    @rCell.Model.Field.ProcessedName
                                                 </div>
                                             </th>
                                         }
@@ -80,7 +80,7 @@
                                 }
                                 else
                                 {
-                                    var rRow = Pinhua2.Common.Attributes.MyMark.Parse(typeof(TItem)).Select(m => new ReflectedCell<TItem>
+                                    var rRow = MyAnnotations.Parse(typeof(TItem)).Select(m => new ReflectedCell<TItem>
                                     {
                                         Model = m
                                     }.ApplyConditions(RConditions)).ToList();
@@ -90,7 +90,7 @@
                                         {
                                             <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
                                                 <div class="">
-                                                    @rCell.Model.RawName
+                                                    @rCell.Model.Field.ProcessedName
                                                 </div>
                                             </th>
                                         }
@@ -149,18 +149,18 @@
                                                 <td rowspan="1" colspan="1" class="auto_column_@(RDataSource?.ElementAtOrDefault(DataSource.IndexOf(row))?.RData?.IndexOf(rCell) + 1) @string.Join("", cls)">
                                                     @if (firstRData[i].ValueType == KTableValueType.Text)
                                                     {
-                                                        @rCell.Model.RawValue
+                                                        @rCell.Model.Field.Value
                                                     }
                                                     else if (firstRData[i].ValueType == KTableValueType.DateTime)
                                                     {
-                                                        if (DateTime.TryParse(rCell?.Model?.RawValue?.ToString(), out var result))
+                                                        if (DateTime.TryParse(rCell?.Model?.Field?.Value?.ToString(), out var result))
                                                         {
                                                             @result.ToString(firstRData[i].ValueFormat);
                                                         }
                                                     }
                                                     else if (firstRData[i].ValueType == KTableValueType.Decimal)
                                                     {
-                                                        if (decimal.TryParse(rCell?.Model?.RawValue?.ToString(), out var result))
+                                                        if (decimal.TryParse(rCell?.Model?.Field?.Value?.ToString(), out var result))
                                                         {
                                                             @result.ToString(firstRData[i].ValueFormat);
                                                         }

@@ -16,7 +16,7 @@ namespace Klazor
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public Expression<Func<MyMarkModel, bool>> Predicate { get; set; }
-        [CascadingParameter] public KModelDisplay Parent { get; set; }
+        //[CascadingParameter] public KModelDisplay Parent { get; set; }
 
         protected List<MyMarkModel> models;
 
@@ -24,7 +24,7 @@ namespace Klazor
 
         protected override void OnInitialized()
         {
-            models = MyMark.Parse(Parent.DataSource).Where(Predicate.Compile()).ToList();
+            //models = MyMark.Parse(Parent.DataSource).Where(Predicate.Compile()).ToList();
         }
 
         protected override void OnParametersSet()

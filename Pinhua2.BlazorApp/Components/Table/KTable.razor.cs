@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
+using Pinhua2.Common.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,7 +140,7 @@ namespace Klazor
             {
                 var rRow = new KDataSource<TItem>();
                 rRow.Data = row;
-                rRow.RData = MyMark.Parse(row).Select(m =>
+                rRow.RData = MyAnnotations.Parse(row).Select(m =>
                 new ReflectedCell<TItem>
                 {
                     Model = m
@@ -159,7 +160,7 @@ namespace Klazor
                 var i = DataSource.IndexOf(row);
                 if (i == 0)
                 {
-                    rRow.RData = MyMark.Parse(row).Select(m =>
+                    rRow.RData = MyAnnotations.Parse(row).Select(m =>
                     new ReflectedCell<TItem>
                     {
                         Model = m
@@ -167,7 +168,7 @@ namespace Klazor
                 }
                 else
                 {
-                    rRow.RData = MyMark.Parse(row).Select(m =>
+                    rRow.RData = MyAnnotations.Parse(row).Select(m =>
                     new ReflectedCell<TItem>
                     {
                         Model = m
@@ -181,7 +182,7 @@ namespace Klazor
         {
             var rRow = new KDataSource<TItem>();
             rRow.Data = row;
-            rRow.RData = (from m in MyMark.Parse(row)
+            rRow.RData = (from m in MyAnnotations.Parse(row)
                           select new ReflectedCell<TItem>
                           {
                               Model = m

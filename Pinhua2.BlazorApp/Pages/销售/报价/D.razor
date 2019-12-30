@@ -19,8 +19,8 @@
         <div class="col-12">
             <KTable DataSource="list_Detail" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true" @ref="table_Detail">
                 <KTableConditionContainer TItem="dto销售报价D">
-                    <KTableHiddenCondition TItem="dto销售报价D" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
-                    <KTableHiddenCondition TItem="dto销售报价D" Predicate="m=>m.Model.IsHiddenDelete"></KTableHiddenCondition>
+                    <KTableHiddenCondition TItem="dto销售报价D" Predicate="m=>m.Model.Field.IsSystemField"></KTableHiddenCondition>
+                    <KTableHiddenCondition TItem="dto销售报价D" Predicate="m=>m.Model.Field.IsHiddenField"></KTableHiddenCondition>
                     <KTableFormatCondition TItem="dto销售报价D" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
                     <KTableFormatCondition TItem="dto销售报价D" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
                 </KTableConditionContainer>

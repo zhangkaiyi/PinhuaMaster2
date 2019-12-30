@@ -11,42 +11,28 @@ namespace Pinhua2.ViewModels
 {
     public class dto商品 : _BaseProductMain
     {
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        [MyHiddenRef]
+        [MyHiddenField]
         public string 单位 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        [MyHiddenRef]
+        [MyHiddenField]
         public string 分类1 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        [MyHiddenRef]
+        [MyHiddenField]
         public string 分类2 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(10, ForIndex = false, ForCreate = false, ForRead = true, ForUpdate = false, ForDelete = false)]
+        [MyOrder(10)]
         public string 状态 { get; set; }
 
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(ForIndex = false, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        [MyHiddenRef]
+        [MyHiddenField]
         public string 条码 { get; set; }
 
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
         public string 备注 { get; set; }
 
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = false)]
-        [MyHiddenRef]
+        [MyHiddenField]
         public string 图片 { get; set; }
 
         [MyPriority(Priority.Medium)]
-        [CustomDisplay(ForIndex = true, ForCreate = true, ForRead = true, ForUpdate = true, ForDelete = true)]
-        [MyHiddenRef]
+        [MyHiddenField]
         public decimal? 采购价 { get; set; }
     }
 

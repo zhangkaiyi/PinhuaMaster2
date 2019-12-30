@@ -8,7 +8,7 @@
                 @foreach (var model in MyAnnotations.Parse(Datasource)?.Where(m => !m.Field.IsSystemField))
                 {
                     <div class="form-group row @(model.Field.IsHiddenField?"d-none":"")">
-                        <label for="@model.Field.Name" class="col-3 col-form-label">@model.Field.ProcessedName</label>
+                        <label for="@model.Field.Name" class="col-3 col-form-label text-right">@model.Field.ProcessedName</label>
                         <div class="col-9 col-md-9 col-lg-9">
                             <KInput Model="model"></KInput>
                         </div>

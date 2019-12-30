@@ -46,6 +46,7 @@
                             </div>
                         </div>
                     }
+                    <KFormGroup DataSource="main" Field="@(f=>f.业务类型)" LabelTextRight="true">好的</KFormGroup>
                 </div>
             </div>
         </div>
@@ -60,9 +61,9 @@
     </div>
     @{
         Expression<Func<ReflectedCell<dto销售报价D>, bool>> predicate = m =>
-        m.Model.IsSysColumn ||
-        m.Model.IsHiddenRef ||
-        m.Model.RawName == nameof(dto销售报价D.子单号);
+        m.Model.Field.IsSystemField ||
+        m.Model.Field.IsHiddenField ||
+        m.Model.Field.Name == nameof(dto销售报价D.子单号);
     }
     <div class="row">
         <div class="col-12">
@@ -92,6 +93,8 @@
 </EditForm>
 
 @code {
+
+private string ABC="ABC";
 
     private void HandleValidSubmit()
     {

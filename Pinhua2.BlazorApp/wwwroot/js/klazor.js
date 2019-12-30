@@ -10,5 +10,8 @@
     },
     alert: function (message) {
         alert(message);
+    },
+    console: function (message) {
+        console.log(message);
     }
 };

@@ -6,8 +6,8 @@
         <KTable DataSource="products" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
                 CheckBoxHeader="true" IsClickToSelect="true">
             <KTableConditionContainer TItem="dto商品">
-                <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsSysColumn"></KTableHiddenCondition>
-                <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.IsHiddenRef"></KTableHiddenCondition>
+                <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.Field.IsSystemField"></KTableHiddenCondition>
+                <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.Field.IsHiddenField"></KTableHiddenCondition>
             </KTableConditionContainer>
         </KTable>
     </KModalBody>
