@@ -6,8 +6,9 @@
         <input type="text" id="@(Id)"
                class="@Classname"
                placeholder="@Placeholder"
-               readonly="@(Readonly ?? false)"
-               @attributes="@UnknownParameters" @bind="@CurrentValue" />
+               readonly="@Readonly"
+               @attributes="@UnknownParameters"
+               @bind="@CurrentValue" />
     }
     else
     {
@@ -15,6 +16,7 @@
                class="@Classname"
                placeholder="@(!string.IsNullOrEmpty(Placeholder) ? Placeholder : Model.FormControl.Placeholder)"
                readonly="@(Readonly ?? Model.FormControl.Readonly)"
-               @attributes="@UnknownParameters" @bind="@(modelValue)" />
+               @attributes="@UnknownParameters"
+               @bind="@(modelValue)" />
     }
 </CascadingValue>

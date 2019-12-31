@@ -9,6 +9,7 @@ namespace Klazor
     {
         Left = 0,
         Right = 1,
-        Top = 2
+        Top = 2,
+        Center = 3,
     }
 }

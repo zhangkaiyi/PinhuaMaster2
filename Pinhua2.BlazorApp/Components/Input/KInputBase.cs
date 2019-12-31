@@ -9,33 +9,21 @@ using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
 using Pinhua2.Common.DataAnnotations;
 using System.Linq.Expressions;
+using Pinhua2.ViewModels;
 
 namespace Klazor
 {
-    public partial class KInputText : ComponentBase
+    public partial class KInputBase<TValue> : ComponentBase
     {
         protected string Classname => new CssBuilder("form-control")
             .AddClass(Class)
             .Build();
 
-        protected string modelValue
-        {
-            get
-            {
-                return Model.Field.ValueString;
-            }
-            set
-            {
-                Model.Field.ValueString = value;
-            }
-        }
-
         [Inject] protected IJSRuntime jSRuntime { get; set; }
 
         [CascadingParameter] public KForm Form { get; set; }
-
+        [CascadingParameter] public KFormGroup<dto销售报价D, TValue> FormGroup { get; set; }
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
-        [Parameter] public MyAnnotationsModel Model { get; set; }
         [Parameter] public string Id { get; set; }
         [Parameter] public string Value { get; set; }
         [Parameter] public EventCallback<string> ValueChanged { get; set; }
@@ -67,17 +55,17 @@ namespace Klazor
 
         public void Set(Expression<Func<KInput, object>> propExpression, object newValue)
         {
-            var propName = GetPropertyName(propExpression);
+            var propName = GetFieldName(propExpression);
             Set(propName, newValue);
         }
 
-        private string GetPropertyName(Expression<Func<KInput, object>> propertyGetter)
+        private string GetFieldName(Expression<Func<KInput, object>> fieldGetter)
         {
-            if (propertyGetter.Body is UnaryExpression unaryExpression)
+            if (fieldGetter.Body is UnaryExpression unaryExpression)
             {
                 return ((MemberExpression)unaryExpression.Operand).Member.Name;
             }
-            return ((MemberExpression)propertyGetter.Body).Member.Name;
+            return ((MemberExpression)fieldGetter.Body).Member.Name;
         }
     }
 }

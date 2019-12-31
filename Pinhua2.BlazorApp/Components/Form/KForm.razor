@@ -1,0 +1,9 @@
+﻿@namespace Klazor
+
+<CascadingValue Value="this">
+    <form @attributes="@AdditionalAttributes" @onsubmit="@_handleSubmitDelegate">
+        <CascadingValue Value="_fixedEditContext" IsFixed="true">
+            @ChildContent(_fixedEditContext)
+        </CascadingValue>
+    </form>
+</CascadingValue>

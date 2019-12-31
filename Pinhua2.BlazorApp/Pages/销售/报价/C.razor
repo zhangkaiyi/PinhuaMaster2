@@ -14,7 +14,7 @@
                     @foreach (var model in MyAnnotations.Parse(main).Where(m => !m.Field.IsSystemField))
                     {
                         <div class="form-group row @(model.Field.IsHidden?"d-none":"")">
-                            <label for="@model.Field.Name" class="col-3 col-form-label">@model.Field.ProcessedName</label>
+                            <label for="@model.Field.Name" class="col-3 col-form-label text-right">@model.Field.ProcessedName</label>
                             <div class="col-9 col-md-9 col-lg-9">
                                 @if (model.IsDatetime)
                                 {
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     }
-                    <KFormGroup DataSource="main" Field="@(f=>f.业务类型)" LabelTextRight="true">好的</KFormGroup>
+                    <KFormGroup Model="main" Field="@(f=>f.业务类型)" LabelAlign="LabelAlign.Right"></KFormGroup>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
     <div class="row">
         <div class="col">
             <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>OKOK(e.SelectedProducts.ToList())"></Modal_商品列表>
-            <Modal_修改销售报价明细 Datasource="editingQuoteDetail" @ref="Modal_修改销售报价明细"></Modal_修改销售报价明细>
+            <Modal_修改销售报价明细 DataSource="editingQuoteDetail" @ref="Modal_修改销售报价明细"></Modal_修改销售报价明细>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>

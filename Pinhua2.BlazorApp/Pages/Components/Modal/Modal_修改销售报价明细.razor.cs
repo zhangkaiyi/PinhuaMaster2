@@ -18,16 +18,15 @@ namespace Piuhua2.Components.Modal
     {
         protected KModal modal;
 
-        protected dto销售报价D _datasourceBak;
-
-        [Parameter] public dto销售报价D Datasource { get; set; }
-
-        protected override void OnInitialized()
+        protected dto销售报价D currentDataSource
         {
-            _datasourceBak = Datasource;
-
-            base.OnInitialized();
+            get
+            {
+                return DataSource;
+            }
         }
+
+        [Parameter] public dto销售报价D DataSource { get; set; }
 
         public void Show()
         {
