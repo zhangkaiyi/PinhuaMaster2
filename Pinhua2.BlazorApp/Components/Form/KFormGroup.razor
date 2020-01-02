@@ -1,19 +1,10 @@
 ﻿@namespace Klazor
-@typeparam TModel
-@typeparam TValue
 
 <CascadingValue Value="this">
     <div class="form-group row">
-        <label for="@currentLabel" class="@labelClassname col-4 col-md-4 col-lg-3">@currentLabel</label>
-        <div class="col-8 col-md-8 col-lg-9">
-            @if (ChildContent == null)
-            {
-                <KInputText2 Id="@currentLabel" @bind-Value="currentValue" Readonly="currentReadonly"></KInputText2>
-            }
-            else
-            {
-                @ChildContent
-            }
+        <label for="@currentLabel" class="@labelClassname">@currentLabel</label>
+        <div class="@inputClassname">
+            @ChildContent
         </div>
     </div>
 </CascadingValue>

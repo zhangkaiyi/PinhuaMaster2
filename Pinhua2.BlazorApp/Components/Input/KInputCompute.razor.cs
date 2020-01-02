@@ -13,8 +13,17 @@ using Pinhua2.ViewModels;
 
 namespace Klazor
 {
-    public partial class KInputText: KInputBase<string>
+    public partial class KInputCompute<TValue> : KInputBase<TValue>
     {
+        [Parameter] public TValue ComputedValue { get; set; }
 
+        protected override void OnParametersSet()
+        {
+            if (!ComputedValue.Equals(currentValue))
+            {
+                currentValue = ComputedValue;
+                ValueChanged.InvokeAsync(Value);
+            }
+        }
     }
 }

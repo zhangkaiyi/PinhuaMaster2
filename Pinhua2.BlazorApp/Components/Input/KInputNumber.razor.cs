@@ -13,7 +13,7 @@ using Pinhua2.ViewModels;
 
 namespace Klazor
 {
-    public partial class KInputText: KInputBase<string>
+    public partial class KInputNumber<TValue>: KInputBase<TValue>
     {
 
     }

@@ -1,0 +1,16 @@
+﻿@namespace Klazor
+@inherits KInputBase<DateTime?>
+
+<div @onmouseover="@(e => isMouseOver = true)" @onmouseout="@(e => isMouseOver = false)">
+    <input type="text" id="@(currentId)" class="@Classname" placeholder="@Placeholder" readonly="@currentReadonly"
+           @attributes="@UnknownParameters"
+           @bind="@currentValueAsString"
+           @onfocus="@(e=>isVisible = true)"
+           @onblur="@(e => isVisible = isMouseOver ? true : false)" />
+
+    <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
+                Visible="isVisible"
+                CloseText="关闭" ShowClose="true"
+                TodayText="今天" ShowToday="true"
+                OnSelected="@DateChanged" />
+</div>

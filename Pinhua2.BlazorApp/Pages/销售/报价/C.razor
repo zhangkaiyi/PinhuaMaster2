@@ -4,49 +4,35 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <h3>新增</h3>
 </div>
-<EditForm Model="main">
+<KForm Model="main">
     <div class="row">
         <div class="col-12">
             <div class="row">
                 <div class="col-md-6">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
-                    @foreach (var model in MyAnnotations.Parse(main).Where(m => !m.Field.IsSystemField))
-                    {
-                        <div class="form-group row @(model.Field.IsHidden?"d-none":"")">
-                            <label for="@model.Field.Name" class="col-3 col-form-label text-right">@model.Field.ProcessedName</label>
-                            <div class="col-9 col-md-9 col-lg-9">
-                                @if (model.IsDatetime)
+                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                        <KFormGroup Label="@nameof(main.单号)">
+                            <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="客户">
+                            <KInputSelect @bind-Value="main.往来号">
+                                @foreach (var customer in pinhuaContext.DropdownOptions_客户())
                                 {
-                                    <KDatePicker Model="model" Format="yyyy-MM-dd" Placeholder="输入日期 ..."></KDatePicker>
+                                <option value="@customer.Value">@customer.Text</option>
                                 }
-                                else if (model.IsDecimal)
-                                {
-                                    <input type="number" @bind="model.Field.ValueString" id="@model.Field.Name" class="form-control" />
-                                }
-                                else if (model.FormControl.IsDropdown)
-                                {
-                                    <KDropdown Model="model" Placeholder="请选择 ...">
-                                        @if (model.Field.Name == "往来号")
-                                        {
-                                            foreach (var customer in pinhuaContext.DropdownOptions_客户())
-                                            {
-                                                <KDropdownOption Value="@customer.Value" Text="@customer.Text"></KDropdownOption>
-                                            }
-                                        }
-                                    </KDropdown>
-                                }
-                                else
-                                {
-                                    <KInput Model="model" Readonly="true">
-                                        <KInputExpression Condition="@(e=>e.Model.Field.Name == "备注")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
-                                        <KInputExpression Condition="@(e=>e.Model.Field.Name == "往来号")" Action="@(e => e.Input.Set(nameof(e.Input.Readonly), false))" />
-                                    </KInput>
-                                }
-                            </div>
-                        </div>
-                    }
-                    <KFormGroup Model="main" Field="@(f=>f.业务类型)" LabelAlign="LabelAlign.Right"></KFormGroup>
+                            </KInputSelect>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.日期)">
+                            <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.交期)">
+                            <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.备注)">
+                            <KInputText @bind-Value="main.备注" Readonly="false"></KInputText>
+                        </KFormGroup>
+                    </KFormGroupContainer>
                 </div>
             </div>
         </div>
@@ -90,11 +76,11 @@
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>
-</EditForm>
+</KForm>
 
 @code {
 
-private string ABC="ABC";
+    private string ABC = "ABC";
 
     private void HandleValidSubmit()
     {

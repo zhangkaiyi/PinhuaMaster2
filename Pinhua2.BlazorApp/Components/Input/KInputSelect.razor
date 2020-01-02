@@ -1,0 +1,8 @@
+﻿@namespace Klazor
+@typeparam TValue
+@inherits KInputBase<TValue>
+
+<select id="@currentId" class="@Classname" @bind="@currentValue" @attributes="@UnknownParameters" disabled="@(Readonly)">
+    <option></option>
+    @ChildContent
+</select>

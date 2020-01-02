@@ -9,50 +9,50 @@ using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
 using Pinhua2.Common.DataAnnotations;
 using System.Linq.Expressions;
-using Pinhua2.ViewModels;
-using System.Globalization;
 
 namespace Klazor
 {
-    public abstract class KInputBase<TValue> : ComponentBase
+    public partial class KInputText2 : ComponentBase
     {
         protected string Classname => new CssBuilder("form-control")
             .AddClass(Class)
             .Build();
 
+        protected string modelValue
+        {
+            get
+            {
+                return Model.Field.ValueString;
+            }
+            set
+            {
+                Model.Field.ValueString = value;
+            }
+        }
+
         [Inject] protected IJSRuntime jSRuntime { get; set; }
 
         [CascadingParameter] public KForm Form { get; set; }
-        [CascadingParameter] public KFormGroupContainer KFormGroupContainer { get; set; }
-        [CascadingParameter] public KFormGroup FormGroup { get; set; }
+
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
+        [Parameter] public MyAnnotationsModel Model { get; set; }
         [Parameter] public string Id { get; set; }
-        [Parameter] public TValue Value { get; set; }
-        [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+        [Parameter] public string Value { get; set; }
+        [Parameter] public EventCallback<string> ValueChanged { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public bool? Readonly { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public string Placeholder { get; set; }
-        [Parameter] public virtual Func<TValue, string> Formatter { get; set; } = v => Convert.ToString(v);
 
-        protected TValue currentValue
+        protected string CurrentValue
         {
             get => Value;
             set
             {
-                if (BindConverter.TryConvertTo<TValue>(FormatValueAsString(value), CultureInfo.InvariantCulture, out var result))
-                {
-                    Value = result;
-                    _ = ValueChanged.InvokeAsync(result);
-                }
+                Value = value;
+                _ = ValueChanged.InvokeAsync(value);
             }
         }
-
-        protected string currentId => string.IsNullOrEmpty(Id) ? FormGroup?.Label : Id;
-
-        protected bool? currentReadonly => Readonly ?? FormGroup?.InputReadonly ?? KFormGroupContainer?.InputReadonly ?? Form?.InputReadonly;
-
-        protected virtual string FormatValueAsString(TValue value) => value?.ToString();
 
         public void Set(string propName, object newValue)
         {
@@ -67,17 +67,17 @@ namespace Klazor
 
         public void Set(Expression<Func<KInput, object>> propExpression, object newValue)
         {
-            var propName = GetFieldName(propExpression);
+            var propName = GetPropertyName(propExpression);
             Set(propName, newValue);
         }
 
-        private string GetFieldName(Expression<Func<KInput, object>> fieldGetter)
+        private string GetPropertyName(Expression<Func<KInput, object>> propertyGetter)
         {
-            if (fieldGetter.Body is UnaryExpression unaryExpression)
+            if (propertyGetter.Body is UnaryExpression unaryExpression)
             {
                 return ((MemberExpression)unaryExpression.Operand).Member.Name;
             }
-            return ((MemberExpression)fieldGetter.Body).Member.Name;
+            return ((MemberExpression)propertyGetter.Body).Member.Name;
         }
     }
 }

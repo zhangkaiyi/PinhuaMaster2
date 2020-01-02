@@ -75,6 +75,13 @@ namespace Klazor
 
         [Parameter] public bool? InputReadonly { get; set; }
 
+        [Parameter] public int? LabelCol { get; set; }
+        [Parameter] public int? LabelColXS { get; set; }
+        [Parameter] public int? LabelColSM { get; set; }
+        [Parameter] public int? LabelColMD { get; set; }
+        [Parameter] public int? LabelColLG { get; set; }
+        [Parameter] public int? LabelColXL { get; set; }
+
         /// <inheritdoc />
         protected override void OnParametersSet()
         {

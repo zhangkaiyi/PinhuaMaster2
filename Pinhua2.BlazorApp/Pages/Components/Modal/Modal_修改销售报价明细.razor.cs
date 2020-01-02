@@ -17,6 +17,7 @@ namespace Piuhua2.Components.Modal
     public partial class Modal_修改销售报价明细 : ComponentBase
     {
         protected KModal modal;
+        protected string[] dropdownItems => new[] { "片", "平方米", "延长米", "立方米", "套" };
 
         protected dto销售报价D currentDataSource
         {
@@ -36,6 +37,15 @@ namespace Piuhua2.Components.Modal
         public void Hide()
         {
             modal.Hide();
+        }
+
+        protected decimal? compute
+        {
+            get=> currentDataSource.个数 * currentDataSource.个数;
+            set
+            {
+                currentDataSource.数量 = value;
+            }
         }
     }
 }

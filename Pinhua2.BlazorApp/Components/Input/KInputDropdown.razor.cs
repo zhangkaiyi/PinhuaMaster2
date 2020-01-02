@@ -13,8 +13,8 @@ using Pinhua2.ViewModels;
 
 namespace Klazor
 {
-    public partial class KInputText: KInputBase<string>
+    public partial class KInputDropdown: KInputBase<string>
     {
-
+        [Parameter] public IEnumerable<string> Items { get; set; }
     }
 }

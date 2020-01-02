@@ -3,40 +3,41 @@
 <KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
     <KModalHeader>修改</KModalHeader>
     <KModalBody>
-        <KForm Model="currentDataSource" LabelAlign="LabelAlign.Right" InputReadonly="true">
+        <KForm Model="currentDataSource">
             <div class="row">
                 <div class="col-md-12">
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.品号)">
-                        <KInputText @bind-Value="currentDataSource.品号"></KInputText>
-                    </KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.品名)"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.别名)"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.型号)"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.规格)"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.个数)" InputReadonly="false"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.数量)"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.单位)"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.单价)" InputReadonly="false"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.金额)"></KFormGroup>
-                    <KFormGroup Model="currentDataSource" Field="@(f=>f.备注)" InputReadonly="false"></KFormGroup>
-                    <div class="form-group row">
-                        <label class="col-4 col-sm-2 col-form-label">单位</label>
-                        <div class="col-8 col-sm-10">
-                            <div class="input-group">
-                                <input type="text" class="form-control" readonly />
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:;">片</a>
-                                        <a class="dropdown-item" href="javascript:;">平方米</a>
-                                        <a class="dropdown-item" href="javascript:;">延长米</a>
-                                        <a class="dropdown-item" href="javascript:;">立方米</a>
-                                        <a class="dropdown-item" href="javascript:;">套</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                        <KFormGroup Label="@nameof(currentDataSource.品号)">
+                            <KInputText @bind-Value="@currentDataSource.品号"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.品名)">
+                            <KInputText @bind-Value="@currentDataSource.品名"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.型号)">
+                            <KInputText @bind-Value="@currentDataSource.型号"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.规格)">
+                            <KInputText @bind-Value="@currentDataSource.规格"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.个数)">
+                            <KInputNumber @bind-Value="@currentDataSource.个数" Readonly="false"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.数量)">
+                            <KInputCompute @bind-Value="@currentDataSource.数量" ComputedValue="currentDataSource.个数"></KInputCompute>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.单位)">
+                            <KInputDropdown @bind-Value="@currentDataSource.单位" Items="dropdownItems"></KInputDropdown>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.单价)">
+                            <KInputNumber @bind-Value="@currentDataSource.单价" Readonly="false"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.金额)">
+                            <KInputCompute @bind-Value="@currentDataSource.金额" ComputedValue="currentDataSource.数量 * currentDataSource.单价"></KInputCompute>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.备注)">
+                            <KInputText @bind-Value="@currentDataSource.备注" Readonly="false"></KInputText>
+                        </KFormGroup>
+                    </KFormGroupContainer>
                 </div>
             </div>
         </KForm>
