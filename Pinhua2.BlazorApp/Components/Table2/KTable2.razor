@@ -1,0 +1,105 @@
+﻿@namespace Klazor
+
+<CascadingValue Value="@this">
+    @ChildContent
+    <div style="@Stylename" @ref="Container" class="@(hideContainer?"d-none":"")">
+        <div class="row">
+            <div class="col">
+                <div class="@(IsResponsive ? "table-responsive" : "")">
+                    <table cellspacing="0" cellpadding="0" border="0" class="@Classname" tabindex="-1">
+                        <colgroup>
+                            @if (CheckBoxHeader)
+                            {
+                                <col name="auto_column_checkbox" width="1" />
+                            }
+                            @foreach (var userColumn in UserColumns)
+                            {
+                                var width = userColumn.Width;
+                                if (userColumn.IsCheckBox)
+                                {
+                                    width = 1;
+                                }
+                                <col name="user_column_@(UserColumns.IndexOf(userColumn)+1)" width="@width" />
+                            }
+                        </colgroup>
+                        <thead class="">
+                            <tr class="">
+                                @if (CheckBoxHeader)
+                                {
+                                    <th class="auto_column_checkbox bs-checkbox">
+                                        @if (!IsSingleSelect)
+                                        {
+                                            <BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>
+                                        }
+                                    </th>
+                                }
+                                @foreach (var userColumn in UserColumns)
+                                {
+                                    <th colspan="1" rowspan="1" class="user_column_@(UserColumns.IndexOf(userColumn)+1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                        <div class="">
+                                            @if (userColumn.IsCheckBox)
+                                            {
+                                                if (!IsSingleSelect)
+                                                {
+                                                    <BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>
+                                                }
+                                            }
+                                            else if (string.IsNullOrEmpty(userColumn.Text))
+                                            {
+                                                @userColumn.Field
+                                            }
+                                            else
+                                            {
+                                                @userColumn.Text
+                                            }
+                                        </div>
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (DataSource == null || !DataSource.Any())
+                            {
+                                <tr>
+                                    <td class="text-center" colspan="50">暂无</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var row in DataSource)
+                                {
+                                    var clsList = new List<string>();
+                                    <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
+                                        @if (CheckBoxHeader)
+                                        {
+                                            <td class="auto_column_checkbox">
+                                                <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                            </td>
+                                        }
+                                        @foreach (var userColumn in UserColumns)
+                                        {
+                                            <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn) + 1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                                @if (userColumn.IsCheckBox)
+                                                {
+                                                    <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                                }
+                                                else if(!string.IsNullOrEmpty(userColumn.Field))
+                                                {
+                                                    @(row.GetType().GetProperty(userColumn.Field).GetValue(row))
+                                                }
+                                                else if (userColumn.Template != null)
+                                                {
+                                                    @userColumn.Template(row)
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</CascadingValue>
