@@ -41,6 +41,8 @@ namespace Klazor
 
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
 
+        [Parameter] public bool AutoGenerateColumns { get; set; } = true;
+
         [Parameter] public Action RenderCompleted { get; set; }
 
         [Parameter] public List<TItem> DataSource { get; set; } = new List<TItem>();

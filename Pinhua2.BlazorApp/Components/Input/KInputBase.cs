@@ -40,10 +40,19 @@ namespace Klazor
             get => Value;
             set
             {
-                if (BindConverter.TryConvertTo<TValue>(FormatValueAsString(value), CultureInfo.InvariantCulture, out var result))
+                Value = value;
+                _ = ValueChanged.InvokeAsync(value);
+            }
+        }
+
+        protected string currentValueAsString
+        {
+            get => FormatValueAsString(currentValue);
+            set
+            {
+                if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var result))
                 {
-                    Value = result;
-                    _ = ValueChanged.InvokeAsync(result);
+                    currentValue = result;
                 }
             }
         }

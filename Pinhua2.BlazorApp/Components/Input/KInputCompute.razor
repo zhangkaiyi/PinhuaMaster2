@@ -1,7 +1,7 @@
 ﻿@namespace Klazor
 @typeparam TValue
-@inherits KInputBase<TValue>
+@inherits KInputNumber<TValue>
 
 <input type="text" id="@(currentId)" class="@Classname" placeholder="@Placeholder" readonly="@currentReadonly"
        @attributes="@UnknownParameters"
-       @bind="@currentValue" />
+       @bind="@currentValueAsString" />

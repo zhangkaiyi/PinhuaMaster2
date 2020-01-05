@@ -54,10 +54,12 @@ namespace Pinhua2.BlazorApp
 
             // Add DbContext
             services.AddDbContext<Pinhua2Context>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("Pinhua2Connection"))
+                options => options.UseSqlServer(Configuration.GetConnectionString("Pinhua2Connection")), ServiceLifetime.Transient
                 );
             // Add AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddTransient<RecordManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

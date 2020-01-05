@@ -22,14 +22,17 @@
                                 }
                                 <col name="user_column_@(UserColumns.IndexOf(userColumn)+1)" width="@width" />
                             }
-                            @if (RDataSource.Any())
+                            @if (AutoGenerateColumns)
                             {
-                                var rRow = RDataSource[0].RData;
-                                if (rRow.Any())
+                                if (RDataSource.Any() && AutoGenerateColumns)
                                 {
-                                    @foreach (var rCell in rRow)
+                                    var rRow = RDataSource[0].RData;
+                                    if (rRow.Any())
                                     {
-                                        <col name="auto_column_@(rRow.IndexOf(rCell)+1)" class="@(rCell.IsHidden ? "d-none" : "")" />
+                                        @foreach (var rCell in rRow)
+                                        {
+                                            <col name="auto_column_@(rRow.IndexOf(rCell) + 1)" class="@(rCell.IsHidden ? "d-none" : "")" />
+                                        }
                                     }
                                 }
                             }
@@ -63,36 +66,39 @@
                                         </div>
                                     </th>
                                 }
-                                @if (RDataSource.Any())
+                                @if (AutoGenerateColumns)
                                 {
-                                    var rRow = RDataSource[0].RData;
-                                    if (rRow.Any())
+                                    if (RDataSource.Any())
                                     {
-                                        @foreach (var rCell in rRow)
+                                        var rRow = RDataSource[0].RData;
+                                        if (rRow.Any())
                                         {
-                                            <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
-                                                <div class="">
-                                                    @rCell.Model.Field.ProcessedName
-                                                </div>
-                                            </th>
+                                            @foreach (var rCell in rRow)
+                                            {
+                                                <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
+                                                    <div class="">
+                                                        @rCell.Model.Field.ProcessedName
+                                                    </div>
+                                                </th>
+                                            }
                                         }
                                     }
-                                }
-                                else
-                                {
-                                    var rRow = MyAnnotations.Parse(typeof(TItem)).Select(m => new ReflectedCell<TItem>
+                                    else
                                     {
-                                        Model = m
-                                    }.ApplyConditions(RConditions)).ToList();
-                                    if (rRow.Any())
-                                    {
-                                        @foreach (var rCell in rRow)
+                                        var rRow = MyAnnotations.Parse(typeof(TItem)).Select(m => new ReflectedCell<TItem>
                                         {
-                                            <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
-                                                <div class="">
-                                                    @rCell.Model.Field.ProcessedName
-                                                </div>
-                                            </th>
+                                            Model = m
+                                        }.ApplyConditions(RConditions)).ToList();
+                                        if (rRow.Any())
+                                        {
+                                            @foreach (var rCell in rRow)
+                                            {
+                                                <th colspan="1" rowspan="1" class="auto_column_@(rRow.IndexOf(rCell)) @(rCell.IsHidden ? "d-none" : "")">
+                                                    <div class="">
+                                                        @rCell.Model.Field.ProcessedName
+                                                    </div>
+                                                </th>
+                                            }
                                         }
                                     }
                                 }
@@ -134,7 +140,8 @@
                                                 }
                                             </td>
                                         }
-                                        @{
+                                        @if (AutoGenerateColumns)
+                                        {
                                             var firstRData = RDataSource[0].RData;
                                             var nowRData = RDataSource[(DataSource.IndexOf(row))].RData;
 

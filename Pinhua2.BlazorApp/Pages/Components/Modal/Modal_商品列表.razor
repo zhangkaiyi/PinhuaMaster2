@@ -3,12 +3,19 @@
 <KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
     <KModalHeader>商品</KModalHeader>
     <KModalBody>
-        <KTable DataSource="products" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
-                CheckBoxHeader="true" IsClickToSelect="true">
+        <KTable DataSource="products" AutoGenerateColumns="false" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
+                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
             <KTableConditionContainer TItem="dto商品">
                 <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.Field.IsSystemField"></KTableHiddenCondition>
                 <KTableHiddenCondition TItem="dto商品" Predicate="m=>m.Model.Field.IsHiddenField"></KTableHiddenCondition>
             </KTableConditionContainer>
+            <KTableUserColumns TItem="dto商品">
+                <KTableUserColumn TItem="dto商品" Property="@(d=>d.品号)" Text="品号"></KTableUserColumn>
+                <KTableUserColumn TItem="dto商品" Property="@(d=>d.品名)" Text="品名"></KTableUserColumn>
+                <KTableUserColumn TItem="dto商品" Property="@(d=>d.型号)" Text="型号"></KTableUserColumn>
+                <KTableUserColumn TItem="dto商品" Property="@(d=>d.规格)" Text="规格"></KTableUserColumn>
+                <KTableUserColumn TItem="dto商品" Property="@(d=>d.备注)" Text="备注"></KTableUserColumn>
+            </KTableUserColumns>
         </KTable>
     </KModalBody>
     <KModalFooter>

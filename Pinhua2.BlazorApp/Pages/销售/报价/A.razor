@@ -17,7 +17,7 @@
                 <KTableFormatCondition TItem="dto销售报价" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
             </KTableConditionContainer>
             <KTableUserColumns TItem="dto销售报价">
-                <KTableUserColumn TItem="dto销售报价" Width="1">
+                <KTableUserColumn TItem="dto销售报价" Width="1" Text="操作">
                     <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/查看/{context.RecordId}"))" class="mr-1">查看</a>
                     <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/修改/{context.RecordId}"))" class="mr-1">修改</a>
                     <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/删除/{context.RecordId}"))">删除</a>

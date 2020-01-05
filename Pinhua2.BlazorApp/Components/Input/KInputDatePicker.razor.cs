@@ -19,28 +19,21 @@ namespace Klazor
     {
         [Parameter] public string Format { get; set; }
 
-        protected string currentValueAsString
+        protected override string FormatValueAsString(DateTime? value)
         {
-            get => Formatter(Value);
-            set
-            {
-                if (BindConverter.TryConvertTo<DateTime?>(value, CultureInfo.InvariantCulture, out var result))
-                {
-                    currentValue = result;
-                }
-            }
+            // Avoiding a cast to IFormattable to avoid boxing.
+            return BindConverter.FormatValue(value, Format, CultureInfo.InvariantCulture);
         }
 
-        public override Func<DateTime?, string> Formatter { get; set; }
         protected override void OnInitialized()
         {
-            Formatter = dt => dt?.ToString(Format);
+            
         }
 
         protected bool isMouseOver;
         protected bool isVisible;
 
-        protected void DateChanged(LocalDate localDate)
+        protected void Selected(LocalDate localDate)
         {
             isVisible = false;
             currentValue = localDate.ToDateTimeUnspecified();
