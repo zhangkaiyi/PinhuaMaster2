@@ -1,6 +1,6 @@
 ﻿@page "/基础数据/字典"
 
-<BSTable IsResponsive="true" IsBordered="true" IsHovarable="true">
+@*<BSTable IsResponsive="true" IsBordered="true" IsHovarable="true">
     <BSTableHead>
         <BSTableRow>
             <BSTableHeadCell>操作</BSTableHeadCell>
@@ -38,10 +38,10 @@
     </div>
 </div>
 @code {
-    BSModal Centered;
+    KModal Centered;
 
     void onToggle(MouseEventArgs e)
     {
         Centered.Toggle();
     }
-}
+}*@

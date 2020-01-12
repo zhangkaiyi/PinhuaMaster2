@@ -16,6 +16,9 @@ namespace Klazor
         [Parameter]
         public string Field { get; set; }
 
+        [Parameter]
+        public string Format { get; set; }
+
         [CascadingParameter]
         public KTable2Columns Columns { get; set; }
 

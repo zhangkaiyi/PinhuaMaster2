@@ -46,7 +46,7 @@
                                             }
                                             else if (string.IsNullOrEmpty(userColumn.Text))
                                             {
-                                                @userColumn.Field
+                                                @userColumn.Property.Name
                                             }
                                             else
                                             {
@@ -57,8 +57,8 @@
                                 }
                             </tr>
                         </thead>
-                        <tbody>
-                            @if (DataSource == null || !DataSource.Any())
+                        <tbody style="max-height:50px;overflow-y:scroll">
+                            @if (DataSource == null || !Rows.Any())
                             {
                                 <tr>
                                     <td class="text-center" colspan="50">暂无</td>
@@ -66,7 +66,7 @@
                             }
                             else
                             {
-                                @foreach (var row in DataSource)
+                                @foreach (var row in Rows)
                                 {
                                     var clsList = new List<string>();
                                     <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
@@ -83,13 +83,13 @@
                                                 {
                                                     <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
                                                 }
-                                                else if(!string.IsNullOrEmpty(userColumn.Field))
-                                                {
-                                                    @(row.GetType().GetProperty(userColumn.Field).GetValue(row))
-                                                }
                                                 else if (userColumn.Template != null)
                                                 {
                                                     @userColumn.Template(row)
+                                                }
+                                                else if (userColumn.Eval != null)
+                                                {
+                                                    @userColumn.Eval(row)
                                                 }
                                             </td>
                                         }

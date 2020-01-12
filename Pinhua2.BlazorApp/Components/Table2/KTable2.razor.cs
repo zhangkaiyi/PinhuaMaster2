@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
 using Pinhua2.Common.DataAnnotations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -36,6 +37,9 @@ namespace Klazor
             .AddStyle("height", Height + "px", Height > 0)
             .Build();
 
+        internal List<object> Rows = new List<object>();
+        internal Type RowType;
+
         public List<KTable2ColumnSetting> UserColumns { get; set; } = new List<KTable2ColumnSetting>();
 
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
@@ -44,7 +48,7 @@ namespace Klazor
 
         [Parameter] public Action RenderCompleted { get; set; }
 
-        [Parameter] public List<object> DataSource { get; set; } = new List<object>();
+        [Parameter] public object DataSource { get; set; }
 
         [Parameter] public HashSet<object> SelectedRows { get; set; } = new HashSet<object>();
 
@@ -116,13 +120,14 @@ namespace Klazor
         [Parameter] public EventCallback<KTable2Event> OnRowClicking { get; set; }
         [Parameter] public EventCallback<KTable2Event> OnRowClicked { get; set; }
 
-        protected override void OnInitialized()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
-            //FillReflectionTable(ReflectionTable);
-        }
-
-        protected override void OnParametersSet()
-        {
+            await base.SetParametersAsync(parameters);
+            if(parameters.GetValueOrDefault<object>(nameof(DataSource)) != null)
+            {
+                Rows = (DataSource as IEnumerable).Cast<object>().ToList();
+                RowType = DataSource.GetType().GetGenericArguments()[0];
+            }
             RefreshSelectAllStatus();
         }
 
@@ -143,27 +148,27 @@ namespace Klazor
 
         public void Add(object item)
         {
-            DataSource.Add(item);
+            Rows.Add(item);
         }
 
         public void Remove(object item)
         {
-            DataSource.Remove(item);
+            Rows.Remove(item);
         }
 
         public void RemoveAt(int index)
         {
-            var item = DataSource.FirstOrDefault();
-            DataSource.Remove(item);
+            var item = Rows.FirstOrDefault();
+            Rows.Remove(item);
         }
 
         protected void RefreshSelectAllStatus()
         {
-            if (DataSource.Count == 0 || SelectedRows.Count == 0)
+            if (Rows.Count == 0 || SelectedRows.Count == 0)
             {
                 selectAllStatus = CheckBoxStatus.UnChecked;
             }
-            else if (DataSource.Count > SelectedRows.Count)
+            else if (Rows.Count > SelectedRows.Count)
             {
                 selectAllStatus = CheckBoxStatus.Indeterminate;
             }
@@ -178,7 +183,7 @@ namespace Klazor
         {
             if (status == CheckBoxStatus.Checked)
             {
-                SelectedRows = new HashSet<object>(DataSource);
+                SelectedRows = new HashSet<object>(Rows);
             }
             else
             {

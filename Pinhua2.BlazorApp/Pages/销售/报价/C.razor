@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <DataAnnotationsValidator />
-                    <ValidationSummary />
+                    <KValidationSummary />
                     <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                         <KFormGroup Label="@nameof(main.单号)">
                             <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
@@ -19,7 +19,7 @@
                             <KInputSelect @bind-Value="main.往来号">
                                 @foreach (var customer in dropdownOptions)
                                 {
-                                    <option value="@customer.Value">@customer.Text</option>
+                                <option value="@customer.Value">@customer.Text</option>
                                 }
                             </KInputSelect>
                         </KFormGroup>

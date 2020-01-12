@@ -8,8 +8,8 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <KTable2 DataSource="list_Main.Cast<object>().ToList()" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-                CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true" @ref="table_Main" OnRowClicked="@(OnRowClicked)">
+        <KTable2 DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                 CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true" @ref=" table_Main" OnRowClicked="@(OnRowClicked)">
             <KTable2Columns>
                 <KTable2Column Width="1" Text="操作">
                     <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/查看/{(context as dto销售报价)?.RecordId}"))" class="mr-1">查看</a>
@@ -20,8 +20,8 @@
                 <KTable2Column Field="@(nameof(dto销售报价.业务类型))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售报价.往来号))" Text="客户号"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售报价.往来))" Text="客户名"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售报价.日期))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售报价.交期))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.交期))" Format="yyyy-MM-dd"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售报价.备注))"></KTable2Column>
             </KTable2Columns>
         </KTable2>
@@ -43,6 +43,154 @@
             </KTableConditionContainer>
         </KTable>
     </div>
+</div>
+
+<KButton ButtonType="ButtonType.Button">Danger</KButton>
+
+<div class="bootstrap-table">
+    <div class="fixed-table-toolbar"></div>
+
+    <div class="fixed-table-container fixed-height" style="height: 200px; padding-bottom: 43px;">
+        <div class="fixed-table-header">
+            <table class="table table-bordered text-nowrap table-hover" style="width: 100%;">
+                <colgroup>
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th style="" data-field="0"><div class="th-inner ">RecordId</div></th>
+                        <th style="" data-field="1"><div class="th-inner ">业务类型</div></th>
+                        <th style="" data-field="2"><div class="th-inner ">往来号</div></th>
+                        <th style="" data-field="3"><div class="th-inner ">品号</div></th>
+                        <th style="" data-field="4"><div class="th-inner ">日期</div></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="fixed-table-body" style="overflow-y:overlay">
+            <div class="fixed-table-loading table table-bordered table-hover fixed-table-border" style="top: 44px; width: 925px;">
+                <span class="loading-wrap">
+                    <span class="loading-text">正在努力地載入資料，請稍候</span>
+                    <span class="animation-wrap"><span class="animation-dot"></span></span>
+                </span>
+            </div>
+            <table class="table table-bordered text-nowrap table-hover" data-toggle="table" style="margin-top: -43px;width:100%;" >
+                <colgroup>
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                    <col style="width:160px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th style="" data-field="0"><div class="th-inner ">RecordId</div><div class="fht-cell"></div></th>
+                        <th style="" data-field="1"><div class="th-inner ">业务类型</div><div class="fht-cell"></div></th>
+                        <th style="" data-field="2"><div class="th-inner ">往来号</div><div class="fht-cell"></div></th>
+                        <th style="" data-field="3"><div class="th-inner ">品号</div><div class="fht-cell"></div></th>
+                        <th style="" data-field="4"><div class="th-inner ">日期</div><div class="fht-cell"></div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-index="0">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000008</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="1">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000012</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="2">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000016</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="0">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000008</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="1">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000012</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="2">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000016</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="0">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000008</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="1">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000012</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="2">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000016</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="0">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000008</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="1">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000012</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                    <tr data-index="2">
+                        <td style="">32</td>
+                        <td style="">销售报价</td>
+                        <td style="">190001</td>
+                        <td style="">1000000016</td>
+                        <td style="">2020-01-02</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="fixed-table-border" style="height: 0px;"></div>
+        </div>
+        <div class="fixed-table-footer" style="display: none;">
+            <table>
+                <thead><tr></tr></thead>
+            </table>
+        </div>
+    </div>
+    <div class="fixed-table-pagination" style="display: none;"></div>
 </div>
 
 @code {
