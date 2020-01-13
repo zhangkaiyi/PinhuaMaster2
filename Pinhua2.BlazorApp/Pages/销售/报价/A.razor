@@ -8,22 +8,23 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <KTable TItem="dto销售报价" DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-                CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true" @ref="table_Main" OnRowClicked="@(OnRowClicked)">
-            <KTableConditionContainer TItem="dto销售报价">
-                <KTableHiddenCondition TItem="dto销售报价" Predicate="m=>m.Model.Field.IsSystemField"></KTableHiddenCondition>
-                <KTableHiddenCondition TItem="dto销售报价" Predicate="m=>m.Model.Field.IsHiddenField"></KTableHiddenCondition>
-                <KTableFormatCondition TItem="dto销售报价" Predicate="m=>m.Model.IsDatetime" ValueType="KTableValueType.DateTime" ValueFormat="yyyy-MM-dd"></KTableFormatCondition>
-                <KTableFormatCondition TItem="dto销售报价" Predicate="m=>m.Model.IsDecimal" ValueType="KTableValueType.Decimal" ValueFormat="0.00"></KTableFormatCondition>
-            </KTableConditionContainer>
-            <KTableUserColumns TItem="dto销售报价">
-                <KTableUserColumn TItem="dto销售报价" Width="1" Text="操作">
-                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/查看/{context.RecordId}"))" class="mr-1">查看</a>
-                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/修改/{context.RecordId}"))" class="mr-1">修改</a>
-                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/删除/{context.RecordId}"))">删除</a>
-                </KTableUserColumn>
-            </KTableUserColumns>
-        </KTable>
+        <KTable2 DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                 CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true" @ref="table_Main" OnRowClicked="@(OnRowClicked)">
+            <KTable2Columns>
+                <KTable2Column Width="1" Text="操作">
+                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/查看/{(context as dto销售报价)?.RecordId}"))" class="mr-1">查看</a>
+                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/修改/{(context as dto销售报价)?.RecordId}"))" class="mr-1">修改</a>
+                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/删除/{(context as dto销售报价)?.RecordId}"))">删除</a>
+                </KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.单号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.业务类型))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.往来号))" Text="客户号"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.往来))" Text="客户名"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.交期))" Format="yyyy-MM-dd"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售报价.备注))"></KTable2Column>
+            </KTable2Columns>
+        </KTable2>
     </div>
 </div>
 
@@ -48,15 +49,17 @@
     protected List<dto销售报价> list_Main { get; set; }
     protected List<dto销售报价D> list_Details { get; set; }
 
-    protected KTable<dto销售报价> table_Main { get; set; }
+    protected KTable2 table_Main { get; set; }
     protected KTable<dto销售报价D> table_Details { get; set; }
 
-    protected void OnRowClicked(KTableEvent<dto销售报价> e)
+    protected void OnRowClicked(KTable2Event e)
     {
-        System.Diagnostics.Debug.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(e.Row, Newtonsoft.Json.Formatting.Indented));
-        var datasource = mapper.ProjectTo<dto销售报价D>(pinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == e.Row.RecordId)).ToList();
-        System.Diagnostics.Debug.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(datasource, Newtonsoft.Json.Formatting.Indented));
-        table_Details.SetDataSource(datasource);
+        var row = e?.Row as dto销售报价;
+        if (row != null)
+        {
+            var datasource = mapper.ProjectTo<dto销售报价D>(pinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == row.RecordId)).ToList();
+            table_Details.SetDataSource(datasource);
+        }
     }
 
     protected override void OnInitialized()

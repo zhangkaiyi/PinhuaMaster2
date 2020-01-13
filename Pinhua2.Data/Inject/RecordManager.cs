@@ -30,7 +30,7 @@ namespace Pinhua2.Data
             _pinhua2Context.Entry<TRemote>(remote).State = EntityState.Added;
 
             //AfterNew?.Invoke(remote);
-            //context.SaveChanges();
+            //var i = _pinhua2Context.SaveChanges();
             return remote;
         }
 

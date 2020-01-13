@@ -1,5 +1,4 @@
 ﻿@page "/销售/报价/新增"
-@using Piuhua2.Components.Modal
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <h3>新增</h3>
@@ -10,7 +9,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <DataAnnotationsValidator />
-                    <KValidationSummary />
+                    <ValidationSummary />
                     <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                         <KFormGroup Label="@nameof(main.单号)">
                             <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
@@ -19,7 +18,7 @@
                             <KInputSelect @bind-Value="main.往来号">
                                 @foreach (var customer in dropdownOptions)
                                 {
-                                <option value="@customer.Value">@customer.Text</option>
+                                    <option value="@customer.Value">@customer.Text</option>
                                 }
                             </KInputSelect>
                         </KFormGroup>
@@ -138,27 +137,21 @@
 
     protected void ValidSubmit(EditContext context)
     {
-        JSRuntime.InvokeVoidAsync("klazor.console", JsonConvert.SerializeObject(context, Formatting.Indented));
+        main.单号 = pinhuaContext.funcAutoCode("订单号");
+        main.业务类型 = "销售报价";
+        main.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
+        var tb_报价 = mapper.Map<dto销售报价, tb_报价表>(main);
+        pinhuaContext.tb_报价表.Add(tb_报价);
 
-        var tb_报价 = RecordManager.AddRecord<dto销售报价, tb_报价表>(main, before =>
+        var tb_D = new List<tb_报价表D>();
+        foreach (var item in quoteDetails)
         {
-            before.单号 = pinhuaContext.funcAutoCode("订单号");
-            before.业务类型 = "销售报价";
-            before.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
-        });
-        if (pinhuaContext.SaveChanges() > 0)
-        {
-            foreach (var item in quoteDetails)
-            {
-                RecordManager.AddRecordDetail<dto销售报价, dto销售报价D, tb_报价表, tb_报价表D>(tb_报价, item, beforeNewD =>
-                {
-                    beforeNewD.子单号 = pinhuaContext.funcAutoCode("子单号");
-                });
-                item.RecordId = tb_报价.RecordId;
-            }
-            //_context.tb_报价表D.AddRange(_mapper.Map<IList<tb_报价表D>>(vm_销售报价D列表));
-            pinhuaContext.SaveChangesAsync();
+            item.子单号 = pinhuaContext.funcAutoCode("子单号");
+            item.RecordId = tb_报价.RecordId;
+            tb_D.Add(mapper.Map<dto销售报价D, tb_报价表D>(item));
         }
+        pinhuaContext.tb_报价表D.AddRange(tb_D);
+        pinhuaContext.SaveChanges();
 
         NavigationManager.NavigateTo("/销售/报价");
     }

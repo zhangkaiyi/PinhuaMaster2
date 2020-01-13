@@ -91,6 +91,8 @@ namespace Pinhua2.BlazorApp
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            app.UseStaticIMapper();
         }
     }
 }

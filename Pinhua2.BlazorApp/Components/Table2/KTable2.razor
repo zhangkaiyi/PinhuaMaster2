@@ -99,6 +99,26 @@
                         </tbody>
                     </table>
                 </div>
+                @if (Math.Ceiling((float)Total / PageSize) > 1 || !NoPaginationOnSinglePage)
+                {
+                    <KPagination Alignment="Alignment.Right">
+                        <KPaginationItem>
+                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.PreviousText"></KPaginationLink>
+                        </KPaginationItem>
+                        <KPaginationItem>
+                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.Custom">1</KPaginationLink>
+                        </KPaginationItem>
+                        <KPaginationItem>
+                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.Custom">2</KPaginationLink>
+                        </KPaginationItem>
+                        <KPaginationItem>
+                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.Custom">3</KPaginationLink>
+                        </KPaginationItem>
+                        <KPaginationItem>
+                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.NextText"></KPaginationLink>
+                        </KPaginationItem>
+                    </KPagination>
+                }
             </div>
         </div>
     </div>

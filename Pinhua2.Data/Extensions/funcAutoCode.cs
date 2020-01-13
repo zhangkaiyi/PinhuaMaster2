@@ -44,7 +44,7 @@ namespace Pinhua2.Data
                 });
                 id += 1.ToString($"D{autoCode.SeedLength}");
             }
-            context.SaveChanges();
+            //context.SaveChanges();
 
             return id;
         }
