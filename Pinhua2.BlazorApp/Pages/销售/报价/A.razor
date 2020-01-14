@@ -9,7 +9,8 @@
 <div class="row">
     <div class="col-12">
         <KTable2 DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-                 CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true" @ref="table_Main" OnRowClicked="@(OnRowClicked)">
+                 CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true" @ref="table_Main" OnRowClicked="@(OnRowClicked)"
+                 PageSize="10">
             <KTable2Columns>
                 <KTable2Column Width="1" Text="操作">
                     <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/查看/{(context as dto销售报价)?.RecordId}"))" class="mr-1">查看</a>

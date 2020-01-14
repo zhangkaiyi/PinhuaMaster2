@@ -66,7 +66,16 @@
                             }
                             else
                             {
-                                @foreach (var row in Rows)
+                                var pagedRows = new List<object>();
+                                if (Rows.Count > CurrentPage * PageSize)
+                                {
+                                    pagedRows = Rows.Take(CurrentPage * PageSize).TakeLast(PageSize).ToList();
+                                }
+                                else
+                                {
+                                    pagedRows = Rows.Take(CurrentPage * PageSize).TakeLast(PageSize - (CurrentPage * PageSize - Rows.Count)).ToList();
+                                }
+                                @foreach (var row in pagedRows)
                                 {
                                     var clsList = new List<string>();
                                     <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
@@ -99,23 +108,21 @@
                         </tbody>
                     </table>
                 </div>
-                @if (Math.Ceiling((float)Total / PageSize) > 1 || !NoPaginationOnSinglePage)
+                @if (Math.Ceiling((float)Rows.Count / PageSize) > 1 || !NoPaginationOnSinglePage)
                 {
-                    <KPagination Alignment="Alignment.Right">
-                        <KPaginationItem>
-                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.PreviousText"></KPaginationLink>
+                    <KPagination Alignment="Alignment.Right" Total="Rows.Count" PageSize="5">
+                        <KPaginationItem IsDisabled="CurrentPage == 1">
+                            <KPaginationLink Href="javascript:;" PaginationLinkType="PaginationLinkType.PreviousText" @onclick="e=>CurrentPage--"></KPaginationLink>
                         </KPaginationItem>
-                        <KPaginationItem>
-                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.Custom">1</KPaginationLink>
-                        </KPaginationItem>
-                        <KPaginationItem>
-                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.Custom">2</KPaginationLink>
-                        </KPaginationItem>
-                        <KPaginationItem>
-                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.Custom">3</KPaginationLink>
-                        </KPaginationItem>
-                        <KPaginationItem>
-                            <KPaginationLink Href="#" PaginationLinkType="PaginationLinkType.NextText"></KPaginationLink>
+                        @for (var i = 0; i != Math.Ceiling((float)Rows.Count / PageSize); i++)
+                        {
+                            var pageNum = i + 1;
+                            <KPaginationItem IsActive="CurrentPage == pageNum">
+                                <KPaginationLink Href="javascript:;" PaginationLinkType="PaginationLinkType.Custom" @onclick="e=>CurrentPage = pageNum">@pageNum</KPaginationLink>
+                            </KPaginationItem>
+                        }
+                        <KPaginationItem IsDisabled="CurrentPage >= Math.Ceiling((float)Rows.Count / PageSize)">
+                            <KPaginationLink Href="javascript:;" PaginationLinkType="PaginationLinkType.NextText" @onclick="e=>CurrentPage++"></KPaginationLink>
                         </KPaginationItem>
                     </KPagination>
                 }

@@ -51,15 +51,13 @@ namespace Klazor
         [Parameter] public object DataSource { get; set; }
 
         /// <summary>
-        /// 总数据条数
-        /// </summary>
-        [Parameter] public int Total { get; set; }
-
-        /// <summary>
         /// 每页条数
         /// </summary>
-        [Parameter] public int PageSize { get; set; } = 2;
-
+        [Parameter] public int PageSize { get; set; } = 20;
+        /// <summary>
+        /// 当前页数
+        /// </summary>
+        [Parameter] public int CurrentPage { get; set; } = 1;
         /// <summary>
         /// 当只有一页时，不显示分页
         /// </summary>
@@ -141,7 +139,6 @@ namespace Klazor
             {
                 Rows = (DataSource as IEnumerable).Cast<object>().ToList();
                 RowType = DataSource.GetType().GetGenericArguments()[0];
-                Total = Rows.Count;
             }
             RefreshSelectAllStatus();
         }
@@ -248,9 +245,9 @@ namespace Klazor
             OnRowClicked.InvokeAsync(KTable2Event);
         }
 
-        public void SetDataSource(List<object> datasource)
+        public void SetDataSource(object dataSource)
         {
-            DataSource = datasource;
+            DataSource = dataSource;
         }
     }
 }
