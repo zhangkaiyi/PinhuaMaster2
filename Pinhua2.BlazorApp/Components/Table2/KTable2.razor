@@ -77,8 +77,10 @@
                                 }
                                 @foreach (var row in pagedRows)
                                 {
-                                    var clsList = new List<string>();
-                                    <tr class="@string.Join(" ", clsList)" @onclick="e => RowClicked(row)">
+                                    var rowClass = new CssBuilder()
+                                        .AddClass("table-active", EnableTableActive && currentActiveRow == Rows.IndexOf(row))
+                                        .Build();
+                                    <tr class="@rowClass" @onclick="e => RowClicked(row)">
                                         @if (CheckBoxHeader)
                                         {
                                             <td class="auto_column_checkbox">

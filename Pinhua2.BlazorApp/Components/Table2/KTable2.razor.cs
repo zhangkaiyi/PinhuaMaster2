@@ -37,6 +37,8 @@ namespace Klazor
             .AddStyle("height", Height + "px", Height > 0)
             .Build();
 
+        protected int? currentActiveRow { get; set; }
+
         internal List<object> Rows = new List<object>();
         internal Type RowType;
 
@@ -45,6 +47,8 @@ namespace Klazor
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
 
         [Parameter] public bool AutoGenerateColumns { get; set; } = true;
+
+        [Parameter] public bool EnableTableActive { get; set; } = true;
 
         [Parameter] public Action RenderCompleted { get; set; }
 
@@ -153,7 +157,7 @@ namespace Klazor
                 StateHasChanged();
                 return;
             }
-
+            
             RenderCompleted?.Invoke();
 
         }
@@ -229,6 +233,8 @@ namespace Klazor
 
         protected void RowClicked(object row)
         {
+            currentActiveRow = Rows.IndexOf(row);
+
             var KTable2Event = new KTable2Event
             {
                 Target = this,

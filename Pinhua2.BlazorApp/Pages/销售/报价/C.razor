@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <DataAnnotationsValidator />
-                    <ValidationSummary />
+                    <KValidationSummary />
                     <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                         <KFormGroup Label="@nameof(main.单号)">
                             <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
@@ -46,32 +46,32 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <KTable DataSource="quoteDetails" AutoGenerateColumns="false" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable"
-                    CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
-                <KTableUserColumns TItem="dto销售报价D">
-                    <KTableUserColumn TItem="dto销售报价D" Text="#" Context="row">@(quoteDetails.IndexOf(row) + 1)</KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>DetailsTable.Remove(row)">移除</a>
-                        <a href="javascript:;" @onclick="e=>toEdit(row)">修改</a>
-                    </KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.品号)" Text="品号"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.品名)" Text="品名"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.型号)" Text="型号"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.规格)" Text="规格"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.个数)" Text="个数"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.数量)" Text="数量"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.单位)" Text="单位"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.单价)" Text="单价"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.金额)" Text="金额"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.备注)" Text="备注"></KTableUserColumn>
-                </KTableUserColumns>
-            </KTable>
+            <KTable2 DataSource="details" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Text="#" Context="row">@(details.IndexOf(row as dto销售报价D) + 1)</KTable2Column>
+                    <KTable2Column Text="操作" Width="1" Context="row">
+                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTable.Remove(row as dto销售报价D)">移除</a>
+                        <a href="javascript:;" @onclick="e=>toEdit(row as dto销售报价D)">修改</a>
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.ToList())"></Modal_商品列表>
-            <Modal_修改销售报价明细 DataSource="editingQuoteDetail" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
+            <Modal_修改销售报价明细 DataSource="editingDetail" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>
@@ -81,10 +81,10 @@
     [Inject] protected RecordManager RecordManager { get; set; }
 
     protected dto销售报价 main = new dto销售报价();
-    protected List<dto销售报价D> quoteDetails { get; set; } = new List<dto销售报价D>();
+    protected List<dto销售报价D> details { get; set; } = new List<dto销售报价D>();
+    protected dto销售报价D editingDetail { get; set; } = new dto销售报价D();
 
-    protected dto销售报价D editingQuoteDetail { get; set; } = new dto销售报价D();
-    protected KTable<dto销售报价D> DetailsTable;
+    protected KTable2 detailsTable;
 
     protected Modal_修改销售报价明细 Modal_修改销售报价明细;
     protected Modal_商品列表 Modal_商品列表;
@@ -104,7 +104,7 @@
         {
             var tb_product = mapper.Map<dto商品, tb_商品表>(items[0]);
             var dto_detail = mapper.Map<tb_商品表, dto销售报价D>(tb_product);
-            editingQuoteDetail = dto_detail;
+            editingDetail = dto_detail;
             Modal_修改销售报价明细?.Show();
         }
     }
@@ -119,14 +119,14 @@
     {
         if (bInsert)
         {
-            quoteDetails.Add(modal.DataSource);
+            details.Add(modal.DataSource);
         }
     }
 
     protected void toEdit(dto销售报价D item)
     {
         bInsert = false;
-        editingQuoteDetail = item;
+        editingDetail = item;
         Modal_修改销售报价明细?.Show();
     }
 
@@ -137,21 +137,40 @@
 
     protected void ValidSubmit(EditContext context)
     {
-        main.单号 = pinhuaContext.funcAutoCode("订单号");
-        main.业务类型 = "销售报价";
-        main.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
-        var tb_报价 = mapper.Map<dto销售报价, tb_报价表>(main);
-        pinhuaContext.tb_报价表.Add(tb_报价);
-
-        var tb_D = new List<tb_报价表D>();
-        foreach (var item in quoteDetails)
+        var tb_报价 = pinhuaContext.RecordAdd<dto销售报价, tb_报价表>(main, before =>
         {
-            item.子单号 = pinhuaContext.funcAutoCode("子单号");
-            item.RecordId = tb_报价.RecordId;
-            tb_D.Add(mapper.Map<dto销售报价D, tb_报价表D>(item));
+            before.单号 = pinhuaContext.funcAutoCode("订单号");
+            before.业务类型 = "销售报价";
+            before.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == before.往来号)?.简称;
+        });
+        if (pinhuaContext.SaveChanges() > 0)
+        {
+            foreach (var dto in details)
+            {
+                pinhuaContext.RecordDetailAdd<dto销售报价D, tb_报价表D>(dto, adding =>
+                {
+                    adding.子单号 = pinhuaContext.funcAutoCode("子单号");
+                    dto.RecordId = tb_报价.RecordId;
+                });
+            }
+            pinhuaContext.SaveChanges();
         }
-        pinhuaContext.tb_报价表D.AddRange(tb_D);
-        pinhuaContext.SaveChanges();
+        //main.单号 = pinhuaContext.funcAutoCode("订单号");
+        //main.业务类型 = "销售报价";
+        //main.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
+        //var tb_报价 = mapper.Map<dto销售报价, tb_报价表>(main);
+        //pinhuaContext.tb_报价表.Add(tb_报价);
+        //pinhuaContext.SaveChanges();
+
+        //var tb_D = new List<tb_报价表D>();
+        //foreach (var item in details)
+        //{
+        //    item.子单号 = pinhuaContext.funcAutoCode("子单号");
+        //    item.RecordId = tb_报价.RecordId;
+        //    tb_D.Add(mapper.Map<dto销售报价D, tb_报价表D>(item));
+        //}
+        //pinhuaContext.tb_报价表D.AddRange(tb_D);
+        //pinhuaContext.SaveChanges();
 
         NavigationManager.NavigateTo("/销售/报价");
     }

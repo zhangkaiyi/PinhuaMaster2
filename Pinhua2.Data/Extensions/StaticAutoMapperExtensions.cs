@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pinhua2.BlazorApp
+namespace Pinhua2.Data
 {
-    public static class Mapper
+    public static class StaticAutoMapper
     {
         public static IMapper Current { get; private set; }
 
@@ -19,12 +19,12 @@ namespace Pinhua2.BlazorApp
         }
     }
 
-    public static class StaticIMapperExtensions
+    public static class StaticAutoMapperExtensions
     {
-        public static IApplicationBuilder UseStaticIMapper(this IApplicationBuilder app)
+        public static IApplicationBuilder UseStaticAutoMapper(this IApplicationBuilder app)
         {
             var mapper = app.ApplicationServices.GetRequiredService<IMapper>();
-            Mapper.Configure(mapper);
+            StaticAutoMapper.Configure(mapper);
             return app;
         }
     }
