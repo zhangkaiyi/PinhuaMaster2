@@ -22,6 +22,7 @@ namespace Pinhua2.Data.Models
         public string 库存 { get; set; }
         public string 仓 { get; set; }
         public decimal? 发 { get; set; }
+        public decimal? 数量 { get; set; }
         public DateTime? 日期 { get; set; }
         public decimal? 收 { get; set; }
         public decimal? 计划数 { get; set; }

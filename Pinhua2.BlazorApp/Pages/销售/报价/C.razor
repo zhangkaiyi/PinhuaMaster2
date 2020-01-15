@@ -71,7 +71,7 @@
     <div class="row">
         <div class="col">
             <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
-            <Modal_修改销售报价明细 DataSource="detailsTableRow" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
+            <Modal_修改销售报价明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>
@@ -82,7 +82,7 @@
 
     protected KTable2 detailsTableDataSourceTable;
     protected List<dto销售报价D> detailsTableDataSource { get; set; } = new List<dto销售报价D>();
-    protected dto销售报价D detailsTableRow { get; set; } = new dto销售报价D();
+    protected dto销售报价D detailsTableEditingRow { get; set; } = new dto销售报价D();
 
     protected Modal_修改销售报价明细 Modal_修改销售报价明细;
     protected Modal_商品列表 Modal_商品列表;
@@ -102,7 +102,7 @@
         {
             var tb_product = mapper.Map<dto商品, tb_商品表>(items.ElementAtOrDefault(0));
             var dto_detail = mapper.Map<tb_商品表, dto销售报价D>(tb_product);
-            detailsTableRow = dto_detail;
+            detailsTableEditingRow = dto_detail;
             Modal_修改销售报价明细?.Show();
         }
     }
@@ -124,7 +124,7 @@
     protected void toEdit(dto销售报价D item)
     {
         bInsert = false;
-        detailsTableRow = item;
+        detailsTableEditingRow = item;
         Modal_修改销售报价明细?.Show();
     }
 

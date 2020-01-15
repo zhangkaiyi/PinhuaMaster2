@@ -1,7 +1,7 @@
 ﻿@page "/销售/订单/修改/{RecordId:int}"
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>修改</h3>
+    <h3>销售订单 - 修改</h3>
 </div>
 <KForm Model="main" OnValidSubmit="ValidSubmit" OnInvalidSubmit="InvalidSubmit">
     <div class="row">
@@ -46,32 +46,35 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <KTable DataSource="quoteDetails" AutoGenerateColumns="false" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="DetailsTable"
-                    CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
-                <KTableUserColumns TItem="dto销售报价D">
-                    <KTableUserColumn TItem="dto销售报价D" Text="#" Context="row">@(quoteDetails.IndexOf(row) + 1)</KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>DetailsTable.Remove(row)">移除</a>
-                        <a href="javascript:;" @onclick="e=>toEdit(row)">修改</a>
-                    </KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.品号)" Text="品号"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.品名)" Text="品名"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.型号)" Text="型号"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.规格)" Text="规格"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.个数)" Text="个数"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.数量)" Text="数量"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.单位)" Text="单位"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.单价)" Text="单价"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.金额)" Text="金额"></KTableUserColumn>
-                    <KTableUserColumn TItem="dto销售报价D" Property="@(d=>d.备注)" Text="备注"></KTableUserColumn>
-                </KTableUserColumns>
-            </KTable>
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Text="#" Context="context2">@(detailsTableDataSource.IndexOf(context2 as dto销售订单D) + 1)</KTable2Column>
+                    <KTable2Column Text="操作" Width="1" Context="context2">
+                        @{
+                            var row = context2 as dto销售订单D;
+                            <a href="javascript:;" class="mr-1" @onclick="e => detailsTable.Remove(row)">移除</a>
+                            <a href="javascript:;" @onclick="e => toEdit(row)">修改</a>
+                        }
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
-            <Modal_修改销售报价明细 DataSource="editingQuoteDetail" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
+            <Modal_修改销售订单明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售订单明细" OnOK="e=>saveChange(e)"></Modal_修改销售订单明细>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>
@@ -83,21 +86,21 @@
 
     [Inject] protected RecordManager RecordManager { get; set; }
 
-    protected dto销售报价 main = new dto销售报价();
-    protected List<dto销售报价D> quoteDetails { get; set; } = new List<dto销售报价D>();
+    protected dto销售订单 main = new dto销售订单();
 
-    protected dto销售报价D editingQuoteDetail { get; set; } = new dto销售报价D();
-    protected KTable<dto销售报价D> DetailsTable;
+    protected KTable2 detailsTable;
+    protected List<dto销售订单D> detailsTableDataSource { get; set; } = new List<dto销售订单D>();
+    protected dto销售订单D detailsTableEditingRow { get; set; } = new dto销售订单D();
 
-    protected Modal_修改销售报价明细 Modal_修改销售报价明细;
+    protected Modal_修改销售订单明细 Modal_修改销售订单明细;
     protected Modal_商品列表 Modal_商品列表;
 
     protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
     protected override void OnInitialized()
     {
-        main = mapper.Map<dto销售报价>(pinhuaContext.tb_报价表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-        quoteDetails = mapper.ProjectTo<dto销售报价D>(pinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+        main = mapper.Map<dto销售订单>(pinhuaContext.tb_订单表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+        detailsTableDataSource = mapper.ProjectTo<dto销售订单D>(pinhuaContext.tb_订单表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
         dropdownOptions = pinhuaContext.DropdownOptions_客户();
     }
 
@@ -108,9 +111,9 @@
         if (items.Any())
         {
             var tb_product = mapper.Map<dto商品, tb_商品表>(items.ElementAtOrDefault(0));
-            var dto_detail = mapper.Map<tb_商品表, dto销售报价D>(tb_product);
-            editingQuoteDetail = dto_detail;
-            Modal_修改销售报价明细?.Show();
+            var dto_detail = mapper.Map<tb_商品表, dto销售订单D>(tb_product);
+            detailsTableEditingRow = dto_detail;
+            Modal_修改销售订单明细?.Show();
         }
     }
 
@@ -120,19 +123,19 @@
         Modal_商品列表?.Show();
     }
 
-    protected void saveChange(Modal_修改销售报价明细 modal)
+    protected void saveChange(Modal_修改销售订单明细 modal)
     {
         if (bInsert)
         {
-            quoteDetails.Add(modal.DataSource);
+            detailsTableDataSource.Add(modal.DataSource);
         }
     }
 
-    protected void toEdit(dto销售报价D item)
+    protected void toEdit(dto销售订单D item)
     {
         bInsert = false;
-        editingQuoteDetail = item;
-        Modal_修改销售报价明细?.Show();
+        detailsTableEditingRow = item;
+        Modal_修改销售订单明细?.Show();
     }
 
     protected void InvalidSubmit(EditContext context)
@@ -142,50 +145,42 @@
 
     protected void ValidSubmit(EditContext context)
     {
-        JSRuntime.InvokeVoidAsync("klazor.console", JsonConvert.SerializeObject(context, Formatting.Indented));
-
-        var remote = pinhuaContext.tb_报价表.FirstOrDefault(m => m.RecordId == main.RecordId);
-        if (remote == null)
-            return;
-
-        // 非空字段赋值给跟踪实体
-        main.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
-        // 修改时间
-        main.LastEditTime = DateTime.Now;
-        main.LastEditUser = main.LastEditUser ?? "张凯译";
-
-        mapper.Map<dto销售报价, tb_报价表>(main, remote);
-
-        var remoteDetails = pinhuaContext.tb_报价表D.Where(d => d.RecordId == remote.RecordId);
-
-        // 数据库中的子单号与新明细中没有相同的，则从数据库中删除
-        foreach (var remoteD in remoteDetails)
+        var remote = pinhuaContext.RecordEdit<dto销售订单, tb_订单表>(main, adding =>
         {
-            if (!quoteDetails.Where(p => !string.IsNullOrEmpty(p.子单号)).Any(p => p.子单号 == remoteD.子单号))
-                pinhuaContext.tb_报价表D.Remove(remoteD);
-        }
-        // 新明细中的子单号为空，则添加
-        foreach (var localD in quoteDetails.Where(p => string.IsNullOrEmpty(p.子单号)))
-        {
-            localD.RecordId = remote.RecordId;
-            localD.子单号 = pinhuaContext.funcAutoCode("子单号");
-            pinhuaContext.tb_报价表D.Add(mapper.Map<tb_报价表D>(localD));
-        }
-        // 子单号相同，则赋值
-        foreach (var localD in quoteDetails.Where(p => !string.IsNullOrEmpty(p.子单号)))
-        {
-            foreach (var remoteD in remoteDetails)
+            // 非空字段赋值给跟踪实体
+            adding.业务类型 = "销售订单";
+            adding.往来 = pinhuaContext.Set<tb_往来表>().FirstOrDefault(p => p.往来号 == adding.往来号)?.简称;
+        });
+
+        pinhuaContext.RecordDetailsEdit<dto销售订单, dto销售订单D, tb_订单表, tb_订单表D>(main, detailsTableDataSource,
+            adding =>
             {
-                if (remoteD.子单号 == localD.子单号)
+                if (string.IsNullOrEmpty(adding.子单号)) // 子单号为空的，表示新插入
                 {
-                    mapper.Map<dto销售报价D, tb_报价表D>(localD, remoteD);
-                    break;
+                    adding.子单号 = pinhuaContext.funcAutoCode("子单号");
                 }
-            }
-        }
+                else if (!string.IsNullOrEmpty(adding.子单号)) // 子单号不为空，表示从报价单引入，插入
+                {
+                    var baojiaD = pinhuaContext.Set<tb_报价表D>().FirstOrDefault(d => d.子单号 == adding.子单号);
+                    if (baojiaD != null)
+                        baojiaD.状态 = "已下单";
+                }
+            },
+            updating =>
+            {
+                var baojiaD = pinhuaContext.Set<tb_报价表D>().FirstOrDefault(d => d.子单号 == updating.子单号);
+                if (baojiaD != null)
+                    baojiaD.状态 = "已下单";
+            },
+           deleting =>
+           {
+               var tb_报价D = pinhuaContext.Set<tb_报价表D>().FirstOrDefault(d => d.子单号 == deleting.子单号);
+               if (tb_报价D != null)
+                   tb_报价D.状态 = "";
+           });
 
-        pinhuaContext.SaveChangesAsync();
+        pinhuaContext.SaveChanges();
 
-        NavigationManager.NavigateTo("/销售/报价");
+        NavigationManager.NavigateTo("/销售/订单");
     }
 }

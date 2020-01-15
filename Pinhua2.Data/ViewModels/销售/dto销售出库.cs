@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.ViewModels
 {
-    public class vm_销售出库 : _BaseTableMain
+    public class dto销售出库 : _BaseTableMain
     {
         [CustomDisplay(10)]
         [MyPriority(Priority.High)]
@@ -57,7 +57,7 @@ namespace Pinhua2.ViewModels
         public string 仓 { get; set; }
     }
 
-    public class vm_销售出库D : _BaseProductDetail
+    public class dto销售出库D : _BaseProductDetail
     {
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public string 品牌 { get; set; }
@@ -83,6 +83,7 @@ namespace Pinhua2.ViewModels
 
         //[Display(Name = "个数")]
         public decimal? 个数 { get; set; }
+        public decimal? 数量 { get; set; }
         public decimal? 计划数 { get; set; }
         public decimal? 已完数 { get; set; }
     }
@@ -93,9 +94,9 @@ namespace Pinhua2.ViewModels
     {
         public 销售出库Profile()
         {
-            CreateMap<tb_IO, vm_销售出库>();
+            CreateMap<tb_IO, dto销售出库>();
             //.ForMember(dst => dst.报价单, map => map.MapFrom(src => src.报价单));
-            CreateMap<vm_销售出库, tb_IO>()
+            CreateMap<dto销售出库, tb_IO>()
                 .BeforeMap((src, dst) =>
                 {
                 })
@@ -106,10 +107,16 @@ namespace Pinhua2.ViewModels
                 });
 
 
-            CreateMap<tb_IOD, vm_销售出库D>()
+            CreateMap<tb_IOD, dto销售出库D>()
                 .ForMember(dst => dst.个数, map => map.MapFrom(src => src.发));
-            CreateMap<vm_销售出库D, tb_IOD>()
+            CreateMap<dto销售出库D, tb_IOD>()
                 .ForMember(dst => dst.发, map => map.MapFrom(src => src.个数))
+                .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+
+            CreateMap<dto销售出库D, tb_订单表D>()
+                .ForMember(dst => dst.个数, map => map.MapFrom(src => src.个数));
+            CreateMap<tb_订单表D, dto销售出库D>()
+                .ForMember(dst => dst.个数, map => map.MapFrom(src => src.个数))
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }

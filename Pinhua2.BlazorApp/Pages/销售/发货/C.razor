@@ -1,7 +1,7 @@
-﻿@page "/销售/订单/新增"
+﻿@page "/销售/出库/新增"
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>销售订单 - 新增</h3>
+    <h3>销售出库 - 新增</h3>
 </div>
 <KForm Model="main" OnValidSubmit="ValidSubmit" OnInvalidSubmit="InvalidSubmit">
     <div class="row">
@@ -18,15 +18,12 @@
                             <KInputSelect @bind-Value="main.往来号">
                                 @foreach (var customer in dropdownOptions)
                                 {
-                                <option value="@customer.Value">@customer.Text</option>
+                                    <option value="@customer.Value">@customer.Text</option>
                                 }
                             </KInputSelect>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.日期)">
                             <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.交期)">
-                            <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.备注)">
                             <KInputText @bind-Value="main.备注" Readonly="false"></KInputText>
@@ -49,43 +46,43 @@
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                 <KTable2Columns>
-                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售订单D) + 1)</KTable2Column>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售出库D) + 1)</KTable2Column>
                     <KTable2Column Text="操作" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTable.Remove(row as dto销售报价D)">移除</a>
-                        <a href="javascript:;" @onclick="e=>toEdit(row as dto销售订单D)">修改</a>
+                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTable.Remove(row as dto销售出库D)">移除</a>
+                        <a href="javascript:;" @onclick="e=>toEdit(row as dto销售出库D)">修改</a>
                     </KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.品号))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.品名))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.型号))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.规格))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.个数))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.数量))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.单位))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.单价))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.金额))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.备注))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.备注))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
-            <Modal_修改销售订单明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售订单明细" OnOK="e=>saveChange(e)"></Modal_修改销售订单明细>
+            <Modal_商品列表_销售订单 @ref="Modal_商品列表_销售订单" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto销售订单D>())"></Modal_商品列表_销售订单>
+            <Modal_修改销售发货明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售发货明细" OnOK="e=>saveChange(e)"></Modal_修改销售发货明细>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>
 </KForm>
 
 @code {
-    protected dto销售订单 main = new dto销售订单();
+    protected dto销售出库 main = new dto销售出库();
 
     protected KTable2 detailsTable;
-    protected List<dto销售订单D> detailsTableDataSource { get; set; } = new List<dto销售订单D>();
-    protected dto销售订单D detailsTableEditingRow { get; set; } = new dto销售订单D();
+    protected List<dto销售出库D> detailsTableDataSource { get; set; } = new List<dto销售出库D>();
+    protected dto销售出库D detailsTableEditingRow { get; set; } = new dto销售出库D();
 
-    protected Modal_修改销售订单明细 Modal_修改销售订单明细;
-    protected Modal_商品列表 Modal_商品列表;
+    protected Modal_修改销售发货明细 Modal_修改销售发货明细;
+    protected Modal_商品列表_销售订单 Modal_商品列表_销售订单;
 
     protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -96,24 +93,24 @@
 
     protected bool bInsert = false;
 
-    protected void toSelect(IEnumerable<dto商品> items)
+    protected void toSelect(IEnumerable<dto销售订单D> items)
     {
         if (items.Any())
         {
-            var tb_product = mapper.Map<dto商品, tb_商品表>(items.ElementAtOrDefault(0));
-            var dto_detail = mapper.Map<tb_商品表, dto销售订单D>(tb_product);
+            var tb_product = mapper.Map<dto销售订单D, tb_订单表D>(items.ElementAtOrDefault(0));
+            var dto_detail = mapper.Map<tb_订单表D, dto销售出库D>(tb_product);
             detailsTableEditingRow = dto_detail;
-            Modal_修改销售订单明细?.Show();
+            Modal_修改销售发货明细?.Show();
         }
     }
 
     protected void toInsert()
     {
         bInsert = true;
-        Modal_商品列表?.Show();
+        Modal_商品列表_销售订单?.Show();
     }
 
-    protected void saveChange(Modal_修改销售订单明细 modal)
+    protected void saveChange(Modal_修改销售发货明细 modal)
     {
         if (bInsert)
         {
@@ -121,31 +118,31 @@
         }
     }
 
-    protected void toEdit(dto销售订单D item)
+    protected void toEdit(dto销售出库D item)
     {
         bInsert = false;
         detailsTableEditingRow = item;
-        Modal_修改销售订单明细?.Show();
+        Modal_修改销售发货明细?.Show();
     }
 
     protected void InvalidSubmit(EditContext context)
     {
-        JSRuntime.InvokeVoidAsync("klazor.console", JsonConvert.SerializeObject(context, Formatting.Indented));
+        
     }
 
     protected void ValidSubmit(EditContext context)
     {
-        var tb_订单 = pinhuaContext.RecordAdd<dto销售订单, tb_订单表>(main, adding =>
+        var tb_订单 = pinhuaContext.RecordAdd<dto销售出库, tb_IO>(main, adding =>
         {
             adding.单号 = pinhuaContext.funcAutoCode("订单号");
-            adding.业务类型 = "销售订单";
+            adding.类型 = "销售出库";
             adding.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == adding.往来号)?.简称;
         });
         if (pinhuaContext.SaveChanges() > 0)
         {
             foreach (var dto in detailsTableDataSource)
             {
-                pinhuaContext.RecordDetailAdd<dto销售订单D, tb_订单表D>(dto, adding =>
+                pinhuaContext.RecordDetailAdd<dto销售出库D, tb_IOD>(dto, adding =>
                 {
                     adding.子单号 = pinhuaContext.funcAutoCode("子单号");
                     dto.RecordId = tb_订单.RecordId;

@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace Pinhua2.Data
 {
-    public static class RecordExtension
+    public static class RecordAddExtension
     {
         public static TOriginal RecordAdd<TDto, TOriginal>(this Pinhua2Context context, TDto local,
             Action<TDto> Adding = null/*, Action<TRemote> AfterNew = null*/)
