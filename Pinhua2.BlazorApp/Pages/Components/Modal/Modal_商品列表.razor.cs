@@ -19,7 +19,7 @@ namespace Piuhua2.Components.Modal
     public partial class Modal_商品列表 : ComponentBase
     {
         protected KModal modal;
-        protected KTable<dto商品> table;
+        protected KTable2 table;
         protected List<dto商品> products;
 
         [Inject] IMapper Mapper { get; set; }
@@ -58,7 +58,7 @@ namespace Piuhua2.Components.Modal
             modal.Hide();
         }
 
-        public HashSet<dto商品> SelectedProducts
+        public HashSet<object> SelectedProducts
         {
             get { return table.SelectedRows; }
         }

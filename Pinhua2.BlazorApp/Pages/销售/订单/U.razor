@@ -70,7 +70,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.ToList())"></Modal_商品列表>
+            <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
             <Modal_修改销售报价明细 DataSource="editingQuoteDetail" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
         </div>
     </div>
@@ -103,11 +103,11 @@
 
     protected bool bInsert = false;
 
-    protected void toSelect(List<dto商品> items)
+    protected void toSelect(IEnumerable<dto商品> items)
     {
         if (items.Any())
         {
-            var tb_product = mapper.Map<dto商品, tb_商品表>(items[0]);
+            var tb_product = mapper.Map<dto商品, tb_商品表>(items.ElementAtOrDefault(0));
             var dto_detail = mapper.Map<tb_商品表, dto销售报价D>(tb_product);
             editingQuoteDetail = dto_detail;
             Modal_修改销售报价明细?.Show();

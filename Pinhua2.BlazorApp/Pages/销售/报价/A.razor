@@ -8,13 +8,16 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <KTable2 @ref="table_Main" DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-                 OnRowClicked="@(OnRowClicked)" PageSize="10" EnableTableActive="true" >
+        <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                 OnRowClicked="@(OnRowClicked)" PageSize="10" EnableTableActive="true">
             <KTable2Columns>
                 <KTable2Column Width="1" Text="操作">
-                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/查看/{(context as dto销售报价)?.RecordId}"))" class="mr-1">查看</a>
-                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/修改/{(context as dto销售报价)?.RecordId}"))" class="mr-1">修改</a>
-                    <a href="javascript:;" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/报价/删除/{(context as dto销售报价)?.RecordId}"))">删除</a>
+                    @{
+                        var row = context as dto销售报价;
+                        <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/报价/查看/{row?.RecordId}"))" class="mr-1">查看</a>
+                        <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/报价/修改/{row?.RecordId}"))" class="mr-1">修改</a>
+                        <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/报价/删除/{row?.RecordId}"))">删除</a>
+                    }
                 </KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售报价.单号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售报价.业务类型))"></KTable2Column>
@@ -34,7 +37,7 @@
 
 <div class="row">
     <div class="col-12">
-        <KTable2 DataSource="list_Details" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="table_Details">
+        <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
             <KTable2Columns>
                 <KTable2Column Field="@(nameof(dto销售报价D.品号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售报价D.品名))"></KTable2Column>
@@ -52,23 +55,24 @@
 </div>
 
 @code {
-    protected List<dto销售报价> list_Main { get; set; }
-    protected List<dto销售报价D> list_Details { get; set; } = new List<dto销售报价D>();
 
-    protected KTable2 table_Main { get; set; }
-    protected KTable2 table_Details { get; set; }
+    protected KTable2 mainsTable { get; set; }
+    protected List<dto销售报价> mainsTableDataSource { get; set; }
+
+    protected KTable2 detailsTable { get; set; }
+    protected List<dto销售报价D> detailsTableDataSource { get; set; } = new List<dto销售报价D>();
 
     protected void OnRowClicked(KTable2Event e)
     {
-        var row = e?.Row as dto销售报价;
+        var row = e.Row as _IBaseTableMain;
         if (row != null)
         {
-            list_Details = mapper.ProjectTo<dto销售报价D>(pinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == row.RecordId)).ToList();
+            detailsTableDataSource = mapper.ProjectTo<dto销售报价D>(pinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == row.RecordId)).ToList();
         }
     }
 
     protected override void OnInitialized()
     {
-        list_Main = mapper.ProjectTo<dto销售报价>(pinhuaContext.tb_报价表).ToList();
+        mainsTableDataSource = mapper.ProjectTo<dto销售报价>(pinhuaContext.tb_报价表).ToList();
     }
 }
