@@ -135,25 +135,36 @@
 
     protected void ValidSubmit(EditContext context)
     {
-        var tb_报价 = pinhuaContext.RecordAdd<dto销售报价, tb_报价表>(main, adding =>
+        using (var transaction = pinhuaContext.Database.BeginTransaction())
         {
-            adding.单号 = pinhuaContext.funcAutoCode("订单号");
-            adding.业务类型 = "销售报价";
-            adding.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == adding.往来号)?.简称;
-        });
-        if (pinhuaContext.SaveChanges() > 0)
-        {
-            foreach (var dto in detailsTableDataSource)
+            try
             {
-                pinhuaContext.RecordDetailAdd<dto销售报价D, tb_报价表D>(dto, adding =>
+                var tb_报价 = pinhuaContext.RecordAdd<dto销售报价, tb_报价表>(main, adding =>
                 {
-                    adding.子单号 = pinhuaContext.funcAutoCode("子单号");
-                    dto.RecordId = tb_报价.RecordId;
+                    adding.单号 = pinhuaContext.funcAutoCode("订单号");
+                    adding.业务类型 = "销售报价";
+                    adding.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == adding.往来号)?.简称;
                 });
-            }
-            pinhuaContext.SaveChanges();
-        }
+                if (pinhuaContext.SaveChanges() > 0)
+                {
+                    foreach (var dto in detailsTableDataSource)
+                    {
+                        pinhuaContext.RecordDetailAdd<dto销售报价D, tb_报价表D>(dto, adding =>
+                        {
+                            adding.子单号 = pinhuaContext.funcAutoCode("子单号");
+                            dto.RecordId = tb_报价.RecordId;
+                        });
+                    }
+                    pinhuaContext.SaveChanges();
+                    transaction.Commit();
+                }
 
-        NavigationManager.NavigateTo("/销售/报价");
+                NavigationManager.NavigateTo("/销售/报价");
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+            }
+        }
     }
 }

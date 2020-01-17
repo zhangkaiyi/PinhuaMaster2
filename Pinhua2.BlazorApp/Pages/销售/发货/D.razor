@@ -24,9 +24,6 @@
                         <KFormGroup Label="@nameof(main.日期)">
                             <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
                         </KFormGroup>
-                        <KFormGroup Label="@nameof(main.交期)">
-                            <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
-                        </KFormGroup>
                         <KFormGroup Label="@nameof(main.备注)">
                             <KInputText @bind-Value="main.备注"></KInputText>
                         </KFormGroup>
@@ -40,17 +37,17 @@
         <div class="col-12">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                 <KTable2Columns>
-                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售订单D) + 1)</KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.品号))" Text="品号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.品名))" Text="品名"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.型号))" Text="型号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.规格))" Text="规格"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.个数))" Text="个数"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.数量))" Text="数量"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.单位))" Text="单位"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.单价))" Text="单价"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.金额))" Text="金额"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.备注))" Text="备注"></KTable2Column>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售出库D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品号))" Text="品号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品名))" Text="品名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.型号))" Text="型号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.规格))" Text="规格"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.个数))" Text="个数"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.数量))" Text="数量"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单位))" Text="单位"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单价))" Text="单价"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.金额))" Text="金额"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.备注))" Text="备注"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
         </div>
@@ -59,7 +56,7 @@
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <div>
-        <button class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo("销售/订单"))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
+        <button class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo("销售/出库"))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
     </div>
     <div>
         <button class="btn btn-primary" type="button" @onclick="toDelete"><i class="oi oi-trash"></i> 确认删除</button>
@@ -69,31 +66,31 @@
 @code {
     [Parameter] public int RecordId { get; set; }
 
-    protected dto销售订单 main;
+    protected dto销售出库 main;
 
     protected KTable2 detailsTable;
-    protected List<dto销售订单D> detailsTableDataSource;
+    protected List<dto销售出库D> detailsTableDataSource;
 
     protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
     protected override void OnInitialized()
     {
-        main = mapper.Map<dto销售订单>(pinhuaContext.tb_订单表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-        detailsTableDataSource = mapper.ProjectTo<dto销售订单D>(pinhuaContext.tb_订单表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+        main = mapper.Map<dto销售出库>(pinhuaContext.tb_IO.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+        detailsTableDataSource = mapper.ProjectTo<dto销售出库D>(pinhuaContext.tb_IOD.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
         dropdownOptions = pinhuaContext.DropdownOptions_客户();
     }
 
     protected async Task toDelete()
     {
-        var tb_订单表 = await pinhuaContext.tb_订单表.FindAsync(RecordId);
-        if (tb_订单表 != null)
+        var tb_IO = await pinhuaContext.tb_IO.FindAsync(RecordId);
+        if (tb_IO != null)
         {
-            var tb_订单表D = pinhuaContext.tb_订单表D.Where(p => p.RecordId == tb_订单表.RecordId);
+            var tb_IOD = pinhuaContext.tb_IOD.Where(p => p.RecordId == tb_IO.RecordId);
 
-            pinhuaContext.tb_订单表.Remove(tb_订单表);
-            pinhuaContext.tb_订单表D.RemoveRange(tb_订单表D);
+            pinhuaContext.tb_IO.Remove(tb_IO);
+            pinhuaContext.tb_IOD.RemoveRange(tb_IOD);
             await pinhuaContext.SaveChangesAsync();
-            NavigationManager.NavigateTo("/销售/订单");
+            NavigationManager.NavigateTo("/销售/出库");
         }
     }
 

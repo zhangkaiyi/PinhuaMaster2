@@ -78,7 +78,7 @@
                                 @foreach (var row in pagedRows)
                                 {
                                     var rowClass = new CssBuilder()
-                                        .AddClass("table-active", EnableTableActive && currentActiveRow == Rows.IndexOf(row))
+                                        .AddClass("table-active", SelectedRows.Contains(row))
                                         .Build();
                                     <tr class="@rowClass" @onclick="e => RowClicked(row)">
                                         @if (CheckBoxHeader)

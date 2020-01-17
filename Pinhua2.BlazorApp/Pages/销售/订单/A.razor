@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-12">
         <KTable2 @ref="table_Main" DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-                 OnRowClicked="@(OnRowClicked)" PageSize="10" EnableTableActive="true">
+                 OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
             <KTable2Columns>
                 <KTable2Column Width="1" Text="操作">
                     @{
@@ -37,7 +37,8 @@
 
 <div class="row">
     <div class="col-12">
-        <KTable2 DataSource="list_Details" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="table_Details">
+        <KTable2 DataSource="list_Details" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="table_Details"
+                 CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
             <KTable2Columns>
                 <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
@@ -49,6 +50,7 @@
                 <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto销售订单D.状态))"></KTable2Column>
             </KTable2Columns>
         </KTable2>
     </div>

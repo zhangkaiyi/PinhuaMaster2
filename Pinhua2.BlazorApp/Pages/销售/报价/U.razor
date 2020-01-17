@@ -137,55 +137,65 @@
 
     protected void InvalidSubmit(EditContext context)
     {
-        JSRuntime.InvokeVoidAsync("klazor.console", JsonConvert.SerializeObject(context, Formatting.Indented));
+
     }
 
     protected void ValidSubmit(EditContext context)
     {
-        JSRuntime.InvokeVoidAsync("klazor.console", JsonConvert.SerializeObject(context, Formatting.Indented));
-
-        var remote = pinhuaContext.tb_报价表.FirstOrDefault(m => m.RecordId == main.RecordId);
-        if (remote == null)
-            return;
-
-        // 非空字段赋值给跟踪实体
-        main.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
-        // 修改时间
-        main.LastEditTime = DateTime.Now;
-        main.LastEditUser = main.LastEditUser ?? "张凯译";
-
-        mapper.Map<dto销售报价, tb_报价表>(main, remote);
-
-        var remoteDetails = pinhuaContext.tb_报价表D.Where(d => d.RecordId == remote.RecordId);
-
-        // 数据库中的子单号与新明细中没有相同的，则从数据库中删除
-        foreach (var remoteD in remoteDetails)
+        using (var transaction = pinhuaContext.Database.BeginTransaction())
         {
-            if (!detailsTableDataSource.Where(p => !string.IsNullOrEmpty(p.子单号)).Any(p => p.子单号 == remoteD.子单号))
-                pinhuaContext.tb_报价表D.Remove(remoteD);
-        }
-        // 新明细中的子单号为空，则添加
-        foreach (var localD in detailsTableDataSource.Where(p => string.IsNullOrEmpty(p.子单号)))
-        {
-            localD.RecordId = remote.RecordId;
-            localD.子单号 = pinhuaContext.funcAutoCode("子单号");
-            pinhuaContext.tb_报价表D.Add(mapper.Map<tb_报价表D>(localD));
-        }
-        // 子单号相同，则赋值
-        foreach (var localD in detailsTableDataSource.Where(p => !string.IsNullOrEmpty(p.子单号)))
-        {
-            foreach (var remoteD in remoteDetails)
+            try
             {
-                if (remoteD.子单号 == localD.子单号)
+                var remote = pinhuaContext.tb_报价表.FirstOrDefault(m => m.RecordId == main.RecordId);
+                if (remote == null)
+                    return;
+
+                // 非空字段赋值给跟踪实体
+                main.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
+                // 修改时间
+                main.LastEditTime = DateTime.Now;
+                main.LastEditUser = main.LastEditUser ?? "张凯译";
+
+                mapper.Map<dto销售报价, tb_报价表>(main, remote);
+
+                var remoteDetails = pinhuaContext.tb_报价表D.Where(d => d.RecordId == remote.RecordId);
+
+                // 数据库中的子单号与新明细中没有相同的，则从数据库中删除
+                foreach (var remoteD in remoteDetails)
                 {
-                    mapper.Map<dto销售报价D, tb_报价表D>(localD, remoteD);
-                    break;
+                    if (!detailsTableDataSource.Where(p => !string.IsNullOrEmpty(p.子单号)).Any(p => p.子单号 == remoteD.子单号))
+                        pinhuaContext.tb_报价表D.Remove(remoteD);
                 }
+                // 新明细中的子单号为空，则添加
+                foreach (var localD in detailsTableDataSource.Where(p => string.IsNullOrEmpty(p.子单号)))
+                {
+                    localD.RecordId = remote.RecordId;
+                    localD.子单号 = pinhuaContext.funcAutoCode("子单号");
+                    pinhuaContext.tb_报价表D.Add(mapper.Map<tb_报价表D>(localD));
+                }
+                // 子单号相同，则赋值
+                foreach (var localD in detailsTableDataSource.Where(p => !string.IsNullOrEmpty(p.子单号)))
+                {
+                    foreach (var remoteD in remoteDetails)
+                    {
+                        if (remoteD.子单号 == localD.子单号)
+                        {
+                            mapper.Map<dto销售报价D, tb_报价表D>(localD, remoteD);
+                            break;
+                        }
+                    }
+                }
+
+                pinhuaContext.SaveChanges();
+                transaction.Commit();
+
+                NavigationManager.NavigateTo("/销售/报价");
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
             }
         }
 
-        pinhuaContext.SaveChangesAsync();
-
-        NavigationManager.NavigateTo("/销售/报价");
     }
 }
