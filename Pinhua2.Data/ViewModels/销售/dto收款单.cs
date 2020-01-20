@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.ViewModels
 {
-    public class vm_收款单 : _BaseTableMain
+    public class dto收款单 : _BaseTableMain
     {
         [MyPriority(Priority.High)]
         [CustomDisplay(10)]
@@ -66,7 +66,7 @@ namespace Pinhua2.ViewModels
         public string 发票号 { get; set; }
     }
 
-    public class vm_收款单D : _BaseProductDetail
+    public class dto收款单D : _BaseProductDetail
     {
         [CustomDisplay(10)]
         [MyHiddenRef]
@@ -95,22 +95,25 @@ namespace Pinhua2.ViewModels
     {
         public 收款单Profile()
         {
-            CreateMap<tb_收付表, vm_收款单>();
-            CreateMap<vm_收款单, tb_收付表>();
+            CreateMap<tb_收付表, dto收款单>();
+            CreateMap<dto收款单, tb_收付表>();
 
-            CreateMap<tb_收付表D, vm_收款单D>()
+            CreateMap<tb_收付表D, dto收款单D>()
                 .ForMember(dst => dst.已收款额, map => map.MapFrom(src => src.已收付款额))
                 .ForMember(dst => dst.待收款额, map => map.MapFrom(src => src.待收付款额))
                 .ForMember(dst => dst.可分配, map => map.MapFrom(src => src.可收付款额))
                 .ForMember(dst => dst.分配金额, map => map.MapFrom(src => src.本次收额));
-            CreateMap<vm_收款单D, tb_收付表D>()
+            CreateMap<dto收款单D, tb_收付表D>()
                 .ForMember(dst => dst.已收付款额, map => map.MapFrom(src => src.已收款额))
                 .ForMember(dst => dst.待收付款额, map => map.MapFrom(src => src.待收款额))
                 .ForMember(dst => dst.可收付款额, map => map.MapFrom(src => src.可分配))
                 .ForMember(dst => dst.本次收额, map => map.MapFrom(src => src.分配金额));
-            CreateMap<view_AllOrdersPay, vm_收款单D>()
+            CreateMap<view_AllOrdersPay, dto收款单D>()
                 .ForMember(dst => dst.已收款额, map => map.MapFrom(src => src.已收))
                 .ForMember(dst => dst.待收款额, map => map.MapFrom(src => src.待收));
+            CreateMap<dto收款单D, view_AllOrdersPay>()
+                .ForMember(dst => dst.已收, map => map.MapFrom(src => src.已收款额))
+                .ForMember(dst => dst.待收, map => map.MapFrom(src => src.待收款额));
         }
     }
 }
