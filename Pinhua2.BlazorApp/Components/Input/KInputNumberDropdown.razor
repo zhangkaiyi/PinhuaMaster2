@@ -1,0 +1,17 @@
+﻿@namespace Klazor
+@inherits KInputNumber<decimal?>
+
+<div class="input-group">
+    <input type="number" id="@(currentId)" class="@Classname" placeholder="@Placeholder" readonly="@currentReadonly"
+           @attributes="@UnknownParameters"
+           @bind="@currentValueAsString" />
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择</button>
+        <div class="dropdown-menu">
+            @foreach (var item in Items)
+            {
+                <a class="dropdown-item" href="javascript:;" @onclick="@(e=>currentValue= item)">@item</a>
+            }
+        </div>
+    </div>
+</div>

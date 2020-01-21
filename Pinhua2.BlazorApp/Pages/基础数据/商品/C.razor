@@ -12,31 +12,38 @@
                     <DataAnnotationsValidator />
                     <KValidationSummary />
                     <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
-                        <KFormGroup Label="@nameof(main.单号)">
-                            <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                        <KFormGroup Label="@nameof(main.品号)">
+                            <KInputText @bind-Value="main.品号" Placeholder="自动生成 ..."></KInputText>
                         </KFormGroup>
-                        <KFormGroup Label="客户">
-                            <KInputSelect @bind-Value="main.往来号">
-                                @foreach (var customer in dropdownOptions)
-                                {
-                                    <option value="@customer.Value">@customer.Text</option>
-                                }
-                            </KInputSelect>
+                        <KFormGroup Label="@nameof(main.品名)">
+                            <KInputText @bind-Value="main.品名" Placeholder="请输入 ..." Readonly="false"></KInputText>
                         </KFormGroup>
-                        <KFormGroup Label="@nameof(main.日期)">
-                            <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                        <KFormGroup Label="@nameof(main.型号)">
+                            <KInputText @bind-Value="main.型号" Placeholder="请输入 ..." Readonly="false"></KInputText>
                         </KFormGroup>
-                        <KFormGroup Label="大类">
-                            <KInputSelect @bind-Value="main.类型"></KInputSelect>
+                        <KFormGroup Label="@nameof(main.规格)">
+                            <KInputCompute @bind-Value="main.规格" Placeholder="自动生成 ..." ComputedValue="computedSpecification"></KInputCompute>
                         </KFormGroup>
-                        <KFormGroup Label="小类">
-                            <KInputSelect @bind-Value="main.小类"></KInputSelect>
+                        <KFormGroup Label="@nameof(main.长度)">
+                            <KInputNumberDropdown @bind-Value="main.长度" Placeholder="请输入 ..." Readonly="false" Items="dropdownLength"></KInputNumberDropdown>
                         </KFormGroup>
-                        <KFormGroup Label="金额">
-                            <KInputNumber @bind-Value="main.收" Readonly="false"></KInputNumber>
+                        <KFormGroup Label="@nameof(main.宽度)">
+                            <KInputNumberDropdown @bind-Value="main.宽度" Placeholder="请输入 ..." Readonly="false" Items="dropdownWidth"></KInputNumberDropdown>
                         </KFormGroup>
-                        <KFormGroup Label="分配">
-                            <KInputNumber @bind-Value="main.分配"></KInputNumber>
+                        <KFormGroup Label="@nameof(main.高度)">
+                            <KInputNumberDropdown @bind-Value="main.高度" Placeholder="请输入 ..." Readonly="false" Items="dropdownHeight"></KInputNumberDropdown>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.面厚)">
+                            <KInputNumber @bind-Value="main.面厚" Placeholder="请输入 ..." Readonly="false"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.单位)">
+                            <KInputDropdown @bind-Value="main.单位" Placeholder="请选择 ..." Items="dropdownUnits"></KInputDropdown>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.分类1)">
+                            <KInputDropdown @bind-Value="main.分类1" Placeholder="请选择 ..." Items="dropdownCategory"></KInputDropdown>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.分类2)">
+                            <KInputDropdown @bind-Value="main.分类2" Placeholder="请选择 ..." Items="dropdownCategory"></KInputDropdown>
                         </KFormGroup>
                     </KFormGroupContainer>
                 </div>
@@ -44,45 +51,5 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col">
-            <div class="float-right mb-3">
-                <button type="button" class="btn btn-primary" @onclick="@(e => toInsert())">添加商品</button>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTableDataSourceTable"
-                     CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
-                <KTable2Columns>
-                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
-                    <KTable2Column Text="操作" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSourceTable.Remove(row as dto收款单D)">移除</a>
-                        <a href="javascript:;" @onclick="e=>toEdit(row as dto收款单D)">修改</a>
-                    </KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.品号))" Text="品号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.品名))" Text="品名"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.型号))" Text="型号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.规格))" Text="规格"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.个数))" Text="个数"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.数量))" Text="数量"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.单位))" Text="单位"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.单价))" Text="单价"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.金额))" Text="金额"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.已收款额))" Text="已收"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.待收款额))" Text="待收"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.可分配))" Text="可分配"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.分配金额))" Text="分配"></KTable2Column>
-                </KTable2Columns>
-            </KTable2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <Modal_订单金额收付 @ref="Modal_订单金额收付" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersPay>())"></Modal_订单金额收付>
-            <EditModal_收款单明细 DataSource="detailsTableEditingRow" @ref="EditModal_收款单明细" OnOK="e=>saveChange(e)"></EditModal_收款单明细>
-        </div>
-    </div>
     <button type="submit" class="btn btn-primary">保存</button>
 </KForm>

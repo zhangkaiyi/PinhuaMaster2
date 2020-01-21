@@ -23,10 +23,10 @@ namespace Pinhua2.Data.Models
     {
         [CustomDisplay(1.1)]
         [MyOrder(1.1)]
-        public string 品号 { get; set; }
+        public virtual string 品号 { get; set; }
         [CustomDisplay(1.2)]
         [MyOrder(1.2)]
-        public string 品名 { get; set; }
+        public virtual string 品名 { get; set; }
         [CustomDisplay(1.3)]
         [MyOrder(1.3)]
         public string 别名 { get; set; }

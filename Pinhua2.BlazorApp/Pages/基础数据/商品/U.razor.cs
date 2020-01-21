@@ -15,17 +15,17 @@ using AutoMapper;
 using Pinhua2.Data;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.BlazorApp.Pages.Components;
-using Piuhua2.Components.Modal;
 using Pinhua2.Data.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
 
 namespace Pinhua2.BlazorApp.Pages.基础数据.商品
 {
-    public abstract class CBase : _CRUDBase
+    public abstract class UBase : _CRUDBase
     {
-        protected dto商品 main = new dto商品();
+        [Parameter] public int RecordId { get; set; }
 
+        protected dto商品 main { get; set; }
         protected string computedSpecification
         {
             get
@@ -38,14 +38,19 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
                 {
                     if (!main.面厚.HasValue)
                     {
-                        return $"{main.长度}*{main.宽度}*{main.高度}";
+                        return $"{(double)main.长度}*{(double)main.宽度}*{(double)main.高度}";
                     }
                     else
                     {
-                        return $"{main.长度}*{main.宽度}*{main.高度}/{main.面厚}";
+                        return $"{(double)main.长度}*{(double)main.宽度}*{(double)main.高度}/{(double)main.面厚}";
                     }
                 }
             }
+        }
+
+        protected override void OnInitialized()
+        {
+            main = Mapper.Map<dto商品>(PinhuaContext.tb_商品表.FirstOrDefault(p=>p.RecordId == RecordId));
         }
 
         protected void InvalidSubmit(EditContext context)
@@ -59,10 +64,7 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
             {
                 try
                 {
-                    var remote = PinhuaContext.RecordAdd<dto商品, tb_商品表>(main, adding =>
-                    {
-                        adding.品号 = PinhuaContext.funcAutoCode("商品号");
-                    });
+                    var remote = PinhuaContext.RecordEdit<dto商品, tb_商品表>(main);
 
                     transaction.Commit();
 

@@ -12,7 +12,7 @@ namespace Pinhua2.Data
     public static class RecordEditExtension
     {
         public static TOriginal RecordEdit<TDto, TOriginal>(this Pinhua2Context context, TDto dto,
-            Action<TDto> Adding = null/*, Action<TRemote> AfterNew = null*/)
+            Action<TDto> Editing = null/*, Action<TRemote> AfterNew = null*/)
             where TDto : _BaseTableMain
             where TOriginal : _BaseTableMain
         {
@@ -20,7 +20,7 @@ namespace Pinhua2.Data
             if (original == null)
                 return null;
 
-            Adding?.Invoke(dto);
+            Editing?.Invoke(dto);
 
             dto.CreateTime = original.CreateTime;
             dto.CreateUser = original.CreateUser;
@@ -29,6 +29,7 @@ namespace Pinhua2.Data
 
             StaticAutoMapper.Current.Map<TDto, TOriginal>(dto, original);
             context.Entry<TOriginal>(original).State = EntityState.Modified;
+            context.SaveChanges();
 
             return original;
         }

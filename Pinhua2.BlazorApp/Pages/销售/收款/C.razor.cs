@@ -106,6 +106,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
                             });
                         }
                         PinhuaContext.SaveChanges();
+                        transaction.Commit();
                     }
 
                     Navigation.NavigateTo(routeA);

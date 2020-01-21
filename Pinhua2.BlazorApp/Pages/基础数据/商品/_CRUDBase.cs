@@ -17,5 +17,12 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
         protected readonly string routeR = "/基础数据/商品/查看";
         protected readonly string routeU = "/基础数据/商品/修改";
         protected readonly string routeD = "/基础数据/商品/删除";
+
+        protected decimal?[] dropdownLength = new decimal?[] { 450M, 500M, 600M, 400M };
+        protected decimal?[] dropdownWidth = new decimal?[] { 450M, 500M, 600M, 400M };
+        protected decimal?[] dropdownHeight = new decimal?[] { 15M, 18M, 12M };
+
+        protected string[] dropdownUnits = new string[] { "片", "平方米", "延长米", "立方米", "套" };
+        protected string[] dropdownCategory = new string[] { "地板类", "辅料类" };
     }
 }
