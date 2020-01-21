@@ -1,0 +1,201 @@
+﻿@page "/基础数据/字典/修改/{RecordId:int}"
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <h3>商品 - 修改</h3>
+</div>
+<KForm Model="main" OnValidSubmit="ValidSubmit" OnInvalidSubmit="InvalidSubmit">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                        <KFormGroup Label="@nameof(main.单号)">
+                            <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="客户">
+                            <KInputSelect @bind-Value="main.往来号">
+                                @foreach (var customer in dropdownOptions)
+                                {
+                                    <option value="@customer.Value">@customer.Text</option>
+                                }
+                            </KInputSelect>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.日期)">
+                            <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.交期)">
+                            <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.备注)">
+                            <KInputText @bind-Value="main.备注" Readonly="false"></KInputText>
+                        </KFormGroup>
+                    </KFormGroupContainer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="float-right mb-3">
+                <button type="button" class="btn btn-primary" @onclick="@(e => toInsert())">添加商品</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售报价D) + 1)</KTable2Column>
+                    <KTable2Column Text="操作" Width="1" Context="row">
+                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTable.Remove(row as dto销售报价D)">移除</a>
+                        <a href="javascript:;" @onclick="e=>toEdit(row as dto销售报价D)">修改</a>
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售报价D.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
+            <Modal_修改销售报价明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">保存</button>
+</KForm>
+
+@code {
+
+    [Parameter] public int RecordId { get; set; }
+
+    [Inject] protected RecordManager RecordManager { get; set; }
+
+    protected dto销售报价 main = new dto销售报价();
+
+    protected KTable2 detailsTable;
+    protected List<dto销售报价D> detailsTableDataSource { get; set; } = new List<dto销售报价D>();
+    protected dto销售报价D detailsTableEditingRow { get; set; } = new dto销售报价D();
+
+    protected Modal_修改销售报价明细 Modal_修改销售报价明细;
+    protected Modal_商品列表 Modal_商品列表;
+
+    protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+
+    protected override void OnInitialized()
+    {
+        main = mapper.Map<dto销售报价>(pinhuaContext.tb_报价表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+        detailsTableDataSource = mapper.ProjectTo<dto销售报价D>(pinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+        dropdownOptions = pinhuaContext.DropdownOptions_客户();
+    }
+
+    protected bool bInsert = false;
+
+    protected void toSelect(IEnumerable<dto商品> items)
+    {
+        if (items.Any())
+        {
+            var tb_product = mapper.Map<dto商品, tb_商品表>(items.ElementAtOrDefault(0));
+            var dto_detail = mapper.Map<tb_商品表, dto销售报价D>(tb_product);
+            detailsTableEditingRow = dto_detail;
+            Modal_修改销售报价明细?.Show();
+        }
+    }
+
+    protected void toInsert()
+    {
+        bInsert = true;
+        Modal_商品列表?.Show();
+    }
+
+    protected void saveChange(Modal_修改销售报价明细 modal)
+    {
+        if (bInsert)
+        {
+            detailsTableDataSource.Add(modal.DataSource);
+        }
+    }
+
+    protected void toEdit(dto销售报价D item)
+    {
+        bInsert = false;
+        detailsTableEditingRow = item;
+        Modal_修改销售报价明细?.Show();
+    }
+
+    protected void InvalidSubmit(EditContext context)
+    {
+
+    }
+
+    protected void ValidSubmit(EditContext context)
+    {
+        using (var transaction = pinhuaContext.Database.BeginTransaction())
+        {
+            try
+            {
+                var remote = pinhuaContext.tb_报价表.FirstOrDefault(m => m.RecordId == main.RecordId);
+                if (remote == null)
+                    return;
+
+                // 非空字段赋值给跟踪实体
+                main.往来 = pinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
+                // 修改时间
+                main.LastEditTime = DateTime.Now;
+                main.LastEditUser = main.LastEditUser ?? "张凯译";
+
+                mapper.Map<dto销售报价, tb_报价表>(main, remote);
+
+                var remoteDetails = pinhuaContext.tb_报价表D.Where(d => d.RecordId == remote.RecordId);
+
+                // 数据库中的子单号与新明细中没有相同的，则从数据库中删除
+                foreach (var remoteD in remoteDetails)
+                {
+                    if (!detailsTableDataSource.Where(p => !string.IsNullOrEmpty(p.子单号)).Any(p => p.子单号 == remoteD.子单号))
+                        pinhuaContext.tb_报价表D.Remove(remoteD);
+                }
+                // 新明细中的子单号为空，则添加
+                foreach (var localD in detailsTableDataSource.Where(p => string.IsNullOrEmpty(p.子单号)))
+                {
+                    localD.RecordId = remote.RecordId;
+                    localD.子单号 = pinhuaContext.funcAutoCode("子单号");
+                    pinhuaContext.tb_报价表D.Add(mapper.Map<tb_报价表D>(localD));
+                }
+                // 子单号相同，则赋值
+                foreach (var localD in detailsTableDataSource.Where(p => !string.IsNullOrEmpty(p.子单号)))
+                {
+                    foreach (var remoteD in remoteDetails)
+                    {
+                        if (remoteD.子单号 == localD.子单号)
+                        {
+                            mapper.Map<dto销售报价D, tb_报价表D>(localD, remoteD);
+                            break;
+                        }
+                    }
+                }
+
+                pinhuaContext.SaveChanges();
+                transaction.Commit();
+
+                NavigationManager.NavigateTo("/销售/报价");
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+            }
+        }
+
+    }
+}

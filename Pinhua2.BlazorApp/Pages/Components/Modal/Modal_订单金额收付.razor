@@ -1,21 +1,23 @@
 ﻿@namespace Piuhua2.Components.Modal
 
 <KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
-    <KModalHeader>销售订单</KModalHeader>
+    <KModalHeader>订单金额待收</KModalHeader>
     <KModalBody>
         <KTable2 DataSource="products" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
                 CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
             <KTable2Columns>
-                <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.业务类型))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.往来号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.往来))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.品号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.品名))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.型号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.规格))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.日期))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.金额))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.已收))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.待收))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.备注))"></KTable2Column>
             </KTable2Columns>
         </KTable2>
     </KModalBody>

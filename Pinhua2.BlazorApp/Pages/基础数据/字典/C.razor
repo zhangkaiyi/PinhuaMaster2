@@ -1,8 +1,8 @@
 ﻿@inherits CBase
-@page "/销售/收款/新增"
+@page "/基础数据/字典/新增"
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>收款单 - 新增</h3>
+    <h3>字典 - 新增</h3>
 </div>
 <KForm Model="main" OnValidSubmit="ValidSubmit" OnInvalidSubmit="InvalidSubmit">
     <div class="row">
@@ -47,7 +47,7 @@
     <div class="row">
         <div class="col">
             <div class="float-right mb-3">
-                <button type="button" class="btn btn-primary" @onclick="@(e => toInsert())">添加商品</button>
+                <button type="button" class="btn btn-primary" @onclick="@(e => toInsert())">添加字典</button>
             </div>
         </div>
     </div>

@@ -20,19 +20,31 @@
                             <KInputText @bind-Value="@currentDataSource.规格"></KInputText>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(currentDataSource.个数)">
-                            <KInputNumber @bind-Value="@currentDataSource.个数" Readonly="false"></KInputNumber>
+                            <KInputNumber @bind-Value="@currentDataSource.个数"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(currentDataSource.数量)">
-                            <KInputCompute @bind-Value="@currentDataSource.数量" ComputedValue="@computedQuantity"></KInputCompute>
+                            <KInputNumber @bind-Value="@currentDataSource.数量"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(currentDataSource.单位)">
-                            <KInputDropdown @bind-Value="@currentDataSource.单位" Items="dropdownItems"></KInputDropdown>
+                            <KInputText @bind-Value="@currentDataSource.单位"></KInputText>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(currentDataSource.单价)">
-                            <KInputNumber @bind-Value="@currentDataSource.单价" Readonly="false"></KInputNumber>
+                            <KInputNumber @bind-Value="@currentDataSource.单价"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(currentDataSource.金额)">
-                            <KInputCompute @bind-Value="@currentDataSource.金额" ComputedValue="currentDataSource.数量*currentDataSource.单价"></KInputCompute>
+                            <KInputNumber @bind-Value="@currentDataSource.金额"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.已收款额)">
+                            <KInputNumber @bind-Value="@currentDataSource.已收款额"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.待收款额)">
+                            <KInputNumber @bind-Value="@currentDataSource.待收款额"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.可分配)">
+                            <KInputNumber @bind-Value="@currentDataSource.可分配"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.分配金额)">
+                            <KInputNumber @bind-Value="@currentDataSource.分配金额" Readonly="false"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(currentDataSource.备注)">
                             <KInputText @bind-Value="@currentDataSource.备注" Readonly="false"></KInputText>

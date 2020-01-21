@@ -20,7 +20,7 @@ using Pinhua2.Data.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
 
-namespace Pinhua2.BlazorApp.Pages.销售.收款
+namespace Pinhua2.BlazorApp.Pages.基础数据.字典
 {
     public abstract class CBase : _CRUDBase
     {

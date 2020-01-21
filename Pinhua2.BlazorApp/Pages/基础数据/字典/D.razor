@@ -1,0 +1,79 @@
+﻿@inherits DBase
+@page "/基础数据/字典/删除/{RecordId:int}"
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <h3>字典 - 删除</h3>
+</div>
+
+<KForm Model="main">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                        <KFormGroup Label="@nameof(main.单号)">
+                            <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.往来号)">
+                            <KInputText @bind-Value="main.往来号"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.往来)">
+                            <KInputText @bind-Value="main.往来"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.日期)">
+                            <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                        </KFormGroup>
+                        <KFormGroup Label="大类">
+                            <KInputText @bind-Value="main.类型"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="小类">
+                            <KInputText @bind-Value="main.小类"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="金额">
+                            <KInputNumber @bind-Value="main.收"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="分配">
+                            <KInputNumber @bind-Value="main.分配"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.备注)">
+                            <KInputText @bind-Value="main.备注"></KInputText>
+                        </KFormGroup>
+                    </KFormGroupContainer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
+                <KTable2Columns>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.品号))" Text="品号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.品名))" Text="品名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.型号))" Text="型号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.规格))" Text="规格"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.个数))" Text="个数"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.数量))" Text="数量"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.单位))" Text="单位"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.单价))" Text="单价"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.金额))" Text="金额"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.备注))" Text="备注"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.已收款额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.待收款额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.可分配))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto收款单D.分配金额))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </div>
+    </div>
+</KForm>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <div>
+        <button class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="button" @onclick="toDelete"><i class="oi oi-trash"></i> 确认删除</button>
+    </div>
+</div>
