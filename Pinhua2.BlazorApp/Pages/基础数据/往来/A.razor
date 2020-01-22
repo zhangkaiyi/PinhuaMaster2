@@ -1,0 +1,31 @@
+﻿@inherits ABase
+@page "/基础数据/往来"
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <h3>往来单位</h3>
+    <div>
+        <button type="button" class="btn btn-primary" @onclick="@(e=>Navigation.NavigateTo(routeC))"><i class="oi oi-pencil"></i> 新增</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                 OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+            <KTable2Columns>
+                <KTable2Column Width="1" Text="操作">
+                    @{
+                        var row = context as dto往来;
+                        <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
+                        <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
+                        <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
+                    }
+                </KTable2Column>
+                <KTable2Column Width="500" Field="@(nameof(dto往来.往来号))"></KTable2Column>
+                <KTable2Column Width="500" Field="@(nameof(dto往来.简称))"></KTable2Column>
+                <KTable2Column Width="500" Field="@(nameof(dto往来.地址))"></KTable2Column>
+                <KTable2Column Width="500" Field="@(nameof(dto往来.联系人))"></KTable2Column>
+                <KTable2Column Width="500" Field="@(nameof(dto往来.联系电话))"></KTable2Column>
+            </KTable2Columns>
+        </KTable2>
+    </div>
+</div>

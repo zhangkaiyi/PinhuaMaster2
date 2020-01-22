@@ -1,0 +1,73 @@
+﻿@inherits RBase
+@page "/基础数据/往来/查看/{RecordId:int}"
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <h3>往来单位 - 查看</h3>
+</div>
+<KForm Model="main">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <DataAnnotationsValidator />
+                    <KValidationSummary />
+                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                        <KFormGroup Label="@nameof(main.往来号)">
+                            <KInputText @bind-Value="main.往来号"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.简称)">
+                            <KInputText @bind-Value="main.简称"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.全称)">
+                            <KInputText @bind-Value="main.全称"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.地址)">
+                            <KInputText @bind-Value="main.地址"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.联系人)">
+                            <KInputText @bind-Value="main.联系人"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.联系电话)">
+                            <KInputText @bind-Value="main.联系电话"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="QQ">
+                            <KInputText @bind-Value="main.Qq"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.公司电话)">
+                            <KInputText @bind-Value="main.公司电话"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.传真)">
+                            <KInputText @bind-Value="main.传真"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.账号)">
+                            <KInputText @bind-Value="main.账号"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.开户行)">
+                            <KInputText @bind-Value="main.开户行"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.组织代码)">
+                            <KInputText @bind-Value="main.组织代码"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(main.状态)">
+                            <KInputText @bind-Value="main.状态"></KInputText>
+                        </KFormGroup>
+                    </KFormGroupContainer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+                <div>
+                    <button class="btn btn-secondary" @onclick="@(e=>Navigation.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
+                </div>
+                <div>
+                    <button class="btn btn-primary" @onclick="@(e=>Navigation.NavigateTo($"{routeU}/{RecordId}"))"><i class="oi oi-pencil"></i> 修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</KForm>
+
