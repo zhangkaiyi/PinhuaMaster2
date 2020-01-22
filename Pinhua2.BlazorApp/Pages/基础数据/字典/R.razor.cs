@@ -22,17 +22,15 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.字典
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected dto收款单 main;
-        protected KTable2 detailsTable;
-        protected List<dto收款单D> detailsTableDataSource;
+        protected dto字典 main = new dto字典();
 
-        protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+        protected KTable2 detailsTable;
+        protected List<dto字典D> detailsTableDataSource { get; set; } = new List<dto字典D>();
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto收款单>(PinhuaContext.tb_收付表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+            main = Mapper.Map<dto字典>(PinhuaContext.tb_字典表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto字典D>(PinhuaContext.tb_字典表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
         }
-
     }
 }

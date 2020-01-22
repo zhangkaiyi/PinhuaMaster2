@@ -53,12 +53,12 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTableDataSourceTable"
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                 <KTable2Columns>
                     <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
                     <KTable2Column Text="操作" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSourceTable.Remove(row as dto收款单D)">移除</a>
+                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto收款单D)">移除</a>
                         <a href="javascript:;" @onclick="e=>toEdit(row as dto收款单D)">修改</a>
                     </KTable2Column>
                     <KTable2Column Field="@(nameof(dto收款单D.品号))" Text="品号"></KTable2Column>

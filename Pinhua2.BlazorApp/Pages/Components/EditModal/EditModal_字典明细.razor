@@ -1,0 +1,28 @@
+﻿@namespace Piuhua2.Components.Modal
+
+<KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
+    <KModalHeader>修改</KModalHeader>
+    <KModalBody>
+        <KForm Model="currentDataSource">
+            <div class="row">
+                <div class="col-md-12">
+                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                        <KFormGroup Label="@nameof(currentDataSource.编号)">
+                            <KInputText @bind-Value="@currentDataSource.编号" Readonly="false"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.名称)">
+                            <KInputText @bind-Value="@currentDataSource.名称" Readonly="false"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.代码)">
+                            <KInputText @bind-Value="@currentDataSource.代码" Readonly="false"></KInputText>
+                        </KFormGroup>
+                    </KFormGroupContainer>
+                </div>
+            </div>
+        </KForm>
+    </KModalBody>
+    <KModalFooter>
+        <button type="button" class="btn btn-secondary" @onclick="Cancel">取消</button>
+        <button type="button" class="btn btn-primary" @onclick="OK">确定</button>
+    </KModalFooter>
+</KModal>

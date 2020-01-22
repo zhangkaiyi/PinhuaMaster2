@@ -22,28 +22,26 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.字典
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected dto收款单 main;
+        protected dto字典 main = new dto字典();
 
         protected KTable2 detailsTable;
-        protected List<dto收款单D> detailsTableDataSource;
-
-        protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+        protected List<dto字典D> detailsTableDataSource { get; set; } = new List<dto字典D>();
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto收款单>(PinhuaContext.tb_收付表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+            main = Mapper.Map<dto字典>(PinhuaContext.tb_字典表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto字典D>(PinhuaContext.tb_字典表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
         }
 
         protected async Task toDelete()
         {
-            var tb_收付表 = await PinhuaContext.tb_收付表.FindAsync(RecordId);
-            if (tb_收付表 != null)
+            var tb_字典表 = await PinhuaContext.tb_字典表.FindAsync(RecordId);
+            if (tb_字典表 != null)
             {
-                var tb_收付表D = PinhuaContext.tb_收付表D.Where(p => p.RecordId == tb_收付表.RecordId);
+                var tb_字典表D = PinhuaContext.tb_字典表D.Where(p => p.RecordId == tb_字典表.RecordId);
 
-                PinhuaContext.tb_收付表.Remove(tb_收付表);
-                PinhuaContext.tb_收付表D.RemoveRange(tb_收付表D);
+                PinhuaContext.tb_字典表.Remove(tb_字典表);
+                PinhuaContext.tb_字典表D.RemoveRange(tb_字典表D);
                 await PinhuaContext.SaveChangesAsync();
                 Navigation.NavigateTo(routeA);
             }

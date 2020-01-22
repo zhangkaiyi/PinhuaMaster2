@@ -20,7 +20,7 @@
                     @Html.DisplayNameFor(model => model.字典列表[0].字典名)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.字典列表[0].组)
+                    @Html.DisplayNameFor(model => model.字典列表[0].组号)
                 </th>
             </tr>
         </thead>
@@ -34,10 +34,10 @@
                     <a asp-page="./Delete" asp-route-id="@item.RecordId">删除</a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.字典名)
+                    @Html.DisplayFor(modelItem => item.字典号)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.组)
+                    @Html.DisplayFor(modelItem => item.组号)
                 </td>
             </tr>
         }

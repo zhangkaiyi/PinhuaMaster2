@@ -51,19 +51,19 @@
                 <KTable2Columns>
                     <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售订单D) + 1)</KTable2Column>
                     <KTable2Column Text="操作" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTable.Remove(row as dto销售报价D)">移除</a>
+                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto销售订单D)">移除</a>
                         <a href="javascript:;" @onclick="e=>toEdit(row as dto销售订单D)">修改</a>
                     </KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.品号))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.品名))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.型号))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.规格))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.个数))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.数量))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.单位))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.单价))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.金额))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.备注))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
         </div>

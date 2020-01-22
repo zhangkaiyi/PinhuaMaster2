@@ -22,23 +22,23 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.字典
     public abstract class ABase : _CRUDBase
     {
         protected KTable2 mainsTable { get; set; }
-        protected List<dto收款单> mainsTableDataSource { get; set; }
+        protected List<dto字典> mainsTableDataSource { get; set; }
 
         protected KTable2 detailsTable { get; set; }
-        protected List<dto收款单D> detailsTableDataSource { get; set; } = new List<dto收款单D>();
+        protected List<dto字典D> detailsTableDataSource { get; set; } = new List<dto字典D>();
 
         protected void OnRowClicked(KTable2Event e)
         {
             var row = e.Row as _IBaseTableMain;
             if (row != null)
             {
-                detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == row.RecordId)).ToList();
+                detailsTableDataSource = Mapper.ProjectTo<dto字典D>(PinhuaContext.tb_字典表D.AsNoTracking().Where(m => m.RecordId == row.RecordId)).ToList();
             }
         }
 
         protected override void OnInitialized()
         {
-            mainsTableDataSource = Mapper.ProjectTo<dto收款单>(PinhuaContext.tb_收付表).ToList();
+            mainsTableDataSource = Mapper.ProjectTo<dto字典>(PinhuaContext.tb_字典表).ToList();
         }
     }
 }

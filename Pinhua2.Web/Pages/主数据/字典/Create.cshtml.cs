@@ -50,8 +50,8 @@ namespace Pinhua2.Web.Pages.主数据.字典
                 {
                     _pinhua2.funcNewDetail<vm_字典, vm_字典D, tb_字典表, tb_字典表D>(remote, localD, BeforeNewD: beforeD =>
                     {
-                        beforeD.字典名 = remote.字典名;
-                        beforeD.组 = remote.组;
+                        beforeD.字典号 = remote.字典号;
+                        beforeD.组号 = remote.组号;
                     });
                 }
                 // 再次保存

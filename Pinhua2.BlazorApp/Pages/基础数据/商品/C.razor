@@ -37,13 +37,28 @@
                             <KInputNumber @bind-Value="main.面厚" Placeholder="请输入 ..." Readonly="false"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.单位)">
-                            <KInputDropdown @bind-Value="main.单位" Placeholder="请选择 ..." Items="dropdownUnits"></KInputDropdown>
+                            <KInputSelect @bind-Value="main.单位">
+                                @foreach (var item in dropdownUnits)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.分类1)">
-                            <KInputDropdown @bind-Value="main.分类1" Placeholder="请选择 ..." Items="dropdownCategory"></KInputDropdown>
+                            <KInputSelect @bind-Value="main.分类1">
+                                @foreach (var item in dropdownCategory)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.分类2)">
-                            <KInputDropdown @bind-Value="main.分类2" Placeholder="请选择 ..." Items="dropdownCategory"></KInputDropdown>
+                            <KInputSelect @bind-Value="main.分类2">
+                                @foreach (var item in dropdownCategory)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                     </KFormGroupContainer>
                 </div>
@@ -51,5 +66,16 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">保存</button>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+                <div>
+                    <button type="button" class="btn btn-secondary" @onclick="@(e=>Navigation.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 取消</button>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary"><i class="oi oi-check"></i> 保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </KForm>

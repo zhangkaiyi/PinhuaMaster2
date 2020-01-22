@@ -14,20 +14,16 @@
             <KTable2Columns>
                 <KTable2Column Width="1" Text="操作">
                     @{
-                        var row = context as dto收款单;
+                        var row = context as dto字典;
                         <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
                         <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
                         <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
                     }
                 </KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.单号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.类型))" Text="大类"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.小类))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.往来号))" Text="客户号"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.往来))" Text="客户名"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.日期))" Format="yyyy-MM-dd"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.收))" Text="金额"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单.备注))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典.字典号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典.字典名))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典.组号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典.组名))"></KTable2Column>
             </KTable2Columns>
         </KTable2>
     </div>
@@ -42,20 +38,10 @@
         <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                  CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
             <KTable2Columns>
-                <KTable2Column Field="@(nameof(dto收款单D.品号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.品名))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.型号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.规格))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.个数))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.数量))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.单位))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.单价))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.金额))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.已收款额))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.待收款额))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.可分配))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.分配金额))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto收款单D.备注))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典D.RN))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典D.编号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典D.名称))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto字典D.代码))"></KTable2Column>
             </KTable2Columns>
         </KTable2>
     </div>

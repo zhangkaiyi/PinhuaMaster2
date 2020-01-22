@@ -26,7 +26,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
     {
         protected dto收款单 main = new dto收款单();
 
-        protected KTable2 detailsTableDataSourceTable;
+        protected KTable2 detailsTable;
         protected List<dto收款单D> detailsTableDataSource { get; set; } = new List<dto收款单D>();
         protected dto收款单D detailsTableEditingRow { get; set; } = new dto收款单D();
 

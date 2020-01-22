@@ -64,6 +64,7 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
                         adding.品号 = PinhuaContext.funcAutoCode("商品号");
                     });
 
+                    PinhuaContext.SaveChanges();
                     transaction.Commit();
 
                     Navigation.NavigateTo(routeA);

@@ -23,7 +23,7 @@ namespace Pinhua2.Data
             context.Entry<TOriginal>(remote).State = EntityState.Added;
 
             //AfterNew?.Invoke(remote);
-            context.SaveChanges();
+            //context.SaveChanges();
             return remote;
         }
 

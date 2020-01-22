@@ -46,12 +46,12 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTableDataSourceTable"
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                 <KTable2Columns>
                     <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售报价D) + 1)</KTable2Column>
                     <KTable2Column Text="操作" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSourceTable.Remove(row as dto销售报价D)">移除</a>
+                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto销售报价D)">移除</a>
                         <a href="javascript:;" @onclick="e=>toEdit(row as dto销售报价D)">修改</a>
                     </KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售报价D.品号))"></KTable2Column>
@@ -80,7 +80,7 @@
 @code {
     protected dto销售报价 main = new dto销售报价();
 
-    protected KTable2 detailsTableDataSourceTable;
+    protected KTable2 detailsTable;
     protected List<dto销售报价D> detailsTableDataSource { get; set; } = new List<dto销售报价D>();
     protected dto销售报价D detailsTableEditingRow { get; set; } = new dto销售报价D();
 

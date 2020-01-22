@@ -22,8 +22,10 @@ using Newtonsoft.Json;
 
 namespace Pinhua2.BlazorApp.Pages.基础数据.字典
 {
-    public abstract class CBase : _CRUDBase
+    public abstract class UBase : _CRUDBase
     {
+        [Parameter] public int RecordId { get; set; }
+
         protected dto字典 main = new dto字典();
 
         protected KTable2 detailsTable;
@@ -33,6 +35,12 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.字典
         protected EditModal_字典明细 EditModal_字典明细;
 
         protected bool bInsert = false;
+        
+        protected override void OnInitialized()
+        {
+            main = Mapper.Map<dto字典>(PinhuaContext.tb_字典表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto字典D>(PinhuaContext.tb_字典表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();          
+        }
 
         protected void toSelect(IEnumerable<view_AllOrdersPay> items)
         {
@@ -77,21 +85,24 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.字典
             {
                 try
                 {
-                    var remote = PinhuaContext.RecordAdd<dto字典, tb_字典表>(main);
+                    PinhuaContext.RecordEdit<dto字典, tb_字典表>(main);
 
-                    if (PinhuaContext.SaveChanges() > 0)
+                    Action<dto字典D> adding = item =>
                     {
-                        foreach (var localD in detailsTableDataSource)
-                        {
-                            PinhuaContext.RecordDetailAdd<dto字典, dto字典D, tb_字典表, tb_字典表D>(remote, localD, BeforeNewD: beforeD =>
-                            {
-                                beforeD.字典号 = main.字典号;
-                                beforeD.组号 = main.组号;
-                            });
-                        }
-                        PinhuaContext.SaveChanges();
-                        transaction.Commit();
-                    }
+                        item.字典号 = main.字典号;
+                        item.组号 = main.组号;
+                    };
+
+                    Action<dto字典D> updating = item =>
+                    {
+                        item.字典号 = main.字典号;
+                        item.组号 = main.组号;
+                    };
+
+                    var remote = PinhuaContext.RecordDetailsEdit<dto字典, dto字典D, tb_字典表, tb_字典表D>(main, detailsTableDataSource, adding, updating);
+
+                    PinhuaContext.SaveChanges();
+                    transaction.Commit();
 
                     Navigation.NavigateTo(routeA);
                 }

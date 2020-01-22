@@ -37,13 +37,28 @@
                             <KInputNumber @bind-Value="main.面厚" Placeholder="请输入 ..." Readonly="false"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.单位)">
-                            <KInputDropdown @bind-Value="main.单位" Placeholder="请选择 ..." Items="dropdownUnits"></KInputDropdown>
+                            <KInputSelect @bind-Value="main.单位">
+                                @foreach (var item in dropdownUnits)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.分类1)">
-                            <KInputDropdown @bind-Value="main.分类1" Placeholder="请选择 ..." Items="dropdownCategory"></KInputDropdown>
+                            <KInputSelect @bind-Value="main.分类1">
+                                @foreach (var item in dropdownCategory)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(main.分类2)">
-                            <KInputDropdown @bind-Value="main.分类2" Placeholder="请选择 ..." Items="dropdownCategory"></KInputDropdown>
+                            <KInputSelect @bind-Value="main.分类2">
+                                @foreach (var item in dropdownCategory)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                     </KFormGroupContainer>
                 </div>
@@ -55,10 +70,10 @@
         <div class="col-md-6">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
                 <div>
-                    <button class="btn btn-secondary" @onclick="@(e=>Navigation.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 取消</button>
+                    <button type="button" class="btn btn-secondary" @onclick="@(e=>Navigation.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 取消</button>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-success" @onclick="@(e=>Navigation.NavigateTo($"{routeU}/{RecordId}"))"><i class="oi oi-check"></i> 确认修改</button>
+                    <button type="submit" class="btn btn-success"><i class="oi oi-check"></i> 确认修改</button>
                 </div>
             </div>
         </div>
