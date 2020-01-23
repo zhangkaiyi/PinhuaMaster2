@@ -4,7 +4,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <h3>收款单 - 新增</h3>
 </div>
-<KForm Model="main" OnValidSubmit="ValidSubmit" OnInvalidSubmit="InvalidSubmit">
+<KForm Model="main" OnValidSubmit="HandelValidSubmit">
     <div class="row">
         <div class="col-12">
             <div class="row">
@@ -27,16 +27,26 @@
                             <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
                         </KFormGroup>
                         <KFormGroup Label="大类">
-                            <KInputSelect @bind-Value="main.类型"></KInputSelect>
+                            <KInputSelect @bind-Value="main.类型">
+                                @foreach (var item in dropdownCategory1)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                         <KFormGroup Label="小类">
-                            <KInputSelect @bind-Value="main.小类"></KInputSelect>
+                            <KInputSelect @bind-Value="main.小类">
+                                @foreach (var item in dropdownCategory2)
+                                {
+                                    <option>@item</option>
+                                }
+                            </KInputSelect>
                         </KFormGroup>
                         <KFormGroup Label="金额">
                             <KInputNumber @bind-Value="main.收" Readonly="false"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="分配">
-                            <KInputNumber @bind-Value="main.分配"></KInputNumber>
+                            <KInputCompute @bind-Value="main.分配" ComputedValue="detailsTableDataSource.Sum(item=>item.分配金额)"></KInputCompute>
                         </KFormGroup>
                     </KFormGroupContainer>
                 </div>
@@ -47,19 +57,19 @@
     <div class="row">
         <div class="col">
             <div class="float-right mb-3">
-                <button type="button" class="btn btn-primary" @onclick="@(e => toInsert())">添加商品</button>
+                <button type="button" class="btn btn-primary" @onclick="@(e => NewRow())"><i class="oi oi-plus"></i> 添加</button>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+            <KTable2 DataSource="currentDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                 <KTable2Columns>
                     <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
                     <KTable2Column Text="操作" Width="1" Context="row">
-                        <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto收款单D)">移除</a>
-                        <a href="javascript:;" @onclick="e=>toEdit(row as dto收款单D)">修改</a>
+                        <a href="javascript:;" class="mr-1" @onclick="e=>RemoveRow(row as dto收款单D)">移除</a>
+                        <a href="javascript:;" @onclick="e=>EditRow(row as dto收款单D)">修改</a>
                     </KTable2Column>
                     <KTable2Column Field="@(nameof(dto收款单D.品号))" Text="品号"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto收款单D.品名))" Text="品名"></KTable2Column>
@@ -80,8 +90,8 @@
     </div>
     <div class="row">
         <div class="col">
-            <Modal_订单金额收付 @ref="Modal_订单金额收付" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersPay>())"></Modal_订单金额收付>
-            <EditModal_收款单明细 DataSource="detailsTableEditingRow" @ref="EditModal_收款单明细" OnOK="e=>saveChange(e)"></EditModal_收款单明细>
+            <Modal_订单金额收付 @ref="Modal_订单金额收付" FilterExpression="@(model=>model.往来号 == main.往来号)" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersPay>())"></Modal_订单金额收付>
+            <EditModal_收款单明细 DataSource="currentEditingRow" @ref="EditModal_收款单明细" OnOK="e=>SaveRow(e)"></EditModal_收款单明细>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存</button>

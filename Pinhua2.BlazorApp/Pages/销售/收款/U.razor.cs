@@ -22,8 +22,17 @@ using Newtonsoft.Json;
 
 namespace Pinhua2.BlazorApp.Pages.销售.收款
 {
-    public abstract class CBase : _CRUDBase
+    public abstract class UBase : _CRUDBase
     {
+        [Parameter] public int RecordId { get; set; }
+
+        protected override void OnInitialized()
+        {
+            dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main = Mapper.Map<dto收款单>(PinhuaContext.tb_收付表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+        }
+
         protected dto收款单 main = new dto收款单() { 类型 = "收款" };
 
         protected KTable2 detailsTable;
@@ -54,11 +63,6 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
         protected Modal_订单金额收付 Modal_订单金额收付;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
-
-        protected override void OnInitialized()
-        {
-            dropdownOptions = PinhuaContext.DropdownOptions_客户();
-        }
 
         protected bool IsNewRow = false;
 
@@ -125,9 +129,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
             {
                 try
                 {
-                    var remote = PinhuaContext.RecordAdd<dto收款单, tb_收付表>(main, creating =>
+                    var remote = PinhuaContext.RecordEdit<dto收款单, tb_收付表>(main, creating =>
                     {
-                        creating.单号 = PinhuaContext.funcAutoCode("订单号");
                         creating.类型 = "收款";
                         creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
                     });
@@ -136,10 +139,10 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
                     {
                         foreach (var localD in detailsTableDataSource)
                         {
-                            PinhuaContext.RecordDetailAdd<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(remote, localD, BeforeNewD: beforeD =>
+                            PinhuaContext.RecordDetailsEdit<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(main, currentDetails, adding =>
                             {
-                                if (string.IsNullOrEmpty(beforeD.子单号))
-                                    beforeD.子单号 = PinhuaContext.funcAutoCode("子单号");
+                                if (string.IsNullOrEmpty(adding.子单号))
+                                    adding.子单号 = PinhuaContext.funcAutoCode("子单号");
                                 else
                                 {
 

@@ -18,6 +18,7 @@ namespace Klazor
     public partial class KInputDatePicker : KInputBase<DateTime?>
     {
         [Parameter] public string Format { get; set; }
+        [Parameter] public bool EnablePicker { get; set; } = true;
 
         protected override string FormatValueAsString(DateTime? value)
         {

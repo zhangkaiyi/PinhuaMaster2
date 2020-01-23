@@ -162,22 +162,6 @@ namespace Klazor
 
         }
 
-        public void Add(object item)
-        {
-            Rows.Add(item);
-        }
-
-        public void Remove(object item)
-        {
-            Rows.Remove(item);
-        }
-
-        public void RemoveAt(int index)
-        {
-            var item = Rows.FirstOrDefault();
-            Rows.Remove(item);
-        }
-
         protected void RefreshSelectAllStatus()
         {
             if (Rows.Count == 0 || SelectedRows.Count == 0)

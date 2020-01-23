@@ -11,83 +11,43 @@ namespace Pinhua2.ViewModels
 {
     public class dto收款单 : _BaseTableMain
     {
-        [MyPriority(Priority.High)]
-        [CustomDisplay(10)]
-        [Display(Name = "大类")]
-        public string 类型 { get; set; }
-
-        [MyPriority(Priority.High)]
-        [CustomDisplay(15, ForCreate = true, ForUpdate = true)]
-        public string 小类 { get; set; }
-
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(5.2, ForCreate = true, ForUpdate = true)]
         public string 关联单号 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(5.1)]
         public string 单号 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [Required]
-        [CustomDisplay(25, ForIndex = false)]
-        [MyViewComponent("SelectForCompany")]
-        virtual public string 往来号 { get; set; }
+        [Display(Name = "客户")]
+        [Required] public string 往来号 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(26)]
-        [MyHiddenCreate]
-        public string 往来 { get; set; }
+        public  string 往来 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [Required]
-        [CustomDisplay(30.2)]
-        [MyEditable]
-        //[MyVue]
-        [MyVueVModel, MyVueVOn, MyVueVBind]
-        public decimal? 收 { get; set; }
+        [Required] public DateTime? 日期 { get; set; }
 
-        [Required]
-        [MyPriority(Priority.High)]
-        [CustomDisplay(30.1)]
-        public DateTime? 日期 { get; set; }
+        [Display(Name = "大类")]
+        [Required] public string 类型 { get; set; }
 
-        [MyPriority(Priority.Medium)]
-        [MyEditable]
-        public string 备注 { get; set; }
+        [Required] public string 小类 { get; set; }
 
-        [MyPriority(Priority.Medium)]
-        [CustomDisplay(30.3)]
-        public decimal? 分配 { get; set; }
+        [Display(Name = "金额")]
+        [Required] public decimal? 收 { get; set; }
 
-        [MyPriority(Priority.High)]
-        [CustomDisplay(ForIndex = false)]
-        [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
+        [Required] public decimal? 分配 { get; set; }
+
         public string 发票号 { get; set; }
+
+        public string 备注 { get; set; }
     }
 
     public class dto收款单D : _BaseProductDetail
     {
-        [CustomDisplay(10)]
-        [MyHiddenRef]
-        override public string 子单号 { get; set; }
-
-        [MyHiddenRef]
         public decimal? 个数 { get; set; }
-        [MyHiddenRef]
         public decimal? 数量 { get; set; }
-        [MyHiddenRef]
         public string 单位 { get; set; }
-        [MyHiddenRef]
         public decimal? 单价 { get; set; }
         public decimal? 金额 { get; set; }
         public decimal? 已收款额 { get; set; }
         public decimal? 待收款额 { get; set; }
-        [MyVueVBind]
         public decimal? 可分配 { get; set; }
-        [Required]
-        [MyEditable]
-        public decimal? 分配金额 { get; set; }
+        [Required] public decimal? 分配金额 { get; set; }
         public string 备注 { get; set; }
     }
 

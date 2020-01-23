@@ -7,11 +7,13 @@
            @bind="@currentValueAsString"
            @onfocus="@(e=>isVisible = true)"
            @onblur="@(e => isVisible = isMouseOver ? true : false)" />
-
-    <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
-                Visible="isVisible"
-                CloseText="关闭" ShowClose="true"
-                TodayText="今天" ShowToday="true"
-                ClearText="清空" ShowClear="false"
-                OnSelected="@Selected" />
+    @if (EnablePicker)
+    {
+        <DatePicker FormatProvider="@(CultureInfo.CurrentCulture)"
+                    Visible="isVisible"
+                    CloseText="关闭" ShowClose="true"
+                    TodayText="今天" ShowToday="true"
+                    ClearText="清空" ShowClear="false"
+                    OnSelected="@Selected" />
+    }
 </div>

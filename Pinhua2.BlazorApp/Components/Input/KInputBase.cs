@@ -14,7 +14,7 @@ using System.Globalization;
 
 namespace Klazor
 {
-    public abstract class KInputBase<TValue> : ComponentBase
+    public class KInputBase<TValue> : ComponentBase
     {
         protected string Classname => new CssBuilder("form-control")
             .AddClass(Class)
@@ -29,11 +29,11 @@ namespace Klazor
         [Parameter] public string Id { get; set; }
         [Parameter] public TValue Value { get; set; }
         [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+        [Parameter] public EventCallback OnValueChanged { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public bool? Readonly { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public string Placeholder { get; set; }
-        [Parameter] public virtual Func<TValue, string> Formatter { get; set; } = v => Convert.ToString(v);
 
         protected TValue currentValue
         {
@@ -42,6 +42,7 @@ namespace Klazor
             {
                 Value = value;
                 _ = ValueChanged.InvokeAsync(value);
+                _ = OnValueChanged.InvokeAsync(value);
             }
         }
 
