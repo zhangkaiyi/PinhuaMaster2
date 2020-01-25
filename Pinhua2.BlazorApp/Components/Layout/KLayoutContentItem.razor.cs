@@ -12,7 +12,6 @@ namespace Klazor
 {
     public partial class KLayoutContentItem : KComponentBase
     {
-        [CascadingParameter] public KLayoutContent Parent { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public RenderFragment Toolbar { get; set; }
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }

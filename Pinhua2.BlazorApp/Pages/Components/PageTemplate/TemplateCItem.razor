@@ -1,0 +1,17 @@
+﻿@namespace Piuhua2.Components.PageTemplate
+
+<div class="d-flex justify-content-end flex-wrap flex-md-nowrap align-items-center mb-3">
+    <button type="button" class="btn btn-primary" @onclick="@InsertButtonOnClick"><i class="oi oi-plus"></i> @InsertButtonTitle</button>
+</div>
+
+@ChildContent
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+    <div>
+        <button type="button" class="btn btn-secondary" @onclick="@CancelButtonOnClick"><i class="oi oi-arrow-thick-left"></i> @CancelButtonTitle</button>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success"><i class="oi oi-check"></i> @SubmitButtonTitle</button>
+    </div>
+</div>
+

@@ -3,9 +3,7 @@
 
 <KRow>
     <KCol MD="6">
-        <KLayoutContentItem Title="字典">
-            <Toolbar><button type="button" class="btn btn-primary" @onclick="@(e=>Navigation.NavigateTo(routeC))"><i class="oi oi-pencil"></i> 新增</button></Toolbar>
-            <ChildContent>
+        <TemplateAItem Title="字典" CreateButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
                 <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
                          OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                     <KTable2Columns>
@@ -23,11 +21,10 @@
                         <KTable2Column Width="500" Field="@(nameof(dto字典.组名))"></KTable2Column>
                     </KTable2Columns>
                 </KTable2>
-            </ChildContent>
-        </KLayoutContentItem>
+        </TemplateAItem>
     </KCol>
     <KCol MD="6">
-        <KLayoutContentItem Title="明细">
+        <TemplateAItem Title="明细">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                 <KTable2Columns>
@@ -36,6 +33,6 @@
                     <KTable2Column Width="500" Field="@(nameof(dto字典D.代码))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-        </KLayoutContentItem>
+        </TemplateAItem>
     </KCol>
 </KRow>

@@ -6,46 +6,38 @@
 </div>
 
 <KForm Model="main">
-    <div class="row">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <DataAnnotationsValidator />
-                    <KValidationSummary />
-                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
-                        <KFormGroup Label="@nameof(main.字典号)">
-                            <KInputText @bind-Value="main.字典号"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.字典名)">
-                            <KInputText @bind-Value="main.字典名"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.组号)">
-                            <KInputText @bind-Value="main.组号"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.组名)">
-                            <KInputText @bind-Value="main.组名"></KInputText>
-                        </KFormGroup>
-                    </KFormGroupContainer>
-                </div>
-            </div>
-        </div>
-    </div>
+    <KRow>
+        <KCol MD="6">
+            <DataAnnotationsValidator />
+            <KValidationSummary />
+            <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                <KFormGroup Label="@nameof(main.字典号)">
+                    <KInputText @bind-Value="main.字典号"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.字典名)">
+                    <KInputText @bind-Value="main.字典名"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.组号)">
+                    <KInputText @bind-Value="main.组号"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.组名)">
+                    <KInputText @bind-Value="main.组名"></KInputText>
+                </KFormGroup>
+            </KFormGroupContainer>
+        </KCol>
+    </KRow>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-12">
-                    <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
-                             CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
-                        <KTable2Columns>
-                            <KTable2Column Width="1" Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto字典D) + 1)</KTable2Column>
-                            <KTable2Column Width="500" Field="@(nameof(dto字典D.编号))"></KTable2Column>
-                            <KTable2Column Width="500" Field="@(nameof(dto字典D.名称))"></KTable2Column>
-                            <KTable2Column Width="500" Field="@(nameof(dto字典D.代码))"></KTable2Column>
-                        </KTable2Columns>
-                    </KTable2>
-                </div>
-            </div>
+    <KRow>
+        <KCol MD="6">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Width="1" Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto字典D) + 1)</KTable2Column>
+                    <KTable2Column Width="500" Field="@(nameof(dto字典D.编号))"></KTable2Column>
+                    <KTable2Column Width="500" Field="@(nameof(dto字典D.名称))"></KTable2Column>
+                    <KTable2Column Width="500" Field="@(nameof(dto字典D.代码))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
                 <div>
                     <button class="btn btn-secondary" @onclick="@(e=>NavigationManager.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 取消</button>
@@ -54,8 +46,8 @@
                     <button class="btn btn-danger" type="button" @onclick="toDelete"><i class="oi oi-trash"></i> 确认删除</button>
                 </div>
             </div>
-        </div>
-    </div>
+        </KCol>
+    </KRow>
 </KForm>
 
 
