@@ -10,10 +10,13 @@ using Pinhua2.Common.Attributes;
 
 namespace Klazor
 {
-    public partial class KLayoutColContent : KComponentBase
+    public partial class KLayoutContentItem : KComponentBase
     {
-        [Parameter] public RenderFragment ColContent1 { get; set; }
+        [CascadingParameter] public KLayoutContent Parent { get; set; }
+        [Parameter] public RenderFragment ChildContent { get; set; }
+        [Parameter] public RenderFragment Toolbar { get; set; }
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
-
+        [Parameter] public string Title { get; set; }
+        [Parameter] public int? Size { get; set; } = 12;
     }
 }
