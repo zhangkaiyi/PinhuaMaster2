@@ -1,0 +1,19 @@
+﻿@namespace Klazor
+@inherits KComponentBase
+
+<CascadingValue Value="this">
+    <div class="row">
+        @if (ColContent1 != null)
+        {
+            <div class="col-md-6">
+                @ColContent1
+            </div>
+        }
+        @if (ColContent2 != null)
+        {
+            <div class="col-md-6">
+                @ColContent2
+            </div>
+        }
+    </div>
+</CascadingValue>

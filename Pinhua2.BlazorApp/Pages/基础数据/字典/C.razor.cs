@@ -77,20 +77,21 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.字典
             {
                 try
                 {
-                    var remote = PinhuaContext.RecordAdd<dto字典, tb_字典表>(main);
-
-                    if (PinhuaContext.SaveChanges() > 0)
+                    var bAdd1 = PinhuaContext.TryRecordAdd<dto字典, tb_字典表>(main);
+                    if (bAdd1)
                     {
-                        foreach (var localD in detailsTableDataSource)
+                        var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto字典, dto字典D, tb_字典表, tb_字典表D>(main, detailsTableDataSource, adding =>
                         {
-                            PinhuaContext.RecordDetailAdd<dto字典, dto字典D, tb_字典表, tb_字典表D>(remote, localD, BeforeNewD: beforeD =>
+                            foreach(var item in detailsTableDataSource)
                             {
-                                beforeD.字典号 = main.字典号;
-                                beforeD.组号 = main.组号;
-                            });
+                                item.字典号 = main.字典号;
+                                item.组号 = main.组号;
+                            }
+                        });
+                        if (bAdd2)
+                        {
+                            transaction.Commit();
                         }
-                        PinhuaContext.SaveChanges();
-                        transaction.Commit();
                     }
 
                     Navigation.NavigateTo(routeA);

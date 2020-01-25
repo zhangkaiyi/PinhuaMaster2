@@ -11,72 +11,170 @@ namespace Pinhua2.Data
 {
     public static class RecordEditExtension
     {
-        public static TOriginal RecordEdit<TDto, TOriginal>(this Pinhua2Context context, TDto dto,
-            Action<TDto> Editing = null/*, Action<TRemote> AfterNew = null*/)
-            where TDto : _BaseTableMain
-            where TOriginal : _BaseTableMain
+        public static TDst RecordEdit<TSrc, TDst>(this Pinhua2Context context, TSrc src,
+            Action<TSrc> Editing = null/*, Action<TRemote> AfterNew = null*/)
+            where TSrc : _BaseTableMain
+            where TDst : _BaseTableMain
         {
-            var original = context.Set<TOriginal>().FirstOrDefault(m => m.RecordId == dto.RecordId);
-            if (original == null)
+            var dst = context.Set<TDst>().FirstOrDefault(m => m.RecordId == src.RecordId);
+            if (dst == null)
                 return null;
 
-            Editing?.Invoke(dto);
+            Editing?.Invoke(src);
 
-            dto.CreateTime = original.CreateTime;
-            dto.CreateUser = original.CreateUser;
-            dto.LastEditTime = DateTime.Now;
-            dto.LastEditUser = dto.LastEditUser ?? "张凯译";
+            src.CreateTime = dst.CreateTime;
+            src.CreateUser = dst.CreateUser;
+            src.LastEditTime = DateTime.Now;
+            src.LastEditUser = src.LastEditUser ?? "张凯译";
 
-            StaticAutoMapper.Current.Map<TDto, TOriginal>(dto, original);
-            context.Entry<TOriginal>(original).State = EntityState.Modified;
+            StaticAutoMapper.Current.Map<TSrc, TDst>(src, dst);
+            context.Entry<TDst>(dst).State = EntityState.Modified;
             context.SaveChanges();
 
-            return original;
+            return dst;
         }
 
-        public static IQueryable<TOriginalD> RecordDetailsEdit<TDto, TDtoD, TOriginal, TOriginalD>(this Pinhua2Context context, TDto dto, IList<TDtoD> dtoDs,
-            Action<TDtoD> Adding = null, Action<TDtoD> Updating = null, Action<TOriginalD> Deleting = null)
-            where TDto : _BaseTableMain
-            where TDtoD : _BaseTableDetail
-            where TOriginal : _BaseTableMain
-            where TOriginalD : _BaseTableDetail
+        public static bool TryRecordEdit<TSrc, TDst>(this Pinhua2Context context, TSrc src, out TDst outDst, Action<TSrc> Editing = null)
+        where TSrc : _BaseTableMain
+        where TDst : _BaseTableMain
         {
-            var original = context.Set<TOriginal>().AsNoTracking().FirstOrDefault(r => r.RecordId == dto.RecordId);
-            if (original == null)
+            var dst = context.Set<TDst>().FirstOrDefault(m => m.RecordId == src.RecordId);
+            if (dst == null)
+            {
+                outDst = null;
+                return false;
+            }
+
+            Editing?.Invoke(src);
+
+            src.CreateTime = dst.CreateTime;
+            src.CreateUser = dst.CreateUser;
+            src.LastEditTime = DateTime.Now;
+            src.LastEditUser = src.LastEditUser ?? "张凯译";
+
+            StaticAutoMapper.Current.Map<TSrc, TDst>(src, dst);
+            context.Entry<TDst>(dst).State = EntityState.Modified;
+            var ret = context.SaveChanges();
+
+            if (ret > 0)
+            {
+                outDst = dst;
+                return true;
+            }
+            else
+            {
+                outDst = null;
+                return false;
+            }
+        }
+
+        public static IQueryable<TDstD> RecordDetailsEdit<TSrc, TSrcD, TDst, TDstD>(this Pinhua2Context context, TSrc dto, IList<TSrcD> srcDSet,
+            Action<TSrcD> Adding = null, Action<TSrcD> Updating = null, Action<TDstD> Deleting = null)
+            where TSrc : _BaseTableMain
+            where TSrcD : _BaseTableDetail
+            where TDst : _BaseTableMain
+            where TDstD : _BaseTableDetail
+        {
+            var dst = context.Set<TDst>().AsNoTracking().FirstOrDefault(r => r.RecordId == dto.RecordId);
+            if (dst == null)
                 return null;
 
-            var originalDs = context.Set<TOriginalD>().Where(d => d.RecordId == original.RecordId);
-            foreach (var originalD in originalDs)
+            var dstDSet = context.Set<TDstD>().Where(d => d.RecordId == dst.RecordId);
+            foreach (var DstD in dstDSet)
             {
-                if (!dtoDs.Any(p => p.Idx == originalD.Idx)) // 新列表没有数据库中的Idx，则删除
+                if (!srcDSet.Any(p => p.Idx == DstD.Idx)) // 新列表没有数据库中的Idx，则删除
                 {
-                    Deleting?.Invoke(originalD);
-                    context.Remove<TOriginalD>(originalD);
+                    Deleting?.Invoke(DstD);
+                    context.Remove<TDstD>(DstD);
                 }
             }
 
-            foreach (var dtoD in dtoDs)
+            foreach (var srcD in srcDSet)
             {
-                dtoD.RecordId = original.RecordId;
+                srcD.RecordId = dst.RecordId;
 
-                if (originalDs.Any(d => d.Idx == dtoD.Idx)) // Idx有相同的，则修改
+                if (dstDSet.Any(d => d.Idx == srcD.Idx)) // Idx有相同的，则修改
                 {
-                    Updating?.Invoke(dtoD);
+                    Updating?.Invoke(srcD);
 
                     // 将删除的重新标记为修改
-                    var originalD = originalDs.FirstOrDefault(m => m.Idx == dtoD.Idx);
-                    context.Attach<TOriginalD>(originalD).State = EntityState.Modified;
-                    StaticAutoMapper.Current.Map<TDtoD, TOriginalD>(dtoD, originalD);
+                    var dstD = dstDSet.FirstOrDefault(m => m.Idx == srcD.Idx);
+                    context.Attach<TDstD>(dstD).State = EntityState.Modified;
+                    StaticAutoMapper.Current.Map<TSrcD, TDstD>(srcD, dstD);
                 }
-                else if (!originalDs.Any(d => d.Idx == dtoD.Idx)) // Idx没有相同的，则添加
+                else if (!dstDSet.Any(d => d.Idx == srcD.Idx)) // Idx没有相同的，则添加
                 {
-                    Adding?.Invoke(dtoD);
-                    var remoteD = StaticAutoMapper.Current.Map<TOriginalD>(dtoD);
-                    context.Attach<TOriginalD>(remoteD).State = EntityState.Added;
+                    Adding?.Invoke(srcD);
+                    var dstD = StaticAutoMapper.Current.Map<TDstD>(srcD);
+                    context.Attach<TDstD>(dstD).State = EntityState.Added;
                 }
             }
 
-            return originalDs;
+            return dstDSet;
+        }
+
+        public static bool TryRecordDetailsEdit<TSrc, TSrcD, TDst, TDstD>(this Pinhua2Context context, TSrc dto, IEnumerable<TSrcD> srcDSet,
+            out IEnumerable<TDstD> outDstDSet, Action<TSrcD> Adding = null, Action<TSrcD> Updating = null, Action<TDstD> Deleting = null)
+            where TSrc : _BaseTableMain
+            where TSrcD : _BaseTableDetail
+            where TDst : _BaseTableMain
+            where TDstD : _BaseTableDetail
+        {
+            var dst = context.Set<TDst>().AsNoTracking().FirstOrDefault(r => r.RecordId == dto.RecordId);
+            if (dst == null)
+            {
+                outDstDSet = null;
+                return false;
+            }
+
+            var dstDSet = context.Set<TDstD>().Where(d => d.RecordId == dst.RecordId);
+
+            if (!srcDSet.Any())
+            {
+                outDstDSet = dstDSet;
+                return true;
+            }
+
+            foreach (var DstD in dstDSet)
+            {
+                if (!srcDSet.Any(p => p.Idx == DstD.Idx)) // 新列表没有数据库中的Idx，则删除
+                {
+                    Deleting?.Invoke(DstD);
+                    context.Remove<TDstD>(DstD);
+                }
+            }
+
+            foreach (var srcD in srcDSet)
+            {
+                srcD.RecordId = dst.RecordId;
+
+                if (dstDSet.Any(d => d.Idx == srcD.Idx)) // Idx有相同的，则修改
+                {
+                    Updating?.Invoke(srcD);
+
+                    // 将删除的重新标记为修改
+                    var dstD = dstDSet.FirstOrDefault(m => m.Idx == srcD.Idx);
+                    context.Attach<TDstD>(dstD).State = EntityState.Modified;
+                    StaticAutoMapper.Current.Map<TSrcD, TDstD>(srcD, dstD);
+                }
+                else if (!dstDSet.Any(d => d.Idx == srcD.Idx)) // Idx没有相同的，则添加
+                {
+                    Adding?.Invoke(srcD);
+                    var dstD = StaticAutoMapper.Current.Map<TDstD>(srcD);
+                    context.Attach<TDstD>(dstD).State = EntityState.Added;
+                }
+            }
+
+            if (context.SaveChanges() > 0)
+            {
+                outDstDSet = dstDSet.AsEnumerable<TDstD>();
+                return true;
+            }
+            else
+            {
+                outDstDSet = null;
+                return false;
+            }
         }
 
         public static IQueryable<TRemoteD> RecordDetailsEdit2<TLocal, TLocalD, TRemote, TRemoteD>(this Pinhua2Context context, TLocal _local, IList<TLocalD> _localDs,/*TRemote remote, IList<TRemoteD> _remoteDs,*/
