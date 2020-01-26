@@ -1,14 +1,9 @@
 ﻿@inherits RBase
 @page "/基础数据/字典/查看/{RecordId:int}"
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>字典 - 查看</h3>
-</div>
-<KForm Model="main">
-    <KRow>
-        <KCol MD="6">
-            <DataAnnotationsValidator />
-            <KValidationSummary />
+<KRow>
+    <KCol MD="6">
+        <PageTemplateItem Title="字典 - 查看">
             <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                 <KFormGroup Label="@nameof(main.字典号)">
                     <KInputText @bind-Value="main.字典号"></KInputText>
@@ -23,11 +18,14 @@
                     <KInputText @bind-Value="main.组名"></KInputText>
                 </KFormGroup>
             </KFormGroupContainer>
-        </KCol>
-    </KRow>
+        </PageTemplateItem>
 
-    <KRow>
-        <KCol MD="6">
+        <PageTemplateItem Title="明细"
+                          HasBottomLeftButton="true" BottomLeftButtonTitle="返回"
+                          BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
+                          HasBottomRightButton="true" BottomRightButtonTitle="修改"
+                          BottomRightButtonOnClick="@(e=>Navigation.NavigateTo($"{routeU}/{RecordId}"))"
+                          BottomRightButtonColor="Color.Primary">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                 <KTable2Columns>
@@ -37,15 +35,8 @@
                     <KTable2Column Width="500" Field="@(nameof(dto字典D.代码))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-                <div>
-                    <button class="btn btn-secondary" @onclick="@(e=>Navigation.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
-                </div>
-                <div>
-                    <button class="btn btn-primary" @onclick="@(e=>Navigation.NavigateTo($"{routeU}/{RecordId}"))"><i class="oi oi-pencil"></i> 修改</button>
-                </div>
-            </div>
-        </KCol>
-    </KRow>
-</KForm>
+        </PageTemplateItem>
+
+    </KCol>
+</KRow>
 

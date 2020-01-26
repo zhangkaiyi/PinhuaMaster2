@@ -3,7 +3,7 @@
 
 <KRow>
     <KCol MD="6">
-        <TemplateAItem Title="字典" CreateButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
+        <PageTemplateItem Title="字典" HasTopRightButton="true" TopRightButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
                 <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
                          OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                     <KTable2Columns>
@@ -21,10 +21,10 @@
                         <KTable2Column Width="500" Field="@(nameof(dto字典.组名))"></KTable2Column>
                     </KTable2Columns>
                 </KTable2>
-        </TemplateAItem>
+        </PageTemplateItem>
     </KCol>
     <KCol MD="6">
-        <TemplateAItem Title="明细">
+        <PageTemplateItem Title="明细">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                 <KTable2Columns>
@@ -33,6 +33,6 @@
                     <KTable2Column Width="500" Field="@(nameof(dto字典D.代码))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-        </TemplateAItem>
+        </PageTemplateItem>
     </KCol>
 </KRow>

@@ -1,51 +1,47 @@
 ﻿@inherits DBase
 @page "/销售/收款/删除/{RecordId:int}"
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>收款单 - 删除</h3>
-</div>
-
-<KForm Model="main">
-    <div class="row">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
-                        <KFormGroup Label="@nameof(main.单号)">
-                            <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.往来号)">
-                            <KInputText @bind-Value="main.往来号"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.往来)">
-                            <KInputText @bind-Value="main.往来"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.日期)">
-                            <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
-                        </KFormGroup>
-                        <KFormGroup Label="大类">
-                            <KInputText @bind-Value="main.类型"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="小类">
-                            <KInputText @bind-Value="main.小类"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="金额">
-                            <KInputNumber @bind-Value="main.收"></KInputNumber>
-                        </KFormGroup>
-                        <KFormGroup Label="分配">
-                            <KInputNumber @bind-Value="main.分配"></KInputNumber>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.备注)">
-                            <KInputText @bind-Value="main.备注"></KInputText>
-                        </KFormGroup>
-                    </KFormGroupContainer>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
+<KRow>
+    <KCol MD="6">
+        <PageTemplateItem Title="收款单 - 删除">
+            <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                <KFormGroup Label="@nameof(main.单号)">
+                    <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.往来号)">
+                    <KInputText @bind-Value="main.往来号"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.往来)">
+                    <KInputText @bind-Value="main.往来"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.日期)">
+                    <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                </KFormGroup>
+                <KFormGroup Label="大类">
+                    <KInputText @bind-Value="main.类型"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="小类">
+                    <KInputText @bind-Value="main.小类"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="金额">
+                    <KInputNumber @bind-Value="main.收"></KInputNumber>
+                </KFormGroup>
+                <KFormGroup Label="分配">
+                    <KInputNumber @bind-Value="main.分配"></KInputNumber>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.备注)">
+                    <KInputText @bind-Value="main.备注"></KInputText>
+                </KFormGroup>
+            </KFormGroupContainer>
+        </PageTemplateItem>
+    </KCol>
+</KRow>
+<KRow>
+    <KCol>
+        <PageTemplateItem Title="明细"
+                          HasBottomLeftButton="true" BottomLeftButtonOnClick="@(e=>NavigationManager.NavigateTo(routeA))"
+                          HasBottomRightButton="true" BottomRightButtonTitle="确认删除"
+                          BottomRightButtonColor="Color.Danger" BottomRightButtonOnClick="@toDelete">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                 <KTable2Columns>
                     <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
@@ -65,15 +61,6 @@
                     <KTable2Column Field="@(nameof(dto收款单D.分配金额))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-        </div>
-    </div>
-</KForm>
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <div>
-        <button class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
-    </div>
-    <div>
-        <button class="btn btn-primary" type="button" @onclick="toDelete"><i class="oi oi-trash"></i> 确认删除</button>
-    </div>
-</div>
+        </PageTemplateItem>
+    </KCol>
+</KRow>

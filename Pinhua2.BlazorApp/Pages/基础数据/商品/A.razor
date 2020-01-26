@@ -1,33 +1,26 @@
 ﻿@inherits ABase
 @page "/基础数据/商品"
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>商品</h3>
-    <div>
-        <button type="button" class="btn btn-primary" @onclick="@(e=>Navigation.NavigateTo(routeC))"><i class="oi oi-pencil"></i> 新增</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-                 OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
-            <KTable2Columns>
-                <KTable2Column Width="1" Text="操作">
-                    @{
-                        var row = context as dto商品;
-                        <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
-                        <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
-                        <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
-                    }
-                </KTable2Column>
-                <KTable2Column Field="@(nameof(dto商品.分类1))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto商品.分类2))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto商品.品号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto商品.品名))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto商品.型号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto商品.规格))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto商品.备注))"></KTable2Column>
-            </KTable2Columns>
-        </KTable2>
-    </div>
-</div>
+<PageTemplateItem Title="商品"
+                  HasTopRightButton="true" TopRightButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
+    <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+             OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+        <KTable2Columns>
+            <KTable2Column Width="1" Text="操作">
+                @{
+                    var row = context as dto商品;
+                    <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
+                    <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
+                    <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
+                }
+            </KTable2Column>
+            <KTable2Column Field="@(nameof(dto商品.分类1))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto商品.分类2))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto商品.品号))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto商品.品名))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto商品.型号))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto商品.规格))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto商品.备注))"></KTable2Column>
+        </KTable2Columns>
+    </KTable2>
+</PageTemplateItem>

@@ -1,35 +1,35 @@
 ﻿@inherits CBase
 @page "/基础数据/字典/新增"
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>字典 - 新增</h3>
-</div>
 <KForm Model="main" OnValidSubmit="ValidSubmit" OnInvalidSubmit="InvalidSubmit">
     <KRow>
         <KCol MD="6">
-            <DataAnnotationsValidator />
-            <KValidationSummary />
-            <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
-                <KFormGroup Label="@nameof(main.字典号)">
-                    <KInputText @bind-Value="main.字典号" Placeholder="请输入 ..." Readonly="false"></KInputText>
-                </KFormGroup>
-                <KFormGroup Label="@nameof(main.字典名)">
-                    <KInputText @bind-Value="main.字典名" Placeholder="请输入 ..." Readonly="false"></KInputText>
-                </KFormGroup>
-                <KFormGroup Label="@nameof(main.组号)">
-                    <KInputText @bind-Value="main.组号" Placeholder="请输入 ..." Readonly="false"></KInputText>
-                </KFormGroup>
-                <KFormGroup Label="@nameof(main.组名)">
-                    <KInputText @bind-Value="main.组名" Placeholder="请输入 ..." Readonly="false"></KInputText>
-                </KFormGroup>
-            </KFormGroupContainer>
+            <PageTemplateItem Title="字典 - 新增">
+                <DataAnnotationsValidator />
+                <KValidationSummary />
+                <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                    <KFormGroup Label="@nameof(main.字典号)">
+                        <KInputText @bind-Value="main.字典号" Placeholder="请输入 ..." Readonly="false"></KInputText>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.字典名)">
+                        <KInputText @bind-Value="main.字典名" Placeholder="请输入 ..." Readonly="false"></KInputText>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.组号)">
+                        <KInputText @bind-Value="main.组号" Placeholder="请输入 ..." Readonly="false"></KInputText>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.组名)">
+                        <KInputText @bind-Value="main.组名" Placeholder="请输入 ..." Readonly="false"></KInputText>
+                    </KFormGroup>
+                </KFormGroupContainer>
+            </PageTemplateItem>
         </KCol>
     </KRow>
     <KRow>
         <KCol MD="6">
-            <TemplateCItem InsertButtonTitle="添加" InsertButtonOnClick="@(e => toInsert())"
-                           CancelButtonTitle="返回" CancelButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
-                           SubmitButtonTitle="保存">
+            <PageTemplateItem Title="明细"
+                           HasTopRightButton="true" TopRightButtonTitle="添加" TopRightButtonOnClick="@(e => toInsert())"
+                           HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
+                           HasBottomRightButton="true" BottomRightButtonTitle="保存" BottomRightButtonSubmit="true">
                 <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                          CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                     <KTable2Columns>
@@ -43,7 +43,7 @@
                         <KTable2Column Width="500" Field="@(nameof(dto字典D.代码))"></KTable2Column>
                     </KTable2Columns>
                 </KTable2>
-            </TemplateCItem>
+            </PageTemplateItem>
 
         </KCol>
     </KRow>

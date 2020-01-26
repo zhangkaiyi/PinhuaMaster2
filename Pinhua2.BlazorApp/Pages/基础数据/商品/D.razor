@@ -1,68 +1,48 @@
 ﻿@inherits DBase
 @page "/基础数据/商品/删除/{RecordId:int}"
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>商品 - 删除</h3>
-</div>
-
-<KForm Model="main">
-    <div class="row">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <DataAnnotationsValidator />
-                    <KValidationSummary />
-                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
-                        <KFormGroup Label="@nameof(main.品号)">
-                            <KInputText @bind-Value="main.品号" Placeholder="自动生成 ..."></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.品名)">
-                            <KInputText @bind-Value="main.品名"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.型号)">
-                            <KInputText @bind-Value="main.型号"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.规格)">
-                            <KInputText @bind-Value="main.规格"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.长度)">
-                            <KInputNumber @bind-Value="main.长度"></KInputNumber>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.宽度)">
-                            <KInputNumber @bind-Value="main.宽度"></KInputNumber>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.高度)">
-                            <KInputNumber @bind-Value="main.高度"></KInputNumber>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.面厚)">
-                            <KInputNumber @bind-Value="main.面厚"></KInputNumber>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.单位)">
-                            <KInputText @bind-Value="main.单位"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.分类1)">
-                            <KInputText @bind-Value="main.分类1"></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.分类2)">
-                            <KInputText @bind-Value="main.分类2"></KInputText>
-                        </KFormGroup>
-                    </KFormGroupContainer>
-                </div>
-            </div>
-        </div>
-    </div>
-</KForm>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-            <div>
-                <button class="btn btn-secondary" @onclick="@(e=>NavigationManager.NavigateTo(routeA))"><i class="oi oi-arrow-thick-left"></i> 取消</button>
-            </div>
-            <div>
-                <button class="btn btn-danger" type="button" @onclick="toDelete"><i class="oi oi-trash"></i> 确认删除</button>
-            </div>
-        </div>
-    </div>
-</div>
+<KRow>
+    <KCol MD="6">
+        <PageTemplateItem Title="商品 - 删除"
+                          HasBottomLeftButton="true" BottomLeftButtonOnClick="@(e=>NavigationManager.NavigateTo(routeA))"
+                          HasBottomRightButton="true" BottomRightButtonTitle="确认删除" 
+                          BottomRightButtonColor="Color.Danger" BottomRightButtonOnClick="@toDelete">
+            <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                <KFormGroup Label="@nameof(main.品号)">
+                    <KInputText @bind-Value="main.品号" Placeholder="自动生成 ..."></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.品名)">
+                    <KInputText @bind-Value="main.品名"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.型号)">
+                    <KInputText @bind-Value="main.型号"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.规格)">
+                    <KInputText @bind-Value="main.规格"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.长度)">
+                    <KInputNumber @bind-Value="main.长度"></KInputNumber>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.宽度)">
+                    <KInputNumber @bind-Value="main.宽度"></KInputNumber>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.高度)">
+                    <KInputNumber @bind-Value="main.高度"></KInputNumber>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.面厚)">
+                    <KInputNumber @bind-Value="main.面厚"></KInputNumber>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.单位)">
+                    <KInputText @bind-Value="main.单位"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.分类1)">
+                    <KInputText @bind-Value="main.分类1"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.分类2)">
+                    <KInputText @bind-Value="main.分类2"></KInputText>
+                </KFormGroup>
+            </KFormGroupContainer>
+        </PageTemplateItem>
+    </KCol>
+</KRow>
 
