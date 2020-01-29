@@ -1,0 +1,46 @@
+﻿@inherits ABase
+@page "/采购/申请/"
+
+<KRow>
+    <KCol>
+        <PageTemplateItem Title="采购申请"
+                          HasTopRightButton="true" TopRightButtonTitle="新增" TopRightButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
+            <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                     OnRowClicked="@HandleRowClicked" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Width="1" Text="操作">
+                        @{
+                        var row = context as dto采购申请;
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
+                        }
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请.单号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请.业务类型))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请.往来单号))" Text="客户单号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请.交期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItem>
+
+        <PageTemplateItem Title="明细">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Field="@(nameof(dto采购申请D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.备注))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.状态))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItem>
+    </KCol>
+</KRow>

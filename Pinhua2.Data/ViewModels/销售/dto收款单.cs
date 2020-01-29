@@ -15,7 +15,6 @@ namespace Pinhua2.ViewModels
 
         public string 单号 { get; set; }
 
-        [Display(Name = "客户")]
         [Required] public string 往来号 { get; set; }
 
         public  string 往来 { get; set; }

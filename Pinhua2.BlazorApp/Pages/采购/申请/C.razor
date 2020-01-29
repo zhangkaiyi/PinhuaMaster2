@@ -1,0 +1,62 @@
+﻿@inherits CBase
+@page "/采购/申请/新增"
+
+<KForm Model="main" OnValidSubmit="HandleValidSubmit">
+    <KRow>
+        <KCol MD="6">
+            <PageTemplateItem Title="采购申请 - 新增">
+                <DataAnnotationsValidator />
+                <KValidationSummary />
+                <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                    <KFormGroup Label="@nameof(main.单号)">
+                        <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                    </KFormGroup>
+                    <KFormGroup Label="客户单号">
+                        <KInputText @bind-Value="main.往来单号" Readonly="false"></KInputText>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.日期)">
+                        <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.交期)">
+                        <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.备注)">
+                        <KInputText @bind-Value="main.备注" Readonly="false"></KInputText>
+                    </KFormGroup>
+                </KFormGroupContainer>
+            </PageTemplateItem>
+        </KCol>
+    </KRow>
+    <KRow>
+        <KCol>
+            <PageTemplateItem Title="明细"
+                              HasTopRightButton="true" TopRightButtonTitle="添加" TopRightButtonOnClick="@(e => toInsert())"
+                              HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
+                              HasBottomRightButton="true" BottomRightButtonTitle="保存" BottomRightButtonSubmit="true">
+                <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                         CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                    <KTable2Columns>
+                        <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto采购申请D) + 1)</KTable2Column>
+                        <KTable2Column Text="操作" Width="1" Context="row">
+                            <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto采购申请D)">移除</a>
+                            <a href="javascript:;" @onclick="e=>toEdit(row as dto采购申请D)">修改</a>
+                        </KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.品号))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.品名))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.型号))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.规格))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.个数))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.数量))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.单位))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.单价))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.金额))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购申请D.备注))"></KTable2Column>
+                    </KTable2Columns>
+                </KTable2>
+            </PageTemplateItem>
+        </KCol>
+    </KRow>
+</KForm>
+
+<Modal_商品列表 @ref="Modal" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto采购申请D>())"></Modal_商品列表>
+<EditModal_采购申请D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购申请D>

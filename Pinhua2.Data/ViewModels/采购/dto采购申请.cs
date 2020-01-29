@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.ViewModels
 {
-    public class vm_采购申请 : _BaseTableMain
+    public class dto采购申请 : _BaseTableMain
     {
         [MyPriority(Priority.High)]
         public string 单号 { get; set; }
@@ -31,7 +31,7 @@ namespace Pinhua2.ViewModels
         public string 备注 { get; set; }
     }
 
-    public class vm_采购申请D : _BaseProductDetail
+    public class dto采购申请D : _BaseProductDetail
     {
         public decimal? 库存 { get; set; }
         public string 单位 { get; set; }
@@ -49,13 +49,13 @@ namespace Pinhua2.ViewModels
     {
         public 采购申请Profile()
         {
-            CreateMap<tb_需求表, vm_采购申请>();
+            CreateMap<tb_需求表, dto采购申请>();
             //.ForMember(dst => dst.报价单, map => map.MapFrom(src => src.报价单));
-            CreateMap<vm_采购申请, tb_需求表>();
+            CreateMap<dto采购申请, tb_需求表>();
 
 
-            CreateMap<tb_需求表D, vm_采购申请D>();
-            CreateMap<vm_采购申请D, tb_需求表D>()
+            CreateMap<tb_需求表D, dto采购申请D>();
+            CreateMap<dto采购申请D, tb_需求表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }

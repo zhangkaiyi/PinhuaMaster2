@@ -1,0 +1,50 @@
+﻿@inherits ABase
+@page "/采购/付款/"
+
+<PageTemplateItem Title="付款单"
+                  HasTopRightButton="true" TopRightButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
+    <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+             OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+        <KTable2Columns>
+            <KTable2Column Width="1" Text="操作">
+                @{
+                            var row = context as dto付款单;
+                    <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
+                    <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
+                    <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
+                }
+            </KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.单号))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.类型))" Text="大类"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.小类))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.往来号))" Text="客户号"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.往来))" Text="客户名"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.日期))" Format="yyyy-MM-dd"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.付))" Text="金额"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单.备注))"></KTable2Column>
+        </KTable2Columns>
+    </KTable2>
+</PageTemplateItem>
+
+<PageTemplateItem Title="明细">
+    <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+             CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+        <KTable2Columns>
+            <KTable2Column Field="@(nameof(dto付款单D.品号))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.品名))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.型号))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.规格))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.个数))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.数量))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.单位))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.单价))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.金额))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.已付款额))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.待付款额))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.可分配))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.分配金额))"></KTable2Column>
+            <KTable2Column Field="@(nameof(dto付款单D.备注))"></KTable2Column>
+        </KTable2Columns>
+    </KTable2>
+</PageTemplateItem>
+

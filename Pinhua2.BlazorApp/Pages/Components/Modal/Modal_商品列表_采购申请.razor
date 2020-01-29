@@ -1,0 +1,21 @@
+﻿@namespace Piuhua2.Components.Modal
+
+<KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
+    <KModalHeader>采购申请</KModalHeader>
+    <KModalBody>
+        <KTable2 DataSource="products" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
+                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+            <KTable2Columns>
+                <KTable2Column Field="@(nameof(dto采购申请D.品号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto采购申请D.品名))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto采购申请D.型号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto采购申请D.规格))"></KTable2Column>
+                <KTable2Column Field="@(nameof(dto采购申请D.备注))"></KTable2Column>
+            </KTable2Columns>
+        </KTable2>
+    </KModalBody>
+    <KModalFooter>
+        <button type="button" class="btn btn-secondary" @onclick="Cancel">取消</button>
+        <button type="button" class="btn btn-primary" @onclick="OK">选择</button>
+    </KModalFooter>
+</KModal>

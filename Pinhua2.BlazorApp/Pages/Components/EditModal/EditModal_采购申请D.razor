@@ -1,0 +1,49 @@
+﻿@namespace Piuhua2.Components.Modal
+
+<KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
+    <KModalHeader>修改</KModalHeader>
+    <KModalBody>
+        <KForm Model="currentDataSource">
+            <div class="row">
+                <div class="col-md-12">
+                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                        <KFormGroup Label="@nameof(currentDataSource.品号)">
+                            <KInputText @bind-Value="@currentDataSource.品号"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.品名)">
+                            <KInputText @bind-Value="@currentDataSource.品名"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.型号)">
+                            <KInputText @bind-Value="@currentDataSource.型号"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.规格)">
+                            <KInputText @bind-Value="@currentDataSource.规格"></KInputText>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.个数)">
+                            <KInputNumber @bind-Value="@currentDataSource.个数" Readonly="false"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.数量)">
+                            <KInputCompute @bind-Value="@currentDataSource.数量" ComputedValue="@computedQuantity"></KInputCompute>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.单位)">
+                            <KInputDropdown @bind-Value="@currentDataSource.单位" Items="dropdownItems"></KInputDropdown>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.单价)">
+                            <KInputNumber @bind-Value="@currentDataSource.单价" Readonly="false"></KInputNumber>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.金额)">
+                            <KInputCompute @bind-Value="@currentDataSource.金额" ComputedValue="currentDataSource.数量*currentDataSource.单价"></KInputCompute>
+                        </KFormGroup>
+                        <KFormGroup Label="@nameof(currentDataSource.备注)">
+                            <KInputText @bind-Value="@currentDataSource.备注" Readonly="false"></KInputText>
+                        </KFormGroup>
+                    </KFormGroupContainer>
+                </div>
+            </div>
+        </KForm>
+    </KModalBody>
+    <KModalFooter>
+        <button type="button" class="btn btn-secondary" @onclick="Cancel">取消</button>
+        <button type="button" class="btn btn-primary" @onclick="OK">确定</button>
+    </KModalFooter>
+</KModal>
