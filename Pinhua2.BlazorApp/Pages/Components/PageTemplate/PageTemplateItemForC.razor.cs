@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlazorStrap;
 using Microsoft.JSInterop;
 using Pinhua2.Common.Attributes;
 using Pinhua2.Common.DataAnnotations;
@@ -15,13 +14,15 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Piuhua2.Components.PageTemplate
 {
-    public partial class TemplateAItem : ComponentBase
+    public partial class PageTemplateItemForC : ComponentBase
     {
-        [CascadingParameter] public TemplateA Parent { get; set; }
         [Parameter] public string Title { get; set; }
-        [Parameter] public RenderFragment Toolbar { get; set; }
+        [Parameter] public string InsertTitle { get; set; } = "添加";
+        [Parameter] public string BackTitle { get; set; } = "返回";
+        [Parameter] public string SubmitTitle { get; set; } = "保存";
+        [Parameter] public EventCallback<MouseEventArgs> OnInsert { get; set; }
+        [Parameter] public EventCallback<MouseEventArgs> OnBack { get; set; }
+        [Parameter] public EventCallback<MouseEventArgs> OnSubmit { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
-        [Parameter] public string CreateButtonTitle { get; set; } = "新增";
-        [Parameter] public EventCallback<MouseEventArgs> CreateButtonOnClick { get; set; }
     }
 }

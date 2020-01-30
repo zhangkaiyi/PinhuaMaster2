@@ -30,7 +30,7 @@
     <KRow>
         <KCol>
             <PageTemplateItem Title="明细"
-                              HasTopRightButton="true" TopRightButtonTitle="添加" TopRightButtonOnClick="@(e => toInsert())"
+                              HasTopRightButton="true" TopRightButtonTitle="添加申请" TopRightButtonOnClick="@(e => toInsert())"
                               HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
                               HasBottomRightButton="true" BottomRightButtonTitle="保存" BottomRightButtonSubmit="true">
                 <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
@@ -58,5 +58,5 @@
     </KRow>
 </KForm>
 
-<Modal_商品列表 @ref="Modal" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto采购申请D>())"></Modal_商品列表>
-<EditModal_采购申请D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购申请D>
+<Modal_商品列表 @ref="Modal" OnOK="e=>SelectRows(e.SelectedProducts)"></Modal_商品列表>
+<EditModal_采购申请D @ref="EditModal" DataSource="detailsTableEditingRow" OnOK="e=>saveChange(e)"></EditModal_采购申请D>

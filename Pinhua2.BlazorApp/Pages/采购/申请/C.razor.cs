@@ -30,8 +30,8 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
         protected List<dto采购申请D> detailsTableDataSource { get; set; } = new List<dto采购申请D>();
         protected dto采购申请D detailsTableEditingRow { get; set; } = new dto采购申请D();
 
-        protected EditModal_采购申请D EditModal;
         protected Modal_商品列表 Modal;
+        protected EditModal_采购申请D EditModal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -42,13 +42,15 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
 
         protected bool bInsert = false;
 
-        protected void toSelect(IEnumerable<dto采购申请D> items)
+        protected void SelectRows(IEnumerable<object> items)
         {
             if (items.Any())
             {
-                var tb_product = Mapper.Map<dto采购申请D, tb_商品表>(items.ElementAtOrDefault(0));
-                var dto_detail = Mapper.Map<tb_商品表, dto采购申请D>(tb_product);
-                detailsTableEditingRow = dto_detail;
+                var src = items.ElementAtOrDefault(0);
+                var srcType = items.GetType().GetGenericArguments()[0];
+                var dstType = typeof(dto采购申请D);
+                var dst = Mapper.Map(src, srcType, dstType);
+                detailsTableEditingRow = dst as dto采购申请D;
                 EditModal?.Show();
             }
         }

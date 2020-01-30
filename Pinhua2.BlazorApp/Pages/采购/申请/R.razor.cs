@@ -22,16 +22,14 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected dto收款单 main;
+        protected dto采购申请 main;
         protected KTable2 detailsTable;
-        protected List<dto收款单D> detailsTableDataSource;
-
-        protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+        protected List<dto采购申请D> detailsTableDataSource;
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto收款单>(PinhuaContext.tb_收付表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+            main = Mapper.Map<dto采购申请>(PinhuaContext.tb_需求表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto采购申请D>(PinhuaContext.tb_需求表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
         }
 
     }

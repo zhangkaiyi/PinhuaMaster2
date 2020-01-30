@@ -16,7 +16,6 @@ namespace Piuhua2.Components.PageTemplate
 {
     public partial class PageTemplateItem : ComponentBase
     {
-        [CascadingParameter] public TemplateA Parent { get; set; }
         [Parameter] public string Title { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public RenderFragment TopRightContent { get; set; }

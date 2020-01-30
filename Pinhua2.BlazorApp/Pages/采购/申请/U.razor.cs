@@ -26,127 +26,87 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected override void OnInitialized()
-        {
-            main = Mapper.Map<dto收款单>(PinhuaContext.tb_收付表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
-        }
-
-        protected dto收款单 main = new dto收款单() { 类型 = "收款" };
+        protected dto采购申请 main = new dto采购申请();
 
         protected KTable2 detailsTable;
-        protected List<dto收款单D> detailsTableDataSource { get; set; } = new List<dto收款单D>();
-        protected List<dto收款单D> currentDetails
+        protected List<dto采购申请D> detailsTableDataSource { get; set; } = new List<dto采购申请D>();
+        protected dto采购申请D detailsTableEditingRow { get; set; } = new dto采购申请D();
+
+        protected Modal_商品列表 Modal;
+        protected EditModal_采购申请D EditModal;
+
+        protected override void OnInitialized()
         {
-            get
-            {
-                RefreshAll可分配金额();
-                return detailsTableDataSource;
-            }
-        }
-        protected dto收款单D detailsTableEditingRow { get; set; } = new dto收款单D();
-        protected dto收款单D currentEditingRow
-        {
-            get
-            {
-                //return RefreshTarget可分配金额(detailsTableEditingRow);
-                return detailsTableEditingRow;
-            }
-            set
-            {
-                detailsTableEditingRow = value;
-            }
+            main = Mapper.Map<dto采购申请>(PinhuaContext.tb_需求表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto采购申请D>(PinhuaContext.tb_需求表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
         }
 
-        protected EditModal_收款单明细 EditModal_收款单明细;
-        protected Modal_订单金额收付 Modal_订单金额收付;
+        protected bool bInsert = false;
 
-        protected bool IsNewRow = false;
-
-        protected void toSelect(IEnumerable<view_AllOrdersPay> items)
+        protected void SelectRows(IEnumerable<object> items)
         {
             if (items.Any())
             {
-                var dto_detail = Mapper.Map<view_AllOrdersPay, dto收款单D>(items.ElementAtOrDefault(0));
-                currentEditingRow = dto_detail;
-                EditModal_收款单明细?.Show();
+                var src = items.ElementAtOrDefault(0);
+                var srcType = items.GetType().GetGenericArguments()[0];
+                var dstType = typeof(dto采购申请D);
+                var dst = Mapper.Map(src, srcType, dstType);
+                detailsTableEditingRow = dst as dto采购申请D;
+                EditModal?.Show();
             }
         }
 
-        protected void NewRow()
+        protected void toInsert()
         {
-            IsNewRow = true;
-            currentEditingRow = new dto收款单D();
-            Modal_订单金额收付?.Show();
+            bInsert = true;
+            Modal?.Show();
         }
 
-        protected void EditRow(dto收款单D item)
+        protected void saveChange(EditModal_采购申请D modal)
         {
-            IsNewRow = false;
-            currentEditingRow = item;
-            EditModal_收款单明细?.Show();
-        }
-
-        protected void SaveRow(EditModal_收款单明细 modal)
-        {
-            if (IsNewRow)
+            if (bInsert)
             {
                 detailsTableDataSource.Add(modal.DataSource);
             }
-            currentEditingRow = new dto收款单D();
         }
 
-        protected void RemoveRow(dto收款单D item)
+        protected void toEdit(dto采购申请D item)
         {
-            detailsTableDataSource.Remove(item);
+            bInsert = false;
+            detailsTableEditingRow = item;
+            EditModal?.Show();
         }
 
-        protected void RefreshAll可分配金额()
-        {
-            foreach (var item in detailsTableDataSource)
-            {
-                var i = detailsTableDataSource.IndexOf(item);
-                var 总金额 = main.收;
-                var 已分配 = detailsTableDataSource.GetRange(0, i).Sum(item => item.可分配);
-                var 未分配 = 总金额 - 已分配;
-                if (item.待收款额 <= 未分配)
-                {
-                    item.可分配 = item.待收款额;
-                }
-                else
-                {
-                    item.可分配 = 未分配;
-                }
-            }
-        }
-
-        protected void HandelValidSubmit(EditContext context)
+        protected void HandleValidSubmit(EditContext context)
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var bSuccess1 = PinhuaContext.TryRecordEdit<dto收款单, tb_收付表>(main, out var @out, creating =>
+                    var bAdd = PinhuaContext.TryRecordAdd<dto采购申请, tb_需求表>(main, adding =>
                     {
-                        creating.类型 = "收款";
-                        creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
+                        adding.单号 = PinhuaContext.funcAutoCode("订单号");
+                        adding.业务类型 = "采购申请";
                     });
-                    if (bSuccess1)
+                    if (bAdd)
                     {
-                        var bSuccess2 = PinhuaContext.TryRecordDetailsEdit<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(main, currentDetails, out var @outDSet, adding =>
-                         {
-                             if (string.IsNullOrWhiteSpace(adding.子单号))
-                             {
-                                 adding.子单号 = PinhuaContext.funcAutoCode("子单号");
-                             }
-                         });
-                        if (bSuccess2)
+                        var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto采购申请, dto采购申请D, tb_需求表, tb_需求表D>(main, detailsTableDataSource, adding =>
+                        {
+                            foreach (var item in detailsTableDataSource)
+                            {
+                                if (string.IsNullOrWhiteSpace(item.子单号))
+                                {
+                                    item.子单号 = PinhuaContext.funcAutoCode("子单号");
+                                }
+                            }
+                        });
+                        if (bAdd2)
                         {
                             transaction.Commit();
                         }
                     }
 
-                    Navigation.NavigateTo(routeA);
+                    Navigation.NavigateTo("/采购/申请");
                 }
                 catch (Exception)
                 {

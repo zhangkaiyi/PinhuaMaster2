@@ -1,0 +1,9 @@
+﻿@namespace Piuhua2.Components.PageTemplate
+
+<PageTemplateItem Title="@Title"
+                  HasBottomLeftButton="true"
+                  BottomLeftButtonTitle="@BackTitle" BottomLeftButtonOnClick="@OnBack"
+                  HasBottomRightButton="true"
+                  BottomRightButtonTitle="@SubmitTitle" BottomRightButtonOnClick="@OnSubmit" BottomRightButtonColor="Color.Primary">
+    @ChildContent
+</PageTemplateItem>
