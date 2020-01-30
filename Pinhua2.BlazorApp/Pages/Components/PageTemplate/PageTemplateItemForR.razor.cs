@@ -18,10 +18,10 @@ namespace Piuhua2.Components.PageTemplate
     {
         [Parameter] public string Title { get; set; }
         [Parameter] public string BackTitle { get; set; } = "返回";
-        [Parameter] public string SubmitTitle { get; set; } = "修改";
+        [Parameter] public string EditTitle { get; set; } = "修改";
         [Parameter] public EventCallback<MouseEventArgs> OnInsert { get; set; }
         [Parameter] public EventCallback<MouseEventArgs> OnBack { get; set; }
-        [Parameter] public EventCallback<MouseEventArgs> OnSubmit { get; set; }
+        [Parameter] public EventCallback<MouseEventArgs> OnEdit { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
     }
 }

@@ -17,12 +17,10 @@ namespace Piuhua2.Components.PageTemplate
     public partial class PageTemplateItemForD : ComponentBase
     {
         [Parameter] public string Title { get; set; }
-        [Parameter] public string InsertTitle { get; set; } = "添加";
-        [Parameter] public string BackTitle { get; set; } = "返回";
-        [Parameter] public string SubmitTitle { get; set; } = "确认删除";
-        [Parameter] public EventCallback<MouseEventArgs> OnInsert { get; set; }
-        [Parameter] public EventCallback<MouseEventArgs> OnBack { get; set; }
-        [Parameter] public EventCallback<MouseEventArgs> OnSubmit { get; set; }
+        [Parameter] public string CancelTitle { get; set; } = "返回";
+        [Parameter] public string DeleteTitle { get; set; } = "确认删除";
+        [Parameter] public EventCallback<MouseEventArgs> OnCancel { get; set; }
+        [Parameter] public EventCallback<MouseEventArgs> OnDelete { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
     }
 }

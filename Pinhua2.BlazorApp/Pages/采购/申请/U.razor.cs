@@ -81,16 +81,14 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                try
+                var bAdd = PinhuaContext.TryRecordEdit<dto采购申请, tb_需求表>(main, out var outDst, adding =>
                 {
-                    var bAdd = PinhuaContext.TryRecordAdd<dto采购申请, tb_需求表>(main, adding =>
-                    {
-                        adding.单号 = PinhuaContext.funcAutoCode("订单号");
-                        adding.业务类型 = "采购申请";
-                    });
-                    if (bAdd)
-                    {
-                        var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto采购申请, dto采购申请D, tb_需求表, tb_需求表D>(main, detailsTableDataSource, adding =>
+                    adding.业务类型 = "采购申请";
+                });
+                if (bAdd)
+                {
+                    var bAdd2 = PinhuaContext.TryRecordDetailsEdit<dto采购申请, dto采购申请D, tb_需求表, tb_需求表D>(main, detailsTableDataSource, out var outDstDSet,
+                        adding =>
                         {
                             foreach (var item in detailsTableDataSource)
                             {
@@ -100,18 +98,13 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
                                 }
                             }
                         });
-                        if (bAdd2)
-                        {
-                            transaction.Commit();
-                        }
+                    if (bAdd2)
+                    {
+                        transaction.Commit();
                     }
+                }
 
-                    Navigation.NavigateTo("/采购/申请");
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
+                Navigation.NavigateTo("/采购/申请");
             }
         }
     }

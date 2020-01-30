@@ -57,7 +57,8 @@ namespace Pinhua2.ViewModels
             CreateMap<dto采购申请D, tb_需求表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
 
-            CreateMap<dto商品, dto采购申请D>();
+            CreateMap<dto商品, dto采购申请D>()
+                .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }
 }
