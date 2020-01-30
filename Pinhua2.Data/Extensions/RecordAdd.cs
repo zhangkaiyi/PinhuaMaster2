@@ -73,14 +73,12 @@ namespace Pinhua2.Data
         }
 
         public static bool TryRecordDetailsAdd<TSrc, TSrcD, TDst, TDstD>(this Pinhua2Context context, TSrc src, IEnumerable<TSrcD> srcDSet,
-            Action<IEnumerable<TSrcD>> Adding = null)
+            Action<TSrcD> Adding = null)
             where TSrc : _BaseTableMain
             where TSrcD : _BaseTableDetail
             where TDst : _BaseTableMain
             where TDstD : _BaseTableDetail
         {
-            Adding?.Invoke(srcDSet);
-
             if (!srcDSet.Any())
             {
                 // 如果明细为空，直接返回 true ，避免主表数据无法保存成功
@@ -89,6 +87,7 @@ namespace Pinhua2.Data
 
             foreach (var srcD in srcDSet)
             {
+                Adding?.Invoke(srcD);
                 srcD.RecordId = src.RecordId;
                 var dstD = StaticAutoMapper.Current.Map<TSrcD, TDstD>(srcD);
                 context.Entry<TDstD>(dstD).State = EntityState.Added;

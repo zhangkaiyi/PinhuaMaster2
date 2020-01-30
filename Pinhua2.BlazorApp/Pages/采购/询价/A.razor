@@ -3,14 +3,13 @@
 
 <KRow>
     <KCol>
-        <PageTemplateItem Title="采购询价"
-                          HasTopRightButton="true" TopRightButtonTitle="新增" TopRightButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
+        <PageTemplateItemForA Title="采购询价" OnAdd="@(e=>Navigation.NavigateTo(routeC))">
             <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
                      OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                 <KTable2Columns>
                     <KTable2Column Width="1" Text="操作">
                         @{
-                        var row = context as dto采购询价;
+                            var row = context as dto采购询价;
                             <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
                             <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
                             <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
@@ -25,7 +24,7 @@
                     <KTable2Column Field="@(nameof(dto采购询价.备注))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-        </PageTemplateItem>
+        </PageTemplateItemForA>
 
         <PageTemplateItem Title="明细">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"

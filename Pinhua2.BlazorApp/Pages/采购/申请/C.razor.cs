@@ -91,14 +91,12 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
                     {
                         var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto采购申请, dto采购申请D, tb_需求表, tb_需求表D>(main, detailsTableDataSource, adding =>
                         {
-                            foreach (var item in detailsTableDataSource)
+                            if (string.IsNullOrWhiteSpace(adding.子单号))
                             {
-                                if (string.IsNullOrWhiteSpace(item.子单号))
-                                {
-                                    item.子单号 = PinhuaContext.funcAutoCode("子单号");
-                                }
+                                adding.子单号 = PinhuaContext.funcAutoCode("子单号");
                             }
                         });
+
                         if (bAdd2)
                         {
                             transaction.Commit();

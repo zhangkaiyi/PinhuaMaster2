@@ -34,10 +34,7 @@
     </KRow>
     <KRow>
         <KCol>
-            <PageTemplateItem Title="明细"
-                              HasTopRightButton="true" TopRightButtonTitle="添加" TopRightButtonOnClick="@(e => toInsert())"
-                              HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
-                              HasBottomRightButton="true" BottomRightButtonTitle="保存" BottomRightButtonSubmit="true">
+            <PageTemplateItemForC Title="明细" OnAdd="@(e => toInsert())" OnCancel="@(e=>Navigation.NavigateTo(routeA))">
                 <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                          CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                     <KTable2Columns>
@@ -58,10 +55,10 @@
                         <KTable2Column Field="@(nameof(dto采购询价D.备注))"></KTable2Column>
                     </KTable2Columns>
                 </KTable2>
-            </PageTemplateItem>
+            </PageTemplateItemForC>
         </KCol>
     </KRow>
 </KForm>
 
-<Modal_商品列表_采购申请 @ref="Modal_商品列表_采购申请" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto采购申请D>())"></Modal_商品列表_采购申请>
-<EditModal_采购询价D DataSource="detailsTableEditingRow" @ref="EditModal_采购询价D" OnOK="e=>saveChange(e)"></EditModal_采购询价D>
+<Modal_商品列表_采购申请 @ref="Modal" OnOK="e=>toSelect(e.SelectedProducts)"></Modal_商品列表_采购申请>
+<EditModal_采购询价D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购询价D>

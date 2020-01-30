@@ -66,7 +66,7 @@ namespace Klazor
                 {
                     property.SetValue(value, destValue);
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException /*ex*/)
                 {
                     //throw new BlazuiException($"字段 {formItem.Name} 输入的类型为 {destValue.GetType()}，但实体 {typeof(T)} 对应的属性的类型为 {property.PropertyType}", ex);
                 }

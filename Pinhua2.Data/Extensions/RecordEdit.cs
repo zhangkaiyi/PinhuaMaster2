@@ -34,14 +34,14 @@ namespace Pinhua2.Data
             return dst;
         }
 
-        public static bool TryRecordEdit<TSrc, TDst>(this Pinhua2Context context, TSrc src, out TDst outDst, Action<TSrc> Editing = null)
+        public static bool TryRecordEdit<TSrc, TDst>(this Pinhua2Context context, TSrc src, /*out TDst outDst,*/ Action<TSrc> Editing = null)
         where TSrc : _BaseTableMain
         where TDst : _BaseTableMain
         {
             var dst = context.Set<TDst>().FirstOrDefault(m => m.RecordId == src.RecordId);
             if (dst == null)
             {
-                outDst = null;
+                //outDst = null;
                 return false;
             }
 
@@ -58,12 +58,12 @@ namespace Pinhua2.Data
 
             if (ret > 0)
             {
-                outDst = dst;
+                //outDst = dst;
                 return true;
             }
             else
             {
-                outDst = null;
+                //outDst = null;
                 return false;
             }
         }
@@ -114,7 +114,7 @@ namespace Pinhua2.Data
         }
 
         public static bool TryRecordDetailsEdit<TSrc, TSrcD, TDst, TDstD>(this Pinhua2Context context, TSrc dto, IEnumerable<TSrcD> srcDSet,
-            out IEnumerable<TDstD> outDstDSet, Action<TSrcD> Adding = null, Action<TSrcD> Updating = null, Action<TDstD> Deleting = null)
+            /*out IEnumerable<TDstD> outDstDSet,*/ Action<TSrcD> Adding = null, Action<TSrcD> Updating = null, Action<TDstD> Deleting = null)
             where TSrc : _BaseTableMain
             where TSrcD : _BaseTableDetail
             where TDst : _BaseTableMain
@@ -123,7 +123,7 @@ namespace Pinhua2.Data
             var dst = context.Set<TDst>().AsNoTracking().FirstOrDefault(r => r.RecordId == dto.RecordId);
             if (dst == null)
             {
-                outDstDSet = null;
+                //outDstDSet = null;
                 return false;
             }
 
@@ -131,7 +131,7 @@ namespace Pinhua2.Data
 
             if (!srcDSet.Any())
             {
-                outDstDSet = dstDSet;
+                //outDstDSet = dstDSet;
                 return true;
             }
 
@@ -167,12 +167,12 @@ namespace Pinhua2.Data
 
             if (context.SaveChanges() > 0)
             {
-                outDstDSet = dstDSet.AsEnumerable<TDstD>();
+                //outDstDSet = dstDSet.AsEnumerable<TDstD>();
                 return true;
             }
             else
             {
-                outDstDSet = null;
+                //outDstDSet = null;
                 return false;
             }
         }

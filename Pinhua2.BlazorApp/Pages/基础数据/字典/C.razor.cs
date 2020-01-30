@@ -82,12 +82,10 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.字典
                     {
                         var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto字典, dto字典D, tb_字典表, tb_字典表D>(main, detailsTableDataSource, adding =>
                         {
-                            foreach(var item in detailsTableDataSource)
-                            {
-                                item.字典号 = main.字典号;
-                                item.组号 = main.组号;
-                            }
+                            adding.字典号 = main.字典号;
+                            adding.组号 = main.组号;
                         });
+
                         if (bAdd2)
                         {
                             transaction.Commit();

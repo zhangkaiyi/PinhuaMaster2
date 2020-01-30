@@ -48,9 +48,6 @@ namespace Klazor
         /// 当前最大显示的页码数变化时触发
         /// </summary>
         [Parameter] public EventCallback<int> PageCountChanged { get; set; }
-
-        internal int pageCount;
-
         private string GetAlignment()
         {
             if (Alignment == Alignment.Center) { return "justify-content-center"; }

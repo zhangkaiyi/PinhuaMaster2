@@ -1,100 +1,49 @@
-﻿@page "/采购/申请/删除/{RecordId:int}"
+﻿@inherits DBase
+@page "/采购/申请/删除/{RecordId:int}"
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>销售报价 - 删除</h3>
-</div>
+<KRow>
+    <KCol MD="6">
+        <PageTemplateItem Title="采购申请 - 删除">
+            <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                <KFormGroup Label="@nameof(main.单号)">
+                    <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="客户单号">
+                    <KInputText @bind-Value="main.往来单号"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.日期)">
+                    <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.交期)">
+                    <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.备注)">
+                    <KInputText @bind-Value="main.备注"></KInputText>
+                </KFormGroup>
+            </KFormGroupContainer>
+        </PageTemplateItem>
+    </KCol>
+</KRow>
 
-<KForm Model="main">
-    <div class="row">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
-                        <KFormGroup Label="@nameof(main.单号)">
-                            <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
-                        </KFormGroup>
-                        <KFormGroup Label="客户">
-                            <KInputSelect @bind-Value="main.往来号">
-                                @foreach (var customer in dropdownOptions)
-                                {
-                                    <option value="@customer.Value">@customer.Text</option>
-                                }
-                            </KInputSelect>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.日期)">
-                            <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.交期)">
-                            <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
-                        </KFormGroup>
-                        <KFormGroup Label="@nameof(main.备注)">
-                            <KInputText @bind-Value="main.备注"></KInputText>
-                        </KFormGroup>
-                    </KFormGroupContainer>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
+<KRow>
+    <KCol>
+        <PageTemplateItemForD OnCancel="@(e=>NavigationManager.NavigateTo("采购/申请"))" OnDelete="@toDelete">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                 <KTable2Columns>
-                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售报价D) + 1)</KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.品号))" Text="品号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.品名))" Text="品名"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.型号))" Text="型号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.规格))" Text="规格"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.个数))" Text="个数"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.数量))" Text="数量"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.单位))" Text="单位"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.单价))" Text="单价"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.金额))" Text="金额"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售报价D.备注))" Text="备注"></KTable2Column>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto采购申请D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购申请D.备注))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-        </div>
-    </div>
-</KForm>
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <div>
-        <button class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo("销售/报价"))"><i class="oi oi-arrow-thick-left"></i> 返回</button>
-    </div>
-    <div>
-        <button class="btn btn-primary" type="button" @onclick="toDelete"><i class="oi oi-trash"></i> 确认删除</button>
-    </div>
-</div>
-
-@code {
-    [Parameter] public int RecordId { get; set; }
-
-    protected dto销售报价 main;
-
-    protected KTable2 detailsTable;
-    protected List<dto销售报价D> detailsTableDataSource;
-
-    protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
-
-    protected override void OnInitialized()
-    {
-        main = mapper.Map<dto销售报价>(pinhuaContext.tb_报价表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-        detailsTableDataSource = mapper.ProjectTo<dto销售报价D>(pinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
-        dropdownOptions = pinhuaContext.DropdownOptions_客户();
-    }
-
-    protected async Task toDelete()
-    {
-        var tb_报价表 = await pinhuaContext.tb_报价表.FindAsync(RecordId);
-        if (tb_报价表 != null)
-        {
-            var tb_报价表D = pinhuaContext.tb_报价表D.Where(p => p.RecordId == tb_报价表.RecordId);
-
-            pinhuaContext.tb_报价表.Remove(tb_报价表);
-            pinhuaContext.tb_报价表D.RemoveRange(tb_报价表D);
-            await pinhuaContext.SaveChangesAsync();
-            NavigationManager.NavigateTo("/销售/报价");
-        }
-    }
-
-}
+        </PageTemplateItemForD>
+    </KCol>
+</KRow>

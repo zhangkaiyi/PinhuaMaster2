@@ -124,34 +124,27 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                try
+                var bSuccess1 = PinhuaContext.TryRecordEdit<dto收款单, tb_收付表>(main, creating =>
                 {
-                    var bSuccess1 = PinhuaContext.TryRecordEdit<dto收款单, tb_收付表>(main, out var @out, creating =>
-                    {
-                        creating.类型 = "收款";
-                        creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
-                    });
-                    if (bSuccess1)
-                    {
-                        var bSuccess2 = PinhuaContext.TryRecordDetailsEdit<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(main, currentDetails, out var @outDSet, adding =>
+                    creating.类型 = "收款";
+                    creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
+                });
+                if (bSuccess1)
+                {
+                    var bSuccess2 = PinhuaContext.TryRecordDetailsEdit<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(main, currentDetails, adding =>
+                     {
+                         if (string.IsNullOrWhiteSpace(adding.子单号))
                          {
-                             if (string.IsNullOrWhiteSpace(adding.子单号))
-                             {
-                                 adding.子单号 = PinhuaContext.funcAutoCode("子单号");
-                             }
-                         });
-                        if (bSuccess2)
-                        {
-                            transaction.Commit();
-                        }
+                             adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                         }
+                     });
+                    if (bSuccess2)
+                    {
+                        transaction.Commit();
                     }
+                }
 
-                    Navigation.NavigateTo(routeA);
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
+                Navigation.NavigateTo(routeA);
             }
         }
     }

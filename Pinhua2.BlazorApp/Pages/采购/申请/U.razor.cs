@@ -81,21 +81,18 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                var bAdd = PinhuaContext.TryRecordEdit<dto采购申请, tb_需求表>(main, out var outDst, adding =>
+                var bAdd = PinhuaContext.TryRecordEdit<dto采购申请, tb_需求表>(main, adding =>
                 {
                     adding.业务类型 = "采购申请";
                 });
                 if (bAdd)
                 {
-                    var bAdd2 = PinhuaContext.TryRecordDetailsEdit<dto采购申请, dto采购申请D, tb_需求表, tb_需求表D>(main, detailsTableDataSource, out var outDstDSet,
+                    var bAdd2 = PinhuaContext.TryRecordDetailsEdit<dto采购申请, dto采购申请D, tb_需求表, tb_需求表D>(main, detailsTableDataSource,
                         adding =>
                         {
-                            foreach (var item in detailsTableDataSource)
+                            if (string.IsNullOrWhiteSpace(adding.子单号))
                             {
-                                if (string.IsNullOrWhiteSpace(item.子单号))
-                                {
-                                    item.子单号 = PinhuaContext.funcAutoCode("子单号");
-                                }
+                                adding.子单号 = PinhuaContext.funcAutoCode("子单号");
                             }
                         });
                     if (bAdd2)
