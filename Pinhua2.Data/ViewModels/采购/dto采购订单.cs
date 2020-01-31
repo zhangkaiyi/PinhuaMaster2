@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pinhua2.ViewModels
 {
-    public class vm_采购订单 : _BaseTableMain
+    public class dto采购订单 : _BaseTableMain
     {
         [MyPriority(Priority.High)]
         [CustomDisplay(10)]
@@ -68,7 +68,7 @@ namespace Pinhua2.ViewModels
         public decimal? 应付 { get; set; }
     }
 
-    public class vm_采购订单D : _BaseProductDetail
+    public class dto采购订单D : _BaseProductDetail
     {
         [MyHiddenIndex, MyHiddenCreate, MyHiddenDetails, MyHiddenEdit]
         public decimal? 库存 { get; set; }
@@ -88,9 +88,9 @@ namespace Pinhua2.ViewModels
     {
         public 采购订单Profile()
         {
-            CreateMap<tb_订单表, vm_采购订单>();
+            CreateMap<tb_订单表, dto采购订单>();
             //.ForMember(dst => dst.报价单, map => map.MapFrom(src => src.报价单));
-            CreateMap<vm_采购订单, tb_订单表>()
+            CreateMap<dto采购订单, tb_订单表>()
                 .BeforeMap((src, dst) =>
                 {
                 })
@@ -102,8 +102,8 @@ namespace Pinhua2.ViewModels
                 });
 
 
-            CreateMap<tb_订单表D, vm_采购订单D>();
-            CreateMap<vm_采购订单D, tb_订单表D>()
+            CreateMap<tb_订单表D, dto采购订单D>();
+            CreateMap<dto采购订单D, tb_订单表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }

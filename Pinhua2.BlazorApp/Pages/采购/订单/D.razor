@@ -1,0 +1,50 @@
+﻿@inherits DBase
+@page "/采购/订单/删除/{RecordId:int}"
+
+<KRow>
+    <KCol MD="6">
+        <PageTemplateItem Title="采购订单 - 删除">
+            <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                <KFormGroup Label="@nameof(main.单号)">
+                    <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="往来号">
+                    <KInputText @bind-Value="main.往来号"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="往来名">
+                    <KInputText @bind-Value="main.往来"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.日期)">
+                    <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.交期)">
+                    <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.备注)">
+                    <KInputText @bind-Value="main.备注"></KInputText>
+                </KFormGroup>
+            </KFormGroupContainer>
+        </PageTemplateItem>
+    </KCol>
+</KRow>
+<KRow>
+    <KCol>
+        <PageTemplateItemForD Title="明细" OnCancel="@(e=>NavigationManager.NavigateTo("采购/询价"))" OnDelete="@toDelete">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
+                <KTable2Columns>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto采购询价D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.品号))" Text="品号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.品名))" Text="品名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.型号))" Text="型号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.规格))" Text="规格"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.个数))" Text="个数"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.数量))" Text="数量"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.单位))" Text="单位"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.单价))" Text="单价"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.金额))" Text="金额"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价D.备注))" Text="备注"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItemForD>
+    </KCol>
+</KRow>

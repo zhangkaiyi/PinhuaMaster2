@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\采购\入库\" />
-    <Folder Include="Pages\采购\订单\" />
     <Folder Include="wwwroot\lib\jquery\" />
   </ItemGroup>
 

@@ -1,0 +1,48 @@
+﻿@inherits ABase
+@page "/采购/订单/"
+
+<KRow>
+    <KCol>
+        <PageTemplateItemForA Title="采购订单" OnAdd="@(e=>Navigation.NavigateTo(routeC))">
+            <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                     OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Width="1" Text="操作">
+                        @{
+                            var row = context as dto采购订单;
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
+                        }
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单.单号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单.业务类型))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单.往来号))" Text="往来号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单.往来))" Text="往来名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单.交期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItemForA>
+
+        <PageTemplateItem Title="明细">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Field="@(nameof(dto采购订单D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.备注))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.状态))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItem>
+    </KCol>
+</KRow>
