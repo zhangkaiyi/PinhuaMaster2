@@ -22,17 +22,17 @@ namespace Pinhua2.BlazorApp.Pages.采购.订单
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected dto采购询价 main;
+        protected dto采购订单 main;
 
         protected KTable2 detailsTable;
-        protected List<dto采购询价D> detailsTableDataSource;
+        protected List<dto采购订单D> detailsTableDataSource;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto采购询价>(PinhuaContext.tb_报价表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto采购询价D>(PinhuaContext.tb_报价表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+            main = Mapper.Map<dto采购订单>(PinhuaContext.GetViews().采购订单().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto采购订单D>(PinhuaContext.GetViews().采购订单D(RecordId)).ToList();
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
         }
 

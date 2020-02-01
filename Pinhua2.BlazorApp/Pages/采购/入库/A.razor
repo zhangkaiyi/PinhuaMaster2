@@ -1,0 +1,46 @@
+﻿@inherits ABase
+@page "/采购/入库/"
+
+<KRow>
+    <KCol>
+        <PageTemplateItemForA Title="采购入库" OnAdd="@(e=>Navigation.NavigateTo(routeC))">
+            <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                     OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Width="1" Text="操作">
+                        @{
+                            var row = context as dto采购入库;
+                            <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
+                            <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
+                            <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
+                        }
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库.单号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库.类型))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库.往来号))" Text="往来号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库.往来))" Text="往来名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItemForA>
+
+        <PageTemplateItem Title="明细">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Field="@(nameof(dto采购入库D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购入库D.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItem>
+    </KCol>
+</KRow>

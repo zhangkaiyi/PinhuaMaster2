@@ -20,27 +20,23 @@ using Pinhua2.Data.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
 
-namespace Pinhua2.BlazorApp.Pages.采购.询价
+namespace Pinhua2.BlazorApp.Pages.采购.入库
 {
-    public abstract class UBase : _CRUDBase
+    public abstract class CBase : _CRUDBase
     {
-        [Parameter] public int RecordId { get; set; }
-
-        protected dto采购询价 main = new dto采购询价();
+        protected dto采购入库 main = new dto采购入库();
 
         protected KTable2 detailsTable;
-        protected List<dto采购询价D> detailsTableDataSource { get; set; } = new List<dto采购询价D>();
-        protected dto采购询价D detailsTableEditingRow { get; set; } = new dto采购询价D();
+        protected List<dto采购入库D> detailsTableDataSource { get; set; } = new List<dto采购入库D>();
+        protected dto采购入库D detailsTableEditingRow { get; set; } = new dto采购入库D();
 
-        protected EditModal_采购询价D EditModal;
-        protected Modal_商品列表_采购申请 Modal;
+        protected EditModal_采购入库D EditModal;
+        protected Modal_商品列表_采购订单 Modal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto采购询价>(PinhuaContext.GetViews().采购询价().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto采购询价D>(PinhuaContext.GetViews().采购询价D(RecordId)).ToList();
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
         }
 
@@ -50,11 +46,11 @@ namespace Pinhua2.BlazorApp.Pages.采购.询价
         {
             if (items.Any())
             {
-                var srcType = items.GetType().GetGenericArguments()[0];
                 var src = items.ElementAtOrDefault(0);
+                var srcType = src.GetType();
                 var dstType = detailsTableEditingRow?.GetType();
                 var dst = Mapper.Map(src, srcType, dstType);
-                detailsTableEditingRow = dst as dto采购询价D;
+                detailsTableEditingRow = dst as dto采购入库D;
                 EditModal?.Show();
             }
         }
@@ -65,7 +61,7 @@ namespace Pinhua2.BlazorApp.Pages.采购.询价
             Modal?.Show();
         }
 
-        protected void saveChange(EditModal_采购询价D modal)
+        protected void saveChange(EditModal_采购入库D modal)
         {
             if (bInsert)
             {
@@ -73,7 +69,7 @@ namespace Pinhua2.BlazorApp.Pages.采购.询价
             }
         }
 
-        protected void toEdit(dto采购询价D item)
+        protected void toEdit(dto采购入库D item)
         {
             bInsert = false;
             detailsTableEditingRow = item;
@@ -89,22 +85,20 @@ namespace Pinhua2.BlazorApp.Pages.采购.询价
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                var bEdit = PinhuaContext.TryRecordEdit<dto采购询价, tb_报价表>(main, adding =>
+                var bAdd = PinhuaContext.TryRecordAdd<dto采购入库, tb_IO>(main, adding =>
                 {
-                    adding.业务类型 = "采购询价";
+                    adding.单号 = PinhuaContext.funcAutoCode("订单号");
+                    adding.类型 = category;
                     adding.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == adding.往来号)?.简称;
                 });
-                if (bEdit)
+                if (bAdd)
                 {
-                    var bEdit2 = PinhuaContext.TryRecordDetailsEdit<dto采购询价, dto采购询价D, tb_报价表, tb_报价表D>(main, detailsTableDataSource, adding =>
+                    var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto采购入库, dto采购入库D, tb_IO, tb_IOD>(main, detailsTableDataSource, adding =>
                     {
-                        if (string.IsNullOrEmpty(adding.子单号)) // 子单号为空的，表示新插入
-                        {
-                            adding.子单号 = PinhuaContext.funcAutoCode("子单号");
-                        }
+                        adding.子单号 = PinhuaContext.funcAutoCode("子单号");
                     });
 
-                    if (bEdit2)
+                    if (bAdd2)
                     {
                         transaction.Commit();
                     }

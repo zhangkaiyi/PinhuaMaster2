@@ -1,0 +1,61 @@
+﻿@inherits CBase
+@page "/采购/入库/新增"
+
+<KForm Model="main" OnValidSubmit="ValidSubmit" OnInvalidSubmit="InvalidSubmit">
+    <KRow>
+        <KCol MD="6">
+            <PageTemplateItem Title="采购入库 - 新增">
+                <DataAnnotationsValidator />
+                <KValidationSummary />
+                <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                    <KFormGroup Label="@nameof(main.单号)">
+                        <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                    </KFormGroup>
+                    <KFormGroup Label="客户">
+                        <KInputSelect @bind-Value="main.往来号">
+                            @foreach (var customer in dropdownOptions)
+                                {
+                            <option value="@customer.Value">@customer.Text</option>
+                                }
+                        </KInputSelect>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.日期)">
+                        <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                    </KFormGroup>
+                    <KFormGroup Label="@nameof(main.备注)">
+                        <KInputText @bind-Value="main.备注" Readonly="false"></KInputText>
+                    </KFormGroup>
+                </KFormGroupContainer>
+            </PageTemplateItem>
+        </KCol>
+    </KRow>
+    <KRow>
+        <KCol>
+            <PageTemplateItemForC Title="明细" OnAdd="@(e => toInsert())" OnCancel="@(e=>Navigation.NavigateTo(routeA))">
+                <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                         CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                    <KTable2Columns>
+                        <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto采购入库D) + 1)</KTable2Column>
+                        <KTable2Column Text="操作" Width="1" Context="row">
+                            <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto采购入库D)">移除</a>
+                            <a href="javascript:;" @onclick="e=>toEdit(row as dto采购入库D)">修改</a>
+                        </KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.品号))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.品名))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.型号))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.规格))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.个数))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.数量))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.单位))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.单价))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.金额))"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.备注))"></KTable2Column>
+                    </KTable2Columns>
+                </KTable2>
+            </PageTemplateItemForC>
+        </KCol>
+    </KRow>
+</KForm>
+
+<Modal_商品列表_采购订单 @ref="Modal" OnOK="e=>toSelect(e.SelectedProducts)"></Modal_商品列表_采购订单>
+<EditModal_采购入库D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购入库D>

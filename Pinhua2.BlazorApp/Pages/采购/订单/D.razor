@@ -29,20 +29,20 @@
 </KRow>
 <KRow>
     <KCol>
-        <PageTemplateItemForD Title="明细" OnCancel="@(e=>NavigationManager.NavigateTo("采购/询价"))" OnDelete="@toDelete">
+        <PageTemplateItemForD Title="明细" OnCancel="@(e=>NavigationManager.NavigateTo(routeA))" OnDelete="@toDelete">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                 <KTable2Columns>
-                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto采购询价D) + 1)</KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.品号))" Text="品号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.品名))" Text="品名"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.型号))" Text="型号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.规格))" Text="规格"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.个数))" Text="个数"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.数量))" Text="数量"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.单位))" Text="单位"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.单价))" Text="单价"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.金额))" Text="金额"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价D.备注))" Text="备注"></KTable2Column>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto采购订单D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.品号))" Text="品号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.品名))" Text="品名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.型号))" Text="型号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.规格))" Text="规格"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.个数))" Text="个数"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.数量))" Text="数量"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.单位))" Text="单位"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.单价))" Text="单价"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.金额))" Text="金额"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.备注))" Text="备注"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
         </PageTemplateItemForD>
