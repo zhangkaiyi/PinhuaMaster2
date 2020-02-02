@@ -4,7 +4,7 @@
 <KForm Model="main" OnValidSubmit="HandelValidSubmit">
     <KRow>
         <KCol MD="6">
-            <PageTemplateItem Title="收款单 - 修改">
+            <PageTemplateItem Title="付款单 - 修改">
                 <DataAnnotationsValidator />
                 <KValidationSummary />
                 <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
@@ -20,11 +20,7 @@
                     <KFormGroup Label="@nameof(main.日期)">
                         <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
                     </KFormGroup>
-                    <KFormGroup Label="大类">
-                        <KInputText @bind-Value="main.类型">
-                        </KInputText>
-                    </KFormGroup>
-                    <KFormGroup Label="小类">
+                    <KFormGroup Label="方式">
                         <KInputSelect @bind-Value="main.小类">
                             @foreach (var item in dropdownCategory2)
                                 {
@@ -33,7 +29,7 @@
                         </KInputSelect>
                     </KFormGroup>
                     <KFormGroup Label="金额">
-                        <KInputNumber @bind-Value="main.收" Readonly="false"></KInputNumber>
+                        <KInputNumber @bind-Value="main.付" Readonly="false"></KInputNumber>
                     </KFormGroup>
                     <KFormGroup Label="分配">
                         <KInputCompute @bind-Value="main.分配" ComputedValue="detailsTableDataSource.Sum(item=>item.分配金额)"></KInputCompute>
@@ -44,37 +40,34 @@
     </KRow>
     <KRow>
         <KCol>
-            <PageTemplateItem Title="明细"
-                              HasTopRightButton="true" TopRightButtonTitle="添加" TopRightButtonOnClick="@(e => NewRow())"
-                              HasBottomLeftButton="true" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
-                              HasBottomRightButton="true" BottomRightButtonTitle="确认修改" BottomRightButtonSubmit="true">
+            <PageTemplateItemForU Title="明细" OnAdd="@(e => NewRow())" OnCancel="@(e=>Navigation.NavigateTo(routeA))">
                 <KTable2 DataSource="currentDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                          CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                     <KTable2Columns>
-                        <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
+                        <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto付款单D) + 1)</KTable2Column>
                         <KTable2Column Text="操作" Width="1" Context="row">
-                            <a href="javascript:;" class="mr-1" @onclick="e=>RemoveRow(row as dto收款单D)">移除</a>
-                            <a href="javascript:;" @onclick="e=>EditRow(row as dto收款单D)">修改</a>
+                            <a href="javascript:;" class="mr-1" @onclick="e=>RemoveRow(row as dto付款单D)">移除</a>
+                            <a href="javascript:;" @onclick="e=>EditRow(row as dto付款单D)">修改</a>
                         </KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.品号))" Text="品号"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.品名))" Text="品名"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.型号))" Text="型号"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.规格))" Text="规格"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.个数))" Text="个数"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.数量))" Text="数量"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.单位))" Text="单位"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.单价))" Text="单价"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.金额))" Text="金额"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.已收款额))" Text="已收"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.待收款额))" Text="待收"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.可分配))" Text="可分配"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto收款单D.分配金额))" Text="分配"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.品号))" Text="品号"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.品名))" Text="品名"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.型号))" Text="型号"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.规格))" Text="规格"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.个数))" Text="个数"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.数量))" Text="数量"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.单位))" Text="单位"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.单价))" Text="单价"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.金额))" Text="金额"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.已付款额))" Text="已付"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.待付款额))" Text="待付"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.可分配))" Text="可分配"></KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.分配金额))" Text="分配"></KTable2Column>
                     </KTable2Columns>
                 </KTable2>
-            </PageTemplateItem>
+            </PageTemplateItemForU>
         </KCol>
     </KRow>
 </KForm>
 
-<Modal_订单金额收付 @ref="Modal_订单金额收付" FilterExpression="@(model=>model.往来号 == main.往来号)" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersPay>())"></Modal_订单金额收付>
-<EditModal_收款单明细 DataSource="currentEditingRow" @ref="EditModal_收款单明细" OnOK="e=>SaveRow(e)"></EditModal_收款单明细>
+<Modal_订单金额待付 @ref="Modal" FilterExpression="@(model=>model.往来号 == main.往来号)" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersPay>())"></Modal_订单金额待付>
+<EditModal_付款单明细 DataSource="currentEditingRow" @ref="EditModal" OnOK="e=>SaveRow(e)"></EditModal_付款单明细>

@@ -24,11 +24,11 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
 {
     public abstract class CBase : _CRUDBase
     {
-        protected dto收款单 main = new dto收款单() { 类型 = "收款" };
+        protected dto付款单 main = new dto付款单();
 
         protected KTable2 detailsTable;
-        protected List<dto收款单D> detailsTableDataSource { get; set; } = new List<dto收款单D>();
-        protected List<dto收款单D> currentDetails
+        protected List<dto付款单D> detailsTableDataSource { get; set; } = new List<dto付款单D>();
+        protected List<dto付款单D> currentDetails
         {
             get
             {
@@ -36,8 +36,8 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
                 return detailsTableDataSource;
             }
         }
-        protected dto收款单D detailsTableEditingRow { get; set; } = new dto收款单D();
-        protected dto收款单D currentEditingRow
+        protected dto付款单D detailsTableEditingRow { get; set; } = new dto付款单D();
+        protected dto付款单D currentEditingRow
         {
             get
             {
@@ -50,8 +50,8 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
             }
         }
 
-        protected EditModal_收款单明细 EditModal_收款单明细;
-        protected Modal_订单金额收付 Modal_订单金额收付;
+        protected EditModal_付款单明细 EditModal;
+        protected Modal_订单金额待付 Modal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -66,36 +66,36 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
         {
             if (items.Any())
             {
-                var dto_detail = Mapper.Map<view_AllOrdersPay, dto收款单D>(items.ElementAtOrDefault(0));
+                var dto_detail = Mapper.Map<view_AllOrdersPay, dto付款单D>(items.ElementAtOrDefault(0));
                 currentEditingRow = dto_detail;
-                EditModal_收款单明细?.Show();
+                EditModal?.Show();
             }
         }
 
         protected void NewRow()
         {
             IsNewRow = true;
-            currentEditingRow = new dto收款单D();
-            Modal_订单金额收付?.Show();
+            currentEditingRow = new dto付款单D();
+            Modal?.Show();
         }
 
-        protected void EditRow(dto收款单D item)
+        protected void EditRow(dto付款单D item)
         {
             IsNewRow = false;
             currentEditingRow = item;
-            EditModal_收款单明细?.Show();
+            EditModal?.Show();
         }
 
-        protected void SaveRow(EditModal_收款单明细 modal)
+        protected void SaveRow(EditModal_付款单明细 modal)
         {
             if (IsNewRow)
             {
                 detailsTableDataSource.Add(modal.DataSource);
             }
-            currentEditingRow = new dto收款单D();
+            currentEditingRow = new dto付款单D();
         }
 
-        protected void RemoveRow(dto收款单D item)
+        protected void RemoveRow(dto付款单D item)
         {
             detailsTableDataSource.Remove(item);
         }
@@ -105,12 +105,12 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
             foreach (var item in detailsTableDataSource)
             {
                 var i = detailsTableDataSource.IndexOf(item);
-                var 总金额 = main.收;
+                var 总金额 = main.付;
                 var 已分配 = detailsTableDataSource.GetRange(0, i).Sum(item => item.可分配);
                 var 未分配 = 总金额 - 已分配;
-                if (item.待收款额 <= 未分配)
+                if (item.待付款额 <= 未分配)
                 {
-                    item.可分配 = item.待收款额;
+                    item.可分配 = item.待付款额;
                 }
                 else
                 {
@@ -123,39 +123,30 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                try
+                var bAdd = PinhuaContext.TryRecordAdd<dto付款单, tb_收付表>(main, creating =>
                 {
-                    var remote = PinhuaContext.RecordAdd<dto收款单, tb_收付表>(main, creating =>
-                    {
-                        creating.单号 = PinhuaContext.funcAutoCode("订单号");
-                        creating.类型 = "收款";
-                        creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
-                    });
+                    creating.类型 = base.category;
+                    creating.单号 = PinhuaContext.funcAutoCode("订单号");
+                    creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
+                });
 
-                    if (PinhuaContext.SaveChanges() > 0)
-                    {
-                        foreach (var localD in detailsTableDataSource)
+                if (bAdd)
+                {
+                    var bAdd2 = PinhuaContext.TryRecordDetailsAdd < dto付款单, dto付款单D, tb_收付表, tb_收付表D>(main, detailsTableDataSource, adding=>
                         {
-                            PinhuaContext.RecordDetailAdd<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(remote, localD, BeforeNewD: beforeD =>
+                            if (string.IsNullOrWhiteSpace(adding.子单号))
                             {
-                                if (string.IsNullOrEmpty(beforeD.子单号))
-                                    beforeD.子单号 = PinhuaContext.funcAutoCode("子单号");
-                                else
-                                {
+                                adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                            }
+                        });
 
-                                }
-                            });
-                        }
-                        PinhuaContext.SaveChanges();
+                    if (bAdd2)
+                    {
                         transaction.Commit();
                     }
+                }
 
-                    Navigation.NavigateTo(routeA);
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
+                Navigation.NavigateTo(routeA);
             }
         }
     }

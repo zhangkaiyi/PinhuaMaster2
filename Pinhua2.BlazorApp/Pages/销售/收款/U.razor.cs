@@ -28,8 +28,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto收款单>(PinhuaContext.tb_收付表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+            main = Mapper.Map<dto收款单>(PinhuaContext.GetViews().销售.销售收款(RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.GetViews().销售.销售收款D(RecordId)).ToList();
         }
 
         protected dto收款单 main = new dto收款单() { 类型 = "收款" };
@@ -58,8 +58,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
             }
         }
 
-        protected EditModal_收款单明细 EditModal_收款单明细;
-        protected Modal_订单金额收付 Modal_订单金额收付;
+        protected EditModal_收款单明细 EditModal;
+        protected Modal_订单金额待收 Modal;
 
         protected bool IsNewRow = false;
 
@@ -69,7 +69,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
             {
                 var dto_detail = Mapper.Map<view_AllOrdersPay, dto收款单D>(items.ElementAtOrDefault(0));
                 currentEditingRow = dto_detail;
-                EditModal_收款单明细?.Show();
+                EditModal?.Show();
             }
         }
 
@@ -77,14 +77,14 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
         {
             IsNewRow = true;
             currentEditingRow = new dto收款单D();
-            Modal_订单金额收付?.Show();
+            Modal?.Show();
         }
 
         protected void EditRow(dto收款单D item)
         {
             IsNewRow = false;
             currentEditingRow = item;
-            EditModal_收款单明细?.Show();
+            EditModal?.Show();
         }
 
         protected void SaveRow(EditModal_收款单明细 modal)

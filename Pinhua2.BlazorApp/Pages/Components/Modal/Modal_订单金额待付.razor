@@ -1,0 +1,28 @@
+﻿@namespace Piuhua2.Components.Modal
+
+<KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
+    <KModalHeader>订单金额待付</KModalHeader>
+    <KModalBody>
+        <KTable2 DataSource="currentDataSource" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
+                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+            <KTable2Columns>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.业务类型))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.往来号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.往来))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.品号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.品名))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.型号))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.规格))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.金额))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.已付))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.待付))"></KTable2Column>
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.备注))"></KTable2Column>
+            </KTable2Columns>
+        </KTable2>
+    </KModalBody>
+    <KModalFooter>
+        <button type="button" class="btn btn-secondary" @onclick="Cancel">取消</button>
+        <button type="button" class="btn btn-primary" @onclick="OK">选择</button>
+    </KModalFooter>
+</KModal>

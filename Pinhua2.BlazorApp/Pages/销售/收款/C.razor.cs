@@ -50,8 +50,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
             }
         }
 
-        protected EditModal_收款单明细 EditModal_收款单明细;
-        protected Modal_订单金额收付 Modal_订单金额收付;
+        protected EditModal_收款单明细 EditModal;
+        protected Modal_订单金额待收 Modal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -68,7 +68,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
             {
                 var dto_detail = Mapper.Map<view_AllOrdersPay, dto收款单D>(items.ElementAtOrDefault(0));
                 currentEditingRow = dto_detail;
-                EditModal_收款单明细?.Show();
+                EditModal?.Show();
             }
         }
 
@@ -76,14 +76,14 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
         {
             IsNewRow = true;
             currentEditingRow = new dto收款单D();
-            Modal_订单金额收付?.Show();
+            Modal?.Show();
         }
 
         protected void EditRow(dto收款单D item)
         {
             IsNewRow = false;
             currentEditingRow = item;
-            EditModal_收款单明细?.Show();
+            EditModal?.Show();
         }
 
         protected void SaveRow(EditModal_收款单明细 modal)
@@ -123,39 +123,32 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                try
+                var remote = PinhuaContext.RecordAdd<dto收款单, tb_收付表>(main, creating =>
                 {
-                    var remote = PinhuaContext.RecordAdd<dto收款单, tb_收付表>(main, creating =>
-                    {
-                        creating.单号 = PinhuaContext.funcAutoCode("订单号");
-                        creating.类型 = "收款";
-                        creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
-                    });
+                    creating.单号 = PinhuaContext.funcAutoCode("订单号");
+                    creating.类型 = "收款";
+                    creating.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == creating.往来号)?.简称;
+                });
 
-                    if (PinhuaContext.SaveChanges() > 0)
+                if (PinhuaContext.SaveChanges() > 0)
+                {
+                    foreach (var localD in detailsTableDataSource)
                     {
-                        foreach (var localD in detailsTableDataSource)
+                        PinhuaContext.RecordDetailAdd<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(remote, localD, BeforeNewD: beforeD =>
                         {
-                            PinhuaContext.RecordDetailAdd<dto收款单, dto收款单D, tb_收付表, tb_收付表D>(remote, localD, BeforeNewD: beforeD =>
+                            if (string.IsNullOrEmpty(beforeD.子单号))
+                                beforeD.子单号 = PinhuaContext.funcAutoCode("子单号");
+                            else
                             {
-                                if (string.IsNullOrEmpty(beforeD.子单号))
-                                    beforeD.子单号 = PinhuaContext.funcAutoCode("子单号");
-                                else
-                                {
 
-                                }
-                            });
-                        }
-                        PinhuaContext.SaveChanges();
-                        transaction.Commit();
+                            }
+                        });
                     }
+                    PinhuaContext.SaveChanges();
+                    transaction.Commit();
+                }
 
-                    Navigation.NavigateTo(routeA);
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
+                Navigation.NavigateTo(routeA);
             }
         }
     }

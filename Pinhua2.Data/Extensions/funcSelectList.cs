@@ -57,7 +57,7 @@ namespace Pinhua2.Data
 
         static public List<SelectListItem> DropdownOptions_客户(this Pinhua2Context _context)
         {
-            var customers = _context.tb_往来表.AsNoTracking().Where(c => c.类型 == "客户");
+            var customers = _context.tb_往来表.AsNoTracking();
 
             var customerSelectList = new List<SelectListItem>();
 

@@ -3,7 +3,7 @@
 
 <KRow>
     <KCol MD="6">
-        <PageTemplateItem Title="收款单 - 删除">
+        <PageTemplateItem Title="付款单 - 删除">
             <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                 <KFormGroup Label="@nameof(main.单号)">
                     <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
@@ -17,14 +17,14 @@
                 <KFormGroup Label="@nameof(main.日期)">
                     <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
                 </KFormGroup>
-                <KFormGroup Label="大类">
+                <KFormGroup Label="类型">
                     <KInputText @bind-Value="main.类型"></KInputText>
                 </KFormGroup>
-                <KFormGroup Label="小类">
+                <KFormGroup Label="方式">
                     <KInputText @bind-Value="main.小类"></KInputText>
                 </KFormGroup>
                 <KFormGroup Label="金额">
-                    <KInputNumber @bind-Value="main.收"></KInputNumber>
+                    <KInputNumber @bind-Value="main.付"></KInputNumber>
                 </KFormGroup>
                 <KFormGroup Label="分配">
                     <KInputNumber @bind-Value="main.分配"></KInputNumber>
@@ -38,29 +38,26 @@
 </KRow>
 <KRow>
     <KCol>
-        <PageTemplateItem Title="明细"
-                          HasBottomLeftButton="true" BottomLeftButtonOnClick="@(e=>NavigationManager.NavigateTo(routeA))"
-                          HasBottomRightButton="true" BottomRightButtonTitle="确认删除"
-                          BottomRightButtonColor="Color.Danger" BottomRightButtonOnClick="@toDelete">
+        <PageTemplateItemForD Title="明细" OnCancel="@(e=>NavigationManager.NavigateTo(routeA))" OnDelete="@toDelete">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                 <KTable2Columns>
-                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.品号))" Text="品号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.品名))" Text="品名"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.型号))" Text="型号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.规格))" Text="规格"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.个数))" Text="个数"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.数量))" Text="数量"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.单位))" Text="单位"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.单价))" Text="单价"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.金额))" Text="金额"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.备注))" Text="备注"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.已收款额))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.待收款额))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.可分配))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto收款单D.分配金额))"></KTable2Column>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto付款单D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.品号))" Text="品号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.品名))" Text="品名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.型号))" Text="型号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.规格))" Text="规格"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.个数))" Text="个数"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.数量))" Text="数量"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.单位))" Text="单位"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.单价))" Text="单价"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.金额))" Text="金额"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.备注))" Text="备注"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.已付款额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.待付款额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.可分配))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto付款单D.分配金额))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-        </PageTemplateItem>
+        </PageTemplateItemForD>
     </KCol>
 </KRow>

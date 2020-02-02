@@ -31,8 +31,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto收款单>(PinhuaContext.tb_收付表.AsNoTracking().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.tb_收付表D.AsNoTracking().Where(m => m.RecordId == RecordId)).ToList();
+            main = Mapper.Map<dto收款单>(PinhuaContext.GetViews().销售.销售收款(RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto收款单D>(PinhuaContext.GetViews().销售.销售收款D(RecordId)).ToList();
         }
 
         protected async Task toDelete()

@@ -122,5 +122,36 @@ namespace Pinhua2.Data
                          select d;
             return result;
         }
+
+        public IQueryable<tb_收付表> 采购付款()
+        {
+            var result = from m in _context.tb_收付表.AsNoTracking()
+                         where m.类型 == "付款"
+                         orderby m.日期 descending, m.往来号 ascending
+                         select m;
+            return result;
+        }
+
+        public tb_收付表 采购付款(int recordId)
+        {
+            return 采购付款().FirstOrDefault(m => m.RecordId == recordId);
+        }
+
+        public IQueryable<tb_收付表D> 采购付款D()
+        {
+            var result = from m in 采购付款()
+                         join d in _context.tb_收付表D.AsNoTracking() on m.RecordId equals d.RecordId
+                         orderby d.RecordId descending, d.RN ascending
+                         select d;
+            return result;
+        }
+
+        public IQueryable<tb_收付表D> 采购付款D(int recordId)
+        {
+            var result = from d in 采购付款D()
+                         where d.RecordId == recordId
+                         select d;
+            return result;
+        }
     }
 }
