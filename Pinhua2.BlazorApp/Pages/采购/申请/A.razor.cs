@@ -32,13 +32,13 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
             var row = e.Row as _IBaseTableMain;
             if (row != null)
             {
-                detailsTableDataSource = Mapper.ProjectTo<dto采购申请D>(PinhuaContext.GetViews().采购申请D(row.RecordId)).ToList();
+                detailsTableDataSource = Mapper.ProjectTo<dto采购申请D>(PinhuaContext.GetViews().采购.采购申请D(row.RecordId)).ToList();
             }
         }
 
         protected override void OnInitialized()
         {
-            mainsTableDataSource = Mapper.ProjectTo<dto采购申请>(PinhuaContext.GetViews().采购申请()).ToList();
+            mainsTableDataSource = Mapper.ProjectTo<dto采购申请>(PinhuaContext.GetViews().采购.采购申请()).ToList();
         }
     }
 }

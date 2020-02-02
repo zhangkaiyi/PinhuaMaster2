@@ -31,8 +31,8 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto采购申请>(PinhuaContext.GetViews().采购申请().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto采购申请D>(PinhuaContext.GetViews().采购申请D(RecordId)).ToList();
+            main = Mapper.Map<dto采购申请>(PinhuaContext.GetViews().采购.采购申请().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto采购申请D>(PinhuaContext.GetViews().采购.采购申请D(RecordId)).ToList();
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
         }
 

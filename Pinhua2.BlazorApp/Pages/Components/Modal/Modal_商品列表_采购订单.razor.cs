@@ -30,7 +30,7 @@ namespace Piuhua2.Components.Modal
 
         protected override void OnInitialized()
         {
-            products = Mapper.ProjectTo<dto采购订单D>(PinhuaContext.GetViews().采购订单D()).ToList();
+            products = Mapper.ProjectTo<dto采购订单D>(PinhuaContext.GetViews().采购.采购订单D()).ToList();
 
             base.OnInitialized();
         }

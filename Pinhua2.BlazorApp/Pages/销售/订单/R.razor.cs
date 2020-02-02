@@ -16,25 +16,21 @@ using Pinhua2.Data;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.BlazorApp.Pages.Components;
 
-namespace Pinhua2.BlazorApp.Pages.采购.入库
+namespace Pinhua2.BlazorApp.Pages.销售.订单
 {
     public abstract class RBase : _CRUDBase
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected dto采购入库 main;
+        protected dto销售订单 main;
 
         protected KTable2 detailsTable;
-        protected List<dto采购入库D> detailsTableDataSource;
-
-        protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+        protected List<dto销售订单D> detailsTableDataSource;
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto采购入库>(PinhuaContext.GetViews().采购.采购入库().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto采购入库D>(PinhuaContext.GetViews().采购.采购入库D(RecordId)).ToList();
-            dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main = Mapper.Map<dto销售订单>(PinhuaContext.GetViews().销售.销售订单().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto销售订单D>(PinhuaContext.GetViews().销售.销售订单D(RecordId)).ToList();
         }
-
     }
 }

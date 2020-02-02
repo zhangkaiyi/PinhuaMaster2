@@ -37,7 +37,7 @@ namespace Pinhua2.BlazorApp.Pages.采购.询价
 
         protected override void OnInitialized()
         {
-            dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            base.OnInitialized();
         }
 
         protected bool bInsert = false;

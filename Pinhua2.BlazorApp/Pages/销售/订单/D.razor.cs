@@ -16,26 +16,22 @@ using Pinhua2.Data;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.BlazorApp.Pages.Components;
 
-namespace Pinhua2.BlazorApp.Pages.采购.订单
+namespace Pinhua2.BlazorApp.Pages.销售.订单
 {
     public abstract class DBase : _CRUDBase
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected dto采购订单 main;
+        protected dto销售订单 main;
 
         protected KTable2 detailsTable;
-        protected List<dto采购订单D> detailsTableDataSource;
-
-        protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+        protected List<dto销售订单D> detailsTableDataSource;
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto采购订单>(PinhuaContext.GetViews().采购.采购订单().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto采购订单D>(PinhuaContext.GetViews().采购.采购订单D(RecordId)).ToList();
-            dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main = Mapper.Map<dto销售订单>(PinhuaContext.GetViews().销售.销售订单().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto销售订单D>(PinhuaContext.GetViews().销售.销售订单D(RecordId)).ToList();
         }
-
         protected async Task toDelete()
         {
             var tb_订单表 = await PinhuaContext.tb_订单表.FindAsync(RecordId);

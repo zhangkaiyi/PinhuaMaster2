@@ -22,10 +22,8 @@ using Newtonsoft.Json;
 
 namespace Pinhua2.BlazorApp.Pages.销售.报价
 {
-    public abstract class UBase : _CRUDBase
+    public abstract class CBase : _CRUDBase
     {
-        [Parameter] public int RecordId { get; set; }
-
         protected dto销售报价 main = new dto销售报价();
 
         protected KTable2 detailsTable;
@@ -39,8 +37,6 @@ namespace Pinhua2.BlazorApp.Pages.销售.报价
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto销售报价>(PinhuaContext.GetViews().销售.销售报价().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto销售报价D>(PinhuaContext.GetViews().销售.销售报价D(RecordId)).ToList();
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
         }
 
@@ -80,27 +76,27 @@ namespace Pinhua2.BlazorApp.Pages.销售.报价
 
         protected void InvalidSubmit(EditContext context)
         {
-
+            JS.InvokeVoidAsync("klazor.console", JsonConvert.SerializeObject(context, Formatting.Indented));
         }
 
         protected void ValidSubmit(EditContext context)
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                var bEdit = PinhuaContext.TryRecordEdit<dto销售报价, tb_报价表>(main, editing =>
+                var bAdd = PinhuaContext.TryRecordAdd<dto销售报价, tb_报价表>(main, adding =>
                 {
-                    editing.业务类型 = base.category;
-                    editing.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == main.往来号)?.简称;
+                    adding.业务类型 = base.category;
+                    adding.单号 = PinhuaContext.funcAutoCode("订单号");
+                    adding.往来 = PinhuaContext.tb_往来表.AsNoTracking().FirstOrDefault(p => p.往来号 == adding.往来号)?.简称;
                 });
-
-                if (bEdit)
+                if (bAdd)
                 {
-                    var bEdit2 = PinhuaContext.TryRecordDetailsEdit<dto销售报价, dto销售报价D, tb_报价表, tb_报价表D>(main, detailsTableDataSource, adding =>
+                    var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto销售报价, dto销售报价D, tb_报价表, tb_报价表D>(main, detailsTableDataSource, adding =>
                     {
                         adding.子单号 = PinhuaContext.funcAutoCode("子单号");
                     });
 
-                    if (bEdit2)
+                    if (bAdd2)
                     {
                         transaction.Commit();
                     }
@@ -108,7 +104,6 @@ namespace Pinhua2.BlazorApp.Pages.销售.报价
 
                 Navigation.NavigateTo(routeA);
             }
-
         }
     }
 }

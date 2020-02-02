@@ -16,40 +16,42 @@
 
 @ChildContent
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <div>
-        @if (HasBottomLeftButton)
-        {
-            <KButton ButtonType="ButtonType.Button" Color="BottomLeftButtonColor" OnClick="BottomLeftButtonOnClick">
-                <i class="oi oi-arrow-thick-left"></i> @BottomLeftButtonTitle
-            </KButton>
-        }
-        else
-        {
-            @BottomLeftContent
-        }
-    </div>
-    <div>
-        @if (HasBottomRightButton)
-        {
-            if (BottomRightButtonSubmit)
+@if (HasBottomLeftButton || HasBottomRightButton)
+{
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+        <div>
+            @if (HasBottomLeftButton)
             {
-                <KButton ButtonType="ButtonType.Submit" Color="BottomRightButtonColor" OnClick="BottomRightButtonOnClick">
-                    <i class="oi oi-check"></i> @BottomRightButtonTitle
+                <KButton ButtonType="ButtonType.Button" Color="BottomLeftButtonColor" OnClick="BottomLeftButtonOnClick">
+                    <i class="oi oi-arrow-thick-left"></i> @BottomLeftButtonTitle
                 </KButton>
             }
             else
             {
-                <KButton ButtonType="ButtonType.Button" Color="BottomRightButtonColor" OnClick="BottomRightButtonOnClick">
-                    <i class="oi oi-check"></i> @BottomRightButtonTitle
-                </KButton>
+                @BottomLeftContent
             }
-        }
-        else
-        {
-            @BottomRightContent
-        }
+        </div>
+        <div>
+            @if (HasBottomRightButton)
+            {
+                if (BottomRightButtonSubmit)
+                {
+                    <KButton ButtonType="ButtonType.Submit" Color="BottomRightButtonColor" OnClick="BottomRightButtonOnClick">
+                        <i class="oi oi-check"></i> @BottomRightButtonTitle
+                    </KButton>
+                }
+                else
+                {
+                    <KButton ButtonType="ButtonType.Button" Color="BottomRightButtonColor" OnClick="BottomRightButtonOnClick">
+                        <i class="oi oi-check"></i> @BottomRightButtonTitle
+                    </KButton>
+                }
+            }
+            else
+            {
+                @BottomRightContent
+            }
 
+        </div>
     </div>
-</div>
-
+}

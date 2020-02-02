@@ -11,18 +11,10 @@ using Pinhua2.ViewModels;
 
 namespace Pinhua2.Data
 {
-    public static partial class Pinhua2ViewsExtension
-    {
-        public static Pinhua2Views GetViews(this Pinhua2Context context)
-        {
-            return new Pinhua2Views(context);
-        }
-    }
-
-    public class Pinhua2Views
+    public class Pinhua2Views_采购
     {
         protected readonly Pinhua2Context _context;
-        public Pinhua2Views(Pinhua2Context context)
+        public Pinhua2Views_采购(Pinhua2Context context)
         {
             _context = context;
         }

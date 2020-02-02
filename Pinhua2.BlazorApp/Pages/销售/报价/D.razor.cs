@@ -16,24 +16,21 @@ using Pinhua2.Data;
 using Microsoft.EntityFrameworkCore;
 using Pinhua2.BlazorApp.Pages.Components;
 
-namespace Pinhua2.BlazorApp.Pages.采购.询价
+namespace Pinhua2.BlazorApp.Pages.销售.报价
 {
     public abstract class DBase : _CRUDBase
     {
         [Parameter] public int RecordId { get; set; }
 
-        protected dto采购询价 main;
+        protected dto销售报价 main;
 
         protected KTable2 detailsTable;
-        protected List<dto采购询价D> detailsTableDataSource;
-
-        protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+        protected List<dto销售报价D> detailsTableDataSource;
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto采购询价>(PinhuaContext.GetViews().采购.采购询价().FirstOrDefault(m => m.RecordId == RecordId));
-            detailsTableDataSource = Mapper.ProjectTo<dto采购询价D>(PinhuaContext.GetViews().采购.采购询价D(RecordId)).ToList();
-            dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main = Mapper.Map<dto销售报价>(PinhuaContext.GetViews().销售.销售报价().FirstOrDefault(m => m.RecordId == RecordId));
+            detailsTableDataSource = Mapper.ProjectTo<dto销售报价D>(PinhuaContext.GetViews().销售.销售报价D(RecordId)).ToList();
         }
 
         protected async Task toDelete()

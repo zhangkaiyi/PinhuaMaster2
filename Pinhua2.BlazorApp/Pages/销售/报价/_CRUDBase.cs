@@ -18,7 +18,6 @@ namespace Pinhua2.BlazorApp.Pages.销售.报价
         protected readonly string routeU = "/销售/报价/修改";
         protected readonly string routeD = "/销售/报价/删除";
 
-        protected string[] dropdownCategory1 = new string[] { "收款" };
-        protected string[] dropdownCategory2 = new string[] { "银行", "微信", "支付宝", "二维码", "现金", "其他" };
+        protected readonly string category = "销售报价";
     }
 }

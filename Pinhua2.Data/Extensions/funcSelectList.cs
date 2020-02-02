@@ -72,6 +72,18 @@ namespace Pinhua2.Data
             return customerSelectList;
         }
 
+        static public Dictionary<string, string> Dic_往来单位(this Pinhua2Context _context)
+        {
+            var customers = _context.tb_往来表.AsNoTracking().OrderBy(m => m.往来号);
+            var customerSelectList = new Dictionary<string, string>();
+
+            foreach (var customer in customers)
+            {
+                customerSelectList.Add(customer.往来号, customer.往来号 + " - " + customer.简称);
+            }
+            return customerSelectList;
+        }
+
         static public IList<SelectListItem> SelectList_供应商(this Pinhua2Context _context)
         {
             var customers = _context.tb_往来表.AsNoTracking().Where(c => c.类型 == "供应商");

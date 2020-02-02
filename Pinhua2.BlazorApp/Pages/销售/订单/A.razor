@@ -1,79 +1,47 @@
-﻿@page "/销售/订单/"
+﻿@inherits ABase
+@page "/销售/订单/"
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
-    <h3>销售订单</h3>
-    <div>
-        <button type="button" class="btn btn-primary" @onclick="@(e=>NavigationManager.NavigateTo($"/销售/订单/新增"))"><i class="oi oi-pencil"></i> 新增</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <KTable2 @ref="table_Main" DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-                 OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
-            <KTable2Columns>
-                <KTable2Column Width="1" Text="操作">
-                    @{
-                        var row = context as dto销售订单;
-                        <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/订单/查看/{row?.RecordId}"))" class="mr-1">查看</a>
-                        <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/订单/修改/{row?.RecordId}"))" class="mr-1">修改</a>
-                        <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/订单/删除/{row?.RecordId}"))">删除</a>
-                    }
-                </KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单.单号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单.业务类型))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单.往来号))" Text="客户号"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单.往来))" Text="客户名"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单.日期))" Format="yyyy-MM-dd"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单.交期))" Format="yyyy-MM-dd"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单.备注))"></KTable2Column>
-            </KTable2Columns>
-        </KTable2>
-    </div>
-</div>
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 mt-3">
-    <h4>明细</h4>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <KTable2 DataSource="list_Details" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="table_Details"
-                 CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
-            <KTable2Columns>
-                <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
-                <KTable2Column Field="@(nameof(dto销售订单D.状态))"></KTable2Column>
-            </KTable2Columns>
-        </KTable2>
-    </div>
-</div>
-
-@code {
-    protected List<dto销售订单> list_Main { get; set; }
-    protected List<dto销售订单D> list_Details { get; set; } = new List<dto销售订单D>();
-
-    protected KTable2 table_Main { get; set; }
-    protected KTable2 table_Details { get; set; }
-
-    protected void OnRowClicked(KTable2Event e)
-    {
-        var row = e.Row as _IBaseTableMain;
-        if (row != null)
-        {
-            list_Details = mapper.ProjectTo<dto销售订单D>(pinhuaContext.tb_订单表D.AsNoTracking().Where(m => m.RecordId == row.RecordId)).ToList();
-        }
-    }
-
-    protected override void OnInitialized()
-    {
-        list_Main = mapper.ProjectTo<dto销售订单>(pinhuaContext.tb_订单表).ToList();
-    }
-}
+<KRow>
+    <KCol>
+        <PageTemplateItemForA Title="销售订单" OnAdd="@(e=>NavigationManager.NavigateTo(routeC))">
+            <KTable2 @ref="table_Main" DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                     OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Width="1" Text="操作">
+                        @{
+                            var row = context as dto销售订单;
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/订单/查看/{row?.RecordId}"))" class="mr-1">查看</a>
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/订单/修改/{row?.RecordId}"))" class="mr-1">修改</a>
+                            <a href="javascript:;" @onclick="@(e => NavigationManager.NavigateTo($"/销售/订单/删除/{row?.RecordId}"))">删除</a>
+                        }
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.单号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.业务类型))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.往来号))" Text="客户号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.往来))" Text="客户名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.交期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItemForA>
+        <PageTemplateItem Title="明细">
+            <KTable2 DataSource="list_Details" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="table_Details"
+                     CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.状态))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItem>
+    </KCol>
+</KRow>
