@@ -1,0 +1,45 @@
+﻿@inherits  ABase
+@page "/销售/出库/"
+
+<KRow>
+    <KCol>
+        <PageTemplateItemForA Title="销售出库" OnAdd="@(e=>NavigationManager.NavigateTo(routeC))">
+            <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
+                     OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Width="1" Text="操作">
+                        @{
+                            var row = context as dto销售出库;
+                            <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeR}/{row?.RecordId}"))" class="mr-1">查看</a>
+                            <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeU}/{row?.RecordId}"))" class="mr-1">修改</a>
+                            <a href="javascript:;" @onclick="@(e => Navigation.NavigateTo($"{routeD}/{row?.RecordId}"))">删除</a>
+                        }
+                    </KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库.单号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库.类型))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库.往来号))" Text="客户号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库.往来))" Text="客户名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库.日期))" Format="yyyy-MM-dd"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItemForA>
+        <PageTemplateItem Title="明细">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                     CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                <KTable2Columns>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品名))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.型号))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.规格))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.个数))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.数量))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单位))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单价))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.金额))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.备注))"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItem>
+    </KCol>
+</KRow>

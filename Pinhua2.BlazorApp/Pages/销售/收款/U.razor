@@ -27,9 +27,9 @@
                     <KFormGroup Label="小类">
                         <KInputSelect @bind-Value="main.小类">
                             @foreach (var item in dropdownCategory2)
-                                {
-                            <option>@item</option>
-                                }
+                            {
+                                <option>@item</option>
+                            }
                         </KInputSelect>
                     </KFormGroup>
                     <KFormGroup Label="金额">
@@ -44,10 +44,7 @@
     </KRow>
     <KRow>
         <KCol>
-            <PageTemplateItem Title="明细"
-                              HasTopRightButton="true" TopRightButtonTitle="添加" TopRightButtonOnClick="@(e => NewRow())"
-                              HasBottomLeftButton="true" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
-                              HasBottomRightButton="true" BottomRightButtonTitle="确认修改" BottomRightButtonSubmit="true">
+            <PageTemplateItemForU Title="明细" OnAdd="@(e => NewRow())" OnCancel="@(e=>Navigation.NavigateTo(routeA))">
                 <KTable2 DataSource="currentDetails" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                          CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                     <KTable2Columns>
@@ -71,7 +68,7 @@
                         <KTable2Column Field="@(nameof(dto收款单D.分配金额))" Text="分配"></KTable2Column>
                     </KTable2Columns>
                 </KTable2>
-            </PageTemplateItem>
+            </PageTemplateItemForU>
         </KCol>
     </KRow>
 </KForm>

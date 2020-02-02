@@ -1,0 +1,48 @@
+﻿@inherits RBase
+@page "/销售/出库/查看/{RecordId:int}"
+
+<KRow>
+    <KCol MD="6">
+        <PageTemplateItem Title="销售出库 - 查看">
+            <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
+                <KFormGroup Label="@nameof(main.单号)">
+                    <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="客户号">
+                    <KInputText @bind-Value="main.往来号"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="客户名">
+                    <KInputText @bind-Value="main.往来"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.日期)">
+                    <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                </KFormGroup>
+                <KFormGroup Label="@nameof(main.备注)">
+                    <KInputText @bind-Value="main.备注"></KInputText>
+                </KFormGroup>
+            </KFormGroupContainer>
+        </PageTemplateItem>
+    </KCol>
+</KRow>
+
+<KRow>
+    <KCol>
+        <PageTemplateItemForR Title="明细" OnBack="@(e=>Navigation.NavigateTo(routeA))" OnEdit="@(e=>Navigation.NavigateTo($"{routeU}/{RecordId}"))">
+            <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
+                <KTable2Columns>
+                    <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto销售出库D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品号))" Text="品号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.品名))" Text="品名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.型号))" Text="型号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.规格))" Text="规格"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.个数))" Text="个数"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.数量))" Text="数量"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单位))" Text="单位"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.单价))" Text="单价"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.金额))" Text="金额"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售出库D.备注))" Text="备注"></KTable2Column>
+                </KTable2Columns>
+            </KTable2>
+        </PageTemplateItemForR>
+    </KCol>
+</KRow>

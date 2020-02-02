@@ -39,12 +39,7 @@
     </KRow>
     <KRow>
         <KCol>
-            <PageTemplateItem Title="明细"
-                          HasBottomLeftButton="true" BottomLeftButtonTitle="返回"
-                          BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))"
-                          HasBottomRightButton="true" BottomRightButtonTitle="修改"
-                          BottomRightButtonOnClick="@(e=>Navigation.NavigateTo($"{routeU}/{RecordId}"))"
-                          BottomRightButtonColor="Color.Primary">
+            <PageTemplateItemForR Title="明细" OnBack="@(e=>Navigation.NavigateTo(routeA))" OnEdit="@(e=>Navigation.NavigateTo($"{routeU}/{RecordId}"))">
                 <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                     <KTable2Columns>
                         <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
@@ -64,7 +59,7 @@
                         <KTable2Column Field="@(nameof(dto收款单D.分配金额))"></KTable2Column>
                     </KTable2Columns>
                 </KTable2>
-            </PageTemplateItem>
+            </PageTemplateItemForR>
         </KCol>
     </KRow>
 </KForm>

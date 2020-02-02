@@ -1,8 +1,7 @@
 ﻿@inherits ABase
 @page "/销售/收款/"
 
-<PageTemplateItem Title="收款单"
-                  HasTopRightButton="true" TopRightButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
+<PageTemplateItemForA Title="收款单" OnAdd="@(e=>Navigation.NavigateTo(routeC))">
     <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
              OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
         <KTable2Columns>
@@ -24,7 +23,7 @@
             <KTable2Column Field="@(nameof(dto收款单.备注))"></KTable2Column>
         </KTable2Columns>
     </KTable2>
-</PageTemplateItem>
+</PageTemplateItemForA>
 
 <PageTemplateItem Title="明细">
     <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"

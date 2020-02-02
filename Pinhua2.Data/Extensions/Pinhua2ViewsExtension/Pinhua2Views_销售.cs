@@ -80,6 +80,11 @@ namespace Pinhua2.Data
             return result;
         }
 
+        public tb_IO 销售出库(int recordId)
+        {
+            return 销售出库().FirstOrDefault(m => m.RecordId == recordId);
+        }
+
         public IQueryable<tb_IOD> 销售出库D()
         {
             var result = from m in 销售出库()

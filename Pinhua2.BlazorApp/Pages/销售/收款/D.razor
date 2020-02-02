@@ -38,10 +38,7 @@
 </KRow>
 <KRow>
     <KCol>
-        <PageTemplateItem Title="明细"
-                          HasBottomLeftButton="true" BottomLeftButtonOnClick="@(e=>NavigationManager.NavigateTo(routeA))"
-                          HasBottomRightButton="true" BottomRightButtonTitle="确认删除"
-                          BottomRightButtonColor="Color.Danger" BottomRightButtonOnClick="@toDelete">
+        <PageTemplateItemForD Title="明细" OnCancel="@(e=>NavigationManager.NavigateTo(routeA))" OnDelete="@toDelete">
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                 <KTable2Columns>
                     <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto收款单D) + 1)</KTable2Column>
@@ -61,6 +58,6 @@
                     <KTable2Column Field="@(nameof(dto收款单D.分配金额))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
-        </PageTemplateItem>
+        </PageTemplateItemForD>
     </KCol>
 </KRow>
