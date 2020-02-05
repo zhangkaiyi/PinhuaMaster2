@@ -22,16 +22,19 @@ namespace Piuhua2.Components.PageTemplate
         [Parameter] public RenderFragment BottomLeftContent { get; set; }
         [Parameter] public RenderFragment BottomRightContent { get; set; }
 
+        [Parameter] public bool CustomizeTopRight { get; set; }
         [Parameter] public bool HasTopRightButton { get; set; }
         [Parameter] public string TopRightButtonTitle { get; set; } = "新建";
         [Parameter] public Color TopRightButtonColor { get; set; } = Color.Primary;
         [Parameter] public EventCallback<MouseEventArgs> TopRightButtonOnClick { get; set; }
 
+        [Parameter] public bool CustomizeBottomLeft { get; set; }
         [Parameter] public bool HasBottomLeftButton { get; set; }
         [Parameter] public string BottomLeftButtonTitle { get; set; } = "取消";
         [Parameter] public Color BottomLeftButtonColor { get; set; } = Color.Secondary;
         [Parameter] public EventCallback<MouseEventArgs> BottomLeftButtonOnClick { get; set; }
 
+        [Parameter] public bool CustomizeBottomRight { get; set; }
         [Parameter] public bool HasBottomRightButton { get; set; }
         [Parameter] public bool BottomRightButtonSubmit { get; set; }
         [Parameter] public string BottomRightButtonTitle { get; set; } = "确定";

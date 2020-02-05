@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20200103155329_ddecimal.Designer.cs" />
     <Compile Remove="Migrations\20200121061126_test.cs" />
     <Compile Remove="Migrations\20200121061126_test.Designer.cs" />
+    <Compile Remove="Migrations\20200205071926_报价单导入.cs" />
+    <Compile Remove="Migrations\20200205071926_报价单导入.Designer.cs" />
   </ItemGroup>
   
   <ItemGroup>

@@ -19,6 +19,7 @@ namespace Pinhua2.Data.Models
         public string 往来 { get; set; }
         public string 往来号 { get; set; }
         public string 报价单 { get; set; }
+        public bool 来自报价单 { get; set; }
         public decimal? 应收 { get; set; }
         public decimal? 应付 { get; set; }
     }

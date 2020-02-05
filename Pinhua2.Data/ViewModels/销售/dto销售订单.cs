@@ -56,6 +56,8 @@ namespace Pinhua2.ViewModels
         [MyPriority(Priority.High)]
         public string 报价单 { get; set; }
 
+        public bool 来自报价单 { get; set; }
+
         [CustomDisplay(25)]
         [MyPriority(Priority.Medium)]
         public decimal? 应收 { get; set; }

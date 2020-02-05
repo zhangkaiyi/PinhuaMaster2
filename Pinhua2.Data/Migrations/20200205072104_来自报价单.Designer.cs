@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pinhua2.Data;
 
 namespace Pinhua2.Data.Migrations
 {
     [DbContext(typeof(Pinhua2Context))]
-    partial class Pinhua2ContextModelSnapshot : ModelSnapshot
+    [Migration("20200205072104_来自报价单")]
+    partial class 来自报价单
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

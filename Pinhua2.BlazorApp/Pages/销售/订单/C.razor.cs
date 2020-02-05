@@ -109,8 +109,5 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
         {
             Modal_销售报价D?.Show();
         }
-
-        protected bool x;
-        protected string y = string.Empty;
     }
 }

@@ -2,15 +2,15 @@
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
     <h3>@Title</h3>
-    @if (HasTopRightButton)
+    @if (CustomizeTopRight)
+    {
+        @TopRightContent
+    }
+    else if (HasTopRightButton)
     {
         <KButton ButtonType="ButtonType.Button" Color="TopRightButtonColor" OnClick="TopRightButtonOnClick">
             <i class="oi oi-pencil"></i> @TopRightButtonTitle
         </KButton>
-    }
-    else
-    {
-        @TopRightContent
     }
 </div>
 
@@ -20,19 +20,23 @@
 {
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
         <div>
-            @if (HasBottomLeftButton)
+            @if (CustomizeBottomLeft)
+            {
+                @BottomLeftContent
+            }
+            else if (HasBottomLeftButton)
             {
                 <KButton ButtonType="ButtonType.Button" Color="BottomLeftButtonColor" OnClick="BottomLeftButtonOnClick">
                     <i class="oi oi-arrow-thick-left"></i> @BottomLeftButtonTitle
                 </KButton>
             }
-            else
-            {
-                @BottomLeftContent
-            }
         </div>
         <div>
-            @if (HasBottomRightButton)
+            @if (CustomizeBottomRight)
+            {
+                @BottomRightContent
+            }
+            else if (HasBottomRightButton)
             {
                 if (BottomRightButtonSubmit)
                 {
@@ -47,11 +51,6 @@
                     </KButton>
                 }
             }
-            else
-            {
-                @BottomRightContent
-            }
-
         </div>
     </div>
 }
