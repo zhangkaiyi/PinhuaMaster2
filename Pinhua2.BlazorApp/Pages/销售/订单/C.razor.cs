@@ -41,9 +41,9 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
         }
 
-        protected bool bInsert = false;
+        protected bool bNew = false;
 
-        protected void toSelect(IEnumerable<dto商品> items)
+        protected void selectInsertItem(IEnumerable<dto商品> items)
         {
             if (items.Any())
             {
@@ -56,13 +56,29 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
 
         protected void toInsert()
         {
-            bInsert = true;
+            bNew = true;
             Modal_商品列表?.Show();
+        }
+
+        protected void toImport()
+        {
+            bNew = true;
+            Modal_销售报价D?.Show();
+        }
+
+        protected void selectImportItem(IEnumerable<dto销售报价D> items)
+        {
+            if (items.Any())
+            {
+                var dto_detail = Mapper.Map<dto销售报价D, dto销售订单D>(items.ElementAtOrDefault(0));
+                detailsTableEditingRow = dto_detail;
+                Modal_修改销售订单明细?.Show();
+            }
         }
 
         protected void saveChange(Modal_修改销售订单明细 modal)
         {
-            if (bInsert)
+            if (bNew)
             {
                 detailsTableDataSource.Add(modal.DataSource);
             }
@@ -70,7 +86,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
 
         protected void toEdit(dto销售订单D item)
         {
-            bInsert = false;
+            bNew = false;
             detailsTableEditingRow = item;
             Modal_修改销售订单明细?.Show();
         }
@@ -103,11 +119,6 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
                 Navigation.NavigateTo(routeA);
 
             }
-        }
-
-        protected void HandleImport()
-        {
-            Modal_销售报价D?.Show();
         }
     }
 }

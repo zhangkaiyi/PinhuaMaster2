@@ -116,8 +116,8 @@ namespace Pinhua2.ViewModels
             CreateMap<tb_商品表, dto销售订单D>();
 
             CreateMap<dto销售订单, tb_订单表>()
-                .BeforeMap((src, dst) => 
-                { 
+                .BeforeMap((src, dst) =>
+                {
                 })
                 .AfterMap((src, dst) =>
                 {
@@ -127,14 +127,9 @@ namespace Pinhua2.ViewModels
                 });
             CreateMap<dto销售订单D, tb_订单表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+
+            CreateMap<dto销售报价D, dto销售订单D>()
+                .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }
-
-    //public class Profile_商品表_销售订单D : Profile
-    //{
-    //    public Profile_商品表_销售订单D()
-    //    {
-    //        CreateMap<tb_商品表, vm_销售订单D>();
-    //    }
-    //}
 }
