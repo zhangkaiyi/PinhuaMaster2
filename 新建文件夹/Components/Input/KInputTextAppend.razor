@@ -1,0 +1,11 @@
+﻿@namespace Klazor
+@inherits KInputBase<string>
+
+<div class="input-group">
+    <input type="text" id="@(currentId)" class="@Classname" placeholder="@Placeholder" readonly="@currentReadonly"
+           @attributes="@UnknownParameters"
+           @bind="@currentValue" />
+    <div class="input-group-append">
+        @ChildContent
+    </div>
+</div>

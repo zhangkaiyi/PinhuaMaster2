@@ -1,0 +1,134 @@
+﻿@namespace Klazor
+
+<CascadingValue Value="@this">
+    @ChildContent
+    <div style="@Stylename" @ref="Container" class="@(hideContainer?"d-none":"")">
+        <div class="row">
+            <div class="col">
+                <div class="@(IsResponsive ? "table-responsive" : "")">
+                    <table cellspacing="0" cellpadding="0" border="0" class="@Classname" tabindex="-1">
+                        <colgroup>
+                            @if (CheckBoxHeader)
+                            {
+                                <col name="auto_column_checkbox" width="1" />
+                            }
+                            @foreach (var userColumn in UserColumns)
+                            {
+                                var width = userColumn.Width;
+                                if (userColumn.IsCheckBox)
+                                {
+                                    width = 1;
+                                }
+                                <col name="user_column_@(UserColumns.IndexOf(userColumn)+1)" width="@width" />
+                            }
+                        </colgroup>
+                        <thead class="">
+                            <tr class="">
+                                @if (CheckBoxHeader)
+                                {
+                                    <th class="auto_column_checkbox bs-checkbox">
+                                        @if (!IsSingleSelect)
+                                        {
+                                            <BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>
+                                        }
+                                    </th>
+                                }
+                                @foreach (var userColumn in UserColumns)
+                                {
+                                    <th colspan="1" rowspan="1" class="user_column_@(UserColumns.IndexOf(userColumn)+1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                        <div class="">
+                                            @if (userColumn.IsCheckBox)
+                                            {
+                                                if (!IsSingleSelect)
+                                                {
+                                                    <BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>
+                                                }
+                                            }
+                                            else if (string.IsNullOrEmpty(userColumn.Text))
+                                            {
+                                                @userColumn.Property.Name
+                                            }
+                                            else
+                                            {
+                                                @userColumn.Text
+                                            }
+                                        </div>
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody style="max-height:50px;overflow-y:scroll">
+                            @if (DataSource == null || !Rows.Any())
+                            {
+                                <tr>
+                                    <td class="text-center" colspan="50">暂无</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                var pagedRows = new List<object>();
+                                if (Rows.Count > CurrentPage * PageSize)
+                                {
+                                    pagedRows = Rows.Take(CurrentPage * PageSize).TakeLast(PageSize).ToList();
+                                }
+                                else
+                                {
+                                    pagedRows = Rows.Take(CurrentPage * PageSize).TakeLast(PageSize - (CurrentPage * PageSize - Rows.Count)).ToList();
+                                }
+                                @foreach (var row in pagedRows)
+                                {
+                                    var rowClass = new BlazorComponentUtilities.CssBuilder()
+                                        .AddClass("table-active", SelectedRows.Contains(row))
+                                        .Build();
+                                    <tr class="@rowClass" @onclick="e => RowClicked(row)">
+                                        @if (CheckBoxHeader)
+                                        {
+                                            <td class="auto_column_checkbox">
+                                                <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                            </td>
+                                        }
+                                        @foreach (var userColumn in UserColumns)
+                                        {
+                                            <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn) + 1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
+                                                @if (userColumn.IsCheckBox)
+                                                {
+                                                    <BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>
+                                                }
+                                                else if (userColumn.Template != null)
+                                                {
+                                                    @userColumn.Template(row)
+                                                }
+                                                else if (userColumn.Eval != null)
+                                                {
+                                                    @userColumn.Eval(row)
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @if (Math.Ceiling((float)Rows.Count / PageSize) > 1 || !NoPaginationOnSinglePage)
+                {
+                    <KPagination Alignment="Alignment.Right" Total="Rows.Count" PageSize="5">
+                        <KPaginationItem IsDisabled="CurrentPage == 1">
+                            <KPaginationLink Href="javascript:;" PaginationLinkType="PaginationLinkType.PreviousText" @onclick="e=>CurrentPage--"></KPaginationLink>
+                        </KPaginationItem>
+                        @for (var i = 0; i != Math.Ceiling((float)Rows.Count / PageSize); i++)
+                        {
+                            var pageNum = i + 1;
+                            <KPaginationItem IsActive="CurrentPage == pageNum">
+                                <KPaginationLink Href="javascript:;" PaginationLinkType="PaginationLinkType.Custom" @onclick="e=>CurrentPage = pageNum">@pageNum</KPaginationLink>
+                            </KPaginationItem>
+                        }
+                        <KPaginationItem IsDisabled="CurrentPage >= Math.Ceiling((float)Rows.Count / PageSize)">
+                            <KPaginationLink Href="javascript:;" PaginationLinkType="PaginationLinkType.NextText" @onclick="e=>CurrentPage++"></KPaginationLink>
+                        </KPaginationItem>
+                    </KPagination>
+                }
+            </div>
+        </div>
+    </div>
+</CascadingValue>

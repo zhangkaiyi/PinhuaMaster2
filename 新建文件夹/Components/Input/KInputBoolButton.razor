@@ -1,0 +1,12 @@
+﻿@namespace Klazor
+@inherits KInputBool<TValue>
+@typeparam TValue
+
+<div class="input-group">
+    <input type="text" id="@(currentId)" class="@Classname" placeholder="@Placeholder" readonly="@currentReadonly"
+           @attributes="@UnknownParameters"
+           @bind="@currentValueAsString" />
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" @onclick="@OnButtonClick">@ButtonText</button>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@namespace Klazor
+
+<div @attributes="@UnknownParameters" class="@divClassname">
+    <h5 class="@headingClassname">
+        @if (ChildContent == default)
+        {
+            @("模态框")
+        }
+        else
+        {
+            @ChildContent
+        }
+    </h5>
+    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

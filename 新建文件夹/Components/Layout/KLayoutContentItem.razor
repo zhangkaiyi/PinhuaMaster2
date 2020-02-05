@@ -1,0 +1,14 @@
+﻿@namespace Klazor
+@inherits KComponentBase
+
+<CascadingValue Value="this">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+        <h3>@Title</h3>
+        <div>
+            @Toolbar
+        </div>
+    </div>
+    <div>
+        @ChildContent
+    </div>
+</CascadingValue>

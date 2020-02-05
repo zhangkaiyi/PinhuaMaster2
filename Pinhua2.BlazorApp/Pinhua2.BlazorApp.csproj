@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Klazor\Klazor.csproj" />
     <ProjectReference Include="..\Pinhua2.Data\Pinhua2.Data.csproj" />
   </ItemGroup>
 

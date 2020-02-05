@@ -1,0 +1,19 @@
+﻿@inherits BSimpleCheckBox<TValue>
+@typeparam TValue
+@{
+    switch (Status)
+    {
+        case CheckBoxStatus.UnChecked:
+            _isChecked = string.Empty;
+            _isIndeterminate = string.Empty;
+            break;
+        case CheckBoxStatus.Checked:
+            _isChecked = "is-checked";
+            _isIndeterminate = string.Empty;
+            break;
+    }
+}
+<label role="checkbox" aria-checked="true" class="el-checkbox-button @_isChecked @isDisabled">
+    <input type="checkbox" class="el-checkbox-button__original @isDisabled" @onchange="ChangeStatus" />
+    <span class="el-checkbox-button__inner">@ChildContent</span>
+</label>
