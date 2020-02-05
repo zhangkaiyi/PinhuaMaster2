@@ -30,7 +30,7 @@ namespace Klazor
         [Parameter] public TValue Value { get; set; }
         [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
         [Parameter] public EventCallback OnValueChanged { get; set; }
-        [Parameter] public RenderFragment ChildContent { get; set; }
+        //[Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public bool? Readonly { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public string Placeholder { get; set; }

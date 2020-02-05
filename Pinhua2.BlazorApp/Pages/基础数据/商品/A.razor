@@ -1,10 +1,9 @@
 ﻿@inherits ABase
 @page "/基础数据/商品"
 
-<PageTemplateItem Title="商品"
-                  HasTopRightButton="true" TopRightButtonOnClick="@(e=>Navigation.NavigateTo(routeC))">
+<PageTemplateItemForA Title="商品" OnAdd="@(e=>Navigation.NavigateTo(routeC))">
     <KTable2 @ref="mainsTable" DataSource="mainsTableDataSource" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
-             OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+             OnRowClicked="@(OnRowClicked)" PageSize="20" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
         <KTable2Columns>
             <KTable2Column Width="1" Text="操作">
                 @{
@@ -23,4 +22,4 @@
             <KTable2Column Field="@(nameof(dto商品.备注))"></KTable2Column>
         </KTable2Columns>
     </KTable2>
-</PageTemplateItem>
+</PageTemplateItemForA>

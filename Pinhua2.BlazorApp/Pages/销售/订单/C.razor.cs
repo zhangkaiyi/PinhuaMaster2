@@ -32,6 +32,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
 
         protected Modal_修改销售订单明细 Modal_修改销售订单明细;
         protected Modal_商品列表 Modal_商品列表;
+        protected Modal_商品列表_销售报价D Modal_销售报价D;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -74,11 +75,6 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
             Modal_修改销售订单明细?.Show();
         }
 
-        protected void InvalidSubmit(EditContext context)
-        {
-            JS.InvokeVoidAsync("klazor.console", JsonConvert.SerializeObject(context, Formatting.Indented));
-        }
-
         protected void ValidSubmit(EditContext context)
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
@@ -108,5 +104,13 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
 
             }
         }
+
+        protected void HandleImport()
+        {
+            Modal_销售报价D?.Show();
+        }
+
+        protected bool x;
+        protected string y = string.Empty;
     }
 }

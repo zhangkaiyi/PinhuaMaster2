@@ -35,7 +35,7 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
 
         protected override void OnInitialized()
         {
-            mainsTableDataSource = Mapper.ProjectTo<dto商品>(PinhuaContext.tb_商品表).ToList();
+            mainsTableDataSource = Mapper.ProjectTo<dto商品>(PinhuaContext.GetViews().基础.商品()).ToList();
         }
     }
 }

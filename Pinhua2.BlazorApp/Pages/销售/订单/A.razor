@@ -3,7 +3,7 @@
 
 <KRow>
     <KCol>
-        <PageTemplateItemForA Title="销售订单" OnAdd="@(e=>NavigationManager.NavigateTo(routeC))">
+        <PageTemplateItemForA Title="销售订单" OnAdd="@(e=>Navigation.NavigateTo(routeC))">
             <KTable2 @ref="table_Main" DataSource="list_Main" IsResponsive="true" IsBordered=" true" IsHovarable="true" IsTextNoWrap="true"
                      OnRowClicked="@(OnRowClicked)" PageSize="10" CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                 <KTable2Columns>
@@ -17,6 +17,7 @@
                     </KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.单号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.业务类型))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单.报价单))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.往来号))" Text="客户号"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.往来))" Text="客户名"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.日期))" Format="yyyy-MM-dd"></KTable2Column>

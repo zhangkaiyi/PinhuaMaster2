@@ -57,22 +57,17 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                try
+                var bAdd = PinhuaContext.TryRecordAdd<dto商品, tb_商品表>(main, adding =>
                 {
-                    var remote = PinhuaContext.RecordAdd<dto商品, tb_商品表>(main, adding =>
-                    {
-                        adding.品号 = PinhuaContext.funcAutoCode("商品号");
-                    });
+                    adding.品号 = PinhuaContext.funcAutoCode("商品号");
+                });
 
-                    PinhuaContext.SaveChanges();
+                if (bAdd)
+                {
                     transaction.Commit();
+                }
 
-                    Navigation.NavigateTo(routeA);
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
+                Navigation.NavigateTo(routeA);
             }
         }
     }

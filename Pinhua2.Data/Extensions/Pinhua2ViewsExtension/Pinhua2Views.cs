@@ -27,6 +27,7 @@ namespace Pinhua2.Data
             _context = context;
         }
 
+        public Pinhua2Views_基础 基础 => new Pinhua2Views_基础(_context);
         public Pinhua2Views_销售 销售 => new Pinhua2Views_销售(_context);
         public Pinhua2Views_采购 采购 => new Pinhua2Views_采购(_context);
     }

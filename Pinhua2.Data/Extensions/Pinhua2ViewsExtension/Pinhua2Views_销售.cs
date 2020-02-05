@@ -37,6 +37,20 @@ namespace Pinhua2.Data
             return result;
         }
 
+        public List<combo销售报价> 销售报价combo()
+        {
+            var result = from m in _context.tb_报价表.AsNoTracking()
+                         join d in _context.tb_报价表D.AsNoTracking() on m.RecordId equals d.RecordId
+                         where m.业务类型 == "销售报价"
+                         orderby m.日期 descending, m.往来号 ascending
+                         select new combo销售报价
+                         {
+                             Main = m,
+                             Detail = d
+                         };
+            return result.ToList();
+        }
+
         public IQueryable<tb_报价表D> 销售报价D(int recordId)
         {
             var result = from d in 销售报价D()

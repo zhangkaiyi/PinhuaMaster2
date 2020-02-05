@@ -26,7 +26,7 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto商品>(PinhuaContext.tb_商品表.FirstOrDefault(p => p.RecordId == RecordId));
+            main = Mapper.Map<dto商品>(PinhuaContext.GetViews().基础.商品(RecordId));
         }
 
         protected async Task toDelete()

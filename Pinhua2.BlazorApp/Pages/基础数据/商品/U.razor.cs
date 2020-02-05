@@ -50,7 +50,7 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
 
         protected override void OnInitialized()
         {
-            main = Mapper.Map<dto商品>(PinhuaContext.tb_商品表.FirstOrDefault(p=>p.RecordId == RecordId));
+            main = Mapper.Map<dto商品>(PinhuaContext.GetViews().基础.商品(RecordId));
         }
 
         protected void InvalidSubmit(EditContext context)
@@ -62,18 +62,14 @@ namespace Pinhua2.BlazorApp.Pages.基础数据.商品
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                try
-                {
-                    var remote = PinhuaContext.RecordEdit<dto商品, tb_商品表>(main);
+                var bEdit = PinhuaContext.TryRecordEdit<dto商品, tb_商品表>(main);
 
+                if (bEdit)
+                {
                     transaction.Commit();
+                }
 
-                    Navigation.NavigateTo(routeA);
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
+                Navigation.NavigateTo(routeA);
             }
         }
     }
