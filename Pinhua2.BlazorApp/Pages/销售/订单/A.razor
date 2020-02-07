@@ -17,8 +17,7 @@
                     </KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.单号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.业务类型))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单.报价单))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单.来自报价单))"></KTable2Column>
+                    <KTable2ColumnBoolean Field="@(nameof(dto销售订单.来自报价单))"></KTable2ColumnBoolean>
                     <KTable2Column Field="@(nameof(dto销售订单.往来号))" Text="客户号"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.往来))" Text="客户名"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto销售订单.日期))" Format="yyyy-MM-dd"></KTable2Column>
@@ -31,17 +30,18 @@
             <KTable2 DataSource="list_Details" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="table_Details"
                      CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                 <KTable2Columns>
-                    <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto销售订单D.状态))"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.子单号))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品号))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.品名))" Width="200"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.型号))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.规格))" Width="200"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.个数))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.数量))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单位))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.单价))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.金额))" Width="100"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.备注))" Width="150"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto销售订单D.状态))" Width="100"></KTable2Column>
                 </KTable2Columns>
             </KTable2>
         </PageTemplateItem>

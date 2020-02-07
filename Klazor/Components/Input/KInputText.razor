@@ -1,6 +1,6 @@
 ﻿@namespace Klazor
 @inherits KInputBase<string>
 
-<input type="text" id="@(currentId)" class="@Classname" placeholder="@Placeholder" readonly="@currentReadonly"
+<input type="text" id="@(currentId)" class="@Classname" placeholder="@Placeholder" readonly="@currentReadonly" disabled="@IsDisabled"
        @attributes="@UnknownParameters"
        @bind="@currentValue" />

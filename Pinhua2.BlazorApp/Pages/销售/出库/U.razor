@@ -61,5 +61,5 @@
     </KRow>
 </KForm>
 
-<Modal_商品列表_销售订单 @ref="Modal_商品列表_销售订单" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto销售订单D>())"></Modal_商品列表_销售订单>
-<Modal_修改销售发货明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售发货明细" OnOK="e=>saveChange(e)"></Modal_修改销售发货明细>
+<Modal_商品列表_销售订单 @ref="Modal_商品列表_销售订单" FilterExpression="@(m=>m.Main.往来号 == main.往来号 && !m.Detail.状态.Contains("已"))" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto销售订单D>())"></Modal_商品列表_销售订单>
+<EditModal_销售发货D DataSource="detailsTableEditingRow" @ref="EditModal_销售发货D" OnOK="e=>saveChange(e)"></EditModal_销售发货D>

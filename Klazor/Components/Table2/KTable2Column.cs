@@ -10,6 +10,8 @@ namespace Klazor
     public class KTable2Column : ComponentBase
     {
         internal virtual bool IsCheckBox { get; set; }
+        internal virtual bool IsBoolean { get; set; }
+
         [Parameter]
         public virtual int? Width { get; set; }
 

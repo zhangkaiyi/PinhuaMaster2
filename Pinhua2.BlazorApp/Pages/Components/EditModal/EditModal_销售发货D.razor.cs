@@ -14,10 +14,10 @@ using Klazor;
 
 namespace Piuhua2.Components.Modal
 {
-    public partial class Modal_修改销售发货明细 : ComponentBase
+    public partial class EditModal_销售发货D : ComponentBase
     {
-        [Parameter] public EventCallback<Modal_修改销售发货明细> OnOK { get; set; }
-        [Parameter] public EventCallback<Modal_修改销售发货明细> OnCancel { get; set; }
+        [Parameter] public EventCallback<EditModal_销售发货D> OnOK { get; set; }
+        [Parameter] public EventCallback<EditModal_销售发货D> OnCancel { get; set; }
 
         protected KModal modal;
         protected string[] dropdownItems => new[] { "片", "平方米", "延长米", "立方米", "套" };

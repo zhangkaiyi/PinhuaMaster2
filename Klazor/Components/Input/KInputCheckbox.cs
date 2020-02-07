@@ -32,6 +32,7 @@ namespace Klazor
             builder.AddAttribute(4, "checked", BindConverter.FormatValue(currentValue));
             builder.AddAttribute(5, "onchange", EventCallback.Factory.CreateBinder<bool>(this, __value => currentValue = __value, currentValue));
             builder.AddAttribute(6, "id", Id);
+            builder.AddAttribute(7, "disabled", IsDisabled);
             builder.CloseElement();
         }
     }

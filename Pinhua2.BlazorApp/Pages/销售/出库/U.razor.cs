@@ -33,7 +33,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
         protected dto销售出库D detailsTableEditingRow { get; set; } = new dto销售出库D();
 
         protected Modal_商品列表_销售订单 Modal_商品列表_销售订单;
-        protected Modal_修改销售发货明细 Modal_修改销售发货明细;
+        protected EditModal_销售发货D EditModal_销售发货D;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -53,7 +53,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
                 var tb_product = Mapper.Map<dto销售订单D, tb_订单表D>(items.ElementAtOrDefault(0));
                 var dto_detail = Mapper.Map<tb_订单表D, dto销售出库D>(tb_product);
                 detailsTableEditingRow = dto_detail;
-                Modal_修改销售发货明细?.Show();
+                EditModal_销售发货D?.Show();
             }
         }
 
@@ -63,7 +63,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
             Modal_商品列表_销售订单?.Show();
         }
 
-        protected void saveChange(Modal_修改销售发货明细 modal)
+        protected void saveChange(EditModal_销售发货D modal)
         {
             if (bInsert)
             {
@@ -75,7 +75,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
         {
             bInsert = false;
             detailsTableEditingRow = item;
-            Modal_修改销售发货明细?.Show();
+            EditModal_销售发货D?.Show();
         }
 
         protected void InvalidSubmit(EditContext context)
@@ -101,7 +101,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
                         {
                             item.子单号 = PinhuaContext.funcAutoCode("子单号");
                         }
-                        else if (!string.IsNullOrEmpty(item.子单号)) // 子单号不为空，表示从报价单引入，插入
+                        else // 子单号不为空，表示从报价单引入，插入
                         {
                             var baojiaD = PinhuaContext.Set<tb_订单表D>().FirstOrDefault(d => d.子单号 == item.子单号);
                             if (baojiaD != null)

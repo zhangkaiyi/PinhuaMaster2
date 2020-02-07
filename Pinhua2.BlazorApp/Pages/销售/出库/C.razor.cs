@@ -30,8 +30,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
         protected List<dto销售出库D> detailsTableDataSource { get; set; } = new List<dto销售出库D>();
         protected dto销售出库D detailsTableEditingRow { get; set; } = new dto销售出库D();
 
-        protected Modal_修改销售发货明细 Modal_修改销售发货明细;
-        protected Modal_商品列表_销售订单 Modal_商品列表_销售订单;
+        protected EditModal_销售发货D EditModal;
+        protected Modal_商品列表_销售订单 Modal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -49,17 +49,17 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
                 var tb_product = Mapper.Map<dto销售订单D, tb_订单表D>(items.ElementAtOrDefault(0));
                 var dto_detail = Mapper.Map<tb_订单表D, dto销售出库D>(tb_product);
                 detailsTableEditingRow = dto_detail;
-                Modal_修改销售发货明细?.Show();
+                EditModal?.Show();
             }
         }
 
         protected void toInsert()
         {
             bInsert = true;
-            Modal_商品列表_销售订单?.Show();
+            Modal?.Show();
         }
 
-        protected void saveChange(Modal_修改销售发货明细 modal)
+        protected void saveChange(EditModal_销售发货D modal)
         {
             if (bInsert)
             {
@@ -71,7 +71,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
         {
             bInsert = false;
             detailsTableEditingRow = item;
-            Modal_修改销售发货明细?.Show();
+            EditModal?.Show();
         }
 
         protected void ValidSubmit(EditContext context)
@@ -88,7 +88,16 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
                 {
                     var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto销售出库, dto销售出库D, tb_IO, tb_IOD>(main, detailsTableDataSource, adding =>
                     {
-                        adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                        if (string.IsNullOrWhiteSpace(adding.子单号))
+                        {
+                            adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                        }
+                        else
+                        {
+                            var item = PinhuaContext.tb_订单表D.FirstOrDefault(d => d.子单号 == adding.子单号);
+                            if (item != null)
+                                item.状态 = "已出库";
+                        }
                     }
                     );
 

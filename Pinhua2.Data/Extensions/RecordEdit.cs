@@ -129,7 +129,8 @@ namespace Pinhua2.Data
 
             var dstDSet = context.Set<TDstD>().Where(d => d.RecordId == dst.RecordId);
 
-            if (!srcDSet.Any())
+            // 如果本地明细和数据库明细都是空的，说明明细表没有任何改变，直接返回 true
+            if (!srcDSet.Any() && !dstDSet.Any())
             {
                 //outDstDSet = dstDSet;
                 return true;

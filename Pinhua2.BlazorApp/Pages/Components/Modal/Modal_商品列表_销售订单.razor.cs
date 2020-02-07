@@ -13,6 +13,7 @@ using Pinhua2.ViewModels;
 using Klazor;
 using AutoMapper;
 using Pinhua2.Data;
+using Pinhua2.Data.Models;
 
 namespace Piuhua2.Components.Modal
 {
@@ -20,17 +21,34 @@ namespace Piuhua2.Components.Modal
     {
         protected KModal modal;
         protected KTable2 table;
-        protected List<dto销售订单D> products;
+
+        protected List<combo销售订单> DataSource;
+        protected List<dto销售订单D> currentDataSource
+        {
+            get
+            {
+                if (FilterExpression != null)
+                {
+                    return Mapper.Map<IEnumerable<dto销售订单D>>(DataSource.Where(FilterExpression.Compile()).Select(d => d.Detail)).ToList();
+                }
+                else
+                {
+                    return Mapper.Map<IEnumerable<dto销售订单D>>(DataSource.Select(d => d.Detail)).ToList();
+                }
+            }
+
+        }
 
         [Inject] IMapper Mapper { get; set; }
         [Inject] Pinhua2Context PinhuaContext { get; set; }
 
         [Parameter] public EventCallback<Modal_商品列表_销售订单> OnOK { get; set; }
         [Parameter] public EventCallback<Modal_商品列表_销售订单> OnCancel { get; set; }
+        [Parameter] public Expression<Func<combo销售订单, bool>> FilterExpression { get; set; }
 
         protected override void OnInitialized()
         {
-            products = Mapper.ProjectTo<dto销售订单D>(PinhuaContext.tb_订单表D).ToList();
+            DataSource = PinhuaContext.GetViews().销售.销售订单combo();
 
             base.OnInitialized();
         }

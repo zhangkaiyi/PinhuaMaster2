@@ -9,7 +9,12 @@
                 <ValidationSummary />
                 <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                     <KFormGroup Label="@nameof(main.单号)">
-                        <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                        <KInputTextAppend @bind-Value="main.单号" Placeholder="自动生成 ...">
+                            <div class="input-group-text">
+                                <KInputCheckbox @bind-Value="main.来自报价单" Id="fromQuotation" OnValueChanged="@(e=>detailsTableDataSource.Clear())"></KInputCheckbox>
+                                <label class="form-check-label ml-1" for="fromQuotation">报价单</label>
+                            </div>
+                        </KInputTextAppend>
                     </KFormGroup>
                     <KFormGroup Label="客户">
                         <KInputSelect @bind-Value="main.往来号">
@@ -35,35 +40,51 @@
 
     <KRow>
         <KCol>
-            <PageTemplateItemForU Title="明细" OnAdd="@(e => toInsert())" OnCancel="@(e=>Navigation.NavigateTo(routeA))">
-                <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
-                         CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
-                    <KTable2Columns>
-                        <KTable2Column Text="#" Context="context2">@(detailsTableDataSource.IndexOf(context2 as dto销售订单D) + 1)</KTable2Column>
-                        <KTable2Column Text="操作" Width="1" Context="context2">
-                            @{
+            <PageTemplateItemForU Title="明细" OnCancel="@(e=>Navigation.NavigateTo(routeA))" CustomizeTopRight="true">
+                <TopRight>
+                    @if (main.来自报价单)
+                    {
+                    <KButton ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(e => toImport())">
+                        <i class="oi oi-pencil"></i> 导入报价
+                    </KButton>
+                    }
+                    else
+                    {
+                    <KButton ButtonType="ButtonType.Button" Color="Color.Primary" OnClick="@(e => toInsert())">
+                        <i class="oi oi-pencil"></i> 添加商品
+                    </KButton>
+                    }
+                </TopRight>
+                <ChildContent>
+                    <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
+                             CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
+                        <KTable2Columns>
+                            <KTable2Column Text="#" Context="context2">@(detailsTableDataSource.IndexOf(context2 as dto销售订单D) + 1)</KTable2Column>
+                            <KTable2Column Text="操作" Width="1" Context="context2">
+                                @{
                                 var row = context2 as dto销售订单D;
-                                <a href="javascript:;" class="mr-1" @onclick="e => detailsTableDataSource.Remove(row)">移除</a>
-                                <a href="javascript:;" @onclick="e => toEdit(row)">修改</a>
-                            }
-                        </KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
-                        <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
-                    </KTable2Columns>
-                </KTable2>
+                                    <a href="javascript:;" class="mr-1" @onclick="e => detailsTableDataSource.Remove(row)">移除</a>
+                                    <a href="javascript:;" @onclick="e => toEdit(row)">修改</a>
+                                }
+                            </KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.规格))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.个数))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.数量))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.单位))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.单价))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.金额))"></KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.备注))"></KTable2Column>
+                        </KTable2Columns>
+                    </KTable2>
+                </ChildContent>
             </PageTemplateItemForU>
-
         </KCol>
     </KRow>
 </KForm>
 
-<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
+<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>selectInsertItem(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
 <Modal_修改销售订单明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售订单明细" OnOK="e=>saveChange(e)"></Modal_修改销售订单明细>
+<Modal_商品列表_销售报价D @ref="Modal_销售报价D" FilterExpression="@(m=>m.Main.往来号 == main.往来号 && !m.Detail.状态.Contains("已"))" OnOK="e=>selectImportItem(e.SelectedProducts.Cast<dto销售报价D>())"></Modal_商品列表_销售报价D>

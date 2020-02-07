@@ -39,6 +39,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
         protected override void OnInitialized()
         {
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main.日期 = DateTime.Now;
         }
 
         protected bool bNew = false;
@@ -107,7 +108,16 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
                 {
                     var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto销售订单, dto销售订单D, tb_订单表, tb_订单表D>(main, detailsTableDataSource, adding =>
                     {
-                        adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                        if (string.IsNullOrWhiteSpace(adding.子单号))
+                        {
+                            adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                        }
+                        else
+                        {
+                            var 报价D = PinhuaContext.tb_报价表D.FirstOrDefault(d => d.子单号 == adding.子单号);
+                            if (报价D != null)
+                                报价D.状态 = "已下单";
+                        }
                     });
 
                     if (bAdd2)

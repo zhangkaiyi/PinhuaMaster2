@@ -24,5 +24,8 @@ namespace Piuhua2.Components.PageTemplate
         [Parameter] public EventCallback<MouseEventArgs> OnCancel { get; set; }
         [Parameter] public EventCallback<MouseEventArgs> OnSave { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
+
+        [Parameter] public bool CustomizeTopRight { get; set; }
+        [Parameter] public RenderFragment TopRight { get; set; }
     }
 }

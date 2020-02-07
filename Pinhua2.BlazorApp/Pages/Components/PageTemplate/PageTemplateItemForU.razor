@@ -1,11 +1,13 @@
 ﻿@namespace Piuhua2.Components.PageTemplate
 
-<PageTemplateItem Title="@Title"
-                  HasTopRightButton="true"
-                  TopRightButtonTitle="@AddTitle" TopRightButtonOnClick="@OnAdd"
-                  HasBottomLeftButton="true"
-                  BottomLeftButtonTitle="@CancelTitle" BottomLeftButtonOnClick="@OnCancel"
-                  HasBottomRightButton="true"
-                  BottomRightButtonTitle="@SaveTitle" BottomRightButtonSubmit="true" BottomRightButtonOnClick="@OnSave">
-    @ChildContent
-</PageTemplateItem>
+    <PageTemplateItem Title="@Title"
+                      HasTopRightButton="true"
+                      TopRightButtonTitle="@AddTitle" TopRightButtonOnClick="@OnAdd"
+                      HasBottomLeftButton="true"
+                      BottomLeftButtonTitle="@CancelTitle" BottomLeftButtonOnClick="@OnCancel"
+                      HasBottomRightButton="true"
+                      BottomRightButtonTitle="@SaveTitle" BottomRightButtonSubmit="true" BottomRightButtonOnClick="@OnSave"
+                      CustomizeTopRight="@CustomizeTopRight">
+        <TopRightContent>@TopRight</TopRightContent>
+        <ChildContent>@ChildContent</ChildContent>
+    </PageTemplateItem>

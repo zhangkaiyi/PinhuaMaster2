@@ -71,11 +71,21 @@ namespace Klazor
                                     return result[0];
                                 else
                                     return string.Join('.', result[0], result[1]?.TrimEnd('0'));
+
+                            case bool @bool:
+                                if (column.IsBoolean)
+                                {
+                                    return @bool ? "是" : "否";
+                                }
+                                else
+                                {
+                                    return @bool;
+                                }
+
                             default:
                                 return value;
                         }
                     }
-
                     try
                     {
                         return Convert.ToDateTime(value).ToString(column.Format);
@@ -85,7 +95,7 @@ namespace Klazor
                         throw new InvalidOperationException("仅日期列支持 Format 参数");
                     }
                 }),
-                Text = string.IsNullOrEmpty(column.Text) ? column.Field : column.Text,
+                Text = string.IsNullOrWhiteSpace(column.Text) ? column.Field : column.Text,
                 Width = column.Width,
                 IsCheckBox = column.IsCheckBox,
                 Template = column.ChildContent,

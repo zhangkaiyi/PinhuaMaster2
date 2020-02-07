@@ -85,6 +85,20 @@ namespace Pinhua2.Data
             return result;
         }
 
+        public List<combo销售订单> 销售订单combo()
+        {
+            var result = from m in _context.tb_订单表.AsNoTracking()
+                         join d in _context.tb_订单表D.AsNoTracking() on m.RecordId equals d.RecordId
+                         where m.业务类型 == "销售订单"
+                         orderby m.日期 descending, m.往来号 ascending
+                         select new combo销售订单
+                         {
+                             Main = m,
+                             Detail = d
+                         };
+            return result.ToList();
+        }
+
         public IQueryable<tb_IO> 销售出库()
         {
             var result = from m in _context.tb_IO.AsNoTracking()

@@ -30,6 +30,7 @@ namespace Klazor
         [Parameter] public bool? Readonly { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public string Placeholder { get; set; }
+        [Parameter] public bool IsDisabled { get; set; }
 
         protected TValue currentValue
         {

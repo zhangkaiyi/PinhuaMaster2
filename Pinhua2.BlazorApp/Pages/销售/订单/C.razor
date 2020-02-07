@@ -45,13 +45,13 @@
                     @if (main.来自报价单)
                     {
                         <KButton ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(e => toImport())">
-                            <i class="oi oi-pencil"></i> 报价导入
+                            <i class="oi oi-pencil"></i> 导入报价
                         </KButton>
                     }
                     else
                     {
                         <KButton ButtonType="ButtonType.Button" Color="Color.Primary" OnClick="@(e => toInsert())">
-                            <i class="oi oi-pencil"></i> 添加明细
+                            <i class="oi oi-pencil"></i> 添加商品
                         </KButton>
                     }
                 </TopRight>
@@ -84,4 +84,4 @@
 
 <Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>selectInsertItem(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
 <Modal_修改销售订单明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售订单明细" OnOK="e=>saveChange(e)"></Modal_修改销售订单明细>
-<Modal_商品列表_销售报价D @ref="Modal_销售报价D" FilterExpression="@(m=>m.Main.往来号 == main.往来号)" OnOK="e=>selectImportItem(e.SelectedProducts.Cast<dto销售报价D>())"></Modal_商品列表_销售报价D>
+<Modal_商品列表_销售报价D @ref="Modal_销售报价D" FilterExpression="@(m=>m.Main.往来号 == main.往来号 && !m.Detail.状态.Contains("已"))" OnOK="e=>selectImportItem(e.SelectedProducts.Cast<dto销售报价D>())"></Modal_商品列表_销售报价D>

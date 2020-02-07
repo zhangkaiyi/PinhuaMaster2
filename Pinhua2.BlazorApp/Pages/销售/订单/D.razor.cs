@@ -38,9 +38,18 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
             if (tb_订单表 != null)
             {
                 var tb_订单表D = PinhuaContext.tb_订单表D.Where(p => p.RecordId == tb_订单表.RecordId);
+                var tb_报价表D = from d1 in PinhuaContext.tb_报价表D
+                              join d2 in tb_订单表D on d1.子单号 equals d2.子单号
+                              select d1;
+
+                foreach (var item in tb_报价表D)
+                {
+                    item.状态 = "";
+                }
 
                 PinhuaContext.tb_订单表.Remove(tb_订单表);
                 PinhuaContext.tb_订单表D.RemoveRange(tb_订单表D);
+
                 await PinhuaContext.SaveChangesAsync();
                 Navigation.NavigateTo(routeA);
             }
