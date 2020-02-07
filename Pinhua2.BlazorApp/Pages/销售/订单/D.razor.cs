@@ -34,25 +34,48 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
         }
         protected async Task toDelete()
         {
-            var tb_订单表 = await PinhuaContext.tb_订单表.FindAsync(RecordId);
-            if (tb_订单表 != null)
+            using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                var tb_订单表D = PinhuaContext.tb_订单表D.Where(p => p.RecordId == tb_订单表.RecordId);
-                var tb_报价表D = from d1 in PinhuaContext.tb_报价表D
-                              join d2 in tb_订单表D on d1.子单号 equals d2.子单号
-                              select d1;
-
-                foreach (var item in tb_报价表D)
+                var tb_main = await PinhuaContext.tb_订单表.FindAsync(RecordId);
+                if (tb_main != null)
                 {
-                    item.状态 = "";
+                    var tb_details = PinhuaContext.tb_订单表D.Where(p => p.RecordId == tb_main.RecordId);
+                    var tb_quo = from d1 in PinhuaContext.tb_报价表D
+                                 join d2 in tb_details on d1.子单号 equals d2.子单号
+                                 select d1;
+
+                    foreach (var item in tb_quo)
+                    {
+                        item.状态 = "";
+                    }
+                    await PinhuaContext.SaveChangesAsync();
+
+                    var mains = from m in PinhuaContext.tb_报价表
+                                join d in tb_quo on m.RecordId equals d.RecordId
+                                select m;
+
+                    foreach (var m in mains)
+                    {
+                        var bRet = PinhuaContext.tb_报价表D.Where(d => d.RecordId == m.RecordId).Any(d => d.状态.Contains("已"));
+                        if (bRet)
+                        {
+                            m.LockStatus = 1;
+                        }
+                        else
+                        {
+                            m.LockStatus = 0;
+                        }
+                    };
+                    PinhuaContext.tb_订单表.Remove(tb_main);
+                    PinhuaContext.tb_订单表D.RemoveRange(tb_details);
+
+                    await PinhuaContext.SaveChangesAsync();
+
+                    transaction.Commit();
                 }
-
-                PinhuaContext.tb_订单表.Remove(tb_订单表);
-                PinhuaContext.tb_订单表D.RemoveRange(tb_订单表D);
-
-                await PinhuaContext.SaveChangesAsync();
-                Navigation.NavigateTo(routeA);
             }
+
+            Navigation.NavigateTo(routeA);
         }
     }
 }

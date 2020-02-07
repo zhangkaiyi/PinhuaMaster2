@@ -96,7 +96,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
         {
             using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-
+                var affected = new List<string>();
                 var bAdd = PinhuaContext.TryRecordAdd<dto销售订单, tb_订单表>(main, adding =>
                 {
                     adding.业务类型 = base.category;
@@ -106,22 +106,44 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
 
                 if (bAdd)
                 {
-                    var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto销售订单, dto销售订单D, tb_订单表, tb_订单表D>(main, detailsTableDataSource, adding =>
+                    var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto销售订单, dto销售订单D, tb_订单表, tb_订单表D>(main, detailsTableDataSource, item =>
                     {
-                        if (string.IsNullOrWhiteSpace(adding.子单号))
+                        if (string.IsNullOrWhiteSpace(item.子单号))
                         {
-                            adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                            item.子单号 = PinhuaContext.funcAutoCode("子单号");
                         }
                         else
                         {
-                            var 报价D = PinhuaContext.tb_报价表D.FirstOrDefault(d => d.子单号 == adding.子单号);
+                            affected.Add(item.子单号);
+                            var 报价D = PinhuaContext.tb_报价表D.FirstOrDefault(d => d.子单号 == item.子单号);
                             if (报价D != null)
+                            {
                                 报价D.状态 = "已下单";
+                            }
                         }
                     });
 
                     if (bAdd2)
                     {
+                        var mains = from m in PinhuaContext.tb_报价表
+                                    join d in PinhuaContext.tb_报价表D on m.RecordId equals d.RecordId
+                                    where affected.Contains(d.子单号)
+                                    select m;
+
+                        foreach (var m in mains)
+                        {
+                            var bRet = PinhuaContext.tb_报价表D.Where(d => d.RecordId == m.RecordId).Any(d => d.状态.Contains("已"));
+                            if (bRet)
+                            {
+                                m.LockStatus = 1;
+                            }
+                            else
+                            {
+                                m.LockStatus = 0;
+                            }
+                        };
+                        PinhuaContext.SaveChanges();
+
                         transaction.Commit();
                     }
                 }
