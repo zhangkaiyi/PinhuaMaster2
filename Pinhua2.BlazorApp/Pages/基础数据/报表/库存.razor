@@ -1,0 +1,16 @@
+﻿@inherits 库存Base
+@page "/基础数据/报表/库存"
+
+<PageTemplateItem Title="库存" HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))">
+    <KTable2 DataSource="@DataSource"
+             IsBordered="true"
+             IsHovarable="true"
+             IsTextNoWrap="true"
+             IsResponsive="true">
+        <KTable2Columns>
+            <KTable2Column Field="@nameof(view_Lq.品号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_Lq.库位)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_Lq.库存)"></KTable2Column>
+        </KTable2Columns>
+    </KTable2>
+</PageTemplateItem>

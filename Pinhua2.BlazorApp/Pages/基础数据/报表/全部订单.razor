@@ -1,0 +1,36 @@
+﻿@inherits 全部订单Base
+@page "/基础数据/报表/全部订单"
+
+<PageTemplateItem Title="全部订单" HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))">
+    <KTable2 DataSource="@DataSource"
+             IsBordered="true"
+             IsHovarable="true"
+             IsTextNoWrap="true"
+             IsResponsive="true">
+        <KTable2Columns>
+            <KTable2Column Field="@nameof(view_AllOrders.日期)" Format="yyyy-MM-dd"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.业务类型)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.单号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.子单号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.往来号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.往来)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.品号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.品名)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.型号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.规格)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.个数)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.数量)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.单位)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.单价)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.金额)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.交期)" Format="yyyy-MM-dd"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.备注)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.状态)"></KTable2Column>
+            @*<KTable2Column Field="@nameof(view_AllOrders.仓)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.品牌)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.税率)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrders.质保)"></KTable2Column>*@
+            <KTable2Column Field="@nameof(view_AllOrders.制单)"></KTable2Column>
+        </KTable2Columns>
+    </KTable2>
+</PageTemplateItem>

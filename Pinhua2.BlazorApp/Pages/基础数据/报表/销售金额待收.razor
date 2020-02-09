@@ -1,0 +1,34 @@
+﻿@inherits 全部订单收发Base
+@page "/基础数据/报表/销售金额待收"
+
+<PageTemplateItem Title="销售金额待收" HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))">
+    <KTable2 DataSource="@DataSource"
+             IsBordered="true"
+             IsHovarable="true"
+             IsTextNoWrap="true"
+             IsResponsive="true">
+        <KTable2Columns>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.日期)" Format="yyyy-MM-dd"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.业务类型)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.单号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.子单号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.往来号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.往来)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.品号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.品名)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.型号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.规格)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.个数)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.数量)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.单位)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.单价)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.金额)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.交期)" Format="yyyy-MM-dd"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.备注)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.状态)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.已收)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.待收)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_AllOrdersPay.制单)"></KTable2Column>
+        </KTable2Columns>
+    </KTable2>
+</PageTemplateItem>

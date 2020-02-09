@@ -1,0 +1,19 @@
+﻿@inherits 最新单价Base
+@page "/基础数据/报表/最新单价"
+
+<PageTemplateItem Title="最新单价" HasBottomLeftButton="true" BottomLeftButtonTitle="返回" BottomLeftButtonOnClick="@(e=>Navigation.NavigateTo(routeA))">
+    <KTable2 DataSource="@DataSource"
+             IsBordered="true"
+             IsHovarable="true"
+             IsTextNoWrap="true"
+             IsResponsive="true">
+        <KTable2Columns>
+            <KTable2Column Field="@nameof(view_LastPrice.业务类型)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_LastPrice.往来号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_LastPrice.品号)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_LastPrice.日期)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_LastPrice.最低价)"></KTable2Column>
+            <KTable2Column Field="@nameof(view_LastPrice.最高价)"></KTable2Column>
+        </KTable2Columns>
+    </KTable2>
+</PageTemplateItem>
