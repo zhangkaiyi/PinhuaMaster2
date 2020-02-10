@@ -61,12 +61,12 @@ namespace Pinhua2.ViewModels
                 .ForMember(dst => dst.已付款额, map => map.MapFrom(src => src.已收付款额))
                 .ForMember(dst => dst.待付款额, map => map.MapFrom(src => src.待收付款额))
                 .ForMember(dst => dst.可分配, map => map.MapFrom(src => src.可收付款额))
-                .ForMember(dst => dst.分配金额, map => map.MapFrom(src => src.本次收额));
+                .ForMember(dst => dst.分配金额, map => map.MapFrom(src => src.本次付额));
             CreateMap<dto付款单D, tb_收付表D>()
                 .ForMember(dst => dst.已收付款额, map => map.MapFrom(src => src.已付款额))
                 .ForMember(dst => dst.待收付款额, map => map.MapFrom(src => src.待付款额))
                 .ForMember(dst => dst.可收付款额, map => map.MapFrom(src => src.可分配))
-                .ForMember(dst => dst.本次收额, map => map.MapFrom(src => src.分配金额));
+                .ForMember(dst => dst.本次付额, map => map.MapFrom(src => src.分配金额));
             CreateMap<view_AllOrdersPay, dto付款单D>()
                 .ForMember(dst => dst.已付款额, map => map.MapFrom(src => src.已付))
                 .ForMember(dst => dst.待付款额, map => map.MapFrom(src => src.待付));

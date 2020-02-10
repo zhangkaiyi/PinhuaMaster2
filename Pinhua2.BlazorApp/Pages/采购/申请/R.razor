@@ -8,14 +8,14 @@
                 <KFormGroup Label="@nameof(main.单号)">
                     <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
                 </KFormGroup>
-                <KFormGroup Label="客户单号">
+                <KFormGroup Label="销售订单">
                     <KInputText @bind-Value="main.往来单号"></KInputText>
                 </KFormGroup>
                 <KFormGroup Label="@nameof(main.日期)">
-                    <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                    <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" EnablePicker="false"></KInputDatePicker>
                 </KFormGroup>
                 <KFormGroup Label="@nameof(main.交期)">
-                    <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
+                    <KInputDatePicker @bind-Value="main.交期" Format="yyyy-MM-dd" EnablePicker="false"></KInputDatePicker>
                 </KFormGroup>
                 <KFormGroup Label="@nameof(main.备注)">
                     <KInputText @bind-Value="main.备注"></KInputText>
@@ -38,8 +38,8 @@
                     <KTable2Column Field="@(nameof(dto采购申请D.个数))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购申请D.数量))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购申请D.单位))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购申请D.单价))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购申请D.金额))"></KTable2Column>
+                    @*<KTable2Column Field="@(nameof(dto采购申请D.单价))"></KTable2Column>*@
+                    @*<KTable2Column Field="@(nameof(dto采购申请D.金额))"></KTable2Column>*@
                     <KTable2Column Field="@(nameof(dto采购申请D.备注))"></KTable2Column>
                 </KTable2Columns>
             </KTable2>

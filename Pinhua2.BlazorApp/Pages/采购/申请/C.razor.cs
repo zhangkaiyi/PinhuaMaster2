@@ -30,7 +30,8 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
         protected List<dto采购申请D> detailsTableDataSource { get; set; } = new List<dto采购申请D>();
         protected dto采购申请D detailsTableEditingRow { get; set; } = new dto采购申请D();
 
-        protected Modal_商品列表 Modal;
+        protected Modal_销售订单 Modal_销售订单;
+        protected Modal_销售订单D Modal_销售订单D;
         protected EditModal_采购申请D EditModal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
@@ -38,6 +39,7 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
         protected override void OnInitialized()
         {
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main.日期 = DateTime.Now;
         }
 
         protected bool bInsert = false;
@@ -58,7 +60,18 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
         protected void toInsert()
         {
             bInsert = true;
-            Modal?.Show();
+            Modal_销售订单D?.Show();
+        }
+
+        protected void toImport(object order)
+        {
+            detailsTableDataSource.Clear();
+            if (order is dto销售订单 dto)
+            {
+                main.往来单号 = dto.单号;
+                var details = PinhuaContext.tb_订单表D.Where(d => d.RecordId == dto.RecordId).OrderBy(d => d.RN);
+                detailsTableDataSource = Mapper.ProjectTo<dto采购申请D>(details).ToList();
+            }
         }
 
         protected void saveChange(EditModal_采购申请D modal)

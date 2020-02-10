@@ -132,13 +132,13 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
 
                 if (bAdd)
                 {
-                    var bAdd2 = PinhuaContext.TryRecordDetailsAdd < dto付款单, dto付款单D, tb_收付表, tb_收付表D>(main, detailsTableDataSource, adding=>
-                        {
-                            if (string.IsNullOrWhiteSpace(adding.子单号))
-                            {
-                                adding.子单号 = PinhuaContext.funcAutoCode("子单号");
-                            }
-                        });
+                    var bAdd2 = PinhuaContext.TryRecordDetailsAdd<dto付款单, dto付款单D, tb_收付表, tb_收付表D>(main, detailsTableDataSource, adding =>
+                      {
+                          if (string.IsNullOrWhiteSpace(adding.子单号))
+                          {
+                              adding.子单号 = PinhuaContext.funcAutoCode("子单号");
+                          }
+                      });
 
                     if (bAdd2)
                     {

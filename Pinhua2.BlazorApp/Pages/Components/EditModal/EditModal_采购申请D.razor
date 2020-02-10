@@ -28,12 +28,12 @@
                         <KFormGroup Label="@nameof(currentDataSource.单位)">
                             <KInputDropdown @bind-Value="@currentDataSource.单位" Items="dropdownItems"></KInputDropdown>
                         </KFormGroup>
-                        <KFormGroup Label="@nameof(currentDataSource.单价)">
+                        @*<KFormGroup Label="@nameof(currentDataSource.单价)">
                             <KInputNumber @bind-Value="@currentDataSource.单价" Readonly="false"></KInputNumber>
                         </KFormGroup>
                         <KFormGroup Label="@nameof(currentDataSource.金额)">
                             <KInputCompute @bind-Value="@currentDataSource.金额" ComputedValue="currentDataSource.数量*currentDataSource.单价"></KInputCompute>
-                        </KFormGroup>
+                        </KFormGroup>*@
                         <KFormGroup Label="@nameof(currentDataSource.备注)">
                             <KInputText @bind-Value="@currentDataSource.备注" Readonly="false"></KInputText>
                         </KFormGroup>

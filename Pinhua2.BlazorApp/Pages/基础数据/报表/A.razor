@@ -4,43 +4,45 @@
 <PageTemplateItem Title="报表">
     <KRow>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route全部订单))">全部订单</a>
-        </KCol>
-        <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route全部订单收发))">全部商品收发</a>
-        </KCol>
-        <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route全部金额收付))">全部金额收付</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route全部订单))"><i class="oi oi-menu"></i> 全部订单</a>
         </KCol>
     </KRow>
     <KRow>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route销售订单待发))">销售订单待发</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route销售订单待发))"><i class="oi oi-transfer"></i> 销售发货</a>
         </KCol>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route销售金额待收))">销售金额待收</a>
-        </KCol>
-    </KRow>
-    <KRow>
-        <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route采购订单待收))">采购商品待收</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route采购订单待收))"><i class="oi oi-transfer"></i> 采购收货</a>
         </KCol>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route采购金额待付))">采购金额待付</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route全部订单收发))"><i class="oi oi-transfer"></i> 全部收发</a>
         </KCol>
     </KRow>
     <KRow>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route库存))">库存</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route销售金额待收))"><i class="oi oi-dollar"></i> 销售收款</a>
         </KCol>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route库批存))">库批存</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route采购金额待付))"><i class="oi oi-dollar"></i> 采购付款</a>
         </KCol>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route最新报价))">最新报价</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route全部金额收付))"><i class="oi oi-dollar"></i> 全部收付</a>
+        </KCol>
+    </KRow>
+    <KRow>
+        <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route最新报价))"><i class="oi oi-calendar"></i> 最新报价</a>
         </KCol>
         <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
-            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route最新单价))">最新单价</a>
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route最新单价))"><i class="oi oi-calendar"></i> 最新单价</a>
+        </KCol>
+    </KRow>
+    <KRow>
+        <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route库存))"><i class="oi oi-calendar"></i> 库存</a>
+        </KCol>
+        <KCol XS="6" SM="4" MD="4" LG="3" XL="2">
+            <a class="btn btn-outline-secondary form-control mb-3" href="javascript:;" @onclick="@(e=>Navigation.NavigateTo(route库批存))"><i class="oi oi-calendar"></i> 库批存</a>
         </KCol>
     </KRow>
 </PageTemplateItem>

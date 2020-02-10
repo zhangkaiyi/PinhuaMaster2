@@ -59,6 +59,16 @@ namespace Pinhua2.ViewModels
 
             CreateMap<dto商品, dto采购申请D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+
+            CreateMap<tb_订单表D, dto采购申请D>()
+                .ForMember(dst => dst.单价, map => map.Ignore())
+                .ForMember(dst => dst.金额, map => map.Ignore())
+                .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+
+            CreateMap<dto销售订单D, dto采购申请D>()
+                .ForMember(dst => dst.单价, map => map.Ignore())
+                .ForMember(dst => dst.金额, map => map.Ignore())
+                .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }
     }
 }
