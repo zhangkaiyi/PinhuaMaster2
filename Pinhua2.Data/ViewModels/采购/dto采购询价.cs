@@ -15,9 +15,11 @@ namespace Pinhua2.ViewModels
 
         public string 业务类型 { get; set; } = "采购询价";
 
+        public string 需求单 { get; set; }
+
         [Display(Name = "供应商名")]
         public string 往来 { get; set; }
-        
+
         [Display(Name = "供应商号")]
         [Required] public string 往来号 { get; set; }
 
@@ -51,9 +53,14 @@ namespace Pinhua2.ViewModels
             CreateMap<tb_报价表, dto采购询价>();
             CreateMap<dto采购询价, tb_报价表>();
 
-            CreateMap<tb_报价表D, dto采购询价D>(); 
+            CreateMap<tb_报价表D, dto采购询价D>()
+                .ForMember(dst => dst.Idx, map => map.Ignore());
+
             CreateMap<dto采购询价D, tb_报价表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+
+            CreateMap<tb_需求表D, dto采购询价D>()
+                .ForMember(dst => dst.Idx, map => map.Ignore());
 
             CreateMap<dto采购申请D, dto采购询价D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore());

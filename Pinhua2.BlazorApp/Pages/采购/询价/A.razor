@@ -17,8 +17,9 @@
                     </KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价.单号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价.业务类型))"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价.往来号))" Text="客户号"></KTable2Column>
-                    <KTable2Column Field="@(nameof(dto采购询价.往来))" Text="客户名"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价.需求单))" Text="需求单"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价.往来号))" Text="供应商号"></KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购询价.往来))" Text="供应商名"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价.日期))" Format="yyyy-MM-dd"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价.交期))" Format="yyyy-MM-dd"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价.备注))"></KTable2Column>
@@ -30,6 +31,7 @@
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                 <KTable2Columns>
+                    <KTable2Column Field="@(nameof(dto采购询价D.子单号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价D.品号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价D.品名))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购询价D.型号))"></KTable2Column>

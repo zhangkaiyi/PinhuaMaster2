@@ -11,13 +11,16 @@
                     <KFormGroup Label="@nameof(main.单号)">
                         <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
                     </KFormGroup>
-                    <KFormGroup Label="客户">
+                    <KFormGroup Label="供应商">
                         <KInputSelect @bind-Value="main.往来号">
                             @foreach (var customer in dropdownOptions)
-                                {
-                            <option value="@customer.Value">@customer.Text</option>
-                                }
+                            {
+                                <option value="@customer.Value">@customer.Text</option>
+                            }
                         </KInputSelect>
+                    </KFormGroup>
+                    <KFormGroup Label="采购申请">
+                        <KInputTextButton @bind-Value="main.需求单" ButtonText="选择" OnButtonClick="@(e=>Modal_采购申请?.Show())"></KInputTextButton>
                     </KFormGroup>
                     <KFormGroup Label="@nameof(main.日期)">
                         <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
@@ -43,6 +46,7 @@
                             <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto采购询价D)">移除</a>
                             <a href="javascript:;" @onclick="e=>toEdit(row as dto采购询价D)">修改</a>
                         </KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购询价D.子单号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购询价D.品号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购询价D.品名))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购询价D.型号))"></KTable2Column>
@@ -60,5 +64,6 @@
     </KRow>
 </KForm>
 
-<Modal_商品列表_采购申请 @ref="Modal" OnOK="e=>toSelect(e.SelectedProducts)"></Modal_商品列表_采购申请>
+<Modal_采购申请 @ref="Modal_采购申请" OnOK="e=>toImport(e.SelectedProducts.ElementAtOrDefault(0))"></Modal_采购申请>
+<Modal_采购申请D FilterExpression="@(d=>d.Main.单号 == main.需求单 && !detailsTableDataSource.Any(s=>s.子单号 == d.Detail.子单号))" @ref="Modal_采购申请D" OnOK="e=>toSelect(e.SelectedProducts)"></Modal_采购申请D>
 <EditModal_采购询价D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购询价D>

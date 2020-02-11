@@ -45,6 +45,20 @@ namespace Pinhua2.Data
             return result;
         }
 
+        public List<combo采购申请> 采购申请combo()
+        {
+            var result = from m in _context.tb_需求表.AsNoTracking()
+                         join d in _context.tb_需求表D.AsNoTracking() on m.RecordId equals d.RecordId
+                         where m.业务类型 == "采购申请"
+                         orderby m.日期 descending, m.往来单号 ascending, d.RN ascending
+                         select new combo采购申请
+                         {
+                             Main = m,
+                             Detail = d
+                         };
+            return result.ToList();
+        }
+
         public IQueryable<tb_报价表> 采购询价()
         {
             var result = from m in _context.tb_报价表.AsNoTracking()

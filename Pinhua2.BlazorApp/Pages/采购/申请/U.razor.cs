@@ -95,7 +95,7 @@ namespace Pinhua2.BlazorApp.Pages.采购.申请
             {
                 var bAdd = PinhuaContext.TryRecordEdit<dto采购申请, tb_需求表>(main, adding =>
                 {
-                    adding.业务类型 = "采购申请";
+                    adding.业务类型 = base.category;
                 });
                 if (bAdd)
                 {

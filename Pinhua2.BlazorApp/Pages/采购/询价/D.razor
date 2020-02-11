@@ -8,11 +8,14 @@
                 <KFormGroup Label="@nameof(main.单号)">
                     <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
                 </KFormGroup>
-                <KFormGroup Label="往来号">
+                <KFormGroup Label="供应商号">
                     <KInputText @bind-Value="main.往来号"></KInputText>
                 </KFormGroup>
-                <KFormGroup Label="往来名">
+                <KFormGroup Label="供应商名">
                     <KInputText @bind-Value="main.往来"></KInputText>
+                </KFormGroup>
+                <KFormGroup Label="采购申请">
+                    <KInputText @bind-Value="main.需求单"></KInputText>
                 </KFormGroup>
                 <KFormGroup Label="@nameof(main.日期)">
                     <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>

@@ -56,5 +56,5 @@
 </KForm>
 
 <Modal_销售订单 @ref="Modal_销售订单" OnOK="e=>toImport(e.SelectedProducts.ElementAtOrDefault(0))"></Modal_销售订单>
-<Modal_销售订单D @ref="Modal_销售订单D" FilterExpression="@(d=>d.Main.单号 == main.往来单号 && !detailsTableDataSource.Select(s=>s.子单号).Contains(d.Detail.子单号))" OnOK="e=>SelectRows(e.SelectedProducts)"></Modal_销售订单D>
+<Modal_销售订单D @ref="Modal_销售订单D" FilterExpression="@(d=>d.Main.单号 == main.往来单号 && !detailsTableDataSource.Any(s=>s.子单号 == d.Detail.子单号))" OnOK="e=>SelectRows(e.SelectedProducts)"></Modal_销售订单D>
 <EditModal_采购申请D @ref="EditModal" DataSource="detailsTableEditingRow" OnOK="e=>saveChange(e)"></EditModal_采购申请D>
