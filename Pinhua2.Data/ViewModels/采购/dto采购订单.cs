@@ -63,6 +63,12 @@ namespace Pinhua2.ViewModels
         public string 报价单 { get; set; }
 
         [MyPriority(Priority.High)]
+        [CustomDisplay(9)]
+        [Display(Name = "来自询价单")]
+        [MyMinWidth(100)]
+        public bool 来自报价单 { get; set; }
+
+        [MyPriority(Priority.High)]
         [CustomDisplay(25)]
         [MyMinWidth(100)]
         public decimal? 应付 { get; set; }
@@ -105,6 +111,12 @@ namespace Pinhua2.ViewModels
             CreateMap<tb_订单表D, dto采购订单D>();
             CreateMap<dto采购订单D, tb_订单表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+
+            CreateMap<dto商品, dto采购订单D>()
+                .ForMember(dst => dst.Idx, map => map.Ignore());
+
+            CreateMap<dto采购询价D, dto采购订单D>()
+                .ForMember(dst => dst.Idx, map => map.Ignore());
         }
     }
 }

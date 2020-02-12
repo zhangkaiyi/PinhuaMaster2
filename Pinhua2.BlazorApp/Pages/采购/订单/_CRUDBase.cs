@@ -18,6 +18,8 @@ namespace Pinhua2.BlazorApp.Pages.采购.订单
         protected readonly string routeU = "/采购/订单/修改";
         protected readonly string routeD = "/采购/订单/删除";
 
+        protected readonly string category = "采购订单";
+
         protected string[] dropdownCategory1 = new string[] { "付款" };
         protected string[] dropdownCategory2 = new string[] { "银行", "微信", "支付宝", "二维码", "现金", "其他" };
     }

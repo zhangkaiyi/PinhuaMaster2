@@ -46,6 +46,7 @@
                             <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto采购询价D)">移除</a>
                             <a href="javascript:;" @onclick="e=>toEdit(row as dto采购询价D)">修改</a>
                         </KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购询价D.子单号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购询价D.品号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购询价D.品名))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购询价D.型号))"></KTable2Column>

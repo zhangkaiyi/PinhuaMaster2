@@ -6,7 +6,12 @@
         <PageTemplateItem Title="采购订单 - 查看">
             <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                 <KFormGroup Label="@nameof(main.单号)">
-                    <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                    <KInputTextAppend @bind-Value="main.单号" Placeholder="自动生成 ...">
+                        <div class="input-group-text">
+                            <KInputCheckbox @bind-Value="main.来自报价单" Id="fromQuotation" IsDisabled="true"></KInputCheckbox>
+                            <label class="form-check-label ml-1" for="fromQuotation">报价单</label>
+                        </div>
+                    </KInputTextAppend>
                 </KFormGroup>
                 <KFormGroup Label="往来号">
                     <KInputText @bind-Value="main.往来号"></KInputText>
@@ -33,6 +38,7 @@
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                 <KTable2Columns>
                     <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto采购订单D) + 1)</KTable2Column>
+                    <KTable2Column Field="@(nameof(dto采购订单D.子单号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购订单D.品号))" Text="品号"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购订单D.品名))" Text="品名"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购订单D.型号))" Text="型号"></KTable2Column>

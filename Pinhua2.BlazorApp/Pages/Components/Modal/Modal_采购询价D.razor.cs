@@ -16,36 +16,35 @@ using Pinhua2.Data;
 
 namespace Piuhua2.Components.Modal
 {
-    public partial class Modal_商品列表_销售报价D : ComponentBase
+    public partial class Modal_采购询价D : ComponentBase
     {
         protected KModal modal;
         protected KTable2 table;
-
-        protected List<combo销售报价> DataSource;
-        protected List<dto销售报价D> currentDataSource
+        protected List<combo采购询价> DataSource;
+        protected List<dto采购询价D> currentDataSource
         {
             get
             {
                 if (FilterExpression != null)
                 {
-                    return Mapper.Map<IEnumerable<dto销售报价D>>(DataSource.Where(FilterExpression.Compile()).Select(d => d.Detail)).ToList();
+                    return Mapper.Map<IEnumerable<dto采购询价D>>(DataSource.Where(FilterExpression.Compile()).Select(d => d.Detail)).ToList();
                 }
                 else
                 {
-                    return Mapper.Map<IEnumerable<dto销售报价D>>(DataSource.Select(d=>d.Detail)).ToList();
+                    return Mapper.Map<IEnumerable<dto采购询价D>>(DataSource.Select(d => d.Detail)).ToList();
                 }
             }
         }
+
         [Inject] IMapper Mapper { get; set; }
         [Inject] Pinhua2Context PinhuaContext { get; set; }
 
-        [Parameter] public EventCallback<Modal_商品列表_销售报价D> OnOK { get; set; }
-        [Parameter] public EventCallback<Modal_商品列表_销售报价D> OnCancel { get; set; }
-        [Parameter] public Expression<Func<combo销售报价, bool>> FilterExpression { get; set; }
-
+        [Parameter] public EventCallback<Modal_采购询价D> OnOK { get; set; }
+        [Parameter] public EventCallback<Modal_采购询价D> OnCancel { get; set; }
+        [Parameter] public Expression<Func<combo采购询价, bool>> FilterExpression { get; set; }
         protected override void OnInitialized()
         {
-            DataSource = PinhuaContext.GetViews().销售.销售报价combo();
+            DataSource = PinhuaContext.GetViews().采购.采购询价combo();
 
             base.OnInitialized();
         }
