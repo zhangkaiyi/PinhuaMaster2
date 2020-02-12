@@ -1,13 +1,15 @@
 ﻿@namespace Piuhua2.Components.Modal
+@inherits Pinhua2.BlazorApp.Pages.Components.PageComponentBase
 
-<KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" @ref="modal">
+<KModal IsFade="false" IsBackdrop="false" IsCentered="false" Size="Size.ExtraLarge" OnShow="@HandleOnShow" @ref="modal">
     <KModalHeader>订单金额待付</KModalHeader>
     <KModalBody>
         <KTable2 DataSource="currentDataSource" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
-                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                 CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="@IsSingleSelect">
             <KTable2Columns>
                 <KTable2Column Field="@(nameof(view_AllOrdersPay.业务类型))"></KTable2Column>
-                <KTable2Column Field="@(nameof(view_AllOrdersPay.往来号))"></KTable2Column>
+                @*<KTable2Column Field="@(nameof(view_AllOrdersPay.往来号))"></KTable2Column>*@
+                <KTable2Column Field="@(nameof(view_AllOrdersPay.子单号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersPay.往来))"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersPay.品号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersPay.品名))"></KTable2Column>
@@ -21,8 +23,5 @@
             </KTable2Columns>
         </KTable2>
     </KModalBody>
-    <KModalFooter>
-        <button type="button" class="btn btn-secondary" @onclick="Cancel">取消</button>
-        <button type="button" class="btn btn-primary" @onclick="OK">选择</button>
-    </KModalFooter>
+    <KModalFooter OnOK="@(e=>OnOK.InvokeAsync(this))" OnCancel="@(e=>OnCancel.InvokeAsync(this))"></KModalFooter>
 </KModal>

@@ -36,7 +36,6 @@ namespace Piuhua2.Components.Modal
                     return Mapper.Map<IEnumerable<dto销售订单D>>(DataSource.Select(d => d.Detail)).ToList();
                 }
             }
-
         }
 
         [Inject] IMapper Mapper { get; set; }

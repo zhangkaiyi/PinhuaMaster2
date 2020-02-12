@@ -71,5 +71,7 @@
     </KRow>
 </KForm>
 
-<Modal_订单金额待付 @ref="Modal" FilterExpression="@(model=>model.往来号 == main.往来号)" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersPay>())"></Modal_订单金额待付>
+<Modal_订单金额待付 @ref="Modal" 
+              FilterExpression="@(model=>model.往来号 == main.往来号 && !detailsTableDataSource.Any(d=>d.子单号 == model.子单号))"
+              OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersPay>())"/>
 <EditModal_付款单明细 DataSource="currentEditingRow" @ref="EditModal" OnOK="e=>SaveRow(e)"></EditModal_付款单明细>

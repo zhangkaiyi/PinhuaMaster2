@@ -17,7 +17,7 @@ using Pinhua2.Data.Models;
 
 namespace Piuhua2.Components.Modal
 {
-    public partial class Modal_订单金额待收 : ComponentBase
+    public partial class Modal_订单金额待收 : Pinhua2.BlazorApp.Pages.Components.PageComponentBase
     {
         protected KModal modal;
         protected KTable2 table;
@@ -42,9 +42,7 @@ namespace Piuhua2.Components.Modal
             }
         }
 
-        [Inject] IMapper Mapper { get; set; }
-        [Inject] Pinhua2Context PinhuaContext { get; set; }
-
+        [Parameter] public bool IsSingleSelect { get; set; } = false;
         [Parameter] public EventCallback<Modal_订单金额待收> OnOK { get; set; }
         [Parameter] public EventCallback<Modal_订单金额待收> OnCancel { get; set; }
         [Parameter] public Expression<Func<view_AllOrdersPay, bool>> FilterExpression { get; set; }
@@ -56,27 +54,14 @@ namespace Piuhua2.Components.Modal
             base.OnInitialized();
         }
 
-        protected void OK()
+        protected void HandleOnShow()
         {
-            Hide();
-            OnOK.InvokeAsync(this);
-        }
-
-        protected void Cancel()
-        {
-            Hide();
-            OnCancel.InvokeAsync(this);
+            table.ChangeAllStatus(CheckBoxStatus.UnChecked);
         }
 
         public void Show()
         {
-            table.ChangeAllStatus(CheckBoxStatus.UnChecked);
             modal.Show();
-        }
-
-        public void Hide()
-        {
-            modal.Hide();
         }
 
         public HashSet<object> SelectedProducts

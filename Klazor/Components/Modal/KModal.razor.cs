@@ -33,6 +33,8 @@ namespace Klazor
         [Parameter] public bool IsCentered { get; set; } = false;
         [Parameter] public string Class { get; set; }
         [Parameter] public Size Size { get; set; } = Size.None;
+        [Parameter] public EventCallback<KModal> OnShow { get; set; }
+        [Parameter] public EventCallback<KModal> OnHide { get; set; }
 
         [Inject] protected Microsoft.JSInterop.IJSRuntime JSRuntime { get; set; }
 
@@ -54,11 +56,19 @@ namespace Klazor
         public void Show()
         {
             JSRuntime.InvokeVoidAsync("klazor.showModal", $"#{Id}");
+            if (OnShow.HasDelegate)
+            {
+                OnShow.InvokeAsync(this);
+            }
         }
 
         public void Hide()
         {
             JSRuntime.InvokeVoidAsync("klazor.hideModal", $"#{Id}");
+            if (OnShow.HasDelegate)
+            {
+                OnHide.InvokeAsync(this);
+            }
         }
 
         public void Toggle()

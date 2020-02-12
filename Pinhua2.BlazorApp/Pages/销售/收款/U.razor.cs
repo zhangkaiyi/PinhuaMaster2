@@ -67,9 +67,16 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
         {
             if (items.Any())
             {
-                var dto_detail = Mapper.Map<view_AllOrdersPay, dto收款单D>(items.ElementAtOrDefault(0));
-                currentEditingRow = dto_detail;
-                EditModal?.Show();
+                if (Modal.IsSingleSelect)
+                {
+
+                    currentEditingRow = Mapper.Map<view_AllOrdersPay, dto收款单D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<view_AllOrdersPay>, IEnumerable<dto收款单D>>(items));
+                }
             }
         }
 

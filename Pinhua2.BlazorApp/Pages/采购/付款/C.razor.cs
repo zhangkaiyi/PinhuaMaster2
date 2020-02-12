@@ -52,12 +52,14 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
 
         protected EditModal_付款单明细 EditModal;
         protected Modal_订单金额待付 Modal;
+        protected SelectingModalBase smodal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
         protected override void OnInitialized()
         {
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main.日期 = DateTime.Now;
         }
 
         protected bool IsNewRow = false;
@@ -66,9 +68,16 @@ namespace Pinhua2.BlazorApp.Pages.采购.付款
         {
             if (items.Any())
             {
-                var dto_detail = Mapper.Map<view_AllOrdersPay, dto付款单D>(items.ElementAtOrDefault(0));
-                currentEditingRow = dto_detail;
-                EditModal?.Show();
+                if (Modal.IsSingleSelect)
+                {
+
+                    currentEditingRow = Mapper.Map<view_AllOrdersPay, dto付款单D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<view_AllOrdersPay>, IEnumerable<dto付款单D>>(items));
+                }
             }
         }
 

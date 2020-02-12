@@ -24,6 +24,7 @@ namespace Klazor
         [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public string HeadingClass { get; set; }
+        [Parameter] public bool CustomizeFooter { get; set; } = false;
         [Parameter] public RenderFragment ChildContent { get; set; }
 
         protected override void OnInitialized()

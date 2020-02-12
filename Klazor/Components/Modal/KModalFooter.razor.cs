@@ -17,17 +17,30 @@ namespace Klazor
         [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UnknownParameters { get; set; }
         [Parameter] public string Class { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
-        [Parameter] public EventCallback<KTableEvent> OnOK { get; set; }
+        [Parameter] public EventCallback<KModal> OnOK { get; set; }
+        [Parameter] public EventCallback<KModal> OnCancel { get; set; }
+        [Parameter] public string OKText { get; set; } = "确定";
+        [Parameter] public Color OKColor { get; set; } = Color.Primary;
+        [Parameter] public string CancelText { get; set; } = "取消";
+        [Parameter] public Color CancelColor { get; set; } = Color.Secondary;
+        [Parameter] public bool CustomizeFooter { get; set; } = false;
         [CascadingParameter] public KModal Modal { get; set; }
-        protected override void OnInitialized()
-        {
 
+        protected void HandleOK()
+        {
+            Modal.Hide();
+            if (OnOK.HasDelegate)
+            {
+                OnOK.InvokeAsync(Modal);
+            }
         }
-
-        protected void OK()
+        protected void HandleCancel()
         {
-            var KModalEvent = new KTableEvent() { Target = Modal };
-            OnOK.InvokeAsync(KModalEvent);
+            Modal.Hide();
+            if (OnCancel.HasDelegate)
+            {
+                OnCancel.InvokeAsync(Modal);
+            }
         }
     }
 }
