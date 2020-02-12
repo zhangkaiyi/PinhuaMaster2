@@ -39,6 +39,7 @@ namespace Pinhua2.BlazorApp.Pages.采购.订单
         protected override void OnInitialized()
         {
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main.日期 = DateTime.Now;
         }
 
         protected bool bNew = false;

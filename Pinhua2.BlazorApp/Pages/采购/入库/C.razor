@@ -40,6 +40,7 @@
                             <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto采购入库D)">移除</a>
                             <a href="javascript:;" @onclick="e=>toEdit(row as dto采购入库D)">修改</a>
                         </KTable2Column>
+                        <KTable2Column Field="@(nameof(dto采购入库D.子单号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购入库D.品号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购入库D.品名))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto采购入库D.型号))"></KTable2Column>
@@ -57,5 +58,5 @@
     </KRow>
 </KForm>
 
-<Modal_商品列表_采购订单 @ref="Modal" OnOK="e=>toSelect(e.SelectedProducts)"></Modal_商品列表_采购订单>
+<Modal_采购订单待收 @ref="Modal" FilterExpression="@(m => m.往来号 == main.往来号 && m.待收 > 0)" OnOK="e=>SelectRows(e.SelectedProducts)"></Modal_采购订单待收>
 <EditModal_采购入库D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购入库D>

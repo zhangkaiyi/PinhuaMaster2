@@ -38,16 +38,58 @@ namespace Pinhua2.BlazorApp.Pages.采购.入库
 
         protected async Task toDelete()
         {
-            var tb_IO = await PinhuaContext.tb_IO.FindAsync(RecordId);
-            if (tb_IO != null)
+            using (var transaction = PinhuaContext.Database.BeginTransaction())
             {
-                var tb_IOD = PinhuaContext.tb_IOD.Where(p => p.RecordId == tb_IO.RecordId);
+                var tb_main = await PinhuaContext.tb_IO.FindAsync(RecordId);
+                if (tb_main != null)
+                {
+                    var tb_details = PinhuaContext.tb_IOD.Where(p => p.RecordId == tb_main.RecordId);
+                    var affected = tb_details.Select(d => d.子单号).ToList();
+                    PinhuaContext.tb_IO.Remove(tb_main);
+                    PinhuaContext.tb_IOD.RemoveRange(tb_details);
+                    await PinhuaContext.SaveChangesAsync();
 
-                PinhuaContext.tb_IO.Remove(tb_IO);
-                PinhuaContext.tb_IOD.RemoveRange(tb_IOD);
-                await PinhuaContext.SaveChangesAsync();
-                Navigation.NavigateTo(routeA);
+                    var childIds1 = PinhuaContext.View订单数量收发().Where(d => (d.已收 ?? 0) > 0 && affected.Contains(d.子单号)).Select(d => d.子单号);
+                    var childIds2 = PinhuaContext.View订单数量收发().Where(d => (d.已收 ?? 0) == 0 && affected.Contains(d.子单号)).Select(d => d.子单号);
+                    var items1 = PinhuaContext.tb_订单表D.Where(d => childIds1.Contains(d.子单号));
+                    var items2 = PinhuaContext.tb_订单表D.Where(d => childIds2.Contains(d.子单号));
+
+                    foreach (var item in items1)
+                    {
+                        item.状态 = "已入库";
+                    };
+                    foreach (var item in items2)
+                    {
+                        item.状态 = "";
+                    };
+
+                    await PinhuaContext.SaveChangesAsync();
+
+                    var mains = from m in PinhuaContext.tb_订单表
+                                join d in PinhuaContext.tb_订单表D on m.RecordId equals d.RecordId
+                                where affected.Contains(d.子单号)
+                                select m;
+
+                    foreach (var m in mains)
+                    {
+                        var bRet = PinhuaContext.tb_订单表D.Where(d => d.RecordId == m.RecordId).Any(d => d.状态.Contains("已"));
+                        if (bRet)
+                        {
+                            m.LockStatus = 1;
+                        }
+                        else
+                        {
+                            m.LockStatus = 0;
+                        }
+                    };
+
+                    await PinhuaContext.SaveChangesAsync();
+
+                    transaction.Commit();
+                }
             }
+
+            Navigation.NavigateTo(routeA);
         }
     }
 }

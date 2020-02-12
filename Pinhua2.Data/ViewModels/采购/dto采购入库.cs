@@ -69,9 +69,9 @@ namespace Pinhua2.ViewModels
 
 
             CreateMap<tb_IOD, dto采购入库D>()
-                .ForMember(dst => dst.个数, map => map.MapFrom(src => src.发));
+                .ForMember(dst => dst.个数, map => map.MapFrom(src => src.收));
             CreateMap<dto采购入库D, tb_IOD>()
-                .ForMember(dst => dst.发, map => map.MapFrom(src => src.个数))
+                .ForMember(dst => dst.收, map => map.MapFrom(src => src.个数))
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
 
             CreateMap<dto采购入库D, tb_订单表D>()
@@ -82,6 +82,9 @@ namespace Pinhua2.ViewModels
 
             CreateMap<dto采购订单D, dto采购入库D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
+
+            CreateMap<view_AllOrdersIO, dto采购入库D>();
+            CreateMap<dto采购入库D, view_AllOrdersIO>();
         }
     }
 }

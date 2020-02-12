@@ -29,6 +29,7 @@
             <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                      CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
                 <KTable2Columns>
+                    <KTable2Column Field="@(nameof(dto采购入库D.子单号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购入库D.品号))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购入库D.品名))"></KTable2Column>
                     <KTable2Column Field="@(nameof(dto采购入库D.型号))"></KTable2Column>
