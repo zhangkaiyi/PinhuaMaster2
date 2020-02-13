@@ -114,6 +114,7 @@ namespace Pinhua2.ViewModels
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
 
             CreateMap<dto销售出库D, tb_订单表D>()
+                .ForMember(dst => dst.状态, map => map.Ignore())
                 .ForMember(dst => dst.个数, map => map.MapFrom(src => src.个数));
             CreateMap<tb_订单表D, dto销售出库D>()
                 .ForMember(dst => dst.个数, map => map.MapFrom(src => src.个数))

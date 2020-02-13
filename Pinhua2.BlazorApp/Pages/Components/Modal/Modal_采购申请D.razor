@@ -4,7 +4,7 @@
     <KModalHeader>采购申请</KModalHeader>
     <KModalBody>
         <KTable2 DataSource="currentDataSource" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
-                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="@IsSingleSelect">
             <KTable2Columns>
                 <KTable2Column Field="@(nameof(dto采购申请D.子单号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto采购申请D.品号))"></KTable2Column>

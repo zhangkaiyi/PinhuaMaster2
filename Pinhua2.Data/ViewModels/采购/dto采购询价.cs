@@ -16,6 +16,7 @@ namespace Pinhua2.ViewModels
         public string 业务类型 { get; set; } = "采购询价";
 
         public string 需求单 { get; set; }
+        public bool 来自需求单 { get; set; }
 
         [Display(Name = "供应商名")]
         public string 往来 { get; set; }
@@ -63,6 +64,10 @@ namespace Pinhua2.ViewModels
                 .ForMember(dst => dst.Idx, map => map.Ignore());
 
             CreateMap<dto采购申请D, dto采购询价D>()
+                .ForMember(dst => dst.状态, map => map.Ignore())
+                .ForMember(dst => dst.Idx, map => map.Ignore());
+
+            CreateMap<dto商品, dto采购询价D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore());
         }
     }

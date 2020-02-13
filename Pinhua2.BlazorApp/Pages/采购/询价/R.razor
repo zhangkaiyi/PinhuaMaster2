@@ -6,7 +6,12 @@
         <PageTemplateItem Title="采购询价 - 查看">
             <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                 <KFormGroup Label="@nameof(main.单号)">
-                    <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                    <KInputTextAppend @bind-Value="main.单号" Placeholder="自动生成 ...">
+                        <div class="input-group-text">
+                            <KInputCheckbox @bind-Value="main.来自需求单" Id="fromQuotation" IsDisabled="true"></KInputCheckbox>
+                            <label class="form-check-label ml-1" for="fromQuotation">需求单</label>
+                        </div>
+                    </KInputTextAppend>
                 </KFormGroup>
                 <KFormGroup Label="供应商号">
                     <KInputText @bind-Value="main.往来号"></KInputText>
@@ -14,9 +19,9 @@
                 <KFormGroup Label="供应商名">
                     <KInputText @bind-Value="main.往来"></KInputText>
                 </KFormGroup>
-                <KFormGroup Label="采购申请">
+                @*<KFormGroup Label="采购申请">
                     <KInputText @bind-Value="main.需求单"></KInputText>
-                </KFormGroup>
+                </KFormGroup>*@
                 <KFormGroup Label="@nameof(main.日期)">
                     <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
                 </KFormGroup>

@@ -6,9 +6,9 @@
         <KTable2 DataSource="currentDataSource" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
                 CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="@IsSingleSelect">
             <KTable2Columns>
+                <KTable2Column Field="@(nameof(view_AllOrdersIO.业务类型))"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersIO.单号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersIO.子单号))"></KTable2Column>
-                <KTable2Column Field="@(nameof(view_AllOrdersIO.业务类型))"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersIO.日期))" Format="yyyy-MM-dd"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersIO.往来))"></KTable2Column>
                 <KTable2Column Field="@(nameof(view_AllOrdersIO.品号))"></KTable2Column>

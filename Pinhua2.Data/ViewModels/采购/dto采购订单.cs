@@ -116,6 +116,7 @@ namespace Pinhua2.ViewModels
                 .ForMember(dst => dst.Idx, map => map.Ignore());
 
             CreateMap<dto采购询价D, dto采购订单D>()
+                .ForMember(dst => dst.状态, map => map.Ignore())
                 .ForMember(dst => dst.Idx, map => map.Ignore());
         }
     }

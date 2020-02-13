@@ -45,6 +45,7 @@ namespace Piuhua2.Components.Modal
         [Inject] IMapper Mapper { get; set; }
         [Inject] Pinhua2Context PinhuaContext { get; set; }
 
+        [Parameter] public bool IsSingleSelect { get; set; } = false;
         [Parameter] public EventCallback<Modal_采购订单待收> OnOK { get; set; }
         [Parameter] public EventCallback<Modal_采购订单待收> OnCancel { get; set; }
         [Parameter] public Expression<Func<view_AllOrdersIO, bool>> FilterExpression { get; set; }
@@ -54,18 +55,6 @@ namespace Piuhua2.Components.Modal
             currentDataSource = PinhuaContext.View订单数量收发().Where(item => item.待收 > 0 && item.业务类型.StartsWith("采购")).ToList();
 
             base.OnInitialized();
-        }
-
-        protected void OK()
-        {
-            Hide();
-            OnOK.InvokeAsync(this);
-        }
-
-        protected void Cancel()
-        {
-            Hide();
-            OnCancel.InvokeAsync(this);
         }
 
         public void Show()

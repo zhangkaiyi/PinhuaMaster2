@@ -58,6 +58,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
         protected override void OnInitialized()
         {
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+            main.日期 = DateTime.Now;
         }
 
         protected bool IsNewRow = false;

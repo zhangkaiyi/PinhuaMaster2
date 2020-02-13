@@ -9,7 +9,12 @@
                 <KValidationSummary />
                 <KFormGroupContainer LabelCol="3" LabelAlign="LabelAlign.Right" InputReadonly="true">
                     <KFormGroup Label="@nameof(main.单号)">
-                        <KInputText @bind-Value="main.单号" Placeholder="自动生成 ..."></KInputText>
+                        <KInputTextAppend @bind-Value="main.单号" Placeholder="自动生成 ...">
+                            <div class="input-group-text">
+                                <KInputCheckbox @bind-Value="main.来自需求单" Id="fromQuotation" OnValueChanged="@(e=>detailsTableDataSource.Clear())"></KInputCheckbox>
+                                <label class="form-check-label ml-1" for="fromQuotation">需求单</label>
+                            </div>
+                        </KInputTextAppend>
                     </KFormGroup>
                     <KFormGroup Label="供应商">
                         <KInputSelect @bind-Value="main.往来号">
@@ -19,9 +24,9 @@
                             }
                         </KInputSelect>
                     </KFormGroup>
-                    <KFormGroup Label="采购申请">
+                    @*<KFormGroup Label="采购申请">
                         <KInputTextButton @bind-Value="main.需求单" ButtonText="选择" OnButtonClick="@(e=>Modal_采购申请?.Show())"></KInputTextButton>
-                    </KFormGroup>
+                    </KFormGroup>*@
                     <KFormGroup Label="@nameof(main.日期)">
                         <KInputDatePicker @bind-Value="main.日期" Format="yyyy-MM-dd" Placeholder="选择日期 ..."></KInputDatePicker>
                     </KFormGroup>
@@ -37,7 +42,7 @@
     </KRow>
     <KRow>
         <KCol>
-            <PageTemplateItemForC Title="明细" OnAdd="@(e => toInsert())" OnCancel="@(e=>Navigation.NavigateTo(routeA))">
+            <PageTemplateItemForC Title="明细" OnAdd="@(e => ShowDataSource())" OnCancel="@(e=>Navigation.NavigateTo(routeA))">
                 <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable"
                          CheckBoxHeader="true" IsSingleSelect="true" IsClickToSelect="true">
                     <KTable2Columns>
@@ -64,6 +69,6 @@
     </KRow>
 </KForm>
 
-<Modal_采购申请 @ref="Modal_采购申请" OnOK="e=>toImport(e.SelectedProducts.ElementAtOrDefault(0))"></Modal_采购申请>
-<Modal_采购申请D FilterExpression="@(d=>d.Main.单号 == main.需求单 && !detailsTableDataSource.Any(s=>s.子单号 == d.Detail.子单号))" @ref="Modal_采购申请D" OnOK="e=>toSelect(e.SelectedProducts)"></Modal_采购申请D>
+<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>ImportDataSource(e.SelectedProducts.Cast<dto商品>())" />
+<Modal_采购申请D FilterExpression="@Filter" @ref="Modal_采购申请D" OnOK="e=>ImportDataSource(e.SelectedProducts.Cast<dto采购申请D>())" />
 <EditModal_采购询价D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购询价D>

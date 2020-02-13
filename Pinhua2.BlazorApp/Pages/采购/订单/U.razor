@@ -66,7 +66,7 @@
     </KRow>
 </KForm>
 
-<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>SelectRows(e.SelectedProducts)"></Modal_商品列表>
-<Modal_采购询价D @ref="Modal_采购询价D" FilterExpression="@(m=>m.Main.往来号 == main.往来号 && !m.Detail.状态.Contains("已"))" OnOK="e=>SelectRows(e.SelectedProducts)"></Modal_采购询价D>
+<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>ImportDataSource(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
+<Modal_采购询价D @ref="Modal_采购询价D" FilterExpression="@Filter" OnOK="e=>ImportDataSource(e.SelectedProducts.Cast<dto采购询价D>())"></Modal_采购询价D>
 <EditModal_采购订单D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购订单D>
 

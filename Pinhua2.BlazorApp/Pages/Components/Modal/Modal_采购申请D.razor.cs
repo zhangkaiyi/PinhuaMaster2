@@ -42,6 +42,7 @@ namespace Piuhua2.Components.Modal
         [Inject] IMapper Mapper { get; set; }
         [Inject] Pinhua2Context PinhuaContext { get; set; }
 
+        [Parameter] public bool IsSingleSelect { get; set; } = false;
         [Parameter] public EventCallback<Modal_采购申请D> OnOK { get; set; }
         [Parameter] public EventCallback<Modal_采购申请D> OnCancel { get; set; }
         [Parameter] public Expression<Func<combo采购申请, bool>> FilterExpression { get; set; }

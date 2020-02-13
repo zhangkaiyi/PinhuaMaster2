@@ -14,9 +14,9 @@
                     <KFormGroup Label="客户">
                         <KInputSelect @bind-Value="main.往来号">
                             @foreach (var customer in dropdownOptions)
-                                {
-                            <option value="@customer.Value">@customer.Text</option>
-                                }
+                            {
+                                <option value="@customer.Value">@customer.Text</option>
+                            }
                         </KInputSelect>
                     </KFormGroup>
                     <KFormGroup Label="@nameof(main.日期)">
@@ -58,6 +58,5 @@
     </KRow>
 </KForm>
 
-<Modal_采购订单待收 @ref="Modal" FilterExpression="@(m => m.往来号 == main.往来号 && m.待收 > 0)" OnOK="e=>SelectRows(e.SelectedProducts)"></Modal_采购订单待收>
+<Modal_采购订单待收 @ref="Modal" FilterExpression="@Filter" OnOK="e=>ImportDataSource(e.SelectedProducts.Cast<view_AllOrdersIO>())"></Modal_采购订单待收>
 <EditModal_采购入库D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_采购入库D>
-

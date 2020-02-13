@@ -30,19 +30,68 @@ namespace Pinhua2.BlazorApp.Pages.采购.订单
         protected List<dto采购订单D> detailsTableDataSource { get; set; } = new List<dto采购订单D>();
         protected dto采购订单D detailsTableEditingRow { get; set; } = new dto采购订单D();
 
-        protected EditModal_采购订单D EditModal;
         protected Modal_商品列表 Modal_商品列表;
         protected Modal_采购询价D Modal_采购询价D;
+        protected EditModal_采购订单D EditModal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+
+        protected Expression<Func<combo采购询价, bool>> Filter { get; set; }
 
         protected override void OnInitialized()
         {
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
             main.日期 = DateTime.Now;
+
+            Filter = model => model.Main.往来号 == main.往来号 && !model.Detail.状态.Contains("已");
         }
 
         protected bool bNew = false;
+
+        protected void ShowDataSource()
+        {
+            bNew = true;
+            if (main.来自报价单)
+            {
+                Modal_采购询价D?.Show();
+            }
+            else
+            {
+                Modal_商品列表?.Show();
+            }
+        }
+
+        protected void ImportDataSource(IEnumerable<dto商品> items)
+        {
+            if (items.Any())
+            {
+                if (Modal_商品列表.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<dto商品, dto采购订单D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<dto商品>, IEnumerable<dto采购订单D>>(items));
+                }
+            }
+        }
+
+        protected void ImportDataSource(IEnumerable<dto采购询价D> items)
+        {
+            if (items.Any())
+            {
+                if (Modal_采购询价D.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<dto采购询价D, dto采购订单D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<dto采购询价D>, IEnumerable<dto采购订单D>>(items));
+                }
+            }
+        }
 
         protected void SelectRows(IEnumerable<object> items)
         {
@@ -140,18 +189,6 @@ namespace Pinhua2.BlazorApp.Pages.采购.订单
                 }
 
                 Navigation.NavigateTo(routeA);
-            }
-        }
-
-        protected void HandleAdd()
-        {
-            if (main.来自报价单)
-            {
-                toImport();
-            }
-            else
-            {
-                toInsert();
             }
         }
 

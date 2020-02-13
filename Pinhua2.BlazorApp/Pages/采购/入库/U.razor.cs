@@ -37,14 +37,34 @@ namespace Pinhua2.BlazorApp.Pages.采购.入库
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
+        protected Expression<Func<view_AllOrdersIO, bool>> Filter { get; set; }
+
         protected override void OnInitialized()
         {
             main = Mapper.Map<dto采购入库>(PinhuaContext.GetViews().采购.采购入库().FirstOrDefault(m => m.RecordId == RecordId));
             detailsTableDataSource = Mapper.ProjectTo<dto采购入库D>(PinhuaContext.GetViews().采购.采购入库D(RecordId)).ToList();
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+
+            Filter = m => m.往来号 == main.往来号 && m.待收 > 0;
         }
 
         protected bool bInsert = false;
+
+        protected void ImportDataSource(IEnumerable<view_AllOrdersIO> items)
+        {
+            if (items.Any())
+            {
+                if (Modal.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<view_AllOrdersIO, dto采购入库D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<view_AllOrdersIO>, IEnumerable<dto采购入库D>>(items));
+                }
+            }
+        }
 
         protected void SelectRows(IEnumerable<object> items)
         {

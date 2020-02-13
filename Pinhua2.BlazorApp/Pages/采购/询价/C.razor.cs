@@ -30,17 +30,20 @@ namespace Pinhua2.BlazorApp.Pages.采购.询价
         protected List<dto采购询价D> detailsTableDataSource { get; set; } = new List<dto采购询价D>();
         protected dto采购询价D detailsTableEditingRow { get; set; } = new dto采购询价D();
 
+        protected Modal_商品列表 Modal_商品列表;
         protected Modal_采购申请 Modal_采购申请;
         protected Modal_采购申请D Modal_采购申请D;
         protected EditModal_采购询价D EditModal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+        protected Expression<Func<combo采购申请, bool>> Filter { get; set; }
 
         protected override void OnInitialized()
         {
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
             main.日期 = DateTime.Now;
-            base.OnInitialized();
+
+            Filter = model => !detailsTableDataSource.Any(s => s.子单号 == model.Detail.子单号) && !(model.Detail.状态 ?? string.Empty).Contains("已");
         }
 
         protected bool bInsert = false;
@@ -55,6 +58,51 @@ namespace Pinhua2.BlazorApp.Pages.采购.询价
                 var dst = Mapper.Map(src, srcType, dstType);
                 detailsTableEditingRow = dst as dto采购询价D;
                 EditModal?.Show();
+            }
+        }
+
+        protected void ShowDataSource()
+        {
+            bInsert = true;
+            if (main.来自需求单)
+            {
+                Modal_采购申请D?.Show();
+            }
+            else
+            {
+                Modal_商品列表?.Show();
+            }
+        }
+
+        protected void ImportDataSource(IEnumerable<dto商品> items)
+        {
+            if (items.Any())
+            {
+                if (Modal_商品列表.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<dto商品, dto采购询价D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<dto商品>, IEnumerable<dto采购询价D>>(items));
+                }
+            }
+        }
+
+        protected void ImportDataSource(IEnumerable<dto采购申请D> items)
+        {
+            if (items.Any())
+            {
+                if (Modal_采购申请D.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<dto采购申请D, dto采购询价D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<dto采购申请D>, IEnumerable<dto采购询价D>>(items));
+                }
             }
         }
 
