@@ -45,6 +45,7 @@ namespace Piuhua2.Components.Modal
         [Inject] IMapper Mapper { get; set; }
         [Inject] Pinhua2Context PinhuaContext { get; set; }
 
+        [Parameter] public bool IsSingleSelect { get; set; } = false;
         [Parameter] public EventCallback<Modal_销售订单待发> OnOK { get; set; }
         [Parameter] public EventCallback<Modal_销售订单待发> OnCancel { get; set; }
         [Parameter] public Expression<Func<view_AllOrdersIO, bool>> FilterExpression { get; set; }
@@ -55,19 +56,6 @@ namespace Piuhua2.Components.Modal
 
             base.OnInitialized();
         }
-
-        protected void OK()
-        {
-            Hide();
-            OnOK.InvokeAsync(this);
-        }
-
-        protected void Cancel()
-        {
-            Hide();
-            OnCancel.InvokeAsync(this);
-        }
-
         public void Show()
         {
             table.ChangeAllStatus(CheckBoxStatus.UnChecked);

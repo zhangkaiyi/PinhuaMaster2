@@ -58,5 +58,5 @@
     </KRow>
 </KForm>
 
-<Modal_销售订单待发 @ref="Modal" FilterExpression="@(m => m.往来号 == main.往来号 && m.待发 > 0)" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersIO>())"></Modal_销售订单待发>
+<Modal_销售订单待发 @ref="Modal" FilterExpression="@(Filter)" OnOK="e=>toSelect(e.SelectedProducts.Cast<view_AllOrdersIO>())"></Modal_销售订单待发>
 <EditModal_销售发货D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_销售发货D>

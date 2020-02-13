@@ -16,7 +16,7 @@ using Pinhua2.Data;
 
 namespace Piuhua2.Components.Modal
 {
-    public partial class Modal_商品列表_销售报价D : ComponentBase
+    public partial class Modal_销售报价D : ComponentBase
     {
         protected KModal modal;
         protected KTable2 table;
@@ -39,38 +39,20 @@ namespace Piuhua2.Components.Modal
         [Inject] IMapper Mapper { get; set; }
         [Inject] Pinhua2Context PinhuaContext { get; set; }
 
-        [Parameter] public EventCallback<Modal_商品列表_销售报价D> OnOK { get; set; }
-        [Parameter] public EventCallback<Modal_商品列表_销售报价D> OnCancel { get; set; }
+        [Parameter] public bool IsSingleSelect { get; set; } = false;
+        [Parameter] public EventCallback<Modal_销售报价D> OnOK { get; set; }
+        [Parameter] public EventCallback<Modal_销售报价D> OnCancel { get; set; }
         [Parameter] public Expression<Func<combo销售报价, bool>> FilterExpression { get; set; }
 
         protected override void OnInitialized()
         {
             DataSource = PinhuaContext.GetViews().销售.销售报价combo();
-
-            base.OnInitialized();
-        }
-
-        protected void OK()
-        {
-            Hide();
-            OnOK.InvokeAsync(this);
-        }
-
-        protected void Cancel()
-        {
-            Hide();
-            OnCancel.InvokeAsync(this);
         }
 
         public void Show()
         {
             table.ChangeAllStatus(CheckBoxStatus.UnChecked);
             modal.Show();
-        }
-
-        public void Hide()
-        {
-            modal.Hide();
         }
 
         public HashSet<object> SelectedProducts

@@ -1,7 +1,7 @@
 ﻿@namespace Klazor
 
 <div @attributes="UnknownParameters" class="@Classname">
-    @if (CustomizeFooter)
+    @if (ChildContent!= null)
     {
         @ChildContent
     }

@@ -68,7 +68,6 @@ namespace Pinhua2.BlazorApp.Pages.销售.收款
             {
                 if (Modal.IsSingleSelect)
                 {
-
                     currentEditingRow = Mapper.Map<view_AllOrdersPay, dto收款单D>(items.ElementAtOrDefault(0));
                     EditModal?.Show();
                 }

@@ -37,11 +37,15 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
+        protected Expression<Func<view_AllOrdersIO, bool>> Filter { get; set; }
+
         protected override void OnInitialized()
         {
             main = Mapper.Map<dto销售出库>(PinhuaContext.GetViews().销售.销售出库(RecordId));
             detailsTableDataSource = Mapper.ProjectTo<dto销售出库D>(PinhuaContext.GetViews().销售.销售出库D(RecordId)).ToList();
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+
+            Filter = m => m.往来号 == main.往来号 && m.待发 > 0 && !detailsTableDataSource.Any(d => d.子单号 == m.子单号);
         }
 
         protected bool bInsert = false;
@@ -50,9 +54,15 @@ namespace Pinhua2.BlazorApp.Pages.销售.出库
         {
             if (items.Any())
             {
-                var dto_detail = Mapper.Map<view_AllOrdersIO, dto销售出库D>(items.ElementAtOrDefault(0));
-                detailsTableEditingRow = dto_detail;
-                EditModal?.Show();
+                if (Modal.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<view_AllOrdersIO, dto销售出库D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<view_AllOrdersIO>, IEnumerable<dto销售出库D>>(items));
+                }
             }
         }
 

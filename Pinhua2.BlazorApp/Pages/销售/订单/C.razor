@@ -20,7 +20,7 @@
                         <KInputSelect @bind-Value="main.往来号">
                             @foreach (var customer in dropdownOptions)
                             {
-                                <option value="@customer.Value">@customer.Text</option>
+                            <option value="@customer.Value">@customer.Text</option>
                             }
                         </KInputSelect>
                     </KFormGroup>
@@ -44,15 +44,15 @@
                 <TopRight>
                     @if (main.来自报价单)
                     {
-                        <KButton ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(e => toImport())">
-                            <i class="oi oi-pencil"></i> 导入报价
-                        </KButton>
+                    <KButton ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(e => toImport())">
+                        <i class="oi oi-pencil"></i> 导入报价
+                    </KButton>
                     }
                     else
                     {
-                        <KButton ButtonType="ButtonType.Button" Color="Color.Primary" OnClick="@(e => toInsert())">
-                            <i class="oi oi-pencil"></i> 添加商品
-                        </KButton>
+                    <KButton ButtonType="ButtonType.Button" Color="Color.Primary" OnClick="@(e => toInsert())">
+                        <i class="oi oi-pencil"></i> 添加商品
+                    </KButton>
                     }
                 </TopRight>
                 <ChildContent>
@@ -64,6 +64,7 @@
                                 <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto销售订单D)">移除</a>
                                 <a href="javascript:;" @onclick="e=>toEdit(row as dto销售订单D)">修改</a>
                             </KTable2Column>
+                            <KTable2Column Field="@(nameof(dto销售订单D.子单号))"></KTable2Column>
                             <KTable2Column Field="@(nameof(dto销售订单D.品号))"></KTable2Column>
                             <KTable2Column Field="@(nameof(dto销售订单D.品名))"></KTable2Column>
                             <KTable2Column Field="@(nameof(dto销售订单D.型号))"></KTable2Column>
@@ -82,6 +83,6 @@
     </KRow>
 </KForm>
 
-<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>selectInsertItem(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
-<Modal_修改销售订单明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售订单明细" OnOK="e=>saveChange(e)"></Modal_修改销售订单明细>
-<Modal_商品列表_销售报价D @ref="Modal_销售报价D" FilterExpression="@(m=>m.Main.往来号 == main.往来号 && !m.Detail.状态.Contains("已"))" OnOK="e=>selectImportItem(e.SelectedProducts.Cast<dto销售报价D>())"></Modal_商品列表_销售报价D>
+<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>selectInsertItem(e.SelectedProducts.Cast<dto商品>())" />
+<Modal_销售报价D @ref="Modal_销售报价D" FilterExpression="@Filter" OnOK="e=>selectImportItem(e.SelectedProducts.Cast<dto销售报价D>())" />
+<EditModal_销售订单D DataSource="detailsTableEditingRow" @ref="EditModal_销售订单D" OnOK="e=>saveChange(e)"></EditModal_销售订单D>

@@ -95,6 +95,7 @@ namespace Pinhua2.ViewModels
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
             CreateMap<dto销售报价D, tb_商品表>();
 
+            CreateMap<dto商品, dto销售报价D>();
         }
     }
 }

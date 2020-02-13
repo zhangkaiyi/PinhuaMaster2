@@ -32,8 +32,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.报价
         protected List<dto销售报价D> detailsTableDataSource { get; set; } = new List<dto销售报价D>();
         protected dto销售报价D detailsTableEditingRow { get; set; } = new dto销售报价D();
 
-        protected Modal_修改销售报价明细 Modal_修改销售报价明细;
-        protected Modal_商品列表 Modal_商品列表;
+        protected EditModal_销售报价D EditModal;
+        protected Modal_商品列表 Modal;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
 
@@ -50,20 +50,25 @@ namespace Pinhua2.BlazorApp.Pages.销售.报价
         {
             if (items.Any())
             {
-                var tb_product = Mapper.Map<dto商品, tb_商品表>(items.ElementAtOrDefault(0));
-                var dto_detail = Mapper.Map<tb_商品表, dto销售报价D>(tb_product);
-                detailsTableEditingRow = dto_detail;
-                Modal_修改销售报价明细?.Show();
+                if (Modal.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<dto商品, dto销售报价D>(items.ElementAtOrDefault(0));
+                    EditModal?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<dto商品>, IEnumerable<dto销售报价D>>(items));
+                }
             }
         }
 
         protected void toInsert()
         {
             bInsert = true;
-            Modal_商品列表?.Show();
+            Modal?.Show();
         }
 
-        protected void saveChange(Modal_修改销售报价明细 modal)
+        protected void saveChange(EditModal_销售报价D modal)
         {
             if (bInsert)
             {
@@ -75,7 +80,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.报价
         {
             bInsert = false;
             detailsTableEditingRow = item;
-            Modal_修改销售报价明细?.Show();
+            EditModal?.Show();
         }
 
         protected void InvalidSubmit(EditContext context)

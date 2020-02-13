@@ -34,17 +34,24 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
         protected List<dto销售订单D> detailsTableDataSource { get; set; } = new List<dto销售订单D>();
         protected dto销售订单D detailsTableEditingRow { get; set; } = new dto销售订单D();
 
-        protected Modal_修改销售订单明细 Modal_修改销售订单明细;
         protected Modal_商品列表 Modal_商品列表;
-        protected Modal_商品列表_销售报价D Modal_销售报价D;
+        protected Modal_销售报价D Modal_销售报价D;
+        protected EditModal_销售订单D EditModal_销售订单D;
 
         protected List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> dropdownOptions;
+
+        protected Expression<Func<combo销售报价, bool>> Filter;
+
 
         protected override void OnInitialized()
         {
             main = Mapper.Map<dto销售订单>(PinhuaContext.GetViews().销售.销售订单().FirstOrDefault(m => m.RecordId == RecordId));
             detailsTableDataSource = Mapper.ProjectTo<dto销售订单D>(PinhuaContext.GetViews().销售.销售订单D(RecordId)).ToList();
             dropdownOptions = PinhuaContext.DropdownOptions_客户();
+
+            Filter = model => model.Main.往来号 == main.往来号
+            && !detailsTableDataSource.Any(d => d.子单号 == model.Detail.子单号)
+            && !(model.Detail.状态 ?? string.Empty).Contains("已");
         }
 
         protected bool bNew = false;
@@ -53,10 +60,31 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
         {
             if (items.Any())
             {
-                var tb_product = Mapper.Map<dto商品, tb_商品表>(items.ElementAtOrDefault(0));
-                var dto_detail = Mapper.Map<tb_商品表, dto销售订单D>(tb_product);
-                detailsTableEditingRow = dto_detail;
-                Modal_修改销售订单明细?.Show();
+                if (Modal_商品列表.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<dto商品, dto销售订单D>(items.ElementAtOrDefault(0));
+                    EditModal_销售订单D?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<dto商品>, IEnumerable<dto销售订单D>>(items));
+                }
+            }
+        }
+
+        protected void selectImportItem(IEnumerable<dto销售报价D> items)
+        {
+            if (items.Any())
+            {
+                if (Modal_销售报价D.IsSingleSelect)
+                {
+                    detailsTableEditingRow = Mapper.Map<dto销售报价D, dto销售订单D>(items.ElementAtOrDefault(0));
+                    EditModal_销售订单D?.Show();
+                }
+                else
+                {
+                    detailsTableDataSource.AddRange(Mapper.Map<IEnumerable<dto销售报价D>, IEnumerable<dto销售订单D>>(items));
+                }
             }
         }
 
@@ -72,17 +100,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
             Modal_销售报价D?.Show();
         }
 
-        protected void selectImportItem(IEnumerable<dto销售报价D> items)
-        {
-            if (items.Any())
-            {
-                var dto_detail = Mapper.Map<dto销售报价D, dto销售订单D>(items.ElementAtOrDefault(0));
-                detailsTableEditingRow = dto_detail;
-                Modal_修改销售订单明细?.Show();
-            }
-        }
-
-        protected void saveChange(Modal_修改销售订单明细 modal)
+        protected void saveChange(EditModal_销售订单D modal)
         {
             if (bNew)
             {
@@ -94,7 +112,7 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
         {
             bNew = false;
             detailsTableEditingRow = item;
-            Modal_修改销售订单明细?.Show();
+            EditModal_销售订单D?.Show();
         }
 
         protected void InvalidSubmit(EditContext context)
@@ -160,8 +178,8 @@ namespace Pinhua2.BlazorApp.Pages.销售.订单
                                     join d in PinhuaContext.tb_报价表D on m.RecordId equals d.RecordId
                                     where affected.Contains(d.子单号)
                                     select m;
-                        
-                        foreach(var m in mains)
+
+                        foreach (var m in mains)
                         {
                             var bRet = PinhuaContext.tb_报价表D.Where(d => d.RecordId == m.RecordId).Any(d => d.状态.Contains("已"));
                             if (bRet)

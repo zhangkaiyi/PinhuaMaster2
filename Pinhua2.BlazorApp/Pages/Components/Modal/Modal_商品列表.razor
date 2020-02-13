@@ -4,7 +4,7 @@
     <KModalHeader>商品</KModalHeader>
     <KModalBody>
         <KTable2 DataSource="products" IsResponsive="true" IsBordered="true" IsTextNoWrap="true" IsHovarable="true" @ref="table"
-                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="true">
+                CheckBoxHeader="true" IsClickToSelect="true" IsSingleSelect="@IsSingleSelect" PageSize="10">
             <KTable2Columns>
                 <KTable2Column Field="@(nameof(dto商品.品号))"></KTable2Column>
                 <KTable2Column Field="@(nameof(dto商品.品名))"></KTable2Column>

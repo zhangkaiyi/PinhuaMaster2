@@ -128,6 +128,8 @@ namespace Pinhua2.ViewModels
             CreateMap<dto销售订单D, tb_订单表D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
 
+            CreateMap<dto商品, dto销售订单D>();
+
             CreateMap<dto销售报价D, dto销售订单D>()
                 .ForMember(dst => dst.Idx, map => map.Ignore()); // 不映射自增主键
         }

@@ -25,6 +25,7 @@ namespace Piuhua2.Components.Modal
         [Inject] IMapper Mapper { get; set; }
         [Inject] Pinhua2Context PinhuaContext { get; set; }
 
+        [Parameter] public bool IsSingleSelect { get; set; } = false;
         [Parameter] public EventCallback<Modal_商品列表> OnOK { get; set; }
         [Parameter] public EventCallback<Modal_商品列表> OnCancel { get; set; }
 

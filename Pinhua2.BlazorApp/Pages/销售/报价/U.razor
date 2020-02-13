@@ -46,6 +46,7 @@
                             <a href="javascript:;" class="mr-1" @onclick="e=>detailsTableDataSource.Remove(row as dto销售报价D)">移除</a>
                             <a href="javascript:;" @onclick="e=>toEdit(row as dto销售报价D)">修改</a>
                         </KTable2Column>
+                        <KTable2Column Field="@(nameof(dto销售报价D.子单号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto销售报价D.品号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto销售报价D.品名))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto销售报价D.型号))"></KTable2Column>
@@ -63,5 +64,5 @@
     </KRow>
 </KForm>
 
-<Modal_商品列表 @ref="Modal_商品列表" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
-<Modal_修改销售报价明细 DataSource="detailsTableEditingRow" @ref="Modal_修改销售报价明细" OnOK="e=>saveChange(e)"></Modal_修改销售报价明细>
+<Modal_商品列表 @ref="Modal" OnOK="e=>toSelect(e.SelectedProducts.Cast<dto商品>())"></Modal_商品列表>
+<EditModal_销售报价D DataSource="detailsTableEditingRow" @ref="EditModal" OnOK="e=>saveChange(e)"></EditModal_销售报价D>
