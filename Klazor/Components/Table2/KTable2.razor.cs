@@ -18,6 +18,7 @@ namespace Klazor
         protected bool hideContainer = true;
         public ElementReference Container { get; set; }
         protected CheckBoxStatus selectAllStatus;
+        protected bool selectAll;
         protected string Classname =>
             new CssBuilder("table")
             .AddClass("table-dark", IsDark)
@@ -142,7 +143,7 @@ namespace Klazor
                 Rows = (DataSource as IEnumerable).Cast<object>().ToList();
                 RowType = DataSource.GetType().GetGenericArguments()[0];
             }
-            RefreshSelectAllStatus();
+            RefreshAllCheckState();
         }
 
         protected override void OnAfterRender(bool firstRender)
@@ -160,26 +161,26 @@ namespace Klazor
 
         }
 
-        protected void RefreshSelectAllStatus()
+        protected void RefreshAllCheckState()
         {
             if (Rows.Count == 0 || SelectedRows.Count == 0)
             {
-                selectAllStatus = CheckBoxStatus.UnChecked;
+                selectAll = false;
             }
             else if (Rows.Count > SelectedRows.Count)
             {
-                selectAllStatus = CheckBoxStatus.Indeterminate;
+                selectAll = false;
             }
             else
             {
-                selectAllStatus = CheckBoxStatus.Checked;
+                selectAll = true;
             }
             StateHasChanged();
         }
 
-        public void ChangeAllStatus(CheckBoxStatus status)
+        public void SetAllCheckState(bool status)
         {
-            if (status == CheckBoxStatus.Checked)
+            if (status)
             {
                 SelectedRows = new HashSet<object>(Rows);
             }
@@ -188,12 +189,12 @@ namespace Klazor
                 SelectedRows = new HashSet<object>();
             }
 
-            RefreshSelectAllStatus();
+            RefreshAllCheckState();
         }
 
-        public void ChangeRowStatus(CheckBoxStatus status, object row)
+        public void SetCheckState(bool status, object row)
         {
-            if (status == CheckBoxStatus.Checked)
+            if (status)
             {
                 if (IsSingleSelect)
                 {
@@ -205,12 +206,7 @@ namespace Klazor
             {
                 SelectedRows.Remove(row);
             }
-            RefreshSelectAllStatus();
-        }
-
-        protected void InverTItemStatus(object row)
-        {
-            ChangeRowStatus(SelectedRows.Contains(row) ? CheckBoxStatus.UnChecked : CheckBoxStatus.Checked, row);
+            RefreshAllCheckState();
         }
 
         protected void RowClicked(object row)
@@ -227,7 +223,7 @@ namespace Klazor
 
             if (IsClickToSelect)
             {
-                InverTItemStatus(row);
+                SetCheckState(!SelectedRows.Contains(row), row);
             }
 
             OnRowClicked.InvokeAsync(KTable2Event);

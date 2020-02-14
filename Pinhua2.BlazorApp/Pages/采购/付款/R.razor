@@ -43,6 +43,7 @@
                 <KTable2 DataSource="detailsTableDataSource" IsResponsive="true" IsBordered=" true" IsTextNoWrap="true" @ref="detailsTable">
                     <KTable2Columns>
                         <KTable2Column Text="#" Context="row">@(detailsTableDataSource.IndexOf(row as dto付款单D) + 1)</KTable2Column>
+                        <KTable2Column Field="@(nameof(dto付款单D.子单号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto付款单D.品号))" Text="品号"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto付款单D.品名))" Text="品名"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto付款单D.型号))" Text="型号"></KTable2Column>

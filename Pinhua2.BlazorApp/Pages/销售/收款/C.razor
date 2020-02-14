@@ -59,6 +59,7 @@
                             <a href="javascript:;" class="mr-1" @onclick="e=>RemoveRow(row as dto收款单D)">移除</a>
                             <a href="javascript:;" @onclick="e=>EditRow(row as dto收款单D)">修改</a>
                         </KTable2Column>
+                        <KTable2Column Field="@(nameof(dto收款单D.子单号))"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto收款单D.品号))" Text="品号"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto收款单D.品名))" Text="品名"></KTable2Column>
                         <KTable2Column Field="@(nameof(dto收款单D.型号))" Text="型号"></KTable2Column>

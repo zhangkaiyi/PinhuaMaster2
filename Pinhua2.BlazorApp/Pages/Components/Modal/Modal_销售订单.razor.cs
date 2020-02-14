@@ -49,7 +49,7 @@ namespace Piuhua2.Components.Modal
 
         public void Show()
         {
-            table.ChangeAllStatus(CheckBoxStatus.UnChecked);
+            table.SetAllCheckState(false);
             modal.Show();
         }
 

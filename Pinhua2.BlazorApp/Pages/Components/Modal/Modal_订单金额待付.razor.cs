@@ -56,7 +56,7 @@ namespace Piuhua2.Components.Modal
 
         protected void HandleOnShow()
         {
-            table.ChangeAllStatus(CheckBoxStatus.UnChecked);
+            table.SetAllCheckState(false);
         }
 
         public void Show()
