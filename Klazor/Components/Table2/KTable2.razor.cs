@@ -17,7 +17,7 @@ namespace Klazor
         protected bool secondRun = true;
         protected bool hideContainer = true;
         public ElementReference Container { get; set; }
-        protected CheckBoxStatus selectAllStatus;
+
         protected bool selectAll;
         protected string Classname =>
             new CssBuilder("table")
@@ -209,7 +209,7 @@ namespace Klazor
             RefreshAllCheckState();
         }
 
-        protected void RowClicked(object row)
+        protected void HandleRowClicked(object row)
         {
             currentActiveRow = Rows.IndexOf(row);
 

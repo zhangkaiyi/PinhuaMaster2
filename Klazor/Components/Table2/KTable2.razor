@@ -29,7 +29,6 @@
                                     <th class="auto_column_checkbox bs-checkbox">
                                         @if (!IsSingleSelect)
                                         {
-                                            @*<BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>*@
                                             <KInputCheckbox @bind-Value="@selectAll" OnValueChanged="v=>SetAllCheckState(v)"></KInputCheckbox>
                                         }
                                     </th>
@@ -42,7 +41,6 @@
                                             {
                                                 if (!IsSingleSelect)
                                                 {
-                                                    @*<BSimpleCheckBox TValue="Boolean" Status="selectAllStatus" StatusChanged="ChangeAllStatus"></BSimpleCheckBox>*@
                                                     <KInputCheckbox @bind-Value="@selectAll" OnValueChanged="v=>SetAllCheckState(v)"></KInputCheckbox>
                                                 }
                                             }
@@ -82,11 +80,10 @@
                                     var rowClass = new BlazorComponentUtilities.CssBuilder()
                                         .AddClass("table-active", SelectedRows.Contains(row))
                                         .Build();
-                                    <tr class="@rowClass" @onclick="e => RowClicked(row)">
+                                    <tr class="@rowClass" @onclick="e => HandleRowClicked(row)">
                                         @if (CheckBoxHeader)
                                         {
                                         <td class="auto_column_checkbox">
-                                            @*<BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>*@
                                             <KInputCheckbox Value="SelectedRows.Contains(row)"></KInputCheckbox>
                                         </td>
                                         }
@@ -95,7 +92,6 @@
                                     <td rowspan="1" colspan="1" class="user_column_@(UserColumns.IndexOf(userColumn) + 1) @(userColumn.IsCheckBox ? "bs-checkbox" : "")">
                                         @if (userColumn.IsCheckBox)
                                         {
-                                            @*<BSimpleCheckBox TValue="Boolean" Status="SelectedRows.Contains(row) ? CheckBoxStatus.Checked : CheckBoxStatus.UnChecked" StatusChanged="(status => ChangeRowStatus(status, row))" stopPropagationOnClick="IsClickToSelect"></BSimpleCheckBox>*@
                                             <KInputCheckbox Value="SelectedRows.Contains(row)"></KInputCheckbox>
                                         }
                                         else if (userColumn.Template != null)

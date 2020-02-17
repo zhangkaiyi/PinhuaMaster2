@@ -1,7 +1,0 @@
-﻿@typeparam TModel
-@typeparam TValue
-@inherits BCheckBoxBase<TModel, TValue>
-@foreach (var item in models)
-{
-    <BSimpleCheckBoxButton TValue="TValue" Status="@item.Status" StatusChanged="status=>OnInnerStatusChanged(status,item.Model)" IsDisabled="@item.IsDisabled">@item.Label</BSimpleCheckBoxButton>
-}
